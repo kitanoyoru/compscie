@@ -8,7 +8,7 @@ const isPalindrome = (x: number): boolean => {
         .reverse()
         .reduce((prev, curr) => prev + curr, "")
     ) == x
-  );
-};
+  )
+}
 
-console.log(isPalindrome(-121));
+console.log(isPalindrome(-121))
