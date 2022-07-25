@@ -3,23 +3,23 @@
 
 const repeatedSubstringPattern = (s: string): boolean => {
   for (let i = 0; i < Math.floor(s.length / 2); i++) {
-    let count = i + 1;
+    let count = i + 1
     if (s.length % count != 0) {
-      continue;
+      continue
     }
-    let flag = true;
+    let flag = true
     for (let k = count; k + count <= s.length && flag; k += count) {
       for (let j = 0; j <= i && flag; j++) {
-        if (s[j] != s[k+j]) {
-          flag = false;
+        if (s[j] != s[k + j]) {
+          flag = false
         }
       }
     }
     if (flag) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }
 
-console.log(repeatedSubstringPattern("abcabcabcabc"));
+console.log(repeatedSubstringPattern("abcabcabcabc"))

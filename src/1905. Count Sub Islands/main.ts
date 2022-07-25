@@ -1,93 +1,77 @@
 // 1905. Count Sub Islands solved by @kitanoyoru
 // https://leetcode.com/problems/count-sub-islands/
 
-type Queue = Array<{ x: number; y: number }>
+type Queue = Array<{ row: number; column: number }>
 
-const countSubIslands = (grid1: number[][], grid2: number[][]): number => {
-  const rows: number = grid1.length
-  const columns: number = grid1[0].length
-  const visited: boolean[][] = []
-  const grid: number[][] = []
+// direction = [row, column]
+const DIRECTIONS = [
+  [-1, 0],
+  [1, 0],
+  [0, -1],
+  [0, 1],
+]
 
-  let count: number = 0
+const dfs = (
+  grid1: number[][],
+  grid2: number[][],
+  visited: boolean[][],
+  rows: number,
+  columns: number,
+  startRow: number,
+  startColumn: number
+): boolean => {
+  let q: Queue = [],
+    isSubIsland = true
+
+  q.push({ row: startRow, column: startColumn })
+  visited[startRow][startColumn] = true
+
+  while (q.length) {
+    const { row, column } = q.shift()!
+    if (grid1[row][column] == 0) {
+      isSubIsland = false
+    }
+    for (let d of DIRECTIONS) {
+      let nRow = row + d[0],
+        nColumn = column + d[1]
+      if (
+        nRow >= 0 &&
+        nRow < rows &&
+        nColumn >= 0 &&
+        nColumn < columns &&
+        !visited[nRow][nColumn] &&
+        grid2[nRow][nColumn]
+      ) {
+        visited[nRow][nColumn] = true
+        q.push({ row: nRow, column: nColumn })
+      }
+    }
+  }
+
+  return isSubIsland
+}
+
+const countSubIslands = (grid1: number[][], grid2: number[][]) => {
+  const rows = grid1.length,
+    columns = grid1[0].length
+  let visited: boolean[][] = [],
+    count = 0
 
   for (let i = 0; i < rows; i++) {
     visited.push([])
-    grid.push([])
     for (let j = 0; j < columns; j++) {
       visited[i].push(false)
-      grid[i].push(0)
     }
   }
 
-  for (let x = 0; x < rows; x++) {
-    for (let y = 0; y < columns; y++) {
-      if (grid2[x][y]) {
-        dfs(x, y)
-      }
-    }
-  }
-
-  const dfs = (x: number, y: number) => {
-    const q: Queue = []
-
-    q.push({ x, y })
-    visited[x][y] = true
-
-    while (q.length > 0) {
-      const { x, y } = q.pop() as { x: number; y: number }
-      // north
-      if (grid[x + 1] && !visited[x + 1][y] && grid[x + 1][y]) {
-        q.push({ x: x + 1, y: y })
-        visited[x + 1][y] = true
-      }
-      // east
-      if (grid[x] && !visited[x][y + 1] && grid[x][y + 1]) {
-        q.push({ x: x, y: y + 1 })
-        visited[x][y + 1] = true
-      }
-      // south
-      if (grid[x - 1] && !visited[x - 1][y] && grid[x - 1][y]) {
-        q.push({ x: x - 1, y: y })
-        visited[x - 1][y] = true
-      }
-      // west
-      if (grid[x] && !visited[x][y - 1] && grid[x][y - 1]) {
-        q.push({ x: x, y: y - 1 })
-        visited[x][y - 1] = true
-      }
-    }
-  }
-
-  console.log(grid)
-
-  for (let x = 0; x < rows; x++) {
-    for (let y = 0; y < columns; y++) {
-      if (grid[x][y] && !visited[x][y]) {
-        dfs(x, y)
-        count++
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < columns; j++) {
+      if (grid2[i][j] && !visited[i][j]) {
+        let isSubIsland = dfs(grid1, grid2, visited, rows, columns, i, j)
+        if (isSubIsland) count++
       }
     }
   }
 
   return count
 }
-
-console.log(
-  countSubIslands(
-    [
-      [1, 1, 1, 0, 0],
-      [0, 1, 1, 1, 1],
-      [0, 0, 0, 0, 0],
-      [1, 0, 0, 0, 0],
-      [1, 1, 0, 1, 1],
-    ],
-    [
-      [1, 1, 1, 0, 0],
-      [0, 0, 1, 1, 1],
-      [0, 1, 0, 0, 0],
-      [1, 0, 1, 1, 0],
-      [0, 1, 0, 1, 0],
-    ]
-  )
-)
