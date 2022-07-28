@@ -18,7 +18,7 @@ const DISTANCES = [
 
 const shortestPathBinaryMatrix = (grid: number[][]): number => {
   if (grid[0][0]) {
-    return -1;
+    return -1
   }
   const rows = grid.length,
     columns = grid[0].length
@@ -56,10 +56,12 @@ const shortestPathBinaryMatrix = (grid: number[][]): number => {
       ) {
         v[newRow][newColumn] = true
         dist[newRow][newColumn] = dist[row][column] + 1
-        q.push({row: newRow, column: newColumn});
+        q.push({ row: newRow, column: newColumn })
       }
     }
   }
-  console.log(dist);
-  return Number.isFinite(dist[rows-1][columns-1]) ? dist[rows-1][columns-1] + 1 : -1;
+  console.log(dist)
+  return Number.isFinite(dist[rows - 1][columns - 1])
+    ? dist[rows - 1][columns - 1] + 1
+    : -1
 }
