@@ -14,15 +14,15 @@
  */
 
 const hasCycle = (head: ListNode | null): boolean => {
-  let nhead = head;
+  let nhead = head
 
   while (nhead && nhead.next) {
-    head = head.next;
-    nhead = nhead.next.next;
+    head = head.next
+    nhead = nhead.next.next
     if (head == nhead) {
-      return true;
+      return true
     }
   }
 
-  return false;
-};
+  return false
+}

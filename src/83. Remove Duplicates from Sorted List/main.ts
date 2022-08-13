@@ -18,18 +18,19 @@ interface HashMap {
 }
 
 const deleteDuplicates = (head: ListNode | null): ListNode | null => {
-  let hm: HashMap = {};
-  let curr = head, prev: ListNode | null = null;
+  let hm: HashMap = {}
+  let curr = head,
+    prev: ListNode | null = null
 
   while (curr) {
     if (!hm[curr.val]) {
-      hm[curr.val] = true;
-      prev = curr;
+      hm[curr.val] = true
+      prev = curr
     } else {
-      prev.next = curr.next;
+      prev.next = curr.next
     }
-    curr = curr.next;
+    curr = curr.next
   }
 
-  return head;
-};
+  return head
+}

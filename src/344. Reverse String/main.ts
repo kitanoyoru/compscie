@@ -5,14 +5,15 @@
  Do not return anything, modify s in-place instead.
  */
 const reverseString = (s: string[]): void => {
-  let start = 0, end = s.length - 1, temp: string;
+  let start = 0,
+    end = s.length - 1,
+    temp: string
 
   while (start < end) {
-    temp = s[start];
-    s[start] = s[end];
-    s[end] = temp;
-    start++;
-    end--;
+    temp = s[start]
+    s[start] = s[end]
+    s[end] = temp
+    start++
+    end--
   }
-};
-
+}

@@ -6,23 +6,23 @@ interface HashMap {
 }
 
 const canConstruct = (ransomNote: string, magazine: string): boolean => {
-  let hm: HashMap = {};
+  let hm: HashMap = {}
 
   for (const ch of magazine) {
     if (hm[ch]) {
-      hm[ch]++;
+      hm[ch]++
     } else {
-      hm[ch] = 1;
+      hm[ch] = 1
     }
   }
 
   for (const ch of ransomNote) {
     if (hm[ch]) {
-      hm[ch]--;
+      hm[ch]--
     } else {
-      return false;
+      return false
     }
   }
 
-  return true;
-};
+  return true
+}

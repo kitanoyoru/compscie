@@ -17,15 +17,15 @@
 
 const helper = (root: TreeNode | null, ans: number[]) => {
   if (!root) {
-    return;
+    return
   }
-  ans.push(root.val);
-  helper(root.left, ans);
-  helper(root.right, ans);
-};
+  ans.push(root.val)
+  helper(root.left, ans)
+  helper(root.right, ans)
+}
 
 const preorderTraversal = (root: TreeNode | null): number[] => {
-  let ans: number[] = [];
-  helper(root, ans);
-  return ans;
-};
+  let ans: number[] = []
+  helper(root, ans)
+  return ans
+}

@@ -1,22 +1,21 @@
 // Solved by @kitanoyoru
 // https://leetcode.com/problems/range-sum-query-2d-immutable/
 
-
 // need to resolve using dp
 class NumMatrix {
-    constructor(private matrix: number[][]) {}
+  constructor(private matrix: number[][]) {}
 
-    sumRegion(row1: number, col1: number, row2: number, col2: number): number {
-      let sum = 0;
+  sumRegion(row1: number, col1: number, row2: number, col2: number): number {
+    let sum = 0
 
-      for (let i = row1; i <= row2; i++) {
-        for (let j = col1; j <= col2; j++) {
-          sum += this.matrix[i][j];
-        }
+    for (let i = row1; i <= row2; i++) {
+      for (let j = col1; j <= col2; j++) {
+        sum += this.matrix[i][j]
       }
-
-      return sum;
     }
+
+    return sum
+  }
 }
 
 /**

@@ -7,26 +7,26 @@ interface HashMap {
 
 const isAnagram = (s: string, t: string): boolean => {
   if (s.length != t.length) {
-    return false;
+    return false
   }
 
-  let hm: HashMap = {};
+  let hm: HashMap = {}
 
   for (let ch of t) {
     if (hm[ch]) {
-      hm[ch]++;
+      hm[ch]++
     } else {
-      hm[ch] = 1;
+      hm[ch] = 1
     }
   }
 
   for (let ch of s) {
     if (hm[ch]) {
-      hm[ch]--;
+      hm[ch]--
     } else {
-      return false;
+      return false
     }
   }
 
-  return true;
-};
+  return true
+}

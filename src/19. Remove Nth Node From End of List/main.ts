@@ -13,29 +13,34 @@
  * }
  */
 
-const removeNthFromEnd = (head: ListNode | null, n: number): ListNode | null => {
-  let curr = head, length = 0, pos;
+const removeNthFromEnd = (
+  head: ListNode | null,
+  n: number
+): ListNode | null => {
+  let curr = head,
+    length = 0,
+    pos
 
   while (curr) {
-    curr = curr.next;
-    length++;
+    curr = curr.next
+    length++
   }
 
   if (length == 1) {
-    return null;
+    return null
   }
   if (length == n) {
-    return head.next;
+    return head.next
   }
 
-  pos = length - n;
-  curr = head;
+  pos = length - n
+  curr = head
 
   while (pos-- != 1) {
-    curr = curr.next;
+    curr = curr.next
   }
 
-  curr.next = curr.next.next;
+  curr.next = curr.next.next
 
-  return head;
-};
+  return head
+}

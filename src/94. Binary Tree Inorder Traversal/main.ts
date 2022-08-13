@@ -15,20 +15,19 @@
  * }
  */
 
-
 const helper = (root: TreeNode | null, ans: number[]) => {
   if (!root) {
-    return;
+    return
   }
-  helper(root.left, ans);
-  ans.push(root.val);
-  helper(root.right, ans);
+  helper(root.left, ans)
+  ans.push(root.val)
+  helper(root.right, ans)
 }
 
 const inorderTraversal = (root: TreeNode | null): number[] => {
-  let ans: number[] = [];
+  let ans: number[] = []
 
-  helper(root, ans);
-  
-  return ans;
-};
+  helper(root, ans)
+
+  return ans
+}

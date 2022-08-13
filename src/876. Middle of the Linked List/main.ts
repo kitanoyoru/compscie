@@ -14,19 +14,21 @@
  */
 
 const middleNode = (head: ListNode | null): ListNode | null => {
-  let curr = head, length = 0, mid = 0;
+  let curr = head,
+    length = 0,
+    mid = 0
 
   while (curr.next) {
-    curr = curr.next;
-    length++;
+    curr = curr.next
+    length++
   }
-  
-  mid = Math.ceil(length / 2);
-  curr = head;
+
+  mid = Math.ceil(length / 2)
+  curr = head
 
   while (mid--) {
-    curr = curr.next;
+    curr = curr.next
   }
 
   return curr
-};
+}

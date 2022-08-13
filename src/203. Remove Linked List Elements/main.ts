@@ -13,27 +13,31 @@
  * }
  */
 
-const removeElements = (head: ListNode | null, val: number): ListNode | null => {
+const removeElements = (
+  head: ListNode | null,
+  val: number
+): ListNode | null => {
   if (!head) {
-    return null;
+    return null
   }
 
-  let curr = head, prev: ListNode | null = null;
+  let curr = head,
+    prev: ListNode | null = null
 
   while (curr) {
     if (curr.val == val) {
       if (!prev) {
-        head = head.next;
-        curr = head;
+        head = head.next
+        curr = head
       } else {
-        prev.next = curr.next;
-        curr = curr.next;
+        prev.next = curr.next
+        curr = curr.next
       }
     } else {
-      prev = curr;
-      curr = curr.next;
+      prev = curr
+      curr = curr.next
     }
   }
 
-  return head;
-};
+  return head
+}
