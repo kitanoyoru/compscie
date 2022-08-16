@@ -17,18 +17,17 @@
 
 const helper = (left: TreeNode | null, right: TreeNode | null): boolean => {
   if (!left && !right) {
-    return true;
+    return true
   } else if (!left || !right) {
-    return false;
+    return false
   }
   if (left.val != right.val) {
-    return false;
+    return false
   }
 
-  return helper(left.left, right.right) && helper(left.right, right.left);
-};
+  return helper(left.left, right.right) && helper(left.right, right.left)
+}
 
 const isSymmetric = (root: TreeNode | null): boolean => {
-  return helper(root.left, root.right)!; 
-};
-
+  return helper(root.left, root.right)!
+}

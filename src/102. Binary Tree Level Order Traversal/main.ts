@@ -15,35 +15,34 @@
  * }
  */
 
-
 const levelOrder = (root: TreeNode | null): number[][] => {
-  let hm: number[][] = [];
+  let hm: number[][] = []
   if (!root) {
-    return hm;
+    return hm
   }
 
-  let q: TreeNode[] = [];
-  q.push(root);
+  let q: TreeNode[] = []
+  q.push(root)
 
   while (q.length) {
-    let count = q.length;
-    let level: number[] = [];
+    let count = q.length
+    let level: number[] = []
 
     while (count--) {
-      let node = q.shift()!;
-      level.push(node.val);
+      let node = q.shift()!
+      level.push(node.val)
       if (node.left) {
-        q.push(node.left);
+        q.push(node.left)
       }
       if (node.right) {
-        q.push(node.right);
+        q.push(node.right)
       }
     }
 
-    hm.push(level);
+    hm.push(level)
   }
 
-  return hm;
-};
+  return hm
+}
 
 export {}

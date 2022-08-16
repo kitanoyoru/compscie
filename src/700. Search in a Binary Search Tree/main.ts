@@ -1,5 +1,5 @@
 // Solved by @kitanoyoru
-// https://leetcode.com/problems/maximum-depth-of-binary-tree/
+// https://leetcode.com/problems/search-in-a-binary-search-tree/
 
 /**
  * Definition for a binary tree node.
@@ -15,15 +15,17 @@
  * }
  */
 
-const helper = (root: TreeNode | null, level: number): number => {
+const searchBST = (root: TreeNode | null, val: number): TreeNode | null => {
   if (!root) {
-    return level
+    return null
   }
-  return Math.max(helper(root.left, level + 1), helper(root.right, level + 1))
-}
+  if (root.val == val) {
+    return root
+  }
 
-const maxDepth = (root: TreeNode | null): number => {
-  let level: number = 0
-
-  return helper(root, level)
+  if (root.val > val) {
+    return searchBST(root.left, val)
+  } else if (root.val < val) {
+    return searchBST(root.right, val)
+  }
 }

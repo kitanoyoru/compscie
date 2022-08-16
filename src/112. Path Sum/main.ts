@@ -1,6 +1,5 @@
 // Solved by @kitanoyoru
-// https://leetcode.com/problems/maximum-depth-of-binary-tree/
-
+// https://leetcode.com/problems/path-sum/
 /**
  * Definition for a binary tree node.
  * class TreeNode {
@@ -15,15 +14,16 @@
  * }
  */
 
-const helper = (root: TreeNode | null, level: number): number => {
+const hasPathSum = (root: TreeNode | null, targetSum: number): boolean => {
   if (!root) {
-    return level
+    return false
   }
-  return Math.max(helper(root.left, level + 1), helper(root.right, level + 1))
-}
+  if (!root.left && !root.right && targetSum - root.val == 0) {
+    return true
+  }
 
-const maxDepth = (root: TreeNode | null): number => {
-  let level: number = 0
-
-  return helper(root, level)
+  return (
+    hasPathSum(root.left, targetSum - root.val) ||
+    hasPathSum(root.right, targetSum - root.val)
+  )
 }

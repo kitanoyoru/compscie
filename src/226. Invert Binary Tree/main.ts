@@ -1,5 +1,5 @@
 // Solved by @kitanoyoru
-// https://leetcode.com/problems/maximum-depth-of-binary-tree/
+// https://leetcode.com/problems/invert-binary-tree/
 
 /**
  * Definition for a binary tree node.
@@ -15,15 +15,21 @@
  * }
  */
 
-const helper = (root: TreeNode | null, level: number): number => {
+const helper = (root: TreeNode | null) => {
   if (!root) {
-    return level
+    return
   }
-  return Math.max(helper(root.left, level + 1), helper(root.right, level + 1))
+
+  let temp = root.left
+  root.left = root.right
+  root.right = temp
+
+  helper(root.left)
+  helper(root.right)
 }
 
-const maxDepth = (root: TreeNode | null): number => {
-  let level: number = 0
+const invertTree = (root: TreeNode | null): TreeNode | null => {
+  helper(root)
 
-  return helper(root, level)
+  return root
 }
