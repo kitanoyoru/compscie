@@ -28,10 +28,13 @@ const MORSE_ALPH = [
   "-..-",
   "-.--",
   "--..",
-];
+]
 
 const morse = (word: string) => {
-  return word.split("").map((char) => MORSE_ALPH[char.charCodeAt(0) - 97]).join("")
+  return word
+    .split("")
+    .map((char) => MORSE_ALPH[char.charCodeAt(0) - 97])
+    .join("")
 }
 
 const uniqueMorseRepresentations = (words: string[]): number => {
@@ -44,5 +47,5 @@ const uniqueMorseRepresentations = (words: string[]): number => {
   return s.size
 }
 
-console.log(uniqueMorseRepresentations(["gin","zen","gig","msg"]));
-console.log(uniqueMorseRepresentations(["a"]));
+console.log(uniqueMorseRepresentations(["gin", "zen", "gig", "msg"]))
+console.log(uniqueMorseRepresentations(["a"]))

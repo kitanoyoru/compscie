@@ -67,13 +67,13 @@ const isValidGrids = (board: string[][]): boolean => {
       for (const k of grid) {
         for (const p of k) {
           if (p == ".") {
-            continue;
+            continue
           } else {
-            const num = parseInt(p) - 1;
+            const num = parseInt(p) - 1
             if (!arr[num]) {
-              arr[num] = true;
+              arr[num] = true
             } else {
-              return false;
+              return false
             }
           }
         }

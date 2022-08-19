@@ -17,30 +17,31 @@
 
 const inorderTraversal = (root: TreeNode | null, arr: number[]) => {
   if (!root) {
-    return;
+    return
   }
-  inorderTraversal(root.left, arr);
-  arr.push(root.val);
-  inorderTraversal(root.right, arr);
+  inorderTraversal(root.left, arr)
+  arr.push(root.val)
+  inorderTraversal(root.right, arr)
 }
 
 const findTarget = (root: TreeNode | null, k: number): boolean => {
-  let arr: number[] = [];
-  inorderTraversal(root, arr);
+  let arr: number[] = []
+  inorderTraversal(root, arr)
 
-  let i = 0, j = arr.length - 1;
+  let i = 0,
+    j = arr.length - 1
   while (i < j) {
     if (arr[i] + arr[j] == k) {
-      return true;
+      return true
     }
     if (arr[i] + arr[j] < k) {
-      i++;
+      i++
     } else {
-      j--;
+      j--
     }
   }
 
-  return false;
-};
+  return false
+}
 
 export {}
