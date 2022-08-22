@@ -1,6 +1,10 @@
 // Solved by @kitanoyoru
 // https://leetcode.com/problems/rotate-image/
 
+/**
+ Do not return anything, modify matrix in-place instead.
+ */
+
 const rotate = (matrix: number[][]): void => {
   let left = 0,
     right = matrix.length - 1
@@ -18,3 +22,5 @@ const rotate = (matrix: number[][]): void => {
     right--
   }
 }
+
+export {}

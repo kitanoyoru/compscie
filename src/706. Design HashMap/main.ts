@@ -2,31 +2,31 @@
 // https://leetcode.com/problems/design-hashmap/
 
 type HashMap = {
-  [key: number]: number;
+  [key: number]: number
 }
 
 interface IMyHashMap {
-  put: (key: number, value: number) => void;
-  get: (key: number) => number;
-  remove: (key: number) => void;
+  put: (key: number, value: number) => void
+  get: (key: number) => number
+  remove: (key: number) => void
 }
 
 class MyHashMap implements IMyHashMap {
   constructor(private obj: HashMap = {}) {}
 
   put(key: number, value: number): void {
-    this.obj[key] = value;
+    this.obj[key] = value
   }
 
   get(key: number): number {
     if (this.obj[key] || this.obj[key] == 0) {
-      return this.obj[key];
+      return this.obj[key]
     }
-    return -1;
+    return -1
   }
 
   remove(key: number): void {
-    delete this.obj[key];
+    delete this.obj[key]
   }
 }
 
@@ -38,4 +38,4 @@ class MyHashMap implements IMyHashMap {
  * obj.remove(key)
  */
 
- export {}
+export {}
