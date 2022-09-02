@@ -17,5 +17,3 @@ const uniquePaths = (m: number, n: number) => {
 
   return dp[n - 1]
 }
-
-console.log(uniquePaths(3, 7))
