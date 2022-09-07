@@ -16,26 +16,26 @@
  */
 
 const pathSum = (root: TreeNode | null, targetSum: number): number[][] => {
-  const ans: number[][] = [];
+  const ans: number[][] = []
   const dfs = (root: TreeNode | null, arr: number[], resSum: number) => {
     if (!root) {
-      return;
+      return
     }
-    
-    resSum -= root.val;
-    arr.push(root.val);
+
+    resSum -= root.val
+    arr.push(root.val)
 
     if (!root.left && !root.right && resSum == 0) {
-      ans.push([...arr]);
+      ans.push([...arr])
     } else {
-      dfs(root.left, arr, resSum);
-      dfs(root.right, arr, resSum);
+      dfs(root.left, arr, resSum)
+      dfs(root.right, arr, resSum)
     }
 
-    arr.pop();
+    arr.pop()
   }
 
-  dfs(root, [], targetSum);
+  dfs(root, [], targetSum)
 
-  return ans;
-};
+  return ans
+}
