@@ -16,7 +16,6 @@ const search = (nums: number[], target: number): number => {
   }
 
   let p = end
-  console.log(p)
   start = 0
   end = nums.length - 1
   if (target >= nums[p] && target <= nums[end]) {
