@@ -4,38 +4,37 @@
 package main
 
 import (
-  "strconv"
-  "strings"
+	"strconv"
+	"strings"
 )
 
 func countAndSay(n int) string {
-  ans := ""
+	ans := ""
 
-  for i := 0; i < n; i++ {
-    if ans == "" {
-      ans = "1"
-      continue
-    }
+	for i := 0; i < n; i++ {
+		if ans == "" {
+			ans = "1"
+			continue
+		}
 
-    var curr strings.Builder
-    count := 1
+		var curr strings.Builder
+		count := 1
 
-    for i := 1; i < len(ans); i++ {
-      if ans[i] == ans[i - 1] {
-        count++
-      } else {
-        curr.WriteString(strconv.Itoa(count))
-        curr.WriteByte(ans[i - 1])
-        count = 1
-      }
-    }
+		for i := 1; i < len(ans); i++ {
+			if ans[i] == ans[i-1] {
+				count++
+			} else {
+				curr.WriteString(strconv.Itoa(count))
+				curr.WriteByte(ans[i-1])
+				count = 1
+			}
+		}
 
-    curr.WriteString(strconv.Itoa(count))
-    curr.WriteByte(ans[len(ans) - 1])
-    
-    ans = curr.String()
-  }
+		curr.WriteString(strconv.Itoa(count))
+		curr.WriteByte(ans[len(ans)-1])
 
-  return ans
+		ans = curr.String()
+	}
+
+	return ans
 }
-

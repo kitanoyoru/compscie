@@ -4,25 +4,25 @@
 package main
 
 type TreeNode struct {
-  Val int
-  Left *TreeNode
-  Right *TreeNode
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
 
 func inorderTraversal(node *TreeNode, counter *int) {
-  if node == nil {
-    return
-  }
-  inorderTraversal(node.Left, counter)
-  *counter++
-  inorderTraversal(node.Right, counter)
+	if node == nil {
+		return
+	}
+	inorderTraversal(node.Left, counter)
+	*counter++
+	inorderTraversal(node.Right, counter)
 
 }
 
 func countNodes(root *TreeNode) int {
-  var counter int = 0
+	var counter int = 0
 
-  inorderTraversal(root, &counter)
+	inorderTraversal(root, &counter)
 
-  return counter
+	return counter
 }

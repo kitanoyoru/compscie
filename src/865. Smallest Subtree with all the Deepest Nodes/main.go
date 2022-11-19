@@ -4,39 +4,39 @@
 package main
 
 type TreeNode struct {
-  Val int
-  Left *TreeNode
-  Right *TreeNode
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
 
 func max(a, b int) int {
-  if a < b {
-    return b
-  }
+	if a < b {
+		return b
+	}
 
-  return a
+	return a
 }
 
 func getDeepestLevel(node *TreeNode) int {
-  if node == nil {
-    return 0;
-  }
+	if node == nil {
+		return 0
+	}
 
-  return 1 + max(getDeepestLevel(node.Left), getDeepestLevel(node.Right)) 
+	return 1 + max(getDeepestLevel(node.Left), getDeepestLevel(node.Right))
 }
 
 func dfs(node *TreeNode) *TreeNode {
-  leftHeight, rightHeight := getDeepestLevel(node.Left), getDeepestLevel(node.Right)
-  
-  if leftHeight > rightHeight {
-    return dfs(node.Left)
-  } else if leftHeight < rightHeight {
-    return dfs(node.Right)
-  } else {
-    return node
-  }
+	leftHeight, rightHeight := getDeepestLevel(node.Left), getDeepestLevel(node.Right)
+
+	if leftHeight > rightHeight {
+		return dfs(node.Left)
+	} else if leftHeight < rightHeight {
+		return dfs(node.Right)
+	} else {
+		return node
+	}
 }
 
 func subtreeWithAllDeepest(root *TreeNode) *TreeNode {
-  return dfs(root) 
+	return dfs(root)
 }

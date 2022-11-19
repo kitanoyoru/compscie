@@ -4,22 +4,22 @@
 package main
 
 type TreeNode struct {
-  Val int
-  Left *TreeNode
-  Right *TreeNode
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
 
 var prev *TreeNode = nil
 
-func flatten(root *TreeNode)  {
-  if root == nil {
-    return
-  }
+func flatten(root *TreeNode) {
+	if root == nil {
+		return
+	}
 
-  flatten(root.Right)
-  flatten(root.Left)
+	flatten(root.Right)
+	flatten(root.Left)
 
-  root.Right = prev
-  root.Left = nil
-  prev = root
+	root.Right = prev
+	root.Left = nil
+	prev = root
 }
