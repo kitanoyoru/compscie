@@ -19,8 +19,8 @@ class Solution:
             if node == None:
                 return
 
-            arr.append(node.val);
-            resSum -= node.val;
+            arr.append(node.val)
+            resSum -= node.val
 
             if node.left == None and node.right == None and resSum == 0:
                 ans.append(arr[:])
@@ -31,6 +31,5 @@ class Solution:
             arr.pop()
 
         dfs(root, [], targetSum)
-        
+
         return ans
-        

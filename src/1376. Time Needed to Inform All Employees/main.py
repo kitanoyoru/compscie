@@ -2,7 +2,9 @@ import queue
 
 
 class Solution:
-    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
+    def numOfMinutes(
+        self, n: int, headID: int, manager: List[int], informTime: List[int]
+    ) -> int:
         ans = 0
         graph = [[] for _ in range(n)]
         for i in range(n):
@@ -20,5 +22,3 @@ class Solution:
                 q.put((node, time + informTime[node]))
 
         return ans
-            
-

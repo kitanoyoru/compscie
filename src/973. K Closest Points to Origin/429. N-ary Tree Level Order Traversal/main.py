@@ -15,7 +15,7 @@ from typing import List
 
 
 class Solution:
-    def levelOrder(self, root: 'Node') -> List[List[int]]:
+    def levelOrder(self, root: "Node") -> List[List[int]]:
         if not root:
             return []
         ans: List[List[int]] = []
@@ -30,7 +30,7 @@ class Solution:
             for _ in range(l):
                 node = q.get()
                 level.append(node.val)
-                
+
                 for n in node.children:
                     q.put(n)
 

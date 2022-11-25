@@ -1,6 +1,7 @@
 # Solved by @kitanoyoru
 # https://leetcode.com/problems/next-greater-element-ii/
 
+
 class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
         n = len(nums)
@@ -11,7 +12,7 @@ class Solution:
         ans = [-1] * n
 
         for _ in range(2):
-            for i in range(n-1, -1, -1):
+            for i in range(n - 1, -1, -1):
                 while len(stack) > 0 and stack[-1] <= nums[i]:
                     stack.pop()
                 if len(stack) > 0:
@@ -19,7 +20,4 @@ class Solution:
 
                 stack.append(nums[i])
 
-        return ans 
-
-
-
+        return ans

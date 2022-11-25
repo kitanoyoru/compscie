@@ -3,13 +3,14 @@
 
 from typing import List
 
+
 class Solution:
     def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
         if (len(mat) * len(mat[0])) / c != r:
             return mat
 
         ans: List[List[int]] = []
-            
+
         [row, col] = [0, 0]
 
         for i in range(r):
@@ -23,4 +24,3 @@ class Solution:
                     col += 1
 
         return ans
-
