@@ -11,11 +11,12 @@ class TreeNode:
         self.left = left
         self.right = right
 
+
 class Solution:
     def __init__(self) -> None:
-        self.ans: int = sys.maxsize 
+        self.ans: int = sys.maxsize
         self.prev: Optional[int] = None
-        
+
     def minDiffInBST(self, root: Optional[TreeNode]) -> int:
         self.dfs(root)
         return self.ans
