@@ -4,5 +4,5 @@
 import "strings"
 
 func checkIfPangram(sentence string) bool {
-  return strings.TrimLeft("abcdefghijklmnopqrstuvwxyz", sentence) == ""
+	return strings.TrimLeft("abcdefghijklmnopqrstuvwxyz", sentence) == ""
 }
