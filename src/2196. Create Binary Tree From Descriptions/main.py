@@ -4,6 +4,7 @@ class TreeNode:
         self.left = left
         self.right = right
 
+
 class Solution:
     def createBinaryTree(self, D: List[List[int]]) -> Optional[TreeNode]:
         d, child = dict(), set()

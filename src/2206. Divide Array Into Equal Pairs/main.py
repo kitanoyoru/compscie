@@ -4,6 +4,7 @@ import collections
 
 from typing import Dict, List
 
+
 class Solution:
     def __init__(self) -> None:
         self.hm: Dict[int, int] = collections.defaultdict(int)
@@ -17,6 +18,3 @@ class Solution:
                 return False
 
         return True
-
-
-

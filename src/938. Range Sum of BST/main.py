@@ -22,7 +22,6 @@ class Solution:
             self.dfs(node.left)
         if node.val < self.high:
             self.dfs(node.right)
-        
 
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
         self.ans: int = 0
