@@ -18,5 +18,5 @@ class Solution:
 
         if left == 0 or right == 0:
             return 1 + left + right
-        
+
         return 1 + min(left, right)

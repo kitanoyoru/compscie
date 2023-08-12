@@ -1,11 +1,12 @@
 from queue import PriorityQueue
 from typing import Tuple, List
 
+
 class Solution:
     def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
         pq: PriorityQueue[Tuple[int, bool]] = PriorityQueue()
 
-        left, right = 0, len(costs)-1
+        left, right = 0, len(costs) - 1
 
         for _ in range(candidates):
             if len(costs) < candidates:
@@ -34,4 +35,3 @@ class Solution:
             pq.put((opt, is_front))
 
         return ans
-

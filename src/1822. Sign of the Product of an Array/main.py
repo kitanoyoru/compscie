@@ -10,4 +10,3 @@ class Solution:
             return acc if num > 0 else -acc
 
         return reduce(closure, nums, 1)
-
