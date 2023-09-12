@@ -12,12 +12,12 @@ class Solution:
 
         n, m = len(mat), len(mat[0])
 
-        dist = [[0, 1], [1, 0], [0, -1], [-1, 0]] 
+        dist = [[0, 1], [1, 0], [0, -1], [-1, 0]]
 
         for i in range(n):
             for j in range(m):
                 if mat[i][j]:
-                    mat[i][j] = 10e5 
+                    mat[i][j] = 10e5
                 else:
                     q.append(Cell(i, j))
 
@@ -33,7 +33,3 @@ class Solution:
                         q.append(Cell(newX, newY))
 
         return mat
-
-
-
-

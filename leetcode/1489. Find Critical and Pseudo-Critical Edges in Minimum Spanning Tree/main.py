@@ -1,5 +1,6 @@
 from typing import List, Union
 
+
 class UnionFind:
     def __init__(self, n: int):
         self.parent = list(range(n))
@@ -17,10 +18,10 @@ class UnionFind:
         self.parent[px] = py
 
 
-
 class Solution:
-    def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -> List[List[int]]:
-
+    def findCriticalAndPseudoCriticalEdges(
+        self, n: int, edges: List[List[int]]
+    ) -> List[List[int]]:
         critical, pseudo = [], []
 
         for i in range(len(edges)):
@@ -38,9 +39,9 @@ class Solution:
 
         return [critical, pseudo]
 
-
-
-    def find_mst(self, n: int, edges: List[List[int]], block: int, e: int) -> Union[int, float]:
+    def find_mst(
+        self, n: int, edges: List[List[int]], block: int, e: int
+    ) -> Union[int, float]:
         uf = UnionFind(n)
         weight = 0
 
@@ -57,9 +58,9 @@ class Solution:
 
             uf.union(edges[i][0], edges[i][1])
             weight += edges[i][2]
-        
+
         for i in range(n):
             if uf.find_parent(i) != uf.find_parent(0):
-                return float('inf')
+                return float("inf")
 
         return weight
