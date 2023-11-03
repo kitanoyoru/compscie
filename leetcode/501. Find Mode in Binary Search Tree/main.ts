@@ -12,27 +12,27 @@ class TreeNode {
 type OptionalNode = TreeNode | null
 
 const findMode = (root: OptionalNode): number[] => {
-    const m = new Map<number, number>()
+  const m = new Map<number, number>()
 
-    const dfs = (node: OptionalNode) => {
-        if (!node) {
-            return
-        }
-
-        dfs(node.left)
-        m.set(node.val, (m.get(node.val) ?? 0) + 1)
-        dfs(node.right)
+  const dfs = (node: OptionalNode) => {
+    if (!node) {
+      return
     }
 
-    dfs(root)
+    dfs(node.left)
+    m.set(node.val, (m.get(node.val) ?? 0) + 1)
+    dfs(node.right)
+  }
 
-    const maxValue = Math.max(...m.values())
-    const result = Array.from(m.entries()).reduce((prev, item) => {
-        if (item[1] === maxValue) {
-            return [...prev, item[0]];
-        }
-        return prev;
-    }, []);
+  dfs(root)
 
-    return result
+  const maxValue = Math.max(...m.values())
+  const result = Array.from(m.entries()).reduce((prev, item) => {
+    if (item[1] === maxValue) {
+      return [...prev, item[0]]
+    }
+    return prev
+  }, [])
+
+  return result
 }

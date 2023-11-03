@@ -1,20 +1,20 @@
 const longestStrChain = (words: string[]): number => {
-  words.sort((a, b) => a.length - b.length);
+  words.sort((a, b) => a.length - b.length)
 
-  const dp: { [key: string]: number } = {};
+  const dp: { [key: string]: number } = {}
 
-  let maxChain = 0;
+  let maxChain = 0
 
   for (const word of words) {
-    dp[word] = 1;
+    dp[word] = 1
     for (let i = 0; i < word.length; i++) {
-      const prev = word.slice(0, i) + word.slice(i + 1);
+      const prev = word.slice(0, i) + word.slice(i + 1)
       if (prev in dp) {
-        dp[word] = Math.max(dp[word], dp[prev] + 1);
+        dp[word] = Math.max(dp[word], dp[prev] + 1)
       }
     }
-    maxChain = Math.max(maxChain, dp[word]);
+    maxChain = Math.max(maxChain, dp[word])
   }
 
-  return maxChain;
-};
+  return maxChain
+}
