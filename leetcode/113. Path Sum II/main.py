@@ -16,13 +16,13 @@ class Solution:
         ans = []
 
         def dfs(node: Optional[TreeNode], arr: List[int], resSum: int):
-            if node == None:
+            if node is None:
                 return
 
             arr.append(node.val)
             resSum -= node.val
 
-            if node.left == None and node.right == None and resSum == 0:
+            if node.left is None and node.right is None and resSum == 0:
                 ans.append(arr[:])
             else:
                 dfs(node.left, arr, resSum)

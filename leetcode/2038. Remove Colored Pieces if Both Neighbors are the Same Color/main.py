@@ -9,6 +9,4 @@ class Solution:
         for x, t in groupby(colors):
             c[x] += max(len(list(t)) - 2, 0)
 
-        return c['A'] > c['B']
-        
- 
+        return c["A"] > c["B"]

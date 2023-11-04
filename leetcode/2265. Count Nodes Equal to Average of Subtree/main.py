@@ -33,11 +33,12 @@ class Solution:
 
         return math.floor(sum(avg_node_vals) / len(avg_node_vals))
 
-    def inorder_traversal_to_find_avg(self, root: Optional[TreeNode], avg_node_vals: List[int]):
+    def inorder_traversal_to_find_avg(
+        self, root: Optional[TreeNode], avg_node_vals: List[int]
+    ):
         if not root:
             return
 
         self.inorder_traversal_to_find_avg(root.left, avg_node_vals)
         avg_node_vals.append(root.val)
         self.inorder_traversal_to_find_avg(root.right, avg_node_vals)
-
