@@ -1,5 +1,4 @@
 // SOlved by @kitanoyoru
-
 package main
 
 func contains(arr []int, val int) bool {
