@@ -1,12 +1,12 @@
 const heightChecker = (heights: number[]): number => {
-  let sortedHeights = [...heights].sort((a, b) => a - b);
+  let sortedHeights = [...heights].sort((a, b) => a - b)
 
-  let result = 0;
+  let result = 0
   for (let i = 0; i < heights.length; i++) {
     if (heights[i] !== sortedHeights[i]) {
-      result++;
+      result++
     }
   }
 
-  return result;
-};
+  return result
+}

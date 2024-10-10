@@ -12,8 +12,8 @@ const reverse = (x: number): number => {
       ? reversedX
       : 0
     : is32bit(reversedX)
-    ? -1 * reversedX
-    : 0
+      ? -1 * reversedX
+      : 0
 }
 
 const is32bit = (num: number): boolean => {

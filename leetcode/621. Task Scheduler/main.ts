@@ -9,8 +9,7 @@ function leastInterval(tasks: string[], n: number): number {
   let idle = chunk * n
 
   for (let i = 24; i >= 0; i--) {
-    idle -= Math.min(chunk, freq[i]);
-
+    idle -= Math.min(chunk, freq[i])
   }
 
   if (idle < 0) {
