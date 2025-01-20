@@ -15,7 +15,6 @@ func doesValidArrayExist(derived []int) bool {
 	original := make([]int, len(derived)+1)
 
 	original[0] = 0
-
 	for i := 0; i < len(derived); i++ {
 		original[i+1] = derived[i] ^ original[i]
 	}
@@ -23,7 +22,6 @@ func doesValidArrayExist(derived []int) bool {
 	checkForZero := (original[0] == original[len(original)-1])
 
 	original[0] = 1
-
 	for i := 0; i < len(derived); i++ {
 		original[i+1] = derived[i] ^ original[i]
 	}
