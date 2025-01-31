@@ -1,40 +1,42 @@
 package main
 
+var digitToLetters = map[string]string{
+	"2": "abc",
+	"3": "def",
+	"4": "ghi",
+	"5": "jkl",
+	"6": "mno",
+	"7": "pqrs",
+	"8": "tuv",
+	"9": "wxyz",
+}
+
 func letterCombinations(digits string) []string {
-	res := []string{}
-
 	if len(digits) == 0 {
-		return res
+		return []string{}
 	}
 
-	n := len(digits)
-	dict := map[byte]string{
-		'2': "abc",
-		'3': "def",
-		'4': "ghi",
-		'5': "jkl",
-		'6': "mno",
-		'7': "psqrs",
-		'8': "tuv",
-		'9': "wxyz",
+	var result []string
+
+	digitPos := make([]string, len(digits))
+	for i, digit := range digits {
+		digitPos[i] = string(digit)
 	}
 
-	var dfs func([]rune, int)
-	dfs = func(path []rune, idx int) {
-		if len(path) == n {
-			res = append(res, string(path))
+	var backtrack func(s string, idx int)
+	backtrack = func(s string, idx int) {
+		if len(s) == len(digits) {
+			result = append(result, s)
 			return
 		}
 
-		chars := dict[digits[idx]]
-		for _, ch := range chars {
-			path = append(path, ch)
-			dfs(path, idx+1)
-			path = path[:len(path)-1]
+		for _, letter := range digitToLetters[digitPos[idx]] {
+			backtrack(s+string(letter), idx+1)
 		}
 	}
 
-	dfs([]rune{}, 0)
+	backtrack("", 0)
 
-	return res
+	return result
 }
+
