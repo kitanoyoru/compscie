@@ -1,6 +1,3 @@
-// Solved by @kitanoyoru
-// https://leetcode.com/problems/same-tree/
-
 package main
 
 type TreeNode struct {
@@ -13,11 +10,14 @@ func isSameTree(p *TreeNode, q *TreeNode) bool {
 	if p == nil && q == nil {
 		return true
 	}
-	if p == nil || q == nil {
+
+	if (p == nil && q != nil) || (p != nil && q == nil) {
 		return false
 	}
-	if p.val == q.val {
-		return isSameTree(q.Left, p.Left) && isSameTree(q.Right, p.Right)
+
+	if p.Val == q.Val {
+		return isSameTree(p.Left, q.Left) && isSameTree(p.Right, q.Right)
 	}
+
 	return false
 }
