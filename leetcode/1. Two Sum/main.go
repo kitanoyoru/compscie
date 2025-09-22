@@ -1,15 +1,17 @@
 package main
 
 func twoSum(nums []int, target int) []int {
-	n := len(nums)
-	m := make(map[int]int)
+	var result []int
 
-	for i := 0; i < n; i++ {
-		if j, ok := m[target-nums[i]]; ok {
-			return []int{i, j}
+	for i := range nums {
+		for j := i+1; j < len(nums); j++ {
+			if nums[i] + nums[j] == target {
+				result = []int{i, j}
+				break
+			}
 		}
-		m[nums[i]] = i
 	}
 
-	return []int{-1, -1}
+	return result
 }
+
