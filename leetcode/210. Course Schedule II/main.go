@@ -1,39 +1,43 @@
 package main
 
 func findOrder(numCourses int, prerequisites [][]int) []int {
-	graph := make([][]int, numCourses)
-	inDegree := make([]int, numCourses)
-
+	var (
+		graph  = make([][]int, numCourses)
+		degree = make([]int, numCourses)
+	)
 	for _, pre := range prerequisites {
-		course, prereq := pre[0], pre[1]
-		graph[prereq] = append(graph[prereq], course)
-		inDegree[course]++
+		u, v := pre[0], pre[1]
+		graph[v] = append(graph[v], u)
+		degree[u]++
 	}
 
-	queue := []int{}
-	for i := range numCourses {
-		if inDegree[i] == 0 {
-			queue = append(queue, i)
+	var (
+		result = make([]int, 0, numCourses)
+		queue  = make([]int, 0, numCourses)
+	)
+
+	for v := range numCourses {
+		if degree[v] == 0 {
+			queue = append(queue, v)
 		}
 	}
 
-	order := []int{}
 	for len(queue) > 0 {
-		u := queue[0]
+		v := queue[0]
 		queue = queue[1:]
 
-		order = append(order, u)
+		result = append(result, v)
 
-		for _, v := range graph[u] {
-			inDegree[v]--
-			if inDegree[v] == 0 {
-				queue = append(queue, v)
+		for _, u := range graph[v] {
+			degree[u]--
+			if degree[u] == 0 {
+				queue = append(queue, u)
 			}
 		}
 	}
 
-	if len(order) == numCourses {
-		return order
+	if len(result) == numCourses {
+		return result
 	}
 
 	return []int{}
