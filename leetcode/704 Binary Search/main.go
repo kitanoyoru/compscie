@@ -12,6 +12,7 @@ func search(nums []int, target int) int {
 		} else {
 			right = mid - 1
 		}
+
 	}
 
 	return -1
