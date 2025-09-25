@@ -1,15 +1,14 @@
 package main
 
 func removeElement(nums []int, val int) int {
-	pos := 0
-
-	for i := 0; i < len(nums); i++ {
-		if nums[i] == val {
-			pos++
+	var ptr int
+	for i, v := range nums {
+		if v == val {
+			ptr++
 		} else {
-			nums[i-pos] = nums[i]
+			nums[i-ptr] = v 
 		}
 	}
 
-	return len(nums) - pos
+	return len(nums) - ptr
 }
