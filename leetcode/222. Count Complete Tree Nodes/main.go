@@ -1,6 +1,3 @@
-// Solved by @kitanoyoru
-// https://leetcode.com/problems/count-complete-tree-nodes/
-
 package main
 
 type TreeNode struct {
@@ -9,20 +6,21 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func inorderTraversal(node *TreeNode, counter *int) {
-	if node == nil {
-		return
-	}
-	inorderTraversal(node.Left, counter)
-	*counter++
-	inorderTraversal(node.Right, counter)
-
-}
-
 func countNodes(root *TreeNode) int {
-	var counter int = 0
+	result := 0
 
-	inorderTraversal(root, &counter)
+	var inorder func(root *TreeNode)
+	inorder = func(root *TreeNode) {
+		if root == nil {
+			return
+		}
 
-	return counter
+		inorder(root.Left)
+		result += 1
+		inorder(root.Right)
+	}
+
+	inorder(root)
+
+	return result
 }
