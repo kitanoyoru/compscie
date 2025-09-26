@@ -1,18 +1,33 @@
-func dfs(root *TreeNode, k int, m map[int]bool) bool {
-	if root == nil {
-		return false
-	}
-	if m[k-root.Val] {
-		return true
-	}
+package main
 
-	m[root.Val] = true
-
-	return dfs(root.Left, k, m) || dfs(root.Right, k, m)
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
 
 func findTarget(root *TreeNode, k int) bool {
-	return dfs(root, k, map[int]bool{})
-}
+	m := make(map[int]struct{})
 
+	var inorder func(node *TreeNode)
+	inorder = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+
+		inorder(node.Left)
+		m[node.Val] = struct{}{}
+		inorder(node.Right)
+	}
+
+    inorder(root)
+
+	for v := range m {
+		if _, exists := m[k-v]; exists && k-v != v {
+			return true
+		}
+	}
+
+	return false
+}
 
