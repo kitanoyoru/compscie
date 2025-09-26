@@ -1,5 +1,6 @@
 package main
 
+
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -8,24 +9,22 @@ type TreeNode struct {
 
 func diameterOfBinaryTree(root *TreeNode) int {
 	var (
+		helper func(node *TreeNode) int
 		result int
-		dfs    func(root *TreeNode) int
 	)
-
-	dfs = func(root *TreeNode) int {
-		if root == nil {
+	helper = func(node *TreeNode) int {
+		if node == nil {
 			return 0
 		}
 
-		leftPath := dfs(root.Left)
-		rightPath := dfs(root.Right)
+		left, right := helper(node.Left), helper(node.Right)
 
-		result = max(result, leftPath+rightPath)
+		result = max(result, left + right)
 
-		return 1 + max(leftPath, rightPath)
+		return 1 + max(left, right)
 	}
 
-	dfs(root)
+	helper(root)
 
 	return result
 }
