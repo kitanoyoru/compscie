@@ -1,8 +1,10 @@
-// Solved by @kitanoyoru
-
 package main
 
 import "math"
+
+const (
+	Mod = 1_000_000_000 + 7
+)
 
 type TreeNode struct {
 	Val   int
@@ -10,41 +12,36 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func sum(root *TreeNode) int {
-	if root == nil {
+func treeSum(node *TreeNode) int {
+	if node == nil {
 		return 0
 	}
 
-	return root.Val + sum(root.Left) + sum(root.Right)
-}
-
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-
-	return b
+	return node.Val + treeSum(node.Left) + treeSum(node.Right)
 }
 
 func maxProduct(root *TreeNode) int {
-	totalTreeSum, ans := sum(root), math.MinInt64
+	var (
+		result       = math.MinInt
+		totalTreeSum = treeSum(root)
+	)
 
-	var traverse func(*TreeNode) int
-	traverse = func(root *TreeNode) int {
-		if root == nil {
+	var traverse func(node *TreeNode) int
+	traverse = func(node *TreeNode) int {
+		if node == nil {
 			return 0
 		}
 
-		leftSum := traverse(root.Left)
-		rightSum := traverse(root.Right)
+		leftSum, rightSum := traverse(node.Left), traverse(node.Right)
 
-		ans = max(ans, leftSum*(totalTreeSum-leftSum))
-		ans = max(ans, rightSum*(totalTreeSum-rightSum))
+		result = max(result, leftSum*(totalTreeSum-leftSum))
+		result = max(result, rightSum*(totalTreeSum-rightSum))
 
-		return root.Val + leftSum + rightSum
+		return node.Val + leftSum + rightSum
 	}
 
 	traverse(root)
 
-	return ans % 1000000007
+	return result % Mod 
 }
+
