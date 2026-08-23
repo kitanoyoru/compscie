@@ -22,8 +22,8 @@ tools/                        organize.py + the problem index
 Solve something new, drop the folder anywhere, then run:
 
 ```sh
-python3 tools/organize.py          # preview
-python3 tools/organize.py --apply  # file it and refresh this README
+make organize   # preview where things would land
+make apply      # file them and refresh this README
 ```
 
 ## Easy

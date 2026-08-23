@@ -15,9 +15,12 @@ Run it any time. It is idempotent: solve a new problem, drop the folder
 anywhere in the repo, run this, and it lands in the right place with a
 canonical name and the README index picks it up.
 
-    python3 tools/organize.py              # dry run, shows the plan
-    python3 tools/organize.py --apply      # actually move things
-    python3 tools/organize.py --apply --drop-legacy   # also delete codeforces/ codewars/
+    make organize   # dry run, shows the plan
+    make apply      # actually move things, refresh README.md
+    make migrate    # one-time: apply + delete codeforces/ and codewars/
+    make readme     # regenerate README.md only
+
+(or call this script directly: python3 tools/organize.py --apply)
 
 Problem metadata comes from tools/leetcode-index.tsv (id, difficulty, title, tags).
 """
@@ -259,8 +262,8 @@ def build_readme() -> str:
         "Solve something new, drop the folder anywhere, then run:",
         "",
         "```sh",
-        "python3 tools/organize.py          # preview",
-        "python3 tools/organize.py --apply  # file it and refresh this README",
+        "make organize   # preview where things would land",
+        "make apply      # file them and refresh this README",
         "```",
         "",
     ]
@@ -296,15 +299,19 @@ def main() -> int:
     ap.add_argument("--drop-legacy", action="store_true",
                     help="delete codeforces/ and codewars/")
     ap.add_argument("--no-readme", action="store_true", help="skip README regeneration")
+    ap.add_argument("--no-move", action="store_true",
+                    help="don't move anything; with --apply, just regenerate the README")
     args = ap.parse_args()
 
     meta = load_index()
-    moves, notes = plan(meta)
+    moves, notes = ([], []) if args.no_move else plan(meta)
 
     print(f"repo: {REPO}")
     print(f"index: {len(meta)} problems\n")
 
-    if moves:
+    if args.no_move:
+        print("--no-move: leaving the tree alone.")
+    elif moves:
         print(f"{len(moves)} folder(s) to move:\n")
         for src, dest, reason in moves[:40]:
             print(f"  {src.relative_to(REPO)}")
@@ -319,7 +326,7 @@ def main() -> int:
         for n in notes:
             print(n)
 
-    legacy_present = [d for d in LEGACY if (REPO / d).is_dir()]
+    legacy_present = [] if args.no_move else [d for d in LEGACY if (REPO / d).is_dir()]
     if legacy_present:
         verb = "will delete" if (args.apply and args.drop_legacy) else "would delete (pass --drop-legacy)"
         print(f"\nlegacy: {verb} {', '.join(legacy_present)}")
@@ -336,16 +343,18 @@ def main() -> int:
         for d in legacy_present:
             shutil.rmtree(REPO / d)
 
-    removed = prune_empty(REPO)
+    removed = [] if args.no_move else prune_empty(REPO)
 
-    print(f"\nmoved {len(moves)} folder(s); removed {len(removed)} empty director(ies).")
+    if not args.no_move:
+        print(f"\nmoved {len(moves)} folder(s); removed {len(removed)} empty director(ies).")
 
     if not args.no_readme:
         (REPO / "README.md").write_text(build_readme(), encoding="utf-8")
         print("README.md regenerated.")
 
-    print("\nreview with `git status` / `git add -A && git status` "
-          "(git detects the renames), then commit.")
+    if not args.no_move:
+        print("\nreview with `git status` / `git add -A && git status` "
+              "(git detects the renames), then commit.")
     return 0
 
 
