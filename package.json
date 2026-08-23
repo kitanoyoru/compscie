@@ -4,7 +4,9 @@
   "repository": "git@github.com:kitanoyoru/leetcode.git",
   "author": "Alexandr Rutkovskij <kitanoyoru@protonmail.com>",
   "scripts": {
-    "pretty": "prettier --write ."
+    "pretty": "prettier --write .",
+    "organize": "python3 tools/organize.py",
+    "organize:apply": "python3 tools/organize.py --apply"
   },
   "devDependencies": {
     "ts-node": "^10.8.1",
