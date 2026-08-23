@@ -10,16 +10,17 @@ Layout produced:
     leetcode/misc/<anything that could not be identified>
     notes/                 research notes (untouched)
     structures/            shared helpers (untouched)
-    README.md              (regenerated index)
+    README.md              (regenerated summary)
+    leetcode/README.md     (regenerated problem index)
 
 Run it any time. It is idempotent: solve a new problem, drop the folder
 anywhere in the repo, run this, and it lands in the right place with a
-canonical name and the README index picks it up.
+canonical name and both READMEs pick it up.
 
     make organize   # dry run, shows the plan
-    make apply      # actually move things, refresh README.md
+    make apply      # actually move things, refresh both READMEs
     make migrate    # one-time: apply + delete codeforces/ and codewars/
-    make readme     # regenerate README.md only
+    make readme     # regenerate both READMEs only
 
 (or call this script directly: python3 tools/organize.py --apply)
 
@@ -126,7 +127,10 @@ def is_problem_dir(p: Path) -> bool:
     """A leaf-ish folder holding solution files (no nested problem folders)."""
     if not p.is_dir():
         return False
-    return any(f.is_file() for f in p.iterdir())
+    # README.md is generated index metadata, not a solution file - ignore it so a
+    # container dir (e.g. leetcode/ itself, once it holds a generated README.md)
+    # isn't mistaken for a leaf problem folder.
+    return any(f.is_file() and f.name.lower() != "readme.md" for f in p.iterdir())
 
 
 def collect_sources(meta: dict[int, dict]) -> list[Path]:
@@ -285,7 +289,95 @@ def prune_empty(root: Path) -> list[Path]:
 # ---------------------------------------------------------------- readme
 
 
-def build_readme() -> str:
+def build_root_readme(counts: dict[str, int], total: int, top_langs: list[tuple[str, int]]) -> str:
+    out = [
+        "# compscie",
+        "",
+        "LeetCode solutions and computer-science research notes.",
+        "",
+        "## LeetCode",
+        "",
+        f"**{total} problems solved**, filed by difficulty - one folder each, "
+        "with one file per language I solved it in. Full index: "
+        f"[{PROBLEMS}/README.md]({PROBLEMS}/README.md).",
+        "",
+        "| | Count |",
+        "| --- | ---: |",
+    ]
+    for d in DIFF_DIRS:
+        out.append(f"| [{d.capitalize()}]({PROBLEMS}/README.md#{d}) | {counts.get(d, 0)} |")
+    if counts.get(MISC):
+        out.append(f"| [Misc]({PROBLEMS}/README.md#misc) | {counts[MISC]} |")
+    out += [f"| **Total** | **{total}** |", ""]
+
+    if top_langs:
+        out += [
+            "### Languages",
+            "",
+            "![Top languages by solved problems]"
+            "(docs/leetcode-languages.svg)",
+            "",
+        ]
+
+    notes_root = REPO / "notes"
+    if notes_root.is_dir():
+        topics = sorted(x for x in notes_root.iterdir() if x.is_dir())
+        if topics:
+            out += ["## Notes", "",
+                    "Research notes and deep dives, exported from my Notion knowledge base.", ""]
+            for t in topics:
+                pages = len(list(t.rglob("*.md")))
+                out.append(f"- [{t.name}](notes/{t.name}/) - {pages} page(s)")
+            out.append("")
+
+    return "\n".join(out).rstrip() + "\n"
+
+
+def build_leetcode_readme(buckets: dict[str, list[tuple[int, str, Path]]], total: int) -> str:
+    out = [
+        "# LeetCode",
+        "",
+        f"**{total} problems solved**, filed by difficulty - one folder each, "
+        "with one file per language I solved it in.",
+        "",
+        "## Layout",
+        "",
+        "```",
+        "easy|medium|hard/   one folder per problem: `0001. Two Sum`",
+        "misc/               unidentified or non-LeetCode scratch work",
+        "```",
+        "",
+        "Solve something new, drop the folder anywhere, then run:",
+        "",
+        "```sh",
+        "make organize   # preview where things would land",
+        "make apply      # file them and refresh both READMEs",
+        "```",
+        "",
+    ]
+
+    for d in DIFF_DIRS + [MISC]:
+        items = buckets.get(d)
+        if not items:
+            continue
+        out += [
+            f"## {d.capitalize() if d != MISC else 'Misc'}",
+            "",
+            "| # | Problem | Languages |",
+            "| ---: | --- | --- |",
+        ]
+        for pid, name, path in sorted(items):
+            label = name.split(". ", 1)[-1] if ". " in name else name
+            num = f"{pid}" if pid < 10**6 else ""
+            link = urllib.parse.quote(f"{d}/{name}")
+            langs = ", ".join(languages(path)) or "-"
+            out.append(f"| {num} | [{label}]({link}) | {langs} |")
+        out.append("")
+
+    return "\n".join(out).rstrip() + "\n"
+
+
+def build_readmes() -> None:
     buckets: dict[str, list[tuple[int, str, Path]]] = defaultdict(list)
     for d in DIFF_DIRS + [MISC]:
         base = REPO / PROBLEMS / d
@@ -311,84 +403,12 @@ def build_readme() -> str:
     elif chart_path.exists():
         chart_path.unlink()
 
-    out = [
-        "# compscie",
-        "",
-        "LeetCode solutions and computer-science research notes.",
-        "",
-        "## LeetCode",
-        "",
-        f"**{total} problems solved**, filed by difficulty - one folder each, "
-        "with one file per language I solved it in.",
-        "",
-        "| | Count |",
-        "| --- | ---: |",
-    ]
-    for d in DIFF_DIRS:
-        out.append(f"| [{d.capitalize()}](#{d}) | {counts.get(d, 0)} |")
-    if counts.get(MISC):
-        out.append(f"| [Misc](#misc) | {counts[MISC]} |")
-    out += [f"| **Total** | **{total}** |", ""]
-
-    if top_langs:
-        out += [
-            "### Languages",
-            "",
-            "![Top languages by solved problems]"
-            "(docs/leetcode-languages.svg)",
-            "",
-        ]
-
-    out += [
-        "### Layout",
-        "",
-        "```",
-        "leetcode/easy|medium|hard/   one folder per problem: `0001. Two Sum`",
-        "leetcode/misc/               unidentified or non-LeetCode scratch work",
-        "notes/                       research notes and deep dives",
-        "structures/                  shared data structures and helpers",
-        "tools/                       organize.py + the problem index",
-        "```",
-        "",
-        "Solve something new, drop the folder anywhere, then run:",
-        "",
-        "```sh",
-        "make organize   # preview where things would land",
-        "make apply      # file them and refresh this README",
-        "```",
-        "",
-    ]
-
-    for d in DIFF_DIRS + [MISC]:
-        items = buckets.get(d)
-        if not items:
-            continue
-        out += [
-            f"### {d.capitalize() if d != MISC else 'Misc'}",
-            "",
-            "| # | Problem | Languages |",
-            "| ---: | --- | --- |",
-        ]
-        for pid, name, path in sorted(items):
-            label = name.split(". ", 1)[-1] if ". " in name else name
-            num = f"{pid}" if pid < 10**6 else ""
-            link = urllib.parse.quote(f"{PROBLEMS}/{d}/{name}")
-            langs = ", ".join(languages(path)) or "-"
-            out.append(f"| {num} | [{label}]({link}) | {langs} |")
-        out.append("")
-
-    notes_root = REPO / "notes"
-    if notes_root.is_dir():
-        topics = sorted(x for x in notes_root.iterdir() if x.is_dir())
-        if topics:
-            out += ["## Notes", "",
-                    "Research notes and deep dives, exported from my Notion knowledge base.", ""]
-            for t in topics:
-                pages = len(list(t.rglob("*.md")))
-                out.append(f"- [{t.name}](notes/{t.name}/) - {pages} page(s)")
-            out.append("")
-
-    return "\n".join(out).rstrip() + "\n"
+    (REPO / "README.md").write_text(
+        build_root_readme(counts, total, top_langs), encoding="utf-8"
+    )
+    (REPO / PROBLEMS / "README.md").write_text(
+        build_leetcode_readme(buckets, total), encoding="utf-8"
+    )
 
 
 # ---------------------------------------------------------------- main
@@ -451,8 +471,8 @@ def main() -> int:
         print(f"\nmoved {len(moves)} folder(s); removed {len(removed)} empty director(ies).")
 
     if not args.no_readme:
-        (REPO / "README.md").write_text(build_readme(), encoding="utf-8")
-        print("README.md regenerated.")
+        build_readmes()
+        print("README.md and leetcode/README.md regenerated.")
 
     if not args.no_move:
         print("\nreview with `git status` / `git add -A && git status` "

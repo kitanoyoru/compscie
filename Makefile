@@ -11,13 +11,13 @@ help: ## Show this help
 organize: ## Preview how loose problem folders would be filed (dry run)
 	@$(ORGANIZE)
 
-apply: ## File problem folders by difficulty and refresh the README
+apply: ## File problem folders by difficulty and refresh both READMEs
 	@$(ORGANIZE) --apply
 
 migrate: ## One-time restructure: file everything, drop codeforces/ and codewars/
 	@$(ORGANIZE) --apply --drop-legacy
 
-readme: ## Regenerate README.md without moving anything
+readme: ## Regenerate both READMEs without moving anything
 	@$(ORGANIZE) --apply --no-move
 
 pretty: ## Format the repo with prettier
