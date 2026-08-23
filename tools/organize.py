@@ -34,7 +34,7 @@ import re
 import shutil
 import sys
 import urllib.parse
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -59,6 +59,18 @@ LANG_NAMES = {
     ".scala": "Scala", ".hs": "Haskell", ".php": "PHP", ".lua": "Lua",
     ".sh": "Shell", ".pl": "Perl", ".erl": "Erlang", ".clj": "Clojure",
 }
+
+# Roughly GitHub's linguist colors, so the chart reads like a language you know.
+LANG_COLORS = {
+    "Go": "#00ADD8", "Rust": "#DEA584", "Python": "#3572A5", "Java": "#B07219",
+    "TypeScript": "#3178C6", "JavaScript": "#F1E05A", "C++": "#F34B7D",
+    "C": "#555555", "C#": "#178600", "Swift": "#F05138", "Kotlin": "#A97BFF",
+    "Ruby": "#701516", "Elixir": "#6E4A7E", "Dart": "#00B4AB", "Zig": "#EC915C",
+    "SQL": "#E38C00", "Scala": "#C22D40", "Haskell": "#5E5086", "PHP": "#4F5D95",
+    "Lua": "#000080", "Shell": "#89E051", "Perl": "#0298C3", "Erlang": "#B83998",
+    "Clojure": "#DB5855",
+}
+LANG_COLOR_FALLBACK = "#8b949e"
 
 
 # ---------------------------------------------------------------- metadata
@@ -152,6 +164,54 @@ def languages(p: Path) -> list[str]:
     return sorted(x for x in langs if x)
 
 
+# ---------------------------------------------------------------- language chart
+
+
+def language_chart_svg(top: list[tuple[str, int]]) -> str:
+    """Horizontal bar chart of the top languages, theme-aware (light/dark)."""
+    width = 640
+    row_h = 34
+    pad_top = 44
+    pad_bottom = 16
+    label_w = 118
+    bar_max_w = width - label_w - 70
+    height = pad_top + row_h * len(top) + pad_bottom
+    max_count = top[0][1] if top else 1
+
+    rows = []
+    for i, (lang, count) in enumerate(top):
+        y = pad_top + i * row_h
+        bar_w = max(6, round(bar_max_w * count / max_count))
+        color = LANG_COLORS.get(lang, LANG_COLOR_FALLBACK)
+        rows.append(f"""
+    <g transform="translate(0,{y})">
+      <text x="{label_w - 12}" y="{row_h / 2 + 5}" text-anchor="end" class="label">{lang}</text>
+      <rect x="{label_w}" y="{(row_h - 16) / 2}" width="{bar_max_w}" height="16" rx="8" class="track"/>
+      <rect x="{label_w}" y="{(row_h - 16) / 2}" width="{bar_w}" height="16" rx="8" fill="{color}"/>
+      <text x="{label_w + bar_w + 10}" y="{row_h / 2 + 5}" class="count">{count}</text>
+    </g>""")
+
+    alt = ", ".join(f"{lang} {count}" for lang, count in top)
+    return f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" \
+xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Top languages by solved problems: {alt}">
+  <style>
+    text {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }}
+    .title {{ font-size: 15px; font-weight: 600; fill: #1f2328; }}
+    .label {{ font-size: 13px; fill: #1f2328; }}
+    .count {{ font-size: 13px; fill: #57606a; }}
+    .track {{ fill: #eaeef2; }}
+    @media (prefers-color-scheme: dark) {{
+      .title {{ fill: #e6edf3; }}
+      .label {{ fill: #e6edf3; }}
+      .count {{ fill: #8b949e; }}
+      .track {{ fill: #30363d; }}
+    }}
+  </style>
+  <text x="0" y="24" class="title">Top {len(top)} Languages</text>{"".join(rows)}
+</svg>
+"""
+
+
 # ---------------------------------------------------------------- planning
 
 
@@ -238,10 +298,25 @@ def build_readme() -> str:
     total = sum(len(v) for v in buckets.values())
     counts = {d: len(buckets.get(d, [])) for d in DIFF_DIRS + [MISC]}
 
+    lang_counts: Counter[str] = Counter()
+    for items in buckets.values():
+        for _, _, path in items:
+            lang_counts.update(languages(path))
+    top_langs = lang_counts.most_common(5)
+
+    chart_path = REPO / "docs" / "leetcode-languages.svg"
+    if top_langs:
+        chart_path.parent.mkdir(parents=True, exist_ok=True)
+        chart_path.write_text(language_chart_svg(top_langs), encoding="utf-8")
+    elif chart_path.exists():
+        chart_path.unlink()
+
     out = [
         "# compscie",
         "",
         "LeetCode solutions and computer-science research notes.",
+        "",
+        "## LeetCode",
         "",
         f"**{total} problems solved**, filed by difficulty - one folder each, "
         "with one file per language I solved it in.",
@@ -253,10 +328,19 @@ def build_readme() -> str:
         out.append(f"| [{d.capitalize()}](#{d}) | {counts.get(d, 0)} |")
     if counts.get(MISC):
         out.append(f"| [Misc](#misc) | {counts[MISC]} |")
+    out += [f"| **Total** | **{total}** |", ""]
+
+    if top_langs:
+        out += [
+            "### Languages",
+            "",
+            "![Top languages by solved problems]"
+            "(docs/leetcode-languages.svg)",
+            "",
+        ]
+
     out += [
-        f"| **Total** | **{total}** |",
-        "",
-        "## Layout",
+        "### Layout",
         "",
         "```",
         "leetcode/easy|medium|hard/   one folder per problem: `0001. Two Sum`",
@@ -275,23 +359,12 @@ def build_readme() -> str:
         "",
     ]
 
-    notes_root = REPO / "notes"
-    if notes_root.is_dir():
-        topics = sorted(x for x in notes_root.iterdir() if x.is_dir())
-        if topics:
-            out += ["## Notes", "",
-                    "Research notes and deep dives, exported from my Notion knowledge base.", ""]
-            for t in topics:
-                pages = len(list(t.rglob("*.md")))
-                out.append(f"- [{t.name}](notes/{t.name}/) - {pages} page(s)")
-            out.append("")
-
     for d in DIFF_DIRS + [MISC]:
         items = buckets.get(d)
         if not items:
             continue
         out += [
-            f"## {d.capitalize() if d != MISC else 'Misc'}",
+            f"### {d.capitalize() if d != MISC else 'Misc'}",
             "",
             "| # | Problem | Languages |",
             "| ---: | --- | --- |",
@@ -303,6 +376,17 @@ def build_readme() -> str:
             langs = ", ".join(languages(path)) or "-"
             out.append(f"| {num} | [{label}]({link}) | {langs} |")
         out.append("")
+
+    notes_root = REPO / "notes"
+    if notes_root.is_dir():
+        topics = sorted(x for x in notes_root.iterdir() if x.is_dir())
+        if topics:
+            out += ["## Notes", "",
+                    "Research notes and deep dives, exported from my Notion knowledge base.", ""]
+            for t in topics:
+                pages = len(list(t.rglob("*.md")))
+                out.append(f"- [{t.name}](notes/{t.name}/) - {pages} page(s)")
+            out.append("")
 
     return "\n".join(out).rstrip() + "\n"
 

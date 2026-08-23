@@ -2,6 +2,8 @@
 
 LeetCode solutions and computer-science research notes.
 
+## LeetCode
+
 **596 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 | | Count |
@@ -12,7 +14,11 @@ LeetCode solutions and computer-science research notes.
 | [Misc](#misc) | 9 |
 | **Total** | **596** |
 
-## Layout
+### Languages
+
+![Top languages by solved problems](docs/leetcode-languages.svg)
+
+### Layout
 
 ```
 leetcode/easy|medium|hard/   one folder per problem: `0001. Two Sum`
@@ -29,13 +35,7 @@ make organize   # preview where things would land
 make apply      # file them and refresh this README
 ```
 
-## Notes
-
-Research notes and deep dives, exported from my Notion knowledge base.
-
-- [go](notes/go/) - 20 page(s)
-
-## Easy
+### Easy
 
 | # | Problem | Languages |
 | ---: | --- | --- |
@@ -299,7 +299,7 @@ Research notes and deep dives, exported from my Notion knowledge base.
 | 3622 | [Check Divisibility by Digit Sum and Product](leetcode/easy/3622.%20Check%20Divisibility%20by%20Digit%20Sum%20and%20Product) | C, Go, Python |
 | 3783 | [Mirror Distance of an Integer](leetcode/easy/3783.%20Mirror%20Distance%20of%20an%20Integer) | Go, Python, TypeScript |
 
-## Medium
+### Medium
 
 | # | Problem | Languages |
 | ---: | --- | --- |
@@ -608,7 +608,7 @@ Research notes and deep dives, exported from my Notion knowledge base.
 | 3508 | [Implement Router](leetcode/medium/3508.%20Implement%20Router) | Go |
 | 3623 | [Count Number of Trapezoids I](leetcode/medium/3623.%20Count%20Number%20of%20Trapezoids%20I) | Go |
 
-## Hard
+### Hard
 
 | # | Problem | Languages |
 | ---: | --- | --- |
@@ -637,7 +637,7 @@ Research notes and deep dives, exported from my Notion knowledge base.
 | 2366 | [Minimum Replacements to Sort the Array](leetcode/hard/2366.%20Minimum%20Replacements%20to%20Sort%20the%20Array) | Go, Rust |
 | 2642 | [Design Graph With Shortest Path Calculator](leetcode/hard/2642.%20Design%20Graph%20With%20Shortest%20Path%20Calculator) | Go |
 
-## Misc
+### Misc
 
 | # | Problem | Languages |
 | ---: | --- | --- |
@@ -650,3 +650,9 @@ Research notes and deep dives, exported from my Notion knowledge base.
 |  | [Number of Islands](leetcode/misc/Number%20of%20Islands) | TypeScript |
 |  | [Only Child](leetcode/misc/Only%20Child) | TypeScript |
 |  | [Sum of First N Odd Integers](leetcode/misc/Sum%20of%20First%20N%20Odd%20Integers) | Java, TypeScript |
+
+## Notes
+
+Research notes and deep dives, exported from my Notion knowledge base.
+
+- [go](notes/go/) - 20 page(s)
