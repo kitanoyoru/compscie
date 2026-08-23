@@ -4,11 +4,12 @@ Organize LeetCode solution folders by difficulty.
 
 Layout produced:
 
-    easy/0001. Two Sum/main.go
-    medium/0002. Add Two Numbers/main.ts
-    hard/0004. Median of Two Sorted Arrays/main.rs
-    misc/<anything that could not be identified>
-    structures/            (untouched)
+    leetcode/easy/0001. Two Sum/main.go
+    leetcode/medium/0002. Add Two Numbers/main.ts
+    leetcode/hard/0004. Median of Two Sorted Arrays/main.rs
+    leetcode/misc/<anything that could not be identified>
+    notes/                 research notes (untouched)
+    structures/            shared helpers (untouched)
     README.md              (regenerated index)
 
 Run it any time. It is idempotent: solve a new problem, drop the folder
@@ -39,11 +40,13 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 INDEX = Path(__file__).resolve().parent / "leetcode-index.tsv"
 
+PROBLEMS = "leetcode"          # all problem folders live under this root
 DIFF_DIRS = ["easy", "medium", "hard"]
 MISC = "misc"
 # Directories at the repo root that are never treated as problem folders.
 PROTECTED = {
     ".git", ".github", "node_modules", "tools", "structures",
+    "notes", "docs", "research",
     ".vscode", ".idea", ".ccls-cache",
 }
 LEGACY = ["codeforces", "codewars"]
@@ -157,7 +160,8 @@ def plan(meta: dict[int, dict]) -> tuple[list[tuple[Path, Path, str]], list[str]
     notes: list[str] = []
     claimed: dict[Path, Path] = {}
 
-    misc_dir = REPO / MISC
+    root = REPO / PROBLEMS
+    misc_dir = root / MISC
 
     for src in collect_sources(meta):
         pid = parse_id(src.name)
@@ -169,10 +173,10 @@ def plan(meta: dict[int, dict]) -> tuple[list[tuple[Path, Path, str]], list[str]
             continue
 
         if info:
-            dest = REPO / info["difficulty"] / canonical(pid, info["title"])
+            dest = root / info["difficulty"] / canonical(pid, info["title"])
             reason = f"#{pid} {info['difficulty']}"
         else:
-            dest = REPO / MISC / safe(src.name)
+            dest = misc_dir / safe(src.name)
             reason = "unrecognised - no matching problem id"
             notes.append(f"  ? {src.relative_to(REPO)}  ->  {MISC}/")
 
@@ -188,10 +192,10 @@ def plan(meta: dict[int, dict]) -> tuple[list[tuple[Path, Path, str]], list[str]
                 f"  ! {src.relative_to(REPO)} conflicts with "
                 f"{other.relative_to(REPO)} -> parked in {MISC}/"
             )
-            dest, reason = REPO / MISC / f"{safe(src.name)} (duplicate)", "duplicate"
+            dest, reason = misc_dir / f"{safe(src.name)} (duplicate)", "duplicate"
             if dest in claimed or dest.exists():
                 n = 2
-                while (alt := REPO / MISC / f"{safe(src.name)} (duplicate {n})") in claimed or alt.exists():
+                while (alt := misc_dir / f"{safe(src.name)} (duplicate {n})") in claimed or alt.exists():
                     n += 1
                 dest = alt
 
@@ -207,7 +211,7 @@ def prune_empty(root: Path) -> list[Path]:
         p = Path(base)
         if p == root or ".git" in p.parts or "node_modules" in p.parts:
             continue
-        if p.name in PROTECTED and p.parent == REPO:
+        if p.parent == REPO and (p.name in PROTECTED or p.name == PROBLEMS):
             continue
         try:
             if not any(p.iterdir()):
@@ -224,7 +228,7 @@ def prune_empty(root: Path) -> list[Path]:
 def build_readme() -> str:
     buckets: dict[str, list[tuple[int, str, Path]]] = defaultdict(list)
     for d in DIFF_DIRS + [MISC]:
-        base = REPO / d
+        base = REPO / PROBLEMS / d
         if not base.is_dir():
             continue
         for p in sorted(base.iterdir()):
@@ -235,10 +239,12 @@ def build_readme() -> str:
     counts = {d: len(buckets.get(d, [])) for d in DIFF_DIRS + [MISC]}
 
     out = [
-        "# LeetCode",
+        "# compscie",
         "",
-        f"{total} problems solved, filed by difficulty. "
-        "Each folder holds one problem, with one file per language I solved it in.",
+        "LeetCode solutions and computer-science research notes.",
+        "",
+        f"**{total} problems solved**, filed by difficulty - one folder each, "
+        "with one file per language I solved it in.",
         "",
         "| | Count |",
         "| --- | ---: |",
@@ -253,10 +259,11 @@ def build_readme() -> str:
         "## Layout",
         "",
         "```",
-        "easy/    medium/    hard/     one folder per problem: `0001. Two Sum`",
-        "misc/                         unidentified or non-LeetCode scratch work",
-        "structures/                   shared data structures and helpers",
-        "tools/                        organize.py + the problem index",
+        "leetcode/easy|medium|hard/   one folder per problem: `0001. Two Sum`",
+        "leetcode/misc/               unidentified or non-LeetCode scratch work",
+        "notes/                       research notes and deep dives",
+        "structures/                  shared data structures and helpers",
+        "tools/                       organize.py + the problem index",
         "```",
         "",
         "Solve something new, drop the folder anywhere, then run:",
@@ -267,6 +274,17 @@ def build_readme() -> str:
         "```",
         "",
     ]
+
+    notes_root = REPO / "notes"
+    if notes_root.is_dir():
+        topics = sorted(x for x in notes_root.iterdir() if x.is_dir())
+        if topics:
+            out += ["## Notes", "",
+                    "Research notes and deep dives, exported from my Notion knowledge base.", ""]
+            for t in topics:
+                pages = len(list(t.rglob("*.md")))
+                out.append(f"- [{t.name}](notes/{t.name}/) - {pages} page(s)")
+            out.append("")
 
     for d in DIFF_DIRS + [MISC]:
         items = buckets.get(d)
@@ -281,7 +299,7 @@ def build_readme() -> str:
         for pid, name, path in sorted(items):
             label = name.split(". ", 1)[-1] if ". " in name else name
             num = f"{pid}" if pid < 10**6 else ""
-            link = urllib.parse.quote(f"{d}/{name}")
+            link = urllib.parse.quote(f"{PROBLEMS}/{d}/{name}")
             langs = ", ".join(languages(path)) or "-"
             out.append(f"| {num} | [{label}]({link}) | {langs} |")
         out.append("")
