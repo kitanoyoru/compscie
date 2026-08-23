@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [main, master, develop]
     types: [opened, synchronize, reopened]
+  workflow_dispatch:
 
 jobs:
   organize:
@@ -52,7 +53,7 @@ jobs:
           fi
 
       - name: Comment on PR with organization report
-        if: steps.analyze.outputs.HAS_ISSUES == 'true' || steps.analyze.outputs.HAS_WARNINGS == 'true'
+        if: github.event_name == 'pull_request' && (steps.analyze.outputs.HAS_ISSUES == 'true' || steps.analyze.outputs.HAS_WARNINGS == 'true')
         uses: actions/github-script@v7
         with:
           script: |

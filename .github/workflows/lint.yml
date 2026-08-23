@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [main, master, develop]
     types: [opened, synchronize, reopened]
+  workflow_dispatch:
 
 # Format-check only, no semantic linting. Solutions are standalone LeetCode
 # snippets (no shared module/build system, judge-implicit imports), so a
