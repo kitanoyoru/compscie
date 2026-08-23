@@ -3,7 +3,7 @@ package main
 import "math"
 
 func binarySearch(target int, arr []int) int {
-	low, high := 0, len(arr) - 1
+	low, high := 0, len(arr)-1
 
 	for low <= high {
 		mid := (low + high) / 2

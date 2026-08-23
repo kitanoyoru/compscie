@@ -1,3 +1,5 @@
+package main
+
 func findMin(nums []int) int {
 
 	start, end := 0, len(nums)-1

@@ -19,7 +19,7 @@ class Solution {
       if (flag == true) {
         return true;
       }
-    } 
+    }
     return false;
   }
 }

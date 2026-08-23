@@ -42,6 +42,5 @@ func maxProduct(root *TreeNode) int {
 
 	traverse(root)
 
-	return result % Mod 
+	return result % Mod
 }
-

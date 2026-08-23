@@ -1,6 +1,8 @@
 // Solved by @kitanoyoru
 // https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
 
+package main
+
 /**
  * Definition for singly-linked list.
  * type ListNode struct {

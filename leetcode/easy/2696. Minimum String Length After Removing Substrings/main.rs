@@ -18,5 +18,3 @@ impl Solution {
         stack.len() as i32
     }
 }
-
-

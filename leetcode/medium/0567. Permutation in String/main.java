@@ -8,7 +8,7 @@ class Solution {
         return false;
       }
     }
-    
+
     return true;
   }
 
@@ -24,13 +24,13 @@ class Solution {
     }
 
     for (int i = 0; i < s1l; i++) {
-      hm_1[(int)s1.charAt(i) - 97]++;
+      hm_1[(int) s1.charAt(i) - 97]++;
     }
 
     int i = 0, j = 0;
 
     while (j < s2l) {
-      hm_2[(int)s2.charAt(j) - 97]++;
+      hm_2[(int) s2.charAt(j) - 97]++;
       if (j - i + 1 == s1l) {
         if (this.check(hm_1, hm_2)) {
           return true;
@@ -39,7 +39,7 @@ class Solution {
       if (j - i + 1 < s1l) {
         j++;
       } else {
-        hm_2[(int)s2.charAt(i) - 97]--;
+        hm_2[(int) s2.charAt(i) - 97]--;
         i++;
         j++;
       }

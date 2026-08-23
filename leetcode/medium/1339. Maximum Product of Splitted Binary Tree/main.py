@@ -9,7 +9,7 @@ class TreeNode:
 
 
 class Solution:
-    _MOD = 10 ** 9 + 7
+    _MOD = 10**9 + 7
 
     def maxProduct(self, root: Optional[TreeNode]) -> int:
         result = 0

@@ -8,7 +8,7 @@
 //   pub left: Option<Rc<RefCell<TreeNode>>>,
 //   pub right: Option<Rc<RefCell<TreeNode>>>,
 // }
-// 
+//
 // impl TreeNode {
 //   #[inline]
 //   pub fn new(val: i32) -> Self {
@@ -20,8 +20,8 @@
 //   }
 // }
 
-use std::rc::Rc;
 use std::cell::RefCell;
+use std::rc::Rc;
 
 impl Solution {
     pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
@@ -31,8 +31,8 @@ impl Solution {
                 let right = root_ref.borrow_mut().right.take();
 
                 i32::max(Self::max_depth(left), Self::max_depth(right)) + 1
-            },
-            None => 0
+            }
+            None => 0,
         }
     }
 }

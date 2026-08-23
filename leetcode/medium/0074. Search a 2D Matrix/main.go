@@ -1,6 +1,8 @@
 // Solved by @kitanoyoru
 // https://leetcode.com/problems/search-a-2d-matrix/
 
+package main
+
 func searchMatrix(matrix [][]int, target int) bool {
 	rowLen := len(matrix[0])
 

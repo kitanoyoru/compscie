@@ -1,3 +1,5 @@
+package main
+
 var seen []bool
 
 func uniqueChars(s string) int {

@@ -10,4 +10,3 @@ func maxSubArray(nums []int) int {
 
 	return result
 }
-

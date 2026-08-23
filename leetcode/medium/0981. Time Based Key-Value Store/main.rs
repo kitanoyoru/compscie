@@ -1,26 +1,27 @@
-use std::collections::HashMap; 
+use std::collections::HashMap;
 
 struct TimeMap {
     map: HashMap<String, Vec<(i32, String)>>,
 }
 
-
-/** 
+/**
  * `&self` means the method takes an immutable reference.
  * If you need a mutable reference, change it to `&mut self` instead.
  */
 impl TimeMap {
-
     fn new() -> Self {
         TimeMap {
             map: HashMap::new(),
         }
     }
-    
+
     fn set(&mut self, key: String, value: String, timestamp: i32) {
-        self.map.entry(key).or_insert(Vec::new()).push((timestamp, value));
+        self.map
+            .entry(key)
+            .or_insert(Vec::new())
+            .push((timestamp, value));
     }
-    
+
     fn get(&self, key: String, timestamp: i32) -> String {
         match self.map.get(&key) {
             Some(values) => {
@@ -45,13 +46,13 @@ impl TimeMap {
                 }
 
                 result.to_string()
-            },
+            }
             None => String::new(),
         }
     }
 }
 
-/**
+/*
  * Your TimeMap object will be instantiated and called as such:
  * let obj = TimeMap::new();
  * obj.set(key, value, timestamp);

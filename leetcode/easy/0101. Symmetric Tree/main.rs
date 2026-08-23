@@ -8,7 +8,7 @@
 //   pub left: Option<Rc<RefCell<TreeNode>>>,
 //   pub right: Option<Rc<RefCell<TreeNode>>>,
 // }
-// 
+//
 // impl TreeNode {
 //   #[inline]
 //   pub fn new(val: i32) -> Self {
@@ -20,8 +20,8 @@
 //   }
 // }
 
-use std::rc::Rc;
 use std::cell::RefCell;
+use std::rc::Rc;
 
 type OptionalNode = Option<Rc<RefCell<TreeNode>>>;
 
@@ -42,8 +42,11 @@ impl Solution {
 
     pub fn is_symmetric(root: OptionalNode) -> bool {
         match root {
-            Some(root_ref) => Self::helper(root_ref.borrow().left.clone(), root_ref.borrow().right.clone()),
-            None => true
-        }        
+            Some(root_ref) => Self::helper(
+                root_ref.borrow().left.clone(),
+                root_ref.borrow().right.clone(),
+            ),
+            None => true,
+        }
     }
 }

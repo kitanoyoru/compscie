@@ -25,4 +25,3 @@ func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 
 	return prefixLen+suffixLen >= len(words1)
 }
-

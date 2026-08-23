@@ -37,4 +37,3 @@ impl Solution {
         result
     }
 }
-

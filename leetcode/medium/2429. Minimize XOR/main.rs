@@ -41,4 +41,3 @@ impl Solution {
         x & !(1 << bit)
     }
 }
-

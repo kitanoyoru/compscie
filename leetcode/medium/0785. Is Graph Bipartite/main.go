@@ -22,7 +22,7 @@ func isBipartite(graph [][]int) bool {
 						queue = append(queue, u)
 					} else if color[v] == color[u] {
 						return false
-					} 
+					}
 				}
 			}
 		}

@@ -3,7 +3,7 @@ impl Solution {
         use std::cmp::Ordering;
         use std::collections::HashMap;
 
-        let mut m = HashMap::<usize, i32>::new(); 
+        let mut m = HashMap::<usize, i32>::new();
         for (i, c) in order.bytes().enumerate() {
             m.insert((c - b'a') as usize, i)
         }
@@ -23,9 +23,8 @@ impl Solution {
             a.len() <= b.len()
         };
 
-
         for i in 1..words.len() {
-            if !compare(words[i-1].as_bytes(), words[i].as_bytes()) {
+            if !compare(words[i - 1].as_bytes(), words[i].as_bytes()) {
                 return false;
             }
         }

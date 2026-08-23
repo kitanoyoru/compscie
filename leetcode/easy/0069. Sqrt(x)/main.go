@@ -20,6 +20,5 @@ func mySqrt(x int) int {
 		}
 	}
 
-	return right 
+	return right
 }
-

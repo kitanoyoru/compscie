@@ -18,7 +18,7 @@ func sortedArrayToBST(nums []int) *TreeNode {
 
 	mid := int(math.Ceil(float64(len(nums) / 2)))
 
-	node := &TreeNode { Val: nums[mid] }
+	node := &TreeNode{Val: nums[mid]}
 	node.Left = sortedArrayToBST(nums[0:mid])
 	node.Right = sortedArrayToBST(nums[mid+1:])
 

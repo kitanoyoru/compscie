@@ -40,5 +40,5 @@ func maxLevelSum(root *TreeNode) int {
 		}
 	}
 
-	return smallestLayer 
+	return smallestLayer
 }

@@ -25,4 +25,3 @@ impl Solution {
         min_length as i32
     }
 }
-

@@ -7,14 +7,14 @@ class Solution:
 
         original[0] = 0
         for i in range(0, len(derived)):
-            original[i+1] = derived[i] ^ original[i]
+            original[i + 1] = derived[i] ^ original[i]
 
-        check_for_zero = (original[0] == original[len(original) - 1])
+        check_for_zero = original[0] == original[len(original) - 1]
 
         original[0] = 1
         for i in range(0, len(derived)):
-            original[i+1] = derived[i] ^ original[i]
+            original[i + 1] = derived[i] ^ original[i]
 
-        check_for_one = (original[0] == original[len(original) - 1])
+        check_for_one = original[0] == original[len(original) - 1]
 
-        return (check_for_zero or check_for_one)
+        return check_for_zero or check_for_one

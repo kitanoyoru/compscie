@@ -26,14 +26,14 @@ class Solution {
       return new ArrayList<>();
     }
     List<List<Integer>> ans = new ArrayList<>();
-    
+
     Queue<Node> q = new LinkedList<>();
     q.add(root);
 
     while (!q.isEmpty()) {
       int len = q.size();
       List<Integer> level = new ArrayList<>();
-      
+
       while (len-- != 0) {
         Node node = q.remove();
 
@@ -49,4 +49,3 @@ class Solution {
     return ans;
   }
 }
-

@@ -8,8 +8,7 @@ class Solution {
     path.add(v);
     if (v == graph.length - 1) {
       ans.add(new ArrayList<>(path));
-    }
-    else {
+    } else {
       for (int u : graph[v]) {
         dfs(u, path, graph, ans);
       }
@@ -24,4 +23,3 @@ class Solution {
     return ans;
   }
 }
-

@@ -39,4 +39,3 @@ impl Solution {
         result
     }
 }
-

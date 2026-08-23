@@ -1,3 +1,5 @@
+package main
+
 func binExpand(x float64, n int) float64 {
 	if n == 0 {
 		return 1.0

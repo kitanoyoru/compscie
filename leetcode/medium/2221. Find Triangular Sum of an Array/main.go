@@ -7,10 +7,9 @@ func triangularSum(nums []int) int {
 
 	newNums := make([]int, 0, len(nums)-1)
 
-	for i := 0; i < len(nums) - 1; i++ {
+	for i := 0; i < len(nums)-1; i++ {
 		newNums = append(newNums, (nums[i]+nums[i+1])%10)
 	}
 
 	return triangularSum(newNums)
 }
-

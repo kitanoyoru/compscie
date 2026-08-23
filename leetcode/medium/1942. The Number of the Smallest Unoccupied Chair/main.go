@@ -78,4 +78,3 @@ func smallestChair(times [][]int, targetFriend int) int {
 
 	return -1
 }
-

@@ -1,5 +1,3 @@
 impl Solution {
-    pub fn max_length(arr: Vec<String>) -> i32 {
-        
-    }
+    pub fn max_length(arr: Vec<String>) -> i32 {}
 }

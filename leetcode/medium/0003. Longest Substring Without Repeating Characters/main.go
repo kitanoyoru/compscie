@@ -27,4 +27,3 @@ func lengthOfLongestSubstring(s string) int {
 
 	return result
 }
-

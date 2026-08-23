@@ -13,7 +13,7 @@ class Solution {
         start = mid + 1;
       }
     }
-    
+
     int temp = end;
     start = 0;
     end = nums.length - 1;
@@ -35,7 +35,7 @@ class Solution {
         end = mid - 1;
       }
     }
-    
+
     return -1;
   }
 }

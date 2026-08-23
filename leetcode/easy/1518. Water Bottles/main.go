@@ -11,7 +11,7 @@ func numWaterBottles(numBottles int, numExchange int) int {
 			return 0
 		}
 
-		newBottles := math.Floor((float64(bottles) + float64(empty))/float64(numExchange))
+		newBottles := math.Floor((float64(bottles) + float64(empty)) / float64(numExchange))
 		empty = (bottles + empty) % numExchange
 
 		return bottles + helper(int(newBottles))
@@ -19,4 +19,3 @@ func numWaterBottles(numBottles int, numExchange int) int {
 
 	return helper(numBottles)
 }
-

@@ -40,4 +40,3 @@ func equals(freq1, freq2 []int) bool {
 
 	return true
 }
-

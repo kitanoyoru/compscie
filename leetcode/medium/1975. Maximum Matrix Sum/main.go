@@ -25,7 +25,7 @@ func maxMatrixSum(matrix [][]int) int64 {
 		return int64(sumAbsValues)
 	}
 
-	return int64(sumAbsValues) - int64(minAbsValue) 
+	return int64(sumAbsValues) - int64(minAbsValue)
 
 }
 

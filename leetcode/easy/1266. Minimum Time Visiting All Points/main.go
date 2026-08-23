@@ -21,4 +21,3 @@ func abs(value int) int {
 
 	return value
 }
-

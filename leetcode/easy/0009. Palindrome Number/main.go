@@ -1,3 +1,5 @@
+package main
+
 func isPalindrome(x int) bool {
 	n, rev := x, 0
 

@@ -25,4 +25,3 @@ impl Solution {
         result as i32
     }
 }
-

@@ -20,10 +20,10 @@ class Solution {
     }
 
     for (int i = windowSize; i < strSize; i++) {
-      windowFreq[(int)s.charAt(i) - 97]++;
-      windowFreq[(int)s.charAt(i-windowSize) - 97]--;
+      windowFreq[(int) s.charAt(i) - 97]++;
+      windowFreq[(int) s.charAt(i - windowSize) - 97]--;
       if (isSame(windowFreq, pFreq)) {
-        ans.add(i-windowSize+1);
+        ans.add(i - windowSize + 1);
       }
     }
 
@@ -34,7 +34,7 @@ class Solution {
     int[] freq = new int[26];
     Arrays.fill(freq, 0);
     for (int i = 0; i < s.length(); i++) {
-      freq[(int)s.charAt(i) - 97]++;
+      freq[(int) s.charAt(i) - 97]++;
     }
 
     return freq;

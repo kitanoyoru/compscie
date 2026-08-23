@@ -11,7 +11,6 @@ func findTargetSumWays(nums []int, target int) int {
 			return 0
 		}
 
-
 		return backtrack(idx+1, sum+nums[idx]) + backtrack(idx+1, sum-nums[idx])
 	}
 

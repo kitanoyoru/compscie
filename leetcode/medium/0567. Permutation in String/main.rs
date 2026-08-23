@@ -39,9 +39,7 @@ impl Solution {
                 return false;
             }
         }
-        
+
         true
     }
 }
-
-

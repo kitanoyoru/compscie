@@ -14,8 +14,6 @@ func getHappyString(n int, k int) string {
 
 	for idx := range n {
 
-
 	}
-
 
 }

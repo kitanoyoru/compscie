@@ -8,9 +8,9 @@ class Solution {
     for (int num : nums) {
       mp.put(num, mp.getOrDefault(num, 0) + 1);
     }
-    
+
     PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> mp.get(b) - mp.get(a));
-    
+
     for (int key : mp.keySet()) {
       pq.add(key);
     }

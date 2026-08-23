@@ -1,0 +1,100 @@
+name: Check File Organization
+
+on:
+  pull_request:
+    branches: [main, master, develop]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  organize:
+    name: Verify file organization
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run organization check (dry run)
+        id: check
+        run: |
+          python3 tools/organize.py > /tmp/organize_output.txt 2>&1
+          cat /tmp/organize_output.txt
+          echo "OUTPUT<<EOF" >> $GITHUB_OUTPUT
+          cat /tmp/organize_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Analyze organization status
+        id: analyze
+        run: |
+          output=$(cat /tmp/organize_output.txt)
+
+          # Check if there are any moves needed
+          if echo "$output" | grep -q "folder(s) to move"; then
+            echo "HAS_ISSUES=true" >> $GITHUB_OUTPUT
+            echo "Detected files that need to be reorganized"
+          else
+            echo "HAS_ISSUES=false" >> $GITHUB_OUTPUT
+            echo "All files are properly organized"
+          fi
+
+          # Check for unrecognised problems
+          if echo "$output" | grep -q "needs a look"; then
+            echo "HAS_WARNINGS=true" >> $GITHUB_OUTPUT
+          else
+            echo "HAS_WARNINGS=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR with organization report
+        if: steps.analyze.outputs.HAS_ISSUES == 'true' || steps.analyze.outputs.HAS_WARNINGS == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const output = fs.readFileSync('/tmp/organize_output.txt', 'utf8');
+
+            let comment = '### 📁 File Organization Check\n\n';
+
+            if (output.includes('folder(s) to move')) {
+              comment += '❌ **Files need to be reorganized**\n\n';
+              comment += '```\n' + output + '\n```\n\n';
+              comment += '**How to fix:**\n';
+              comment += '1. Run `make organize` to see the preview\n';
+              comment += '2. Run `make apply` to organize the files\n';
+              comment += '3. Commit the changes and push\n\n';
+            } else {
+              comment += '✅ **All files are properly organized**\n\n';
+            }
+
+            if (output.includes('needs a look')) {
+              comment += '⚠️ **Note:** Some items need review (check the output above)\n';
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Fail if files are not organized
+        if: steps.analyze.outputs.HAS_ISSUES == 'true'
+        run: |
+          echo "❌ PR cannot be merged - files are not properly organized"
+          echo ""
+          echo "Please run:"
+          echo "  make organize  # preview the changes"
+          echo "  make apply     # apply the organization"
+          echo ""
+          echo "Then commit and push the changes."
+          exit 1
+
+      - name: Success message
+        if: steps.analyze.outputs.HAS_ISSUES == 'false'
+        run: echo "✅ All files are properly organized!"

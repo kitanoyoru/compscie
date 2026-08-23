@@ -27,4 +27,3 @@ func countVowelSubstrings(word string) int {
 
 	return result
 }
-

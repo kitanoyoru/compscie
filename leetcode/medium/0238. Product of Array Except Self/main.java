@@ -20,7 +20,7 @@ class Solution {
         prod *= num;
       }
     }
-    
+
     if (containsZero) {
       if (counterOfZero >= 2) {
         return ans;

@@ -3,7 +3,7 @@ package main
 import "math"
 
 func largestTriangleArea(points [][]int) float64 {
-	var result float64 
+	var result float64
 
 	for i := 0; i < len(points); i++ {
 		for j := i + 1; j < len(points); j++ {

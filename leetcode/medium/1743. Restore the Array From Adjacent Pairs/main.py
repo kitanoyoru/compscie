@@ -4,7 +4,7 @@ from typing import DefaultDict, List
 
 class Solution:
     def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:
-        graph: DefaultDict[int, List[int]]= defaultdict(list)
+        graph: DefaultDict[int, List[int]] = defaultdict(list)
 
         for u, v in adjacentPairs:
             graph[u].append(v)

@@ -10,4 +10,3 @@ func numSteps(s string) int {
 
 	return steps + carry
 }
-

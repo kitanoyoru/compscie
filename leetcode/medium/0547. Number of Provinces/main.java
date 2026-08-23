@@ -6,7 +6,7 @@ class Solution {
     int n = isConnected.length;
     int counter = 0;
     boolean[] visited = new boolean[n];
-    
+
     for (int i = 0; i < n; i++) {
       if (!visited[i]) {
         Queue<Integer> q = new LinkedList<>();
@@ -16,9 +16,7 @@ class Solution {
         while (!q.isEmpty()) {
           int temp = q.remove();
           visited[temp] = true;
-          for (int j = 0; j < n; j++) 
-            if (!visited[j] && isConnected[temp][j] == 1) 
-              q.add(j);
+          for (int j = 0; j < n; j++) if (!visited[j] && isConnected[temp][j] == 1) q.add(j);
         }
       }
     }

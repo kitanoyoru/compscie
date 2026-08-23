@@ -22,6 +22,5 @@ func preorderTraversal(root *TreeNode) []int {
 
 	preorder(root)
 
-	return result 
+	return result
 }
-

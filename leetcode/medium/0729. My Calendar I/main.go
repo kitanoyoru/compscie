@@ -32,4 +32,3 @@ func (this *MyCalendar) Book(start int, end int) bool {
  * obj := Constructor();
  * param_1 := obj.Book(start,end);
  */
-

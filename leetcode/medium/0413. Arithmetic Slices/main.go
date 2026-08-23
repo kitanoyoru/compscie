@@ -1,6 +1,8 @@
 // Solved by @kitanoyoru
 // https://leetcode.com/problems/arithmetic-slices
 
+package main
+
 func numberOfArithmeticSlices(nums []int) int {
 	if len(nums) == 0 {
 		return 0

@@ -8,8 +8,8 @@ class Solution {
 
   public int maxAreaOfIsland(int[][] grid) {
     int rows = grid.length, cols = grid[0].length;
-    int maxArea = 0; 
-    
+    int maxArea = 0;
+
     boolean[][] visited = new boolean[rows][cols];
 
     for (var i = 0; i < rows; i++) {
@@ -32,13 +32,18 @@ class Solution {
 
     visited[sr][sc] = true;
     s.add(new int[] {sr, sc});
-    
+
     while (!s.isEmpty()) {
       int[] node = s.pop();
       for (int[] d : DIRECTIONS) {
         int row = node[0] + d[0];
         int col = node[1] + d[1];
-        if (row >= 0 && row < rows && col >= 0 && col < cols && !visited[row][col] && grid[row][col] == 1) {
+        if (row >= 0
+            && row < rows
+            && col >= 0
+            && col < cols
+            && !visited[row][col]
+            && grid[row][col] == 1) {
           visited[row][col] = true;
           counter++;
           s.add(new int[] {row, col});

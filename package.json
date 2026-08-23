@@ -5,6 +5,7 @@
   "author": "Alexandr Rutkovskij <kitanoyoru@protonmail.com>",
   "scripts": {
     "pretty": "prettier --write .",
+    "pretty:check": "prettier --check .",
     "organize": "python3 tools/organize.py",
     "organize:apply": "python3 tools/organize.py --apply"
   },

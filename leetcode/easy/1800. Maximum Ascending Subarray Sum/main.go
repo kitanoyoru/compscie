@@ -15,4 +15,3 @@ func maxAscendingSum(nums []int) int {
 
 	return max(result, tempSum)
 }
-

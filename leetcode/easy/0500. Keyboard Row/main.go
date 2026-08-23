@@ -44,4 +44,3 @@ func findWords(words []string) []string {
 
 	return result
 }
-

@@ -12,8 +12,12 @@ type TreeNode struct {
 }
 
 func sortedListToBST(head *ListNode) *TreeNode {
-	if head == nil { return nil }
-	if head.Next == nil { return &TreeNode{ Val: head.Val } }
+	if head == nil {
+		return nil
+	}
+	if head.Next == nil {
+		return &TreeNode{Val: head.Val}
+	}
 
 	slow, fast := head, head
 
@@ -25,7 +29,7 @@ func sortedListToBST(head *ListNode) *TreeNode {
 		slow = slow.Next
 	}
 
-	node := &TreeNode { Val: slow.Val }
+	node := &TreeNode{Val: slow.Val}
 
 	mid.Next = nil
 
@@ -34,4 +38,3 @@ func sortedListToBST(head *ListNode) *TreeNode {
 
 	return node
 }
-

@@ -5,11 +5,8 @@ struct SubrectangleQueries {
 }
 
 impl SubrectangleQueries {
-
     fn new(rectangle: Vec<Vec<i32>>) -> Self {
-        Self {
-            matrix: rectangle,
-        }
+        Self { matrix: rectangle }
     }
 
     fn update_subrectangle(&mut self, row1: i32, col1: i32, row2: i32, col2: i32, new_value: i32) {
@@ -24,5 +21,3 @@ impl SubrectangleQueries {
         self.matrix[row as usize][col as usize]
     }
 }
-
-

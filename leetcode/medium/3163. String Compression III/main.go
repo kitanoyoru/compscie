@@ -22,4 +22,3 @@ func compressedString(word string) string {
 
 	return result.String()
 }
-

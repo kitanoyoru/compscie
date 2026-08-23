@@ -26,4 +26,3 @@ func largestSquareArea(bottomLeft [][]int, topRight [][]int) int64 {
 
 	return maxSide * maxSide
 }
-

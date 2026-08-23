@@ -14,7 +14,7 @@ class Solution {
       sum += i >= 0 ? a.charAt(i) - '0' : 0;
       sum += j >= 0 ? b.charAt(j) - '0' : 0;
 
-      ans.append((char)(sum % 2 + '0'));
+      ans.append((char) (sum % 2 + '0'));
 
       sum /= 2;
 

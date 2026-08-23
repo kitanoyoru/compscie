@@ -40,4 +40,3 @@ func maxKelements(nums []int, k int) int64 {
 
 	return score
 }
-

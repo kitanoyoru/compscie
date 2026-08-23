@@ -7,12 +7,11 @@ func missingNumber(nums []int) int {
 		set[num] = struct{}{}
 	}
 
-	for num := range len(nums)+1 {
+	for num := range len(nums) + 1 {
 		if _, exists := set[num]; !exists {
-			return num 
-		} 
+			return num
+		}
 	}
 
 	return -1
 }
-

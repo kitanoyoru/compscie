@@ -86,4 +86,3 @@ func countOfAtoms(formula string) string {
 
 	return sb.String()
 }
-

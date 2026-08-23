@@ -1,0 +1,141 @@
+name: Lint
+
+on:
+  pull_request:
+    branches: [main, master, develop]
+    types: [opened, synchronize, reopened]
+
+# Format-check only, no semantic linting. Solutions are standalone LeetCode
+# snippets (no shared module/build system, judge-implicit imports), so a
+# real linter/compiler would flag hundreds of pre-existing non-issues.
+# tools/lint-exclude.txt lists solutions that are pre-existing WIP/broken
+# and don't parse - a formatter can't format invalid syntax.
+
+jobs:
+  go-fmt:
+    name: gofmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: gofmt -l
+        run: |
+          source tools/lint-collect-files.sh
+          collect_files leetcode structures -name '*.go'
+
+          if [ "${#FILES[@]}" -eq 0 ]; then
+            echo "no Go files to check"
+            exit 0
+          fi
+
+          bad="$(gofmt -l "${FILES[@]}")"
+          if [ -n "$bad" ]; then
+            echo "not gofmt-formatted:"
+            echo "$bad"
+            echo
+            echo "fix with: gofmt -w <file>"
+            exit 1
+          fi
+
+  rust-fmt:
+    name: rustfmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+
+      - name: rustfmt --check
+        run: |
+          source tools/lint-collect-files.sh
+          collect_files leetcode structures -name '*.rs'
+
+          if [ "${#FILES[@]}" -eq 0 ]; then
+            echo "no Rust files to check"
+            exit 0
+          fi
+
+          rustfmt --check --edition 2021 "${FILES[@]}"
+
+  python-format:
+    name: ruff format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: pip install ruff
+        run: pip install ruff
+
+      - name: ruff format --check
+        run: |
+          source tools/lint-collect-files.sh
+          collect_files leetcode -name '*.py'
+
+          if [ "${#FILES[@]}" -eq 0 ]; then
+            echo "no Python files to check"
+            exit 0
+          fi
+
+          ruff format --check "${FILES[@]}"
+
+  java-format:
+    name: google-java-format
+    runs-on: ubuntu-latest
+    env:
+      GJF_VERSION: '1.24.0'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: download google-java-format
+        run: |
+          curl -sL -o /tmp/gjf.jar \
+            "https://github.com/google/google-java-format/releases/download/v${GJF_VERSION}/google-java-format-${GJF_VERSION}-all-deps.jar"
+
+      - name: google-java-format --dry-run
+        run: |
+          source tools/lint-collect-files.sh
+          collect_files leetcode -name '*.java'
+
+          if [ "${#FILES[@]}" -eq 0 ]; then
+            echo "no Java files to check"
+            exit 0
+          fi
+
+          java -jar /tmp/gjf.jar --dry-run --set-exit-if-changed "${FILES[@]}"
+
+  ts-format:
+    name: prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: prettier --check
+        run: |
+          source tools/lint-collect-files.sh
+          collect_files leetcode \( -name '*.ts' -o -name '*.js' \)
+
+          if [ "${#FILES[@]}" -eq 0 ]; then
+            echo "no TS/JS files to check"
+            exit 0
+          fi
+
+          npx --yes prettier@2.7.1 --check "${FILES[@]}"

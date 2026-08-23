@@ -6,7 +6,7 @@ func removeElement(nums []int, val int) int {
 		if v == val {
 			ptr++
 		} else {
-			nums[i-ptr] = v 
+			nums[i-ptr] = v
 		}
 	}
 

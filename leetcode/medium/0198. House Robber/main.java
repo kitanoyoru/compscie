@@ -13,7 +13,7 @@ class Solution {
       prev1 = Math.max(prev2 + num, prev1);
       prev2 = temp;
     }
-   
+
     return prev1;
   }
 }

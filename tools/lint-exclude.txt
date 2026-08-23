@@ -1,0 +1,11 @@
+# Files excluded from format-check CI (.github/workflows/lint.yml).
+# Each is a pre-existing, incomplete/broken solution that doesn't parse -
+# a formatter can't format code that isn't valid syntax. Not addressed here
+# since fixing the actual algorithm isn't a formatting concern.
+leetcode/medium/1254. Number of Closed Islands/main.go
+leetcode/medium/0071. Simplify Path/main.rs
+leetcode/easy/0206. Reverse Linked List/main.rs
+leetcode/medium/0055. Jump Game/main.py
+leetcode/medium/0114. Flatten Binary Tree to Linked List/main.java
+leetcode/medium/0417. Pacific Atlantic Water Flow/main.java
+leetcode/medium/0692. Top K Frequent Words/main.java

@@ -12,10 +12,15 @@ class Solution {
 
     while (!q.isEmpty()) {
       int[] entry = q.remove();
-      for (var d : DIRECTIONS ) {
+      for (var d : DIRECTIONS) {
         int newRow = entry[0] + d[0];
         int newCol = entry[1] + d[1];
-        if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && !visited[newRow][newCol] && grid[newRow][newCol] == '1') {
+        if (newRow >= 0
+            && newRow < rows
+            && newCol >= 0
+            && newCol < cols
+            && !visited[newRow][newCol]
+            && grid[newRow][newCol] == '1') {
           q.add(new int[] {newRow, newCol});
           visited[newRow][newCol] = true;
         }

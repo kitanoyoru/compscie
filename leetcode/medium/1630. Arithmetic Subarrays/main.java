@@ -1,7 +1,6 @@
 // Solved by @kitanoyoru
 // https://leetcode.com/problems/arithmetic-subarrays/?envType=study-plan&id=programming-skills-ii
 
-
 class Solution {
   public List<Boolean> checkArithmeticSubarrays(int[] nums, int[] l, int[] r) {
     List<Boolean> ans = new ArrayList<>();
@@ -24,7 +23,7 @@ class Solution {
     System.out.println(d);
 
     for (int i = 2; i < arr.length; i++) {
-      if (arr[i] - arr[i-1] != d) {
+      if (arr[i] - arr[i - 1] != d) {
         return false;
       }
     }

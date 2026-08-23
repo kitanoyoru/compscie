@@ -8,7 +8,7 @@
 //   pub left: Option<Rc<RefCell<TreeNode>>>,
 //   pub right: Option<Rc<RefCell<TreeNode>>>,
 // }
-// 
+//
 // impl TreeNode {
 //   #[inline]
 //   pub fn new(val: i32) -> Self {
@@ -20,10 +20,10 @@
 //   }
 // }
 
-use std::rc::Rc;
 use std::cell::RefCell;
+use std::rc::Rc;
 
-type Node = Option<Rc<RefCell<TreeNode>>>; 
+type Node = Option<Rc<RefCell<TreeNode>>>;
 
 impl Solution {
     pub fn invert_tree(root: Node) -> Node {
@@ -31,9 +31,9 @@ impl Solution {
             let mut node = node.borrow_mut();
             let (left, right) = (
                 Self::invert_tree(node.left.clone()),
-                Self::invert_tree(node.right.clone())
+                Self::invert_tree(node.right.clone()),
             );
-            
+
             node.right = left;
             node.left = right;
         }

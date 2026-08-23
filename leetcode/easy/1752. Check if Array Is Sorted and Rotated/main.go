@@ -3,7 +3,7 @@ package main
 func check(nums []int) bool {
 	var (
 		count = 0
-		n = len(nums)
+		n     = len(nums)
 	)
 
 	if n <= 1 {
@@ -11,7 +11,7 @@ func check(nums []int) bool {
 	}
 
 	for i := range nums {
-		if nums[i] > nums[(i + 1) % n] {
+		if nums[i] > nums[(i+1)%n] {
 			count++
 		}
 	}

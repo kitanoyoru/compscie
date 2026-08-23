@@ -29,7 +29,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
 		carry = int(math.Floor(float64(value / 10)))
 
-		node := &ListNode { Val: value % 10 }
+		node := &ListNode{Val: value % 10}
 		ptr.Next = node
 
 		ptr = node

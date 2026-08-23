@@ -20,7 +20,7 @@ func findTarget(root *TreeNode, k int) bool {
 		inorder(node.Right)
 	}
 
-    inorder(root)
+	inorder(root)
 
 	for v := range m {
 		if _, exists := m[k-v]; exists && k-v != v {
@@ -30,4 +30,3 @@ func findTarget(root *TreeNode, k int) bool {
 
 	return false
 }
-

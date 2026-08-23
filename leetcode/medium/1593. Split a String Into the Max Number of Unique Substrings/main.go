@@ -16,7 +16,7 @@ func maxUniqueSplit(s string) int {
 
 			if _, ok := visited[substr]; !ok {
 				visited[substr] = struct{}{}
-				maxSplits = max(maxSplits, 1+backtrack(end)) 
+				maxSplits = max(maxSplits, 1+backtrack(end))
 				delete(visited, substr)
 			}
 		}

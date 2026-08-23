@@ -67,4 +67,3 @@ impl Solution {
         total
     }
 }
-

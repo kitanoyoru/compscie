@@ -5,7 +5,7 @@
 //   pub left: Option<Rc<RefCell<TreeNode>>>,
 //   pub right: Option<Rc<RefCell<TreeNode>>>,
 // }
-// 
+//
 // impl TreeNode {
 //   #[inline]
 //   pub fn new(val: i32) -> Self {
@@ -16,9 +16,9 @@
 //     }
 //   }
 // }
-use std::rc::Rc;
 use std::cell::RefCell;
 use std::cmp::min;
+use std::rc::Rc;
 
 type NodePointer = Rc<RefCell<TreeNode>>;
 
@@ -32,7 +32,7 @@ impl Solution {
     fn dfs(node: Option<NodePointer>, prev: &mut i32, ans: &mut i32) {
         if let Some(node) = node {
             let (val, left, right) = match RefCell::borrow(&node) {
-                n => (n.val, n.left.clone(), n.right.clone())
+                n => (n.val, n.left.clone(), n.right.clone()),
             };
             Self::dfs(left, prev, ans);
             *ans = (val.saturating_sub(*prev)).min(*ans);

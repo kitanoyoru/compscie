@@ -8,13 +8,15 @@ impl Solution {
         for day in 1..366 {
             let i = day as usize;
             if !days.contains(&day) {
-                dp[i] = dp[i-1];
+                dp[i] = dp[i - 1];
             } else {
                 let c1 = (day - 1) as usize;
                 let c2 = (day - 7).max(0) as usize;
                 let c3 = (day - 30).max(0) as usize;
 
-                dp[i] = (dp[c1] + costs[0]).min(dp[c2] + costs[1]).min(dp[c3] + costs[2]);
+                dp[i] = (dp[c1] + costs[0])
+                    .min(dp[c2] + costs[1])
+                    .min(dp[c3] + costs[2]);
             }
         }
 

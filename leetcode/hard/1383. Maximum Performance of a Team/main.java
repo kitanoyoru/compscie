@@ -4,9 +4,9 @@ class Solution {
     for (int i = 0; i < n; i++) {
       arr[i] = new int[] {efficiency[i], speed[i]};
     }
-    
+
     Arrays.sort(arr, (a, b) -> b[0] - a[0]);
-    
+
     PriorityQueue<Integer> pq = new PriorityQueue<>(k, (a, b) -> a - b);
     long ans = 0, temp = 0;
 
@@ -17,6 +17,6 @@ class Solution {
       ans = Math.max(ans, (temp * e[0]));
     }
 
-    return (int)(ans % (long)(1e9 + 7));
+    return (int) (ans % (long) (1e9 + 7));
   }
 }

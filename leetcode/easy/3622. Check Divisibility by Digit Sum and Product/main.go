@@ -11,5 +11,5 @@ func checkDivisibility(n int) bool {
 		x /= 10
 	}
 
-	return n % (digitSum + digitProduct) == 0
+	return n%(digitSum+digitProduct) == 0
 }

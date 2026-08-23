@@ -3,13 +3,13 @@ function mirrorDistance(n: number): number {
 }
 
 function reverse(value: number): number {
-  let result = 0;
+  let result = 0
 
   while (value !== 0) {
-    const digit = value % 10;
-    result = result * 10 + digit;
-    value = Math.trunc(value / 10);
+    const digit = value % 10
+    result = result * 10 + digit
+    value = Math.trunc(value / 10)
   }
 
-  return result;
-} 
+  return result
+}

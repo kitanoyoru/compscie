@@ -1,3 +1,5 @@
+package main
+
 import "sort"
 
 // Solved by @kitanoyoru

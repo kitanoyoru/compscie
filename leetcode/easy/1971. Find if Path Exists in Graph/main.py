@@ -4,7 +4,9 @@ from typing import List, Dict, Set
 
 
 class Solution:
-    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+    def validPath(
+        self, n: int, edges: List[List[int]], source: int, destination: int
+    ) -> bool:
         graph: Dict[int, List[int]] = defaultdict(list)
         for edge in edges:
             u, v = edge[0], edge[1]
@@ -13,7 +15,9 @@ class Solution:
 
         return self.dfs(graph, source, destination, set())
 
-    def dfs(self, graph: Dict[int, List[int]], current: int, target: int, visited: Set[int]) -> bool:
+    def dfs(
+        self, graph: Dict[int, List[int]], current: int, target: int, visited: Set[int]
+    ) -> bool:
         if current == target:
             return True
 

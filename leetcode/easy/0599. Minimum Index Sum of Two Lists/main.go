@@ -40,4 +40,3 @@ func min(first, second int) (int, bool) {
 
 	return second, true
 }
-

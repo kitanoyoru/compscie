@@ -1,6 +1,5 @@
 package main
 
-
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -19,7 +18,7 @@ func diameterOfBinaryTree(root *TreeNode) int {
 
 		left, right := helper(node.Left), helper(node.Right)
 
-		result = max(result, left + right)
+		result = max(result, left+right)
 
 		return 1 + max(left, right)
 	}

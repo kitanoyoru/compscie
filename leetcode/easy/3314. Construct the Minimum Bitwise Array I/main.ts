@@ -6,6 +6,6 @@ const minBitwiseArray = (nums: number[]): number[] => {
       }
     }
 
-    return -1;
-  });
-};
+    return -1
+  })
+}

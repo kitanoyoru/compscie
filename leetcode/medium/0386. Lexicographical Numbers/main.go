@@ -1,6 +1,8 @@
 // Solved by @kitanoyoru
 // https://leetcode.com/problems/lexicographical-numbers/
 
+package main
+
 func dfs(curr int, n *int, ans *[]int) {
 	if curr > *n {
 		return
