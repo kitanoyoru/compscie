@@ -4,7 +4,7 @@
 
 > 🕰️ **Historical implementation.** This describes the classic bucket-based map used in Go versions **prior to 1.24**. Go 1.24 replaced it with a Swiss Table design — see the companion doc **Go Maps — Swiss Tables (Go 1.24+)**.
 >
-> **Why keep this page:** the growth/evacuation and thread-safety reasoning below is still the best illustration of Go's incremental-work philosophy, and interviewers who learned Go before 2025 will often be asking about *this* design. Knowing both, and knowing which is which, is the strongest position.
+> **Why keep this page:** the growth/evacuation and thread-safety reasoning below is still the best illustration of Go's incremental-work philosophy, and interviewers who learned Go before 2025 will often be asking about _this_ design. Knowing both, and knowing which is which, is the strongest position.
 >
 > `GOEXPERIMENT=noswissmap` was a transitional rollback option in Go 1.24/1.25. It is no longer present in Go 1.26, so this page should now be treated as historical architecture—not a selectable current implementation.
 
@@ -54,10 +54,10 @@ type bmap struct {
 
 ## 4. Who Triggers Growth, and Who Migrates Data
 
-| Phase | Who triggers it | When |
-| --- | --- | --- |
-| Decide to grow + allocate new bucket array | The goroutine doing the insert that crossed the threshold | Once, synchronously, inline in that single `mapassign` call |
-| Evacuate old buckets into new layout | Whichever goroutine calls the *next* several writes/deletes | Spread across many subsequent operations, a couple buckets at a time |
+| Phase                                      | Who triggers it                                             | When                                                                 |
+| ------------------------------------------ | ----------------------------------------------------------- | -------------------------------------------------------------------- |
+| Decide to grow + allocate new bucket array | The goroutine doing the insert that crossed the threshold   | Once, synchronously, inline in that single `mapassign` call          |
+| Evacuate old buckets into new layout       | Whichever goroutine calls the _next_ several writes/deletes | Spread across many subsequent operations, a couple buckets at a time |
 
 `hashGrow()` itself does **not** move data — it just allocates the new array and sets `oldbuckets`. Actual copying (**evacuation**) happens lazily: every `mapassign`/`mapdelete` after growth starts evacuates one or two old buckets as a side effect before doing its own work. This amortizes the cost instead of causing one huge pause — same motivation as incremental stack growth/GC pacing.
 
@@ -93,7 +93,7 @@ These hold across both the legacy and Swiss implementations — they are languag
 
 - **Map elements are not addressable.** `&m[k]` doesn't compile, and `m[k].Field = v` doesn't compile for struct values. Reason: growth relocates entries, so any pointer taken would dangle. Workarounds: `map[K]*V`, or read-modify-write the whole value.
 - **Reading a missing key returns the zero value**, no panic. `v, ok := m[k]` distinguishes "absent" from "present but zero."
-- **Deleting during iteration is legal.** Entries deleted before being reached will not be produced. Entries *added* during iteration may or may not be produced — genuinely unspecified.
+- **Deleting during iteration is legal.** Entries deleted before being reached will not be produced. Entries _added_ during iteration may or may not be produced — genuinely unspecified.
 - **`clear(m)`** (Go 1.21+) removes all entries while retaining allocated capacity — the right way to recycle a map, versus `m = make(...)` which discards it. Note it also correctly handles `NaN` keys, which the old delete-in-a-loop idiom could not remove.
 - **Maps never shrink.** A map that grew to 1M entries and then had them all deleted retains the bucket array. If that matters, replace the map rather than clearing it.
 - **`len(m)`** is O(1) — it's the `count` field.
@@ -107,14 +107,14 @@ These hold across both the legacy and Swiss implementations — they are languag
 
 The classic implementation used a read-only `read` map plus a `dirty` map: reads hit `read` with an atomic load and no lock at all; misses fall through to `dirty` under a mutex, and enough misses promote `dirty` to `read`. The cost is roughly doubled memory and expensive first-writes.
 
-**Go 1.24 replaced the internals** with a **HashTrieMap** — a concurrent hash-trie — which improves the previously poor write and delete performance and makes `sync.Map` far less pathological outside its two ideal patterns. The API is unchanged. If your knowledge of `sync.Map` is "read map + dirty map," that's now the *historical* answer.
+**Go 1.24 replaced the internals** with a **HashTrieMap** — a concurrent hash-trie — which improves the previously poor write and delete performance and makes `sync.Map` far less pathological outside its two ideal patterns. The API is unchanged. If your knowledge of `sync.Map` is "read map + dirty map," that's now the _historical_ answer.
 
 Also worth knowing: `sync.Map` is untyped (`any` keys and values), so it reintroduces boxing and type assertions. For most services, a `Mutex`/`RWMutex` around a `map[K]V`, or **sharded maps** (N maps each with their own mutex, keyed by `hash(k) % N`) to cut contention, is the better default.
 
 ## 9. Follow-ups to Have Ready
 
-- *"Does growth cause unpredictable write latency?"* → Yes, slightly — a write that also evacuates a bucket does marginally more work. Real (if small) source of tail latency variance in high-throughput services.
-- *"How would you get deterministic map output?"* → Sort extracted keys before iterating.
+- _"Does growth cause unpredictable write latency?"_ → Yes, slightly — a write that also evacuates a bucket does marginally more work. Real (if small) source of tail latency variance in high-throughput services.
+- _"How would you get deterministic map output?"_ → Sort extracted keys before iterating.
 
 ## Official Sources
 

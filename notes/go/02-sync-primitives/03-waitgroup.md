@@ -74,7 +74,7 @@ func worker(wg sync.WaitGroup) { // BUG: wg is a COPY, go vet will flag this
 }
 ```
 
-**Why it's a real bug:** a copy snapshots the `state` word at that instant. The goroutine mutating its copy's counter has zero effect on the original `WaitGroup` the rest of the program is waiting on — `Wait()` on the original can hang forever (waiting for a `Done()` that will never arrive on *its* copy), or produce undefined behavior depending on timing.
+**Why it's a real bug:** a copy snapshots the `state` word at that instant. The goroutine mutating its copy's counter has zero effect on the original `WaitGroup` the rest of the program is waiting on — `Wait()` on the original can hang forever (waiting for a `Done()` that will never arrive on _its_ copy), or produce undefined behavior depending on timing.
 
 **Fix:** always pass `*sync.WaitGroup` (a pointer) into any function or closure that needs to call `Done()` on the shared instance.
 
@@ -103,8 +103,8 @@ A call to `Done` is synchronized before the return of a `Wait` that it unblocks.
 
 ## 8. Follow-ups to Have Ready
 
-- *"Why panic on a negative counter?"* → it signals more completions than registered tasks; hiding it would turn a lifecycle bug into silent corruption.
-- *"Add/Done or Go?"* → prefer `Go` for task ownership; keep explicit accounting for callbacks or lifecycles where the goroutine is launched elsewhere.
+- _"Why panic on a negative counter?"_ → it signals more completions than registered tasks; hiding it would turn a lifecycle bug into silent corruption.
+- _"Add/Done or Go?"_ → prefer `Go` for task ownership; keep explicit accounting for callbacks or lifecycles where the goroutine is launched elsewhere.
 
 ## Official Sources
 

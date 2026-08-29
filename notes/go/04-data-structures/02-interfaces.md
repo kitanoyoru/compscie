@@ -48,22 +48,22 @@ type itab struct {
 
 `fun` is declared as a 1-element array but is actually variable-length — the runtime indexes past the end. `fun[0] == 0` is the sentinel meaning "this type does **not** implement the interface", used by the comma-ok assertion path.
 
-**Where itabs come from:** if both the interface and concrete type are known at compile time, the linker emits the itab statically — zero runtime cost. If the pairing is only discoverable at runtime (e.g. asserting one interface to another), the runtime builds it and caches it in a global hash table (`itabTable`), with lock-free reads on the hot path. So the *first* such conversion is more expensive than subsequent ones.
+**Where itabs come from:** if both the interface and concrete type are known at compile time, the linker emits the itab statically — zero runtime cost. If the pairing is only discoverable at runtime (e.g. asserting one interface to another), the runtime builds it and caches it in a global hash table (`itabTable`), with lock-free reads on the hot path. So the _first_ such conversion is more expensive than subsequent ones.
 
 **Method dispatch cost:** calling a method through an interface is an indirect call through `fun[n]`. Two consequences, and the second matters more:
 
 1. The indirect call itself costs a few extra cycles and defeats branch prediction on polymorphic call sites.
 2. **It blocks inlining** — and therefore blocks all the downstream optimizations inlining enables (escape analysis, constant folding, bounds-check elimination). This is usually the dominant cost, not the jump.
 
-**Devirtualization:** the compiler removes the indirection when it can prove the concrete type at the call site. Since **Go 1.21**, profile-guided optimization (PGO) also devirtualizes *hot* indirect calls speculatively — it emits a type check plus an inlined direct call, with the indirect call as fallback. Good answer to "how would you speed up an interface-heavy hot path without rewriting it": enable PGO before restructuring code.
+**Devirtualization:** the compiler removes the indirection when it can prove the concrete type at the call site. Since **Go 1.21**, profile-guided optimization (PGO) also devirtualizes _hot_ indirect calls speculatively — it emits a type check plus an inlined direct call, with the indirect call as fallback. Good answer to "how would you speed up an interface-heavy hot path without rewriting it": enable PGO before restructuring code.
 
 ## 3. Method Sets — Value vs Pointer Receivers
 
 The rule:
 
-| Type | Method set includes |
-| --- | --- |
-| `T` | methods with receiver `T` only |
+| Type | Method set includes                    |
+| ---- | -------------------------------------- |
+| `T`  | methods with receiver `T` only         |
 | `*T` | methods with receiver `T` **and** `*T` |
 
 So a `T` **value** does not satisfy an interface whose implementation uses pointer receivers:
@@ -78,7 +78,7 @@ var i Incrementer = Counter{}    // compile error: method has pointer receiver
 var j Incrementer = &Counter{}   // fine
 ```
 
-**Why the asymmetry?** Given a `*T` you can always dereference to get a `T`, so `*T` can satisfy everything. Given a `T` stored *inside an interface*, you cannot take its address — the interface holds an unaddressable copy — so pointer-receiver methods, which need to mutate the original, have nothing valid to point at. Go refuses rather than silently mutating a copy.
+**Why the asymmetry?** Given a `*T` you can always dereference to get a `T`, so `*T` can satisfy everything. Given a `T` stored _inside an interface_, you cannot take its address — the interface holds an unaddressable copy — so pointer-receiver methods, which need to mutate the original, have nothing valid to point at. Go refuses rather than silently mutating a copy.
 
 **The confusing part** (and the reason this trips people up): outside interfaces, `c.Inc()` on an addressable variable `c` compiles fine, because the compiler inserts `(&c).Inc()` for you. That sugar exists for direct calls only, **not** for interface satisfaction. So the same expression "works" in one context and fails in another.
 
@@ -124,7 +124,7 @@ w, ok := i.(io.Writer)   // interface type: needs an itab; static if known, else
 
 ## 6. The Nil-Pointer Trap
 
-**The core issue:** a truly nil interface has *both* words nil (`tab/_type = nil`, `data = nil`). But an interface holding a **nil pointer of a concrete type** has a non-nil type/itab word — only `data` is nil. Since `i == nil` requires *both* words to be nil, this interface is **NOT equal to nil**, even though the underlying pointer is nil.
+**The core issue:** a truly nil interface has _both_ words nil (`tab/_type = nil`, `data = nil`). But an interface holding a **nil pointer of a concrete type** has a non-nil type/itab word — only `data` is nil. Since `i == nil` requires _both_ words to be nil, this interface is **NOT equal to nil**, even though the underlying pointer is nil.
 
 **Classic trap example:**
 
@@ -148,7 +148,7 @@ func main() {
 
 **Why:** returning `err` (a `*MyError`, currently nil) as `error` constructs `{tab: &itab{...*MyError...}, data: nil}`. Type word is set → interface is non-nil → nil check passes even though intent was "no error."
 
-**Fix / rule of thumb:** never return a typed nil pointer as an interface value if the caller will nil-check the interface. Declare the variable as the *interface* type, or return a literal `nil`:
+**Fix / rule of thumb:** never return a typed nil pointer as an interface value if the caller will nil-check the interface. Declare the variable as the _interface_ type, or return a literal `nil`:
 
 ```go
 func doSomething() error {
@@ -168,7 +168,7 @@ func doSomething() error {
 ## 7. Related Gotchas
 
 - **Printing a nil-pointer-in-interface:** `fmt.Println(err)` may print `<nil>` (if `Error()` handles a nil receiver gracefully) or **panic** if `Error()` dereferences fields without a nil check. Good code-review question. Note a nil receiver is perfectly legal in Go — methods can be called on nil pointers; only dereferencing fails.
-- **Interface equality (`i1 == i2`):** compares *both* type and data words. Equal values of different concrete types (`int32(5)` vs `int64(5)`) are **not equal** — type is part of the comparison.
+- **Interface equality (`i1 == i2`):** compares _both_ type and data words. Equal values of different concrete types (`int32(5)` vs `int64(5)`) are **not equal** — type is part of the comparison.
 - **Uncomparable types inside interfaces** (slices, maps, funcs): comparing such interfaces with `==` **panics at runtime**, not a compile error, since the compiler can't always know the concrete type statically. Subtle panic source in generic/interface-heavy code — and a real hazard when such a value is used as a **map key**, where the panic surfaces on insertion.
 - **Embedding a nil interface** in a struct and calling through it panics with a nil dereference, not a helpful message.
 
@@ -176,7 +176,7 @@ func doSomething() error {
 
 Sometimes asked as "shouldn't you just use generics for performance?"
 
-Generics are implemented with **GC shape stenciling**: the compiler generates one instantiation per *memory layout* class (all pointer types share one shape), and passes a hidden **dictionary** carrying type-specific information. So:
+Generics are implemented with **GC shape stenciling**: the compiler generates one instantiation per _memory layout_ class (all pointer types share one shape), and passes a hidden **dictionary** carrying type-specific information. So:
 
 - Generics avoid **boxing** — a `[]T` stays a `[]T`, no interface header per element. That's the real win, especially for containers.
 - But method calls on a type parameter may still be **indirect**, dispatched via the dictionary. So generics are not automatically faster than interfaces for dispatch-heavy code.
@@ -184,12 +184,12 @@ Generics are implemented with **GC shape stenciling**: the compiler generates on
 
 ## 9. Interview Drills
 
-- *"What's in an interface value?"* → two words, eface vs iface, itab contents (§1, §2)
-- *"Why doesn't my type satisfy this interface?"* → method sets, pointer receiver (§3)
-- *"Does `var x any = 42` allocate?"* → not necessarily; distinguish runtime boxing, static constants, `staticuint64s`, and escape analysis (§4)
-- *"How does polymorphism cost anything in Go?"* → indirect call, but *inlining loss* is the bigger cost; mention PGO devirtualization (§2)
-- *"Why is `err != nil` true when I returned nil?"* → §6
-- *"How would you detect that bug in review or a test?"* → `go vet` / `staticcheck` `nilness` catches some static patterns; more reliably, a table-driven test asserting on the returned **interface** (not the concrete type). The durable fix is API discipline: never declare a concrete error type as a return value.
+- _"What's in an interface value?"_ → two words, eface vs iface, itab contents (§1, §2)
+- _"Why doesn't my type satisfy this interface?"_ → method sets, pointer receiver (§3)
+- _"Does `var x any = 42` allocate?"_ → not necessarily; distinguish runtime boxing, static constants, `staticuint64s`, and escape analysis (§4)
+- _"How does polymorphism cost anything in Go?"_ → indirect call, but _inlining loss_ is the bigger cost; mention PGO devirtualization (§2)
+- _"Why is `err != nil` true when I returned nil?"_ → §6
+- _"How would you detect that bug in review or a test?"_ → `go vet` / `staticcheck` `nilness` catches some static patterns; more reliably, a table-driven test asserting on the returned **interface** (not the concrete type). The durable fix is API discipline: never declare a concrete error type as a return value.
 
 ## Official Sources
 

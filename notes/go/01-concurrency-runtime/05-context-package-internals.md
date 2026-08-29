@@ -72,5 +72,5 @@ Even though the timer eventually fires and cleans up after 5 seconds, **failing 
 
 ## 7. Follow-ups to Have Ready
 
-- *"How would you build a payment-processing pipeline that respects a per-request deadline as it fans out across several downstream service calls?"* → Derive `WithTimeout` once at the entry point, pass that single ctx down through every downstream call (each doing its own `select` on `ctx.Done()`, or passing ctx into an HTTP/gRPC client that honors it natively) — enforces the deadline consistently everywhere without each layer independently tracking/recomputing a remaining-time budget.
-- *"How does Value() actually find the value?"* → Linear walk up the parent chain comparing keys — not a hashmap lookup.
+- _"How would you build a payment-processing pipeline that respects a per-request deadline as it fans out across several downstream service calls?"_ → Derive `WithTimeout` once at the entry point, pass that single ctx down through every downstream call (each doing its own `select` on `ctx.Done()`, or passing ctx into an HTTP/gRPC client that honors it natively) — enforces the deadline consistently everywhere without each layer independently tracking/recomputing a remaining-time budget.
+- _"How does Value() actually find the value?"_ → Linear walk up the parent chain comparing keys — not a hashmap lookup.

@@ -68,7 +68,7 @@ func inner() {
 
 **What happens:** if another goroutine calls `mu.Lock()` (a writer) in the gap between `outer()`'s `RLock()` and `inner()`'s `RLock()`:
 
-- The writer's `Lock()` has already flipped `readerCount` negative and is waiting for the *first* `RLock` to release
+- The writer's `Lock()` has already flipped `readerCount` negative and is waiting for the _first_ `RLock` to release
 - `inner()`'s `RLock()` call sees the negative counter and blocks too — **on the very same goroutine holding the first read lock**
 - That goroutine can never reach its `RUnlock()` calls because it's stuck blocked on its own second `RLock()`
 - Three-way deadlock: writer waits on reader, reader (second call) waits on writer, nothing moves
@@ -91,9 +91,9 @@ RWMutex has **more overhead per operation** than a plain Mutex (more atomic oper
 
 ## 7. Follow-ups to Have Ready
 
-- *"How would you fix the recursive RLock example?"* → acquire once at the outer call and avoid independent inner acquisition.
-- *"Would you always reach for RWMutex when you have more reads than writes?"* → no; read duration and actual contention matter more than the raw read/write ratio.
-- *"Can I upgrade RLock to Lock?"* → no; releasing and reacquiring creates a gap where the invariant can change.
+- _"How would you fix the recursive RLock example?"_ → acquire once at the outer call and avoid independent inner acquisition.
+- _"Would you always reach for RWMutex when you have more reads than writes?"_ → no; read duration and actual contention matter more than the raw read/write ratio.
+- _"Can I upgrade RLock to Lock?"_ → no; releasing and reacquiring creates a gap where the invariant can change.
 
 ## Official Sources
 

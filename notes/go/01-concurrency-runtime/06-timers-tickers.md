@@ -8,13 +8,13 @@
 
 ## 1. Choose the Smallest Tool
 
-| Need | Use |
-| --- | --- |
-| One simple delay in a `select` | `time.After(d)` |
-| Cancelable or reusable one-shot timer | `time.NewTimer(d)` |
-| Run a callback later | `time.AfterFunc(d, f)` |
-| Repeated cadence | `time.NewTicker(d)` |
-| Request-scoped deadline | `context.WithTimeout` / `WithDeadline` |
+| Need                                  | Use                                    |
+| ------------------------------------- | -------------------------------------- |
+| One simple delay in a `select`        | `time.After(d)`                        |
+| Cancelable or reusable one-shot timer | `time.NewTimer(d)`                     |
+| Run a callback later                  | `time.AfterFunc(d, f)`                 |
+| Repeated cadence                      | `time.NewTicker(d)`                    |
+| Request-scoped deadline               | `context.WithTimeout` / `WithDeadline` |
 
 ## 2. Go 1.23+ Timer Channel Semantics
 
@@ -89,10 +89,10 @@ Tickers adjust for slow receivers by dropping ticks. They do not queue every mis
 
 ## 9. Interview Drills
 
-- *“Must I drain a timer channel before Reset?”* → not for current Go 1.23+ synchronous timer-channel semantics; identify the version boundary.
-- *“Does Stop close the channel?”* → no.
-- *“Does a ticker preserve every tick?”* → no, it can drop ticks for slow receivers.
-- *“Is **`time.After`** still a GC leak?”* → no for Go 1.23+; choose `NewTimer` for ownership and control.
+- _“Must I drain a timer channel before Reset?”_ → not for current Go 1.23+ synchronous timer-channel semantics; identify the version boundary.
+- _“Does Stop close the channel?”_ → no.
+- _“Does a ticker preserve every tick?”_ → no, it can drop ticks for slow receivers.
+- _“Is **`time.After`** still a GC leak?”_ → no for Go 1.23+; choose `NewTimer` for ownership and control.
 
 ## Official Sources
 

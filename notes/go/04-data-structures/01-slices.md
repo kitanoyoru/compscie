@@ -20,7 +20,7 @@ type sliceHeader struct {
 
 24 bytes on 64-bit (pointer + 2 ints). This header is copied when passed to a function — the **backing array is not copied**. This is why slices act like reference types for mutation but value types for length/cap changes.
 
-**Consequence worth stating explicitly:** a function that only *mutates elements* needs no pointer; a function that `append`s and wants the caller to see the result must either return the slice or take a `*[]T`. This is the whole reason `append` returns a value.
+**Consequence worth stating explicitly:** a function that only _mutates elements_ needs no pointer; a function that `append`s and wants the caller to see the result must either return the slice or take a `*[]T`. This is the whole reason `append` returns a value.
 
 ## 2. Backing Array Aliasing
 
@@ -71,7 +71,7 @@ if newLen > 2*oldCap {
 ```
 
 - Small slices: capacity **doubles**.
-- **Since Go 1.18**: past approx. 256 elements, growth transitions toward roughly **1.25x**. Note the formula is a *smooth* transition, not a hard cliff — pre-1.18 the threshold was 1024 with an abrupt 2x → 1.25x jump, which caused visible allocation-size discontinuities.
+- **Since Go 1.18**: past approx. 256 elements, growth transitions toward roughly **1.25x**. Note the formula is a _smooth_ transition, not a hard cliff — pre-1.18 the threshold was 1024 with an abrupt 2x → 1.25x jump, which caused visible allocation-size discontinuities.
 - Then the result is **rounded up to an allocator size class** (see the memory allocator: 8, 16, 32, 48, 64, 80... bytes). So actual `cap()` after growth often isn't a clean number — asking `cap()` after appending 1 element to an empty `[]int` gives 1, then 2, 4, 8... but for odd element sizes the rounding is visible.
 
 **Perf story for high-throughput code:** preallocate with `make([]T, 0, expectedSize)` when the approximate final size is known (e.g. batching Kafka messages before a flush) — avoids N reallocations + N copies as the batch grows. Growing a slice from 0 to N by appending is O(N) total copying and gives amortized O(1) append. The exact number of allocations and copied elements depends on the runtime growth algorithm, element size, and allocator size-class rounding; it should not be summarized as a stable `2N` constant.
@@ -91,7 +91,7 @@ func firstLine(data []byte) []byte {
 }
 ```
 
-The returned header keeps the whole allocation alive — the GC frees the *array*, not part of it. Fix: `return slices.Clone(data[:i])` or an explicit `copy` into a right-sized slice. Very real in log/protocol parsers holding one small field out of a large read buffer.
+The returned header keeps the whole allocation alive — the GC frees the _array_, not part of it. Fix: `return slices.Clone(data[:i])` or an explicit `copy` into a right-sized slice. Very real in log/protocol parsers holding one small field out of a large read buffer.
 
 **(b) Stale pointers in the tail after truncation.**
 
@@ -134,14 +134,14 @@ Therefore slices are comparable only to `nil`. For contents, use `slices.Equal` 
 
 ## 7. What `copy()` Actually Costs
 
-*(Previously flagged as unexplored.)*
+_(Previously flagged as unexplored.)_
 
 `copy(dst, src)` copies `min(len(dst), len(src))` elements and returns that count. It's a **builtin, not a library function** — the compiler lowers it directly:
 
 - For pointer-free element types → `runtime.memmove`, i.e. an optimized, architecture-specific block move (SSE/AVX on amd64). Handles overlapping ranges correctly, unlike C's `memcpy`.
 - For element types **containing pointers** → `runtime.typedslicecopy`, which is memmove **plus write barriers** for the GC. Measurably more expensive during an active GC mark phase.
 
-**Cost model:** O(n) in bytes, but with a very low constant — usually bandwidth-bound rather than instruction-bound. The practical implication: copying a `[]byte` is cheap; copying a `[]*Foo` or `[]SomeStructWithPointers` of the same byte size is *not* equally cheap, because of barrier work. If you're optimizing a hot path, prefer pointer-free element types.
+**Cost model:** O(n) in bytes, but with a very low constant — usually bandwidth-bound rather than instruction-bound. The practical implication: copying a `[]byte` is cheap; copying a `[]*Foo` or `[]SomeStructWithPointers` of the same byte size is _not_ equally cheap, because of barrier work. If you're optimizing a hot path, prefer pointer-free element types.
 
 **Special case:** `copy(dstBytes, srcString)` is legal — the one place the type rules bend, so you can copy a string into a `[]byte` without a conversion allocation.
 
@@ -149,24 +149,24 @@ Note `copy` does **not** grow `dst`. `copy(make([]int, 0, 10), src)` copies **ze
 
 ## 8. String ↔ \[\]byte Conversion Cost
 
-*(Previously flagged as unexplored.)*
+_(Previously flagged as unexplored.)_
 
 Strings are immutable; `[]byte` is not. So in general **both directions allocate and copy** — `[]byte(s)` and `string(b)` are O(n) with a heap allocation, because the runtime must guarantee that later mutation of the `[]byte` can't be observed through the string.
 
 The compiler optimizes several important cases into **zero-allocation**:
 
-| Pattern | Allocates? | Why |
-| --- | --- | --- |
-| `m[string(b)]` (map lookup) | **No** | Temp string can't escape the lookup |
-| `string(b) == "literal"` | **No** | Comparison only |
-| `for i, r := range string(b)` | **No** | Iteration only |
-| `switch string(b) { ... }` | **No** | Comparison only |
-| `s := string(b)` stored/returned | **Yes** | Escapes; must own its bytes |
-| `[]byte(s)` then mutated | **Yes** | Must not alias the string |
+| Pattern                          | Allocates? | Why                                 |
+| -------------------------------- | ---------- | ----------------------------------- |
+| `m[string(b)]` (map lookup)      | **No**     | Temp string can't escape the lookup |
+| `string(b) == "literal"`         | **No**     | Comparison only                     |
+| `for i, r := range string(b)`    | **No**     | Iteration only                      |
+| `switch string(b) { ... }`       | **No**     | Comparison only                     |
+| `s := string(b)` stored/returned | **Yes**    | Escapes; must own its bytes         |
+| `[]byte(s)` then mutated         | **Yes**    | Must not alias the string           |
 
 Short strings (up to 32 bytes) may use a small stack buffer instead of the heap when the compiler proves non-escape.
 
-**The unsafe escape hatch** (Go 1.20+, the *supported* form — do not use the old `reflect.StringHeader` casts):
+**The unsafe escape hatch** (Go 1.20+, the _supported_ form — do not use the old `reflect.StringHeader` casts):
 
 ```go
 func unsafeString(b []byte) string {
@@ -205,7 +205,7 @@ for i := range s {
 }
 ```
 
-**Loop variable semantics changed in Go 1.22.** Before 1.22, `i` and `v` were a *single* variable reused across iterations, so this classic bug printed the last element three times:
+**Loop variable semantics changed in Go 1.22.** Before 1.22, `i` and `v` were a _single_ variable reused across iterations, so this classic bug printed the last element three times:
 
 ```go
 for _, v := range s {
@@ -219,12 +219,12 @@ Since **Go 1.22** each iteration gets a fresh variable, so the above is now corr
 
 ## 11. Interview Drills
 
-- *"How would you avoid repeated reallocations in a hot path?"* → `make([]T, 0, n)` or `slices.Grow` (§4)
-- *"How is `copy()` implemented / what does it cost?"* → memmove vs typedslicecopy + write barriers (§7)
-- *"What's the cost of string ↔ \[\]byte conversions?"* → allocate + copy, with named compiler exceptions (§8)
-- *"Why does my API sometimes return `null` instead of `[]`?"* → nil vs empty slice (§6)
-- *"We pool buffers with sync.Pool and memory still grows"* → stale tail pointers, `clear()` (§5b)
-- *"Show me a slice bug that passes tests"* → the aliasing append (§3)
+- _"How would you avoid repeated reallocations in a hot path?"_ → `make([]T, 0, n)` or `slices.Grow` (§4)
+- _"How is `copy()` implemented / what does it cost?"_ → memmove vs typedslicecopy + write barriers (§7)
+- _"What's the cost of string ↔ \[\]byte conversions?"_ → allocate + copy, with named compiler exceptions (§8)
+- _"Why does my API sometimes return `null` instead of `[]`?"_ → nil vs empty slice (§6)
+- _"We pool buffers with sync.Pool and memory still grows"_ → stale tail pointers, `clear()` (§5b)
+- _"Show me a slice bug that passes tests"_ → the aliasing append (§3)
 
 ## Official Sources
 

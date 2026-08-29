@@ -85,4 +85,4 @@ Every `defer f.Close()` piles up and only executes when `processFiles` itself re
 
 ## 7. Follow-ups to Have Ready
 
-- *"How would you detect this kind of bug in code review?"* → Any `defer` inside a `for` loop body is worth a second look by default — not automatically wrong, but it's the single most common defer-related resource leak pattern in real codebases, and exactly the shape static analysis and experienced reviewers are trained to flag on sight.
+- _"How would you detect this kind of bug in code review?"_ → Any `defer` inside a `for` loop body is worth a second look by default — not automatically wrong, but it's the single most common defer-related resource leak pattern in real codebases, and exactly the shape static analysis and experienced reviewers are trained to flag on sight.
