@@ -34,7 +34,7 @@ The buffer is a plain **circular/ring buffer** using `sendx`/`recvx` indices. Al
 
 When a goroutine blocks on a channel op, the runtime creates a **`sudog`** ("pseudo-g") wrapping: a pointer to the actual `g`, and a pointer (`elem`) to the value being transferred. This `sudog` is pushed onto `recvq` or `sendq`.
 
-**Why the indirection:** the same goroutine can be a waiter on multiple channels at once — this is exactly what `select` needs. One G can have `sudog`s registered on several channels' queues simultaneously; whichever fires first wins and the rest are dequeued/cleaned up. A `g` struct has one identity; a `sudog` represents one *waiting relationship*, and there can be many.
+**Why the indirection:** the same goroutine can be a waiter on multiple channels at once — this is exactly what `select` needs. One G can have `sudog`s registered on several channels' queues simultaneously; whichever fires first wins and the rest are dequeued/cleaned up. A `g` struct has one identity; a `sudog` represents one _waiting relationship_, and there can be many.
 
 `sudog`s are pooled (per-P free lists with a global overflow), so blocking on a channel usually doesn't allocate.
 
@@ -76,12 +76,12 @@ Note there is deliberately **no `isClosed(ch)` function**. Any such check would 
 
 ## 6. select Special Forms
 
-| Form | Behaviour |
-| --- | --- |
-| `select {}` (no cases) | Blocks forever. Triggers the deadlock detector if nothing else runs. |
-| `select` with `default` | Never blocks — `default` runs if no case is ready. |
-| Case on a **nil** channel | Never ready. Effectively **disabled**. |
-| All cases nil, no default | Blocks forever. |
+| Form                      | Behaviour                                                            |
+| ------------------------- | -------------------------------------------------------------------- |
+| `select {}` (no cases)    | Blocks forever. Triggers the deadlock detector if nothing else runs. |
+| `select` with `default`   | Never blocks — `default` runs if no case is ready.                   |
+| Case on a **nil** channel | Never ready. Effectively **disabled**.                               |
+| All cases nil, no default | Blocks forever.                                                      |
 
 **The nil-channel idiom** is the one worth having ready — it's how you dynamically turn a case off without restructuring the loop:
 
@@ -109,18 +109,18 @@ for in != nil || len(pending) > 0 {
 
 The value expressions in `select` communication cases are evaluated when entering the `select`. Therefore `case out <- pending[0]` can panic before case selection when `pending` is empty—even if `out` is nil. Gate both the channel and value as above.
 
-Without this, receiving from a closed channel makes that case *always* ready, and the loop spins at 100% CPU. That failure mode — "my worker pegs a core after a producer exits" — is a very common real bug and a good story to have.
+Without this, receiving from a closed channel makes that case _always_ ready, and the loop spins at 100% CPU. That failure mode — "my worker pegs a core after a producer exits" — is a very common real bug and a good story to have.
 
 ## 7. Memory Model Guarantees (happens-before)
 
 Interviewers often ask "why is a channel safe to pass a pointer through?" The answer is the Go memory model, not the copy:
 
-- A **send** on a channel *happens-before* the corresponding **receive completes**.
-- A **receive from an unbuffered channel** *happens-before* the **send completes**. (This is what makes unbuffered channels a two-way synchronization point, not just a transfer.)
-- The **k-th receive** on a channel of capacity C *happens-before* the **(k+C)-th send** completes. This is the formal basis for using a buffered channel as a **semaphore**.
-- **Closing** a channel *happens-before* a receive that returns zero because the channel is closed.
+- A **send** on a channel _happens-before_ the corresponding **receive completes**.
+- A **receive from an unbuffered channel** _happens-before_ the **send completes**. (This is what makes unbuffered channels a two-way synchronization point, not just a transfer.)
+- The **k-th receive** on a channel of capacity C _happens-before_ the **(k+C)-th send** completes. This is the formal basis for using a buffered channel as a **semaphore**.
+- **Closing** a channel _happens-before_ a receive that returns zero because the channel is closed.
 
-Practical consequence: everything the sender wrote before the send is guaranteed visible to the receiver after the receive. You may pass a pointer through a channel and read the pointee without further synchronization — provided the sender genuinely stops touching it. The channel transfers *ownership*; it doesn't enforce it.
+Practical consequence: everything the sender wrote before the send is guaranteed visible to the receiver after the receive. You may pass a pointer through a channel and read the pointee without further synchronization — provided the sender genuinely stops touching it. The channel transfers _ownership_; it doesn't enforce it.
 
 **Semaphore pattern** (direct application of the third rule):
 
@@ -139,21 +139,21 @@ for _, job := range jobs {
 
 ## 8. Channel Operation Cheat Sheet
 
-| Operation | Channel state | Result |
-| --- | --- | --- |
-| Send (`ch <- v`) | nil channel | blocks forever |
-| Send (`ch <- v`) | open, buffer has room (or receiver waiting) | succeeds immediately (direct handoff if receiver waiting) |
-| Send (`ch <- v`) | open, buffer full, no receiver waiting | blocks (parked on sendq) until room/receiver |
-| Send (`ch <- v`) | closed | **panics**: "send on closed channel" |
-| Receive (`<-ch`) | nil channel | blocks forever |
-| Receive (`<-ch`) | open, buffer has data (or sender waiting) | succeeds immediately, returns value, `ok=true` |
-| Receive (`<-ch`) | open, buffer empty, no sender waiting | blocks (parked on recvq) until data arrives |
-| Receive (`<-ch`) | closed, buffer drained | returns zero value immediately, `ok=false`, does NOT block |
-| Receive (`<-ch`) | closed, buffer still has data | drains remaining buffered values first, `ok=true`, then behaves as above |
-| `for v := range ch` | open | blocks per iteration; exits **only** on close |
-| Close (`close(ch)`) | already closed | **panics**: "close of closed channel" |
-| Close (`close(ch)`) | nil channel | **panics**: "close of nil channel" |
-| Close (`close(ch)`) | open, with parked senders/receivers | wakes all of them — receivers get zero value + `ok=false`; senders **panic** |
+| Operation           | Channel state                               | Result                                                                       |
+| ------------------- | ------------------------------------------- | ---------------------------------------------------------------------------- |
+| Send (`ch <- v`)    | nil channel                                 | blocks forever                                                               |
+| Send (`ch <- v`)    | open, buffer has room (or receiver waiting) | succeeds immediately (direct handoff if receiver waiting)                    |
+| Send (`ch <- v`)    | open, buffer full, no receiver waiting      | blocks (parked on sendq) until room/receiver                                 |
+| Send (`ch <- v`)    | closed                                      | **panics**: "send on closed channel"                                         |
+| Receive (`<-ch`)    | nil channel                                 | blocks forever                                                               |
+| Receive (`<-ch`)    | open, buffer has data (or sender waiting)   | succeeds immediately, returns value, `ok=true`                               |
+| Receive (`<-ch`)    | open, buffer empty, no sender waiting       | blocks (parked on recvq) until data arrives                                  |
+| Receive (`<-ch`)    | closed, buffer drained                      | returns zero value immediately, `ok=false`, does NOT block                   |
+| Receive (`<-ch`)    | closed, buffer still has data               | drains remaining buffered values first, `ok=true`, then behaves as above     |
+| `for v := range ch` | open                                        | blocks per iteration; exits **only** on close                                |
+| Close (`close(ch)`) | already closed                              | **panics**: "close of closed channel"                                        |
+| Close (`close(ch)`) | nil channel                                 | **panics**: "close of nil channel"                                           |
+| Close (`close(ch)`) | open, with parked senders/receivers         | wakes all of them — receivers get zero value + `ok=false`; senders **panic** |
 
 Note the `range` row: forgetting to close is the single most common goroutine leak, because `range` will wait forever rather than exiting at "no more data".
 
@@ -165,7 +165,7 @@ The durable rule is: **the side or coordinator that can prove no future sends wi
 - **N senders, one receiver** → senders must **not** close (any of them could panic another). Use a separate `done` channel closed by the receiver, and have senders `select` on it.
 - **N senders, N receivers** → dedicated coordinator, or `sync.WaitGroup` around the senders with a single goroutine doing `wg.Wait(); close(ch)`.
 
-You do not have to close a channel at all — an unreferenced channel is garbage collected normally. Close is a *signal*, not cleanup. Closing only matters when a receiver needs to learn "no more values are coming."
+You do not have to close a channel at all — an unreferenced channel is garbage collected normally. Close is a _signal_, not cleanup. Closing only matters when a receiver needs to learn "no more values are coming."
 
 ## 10. Cost — When Not to Use a Channel
 
@@ -178,17 +178,17 @@ A durable relative model is more useful than nanosecond figures, which change wi
 
 Use `go test -bench` on the target architecture when the difference matters.
 
-"Share memory by communicating" is a design guideline, not a performance claim. For a shared counter or a simple guarded map, a mutex or atomic is substantially cheaper — a channel adds a lock **plus** scheduler work. Channels earn their cost when you need **ownership transfer, cancellation, fan-in/fan-out, or backpressure**. Being able to say when *not* to reach for a channel usually reads as more senior than knowing the internals.
+"Share memory by communicating" is a design guideline, not a performance claim. For a shared counter or a simple guarded map, a mutex or atomic is substantially cheaper — a channel adds a lock **plus** scheduler work. Channels earn their cost when you need **ownership transfer, cancellation, fan-in/fan-out, or backpressure**. Being able to say when _not_ to reach for a channel usually reads as more senior than knowing the internals.
 
 ## 11. Interview Drills
 
-- *"What's inside a channel?"* → §1 + the "mutex-protected ring buffer with scheduler hooks" framing
-- *"Why does select need sudog?"* → one G, many waiting relationships (§2)
-- *"Is an unbuffered channel slower?"* → it can direct-handoff to a waiting peer, but synchronization/parking dominates in other cases; benchmark the workload (§3)
-- *"Why does select randomize?"* → fairness/starvation; also mention the address-sorted lock order (§5)
-- *"How do I stop a select case from firing?"* → set the channel to nil (§6)
-- *"Is it safe to send a pointer through a channel?"* → memory model happens-before (§7)
-- *"Who should close?"* → §9; and "why is there no isClosed()?" → it would inherently race (§4)
+- _"What's inside a channel?"_ → §1 + the "mutex-protected ring buffer with scheduler hooks" framing
+- _"Why does select need sudog?"_ → one G, many waiting relationships (§2)
+- _"Is an unbuffered channel slower?"_ → it can direct-handoff to a waiting peer, but synchronization/parking dominates in other cases; benchmark the workload (§3)
+- _"Why does select randomize?"_ → fairness/starvation; also mention the address-sorted lock order (§5)
+- _"How do I stop a select case from firing?"_ → set the channel to nil (§6)
+- _"Is it safe to send a pointer through a channel?"_ → memory model happens-before (§7)
+- _"Who should close?"_ → §9; and "why is there no isClosed()?" → it would inherently race (§4)
 
 ## Official Sources
 

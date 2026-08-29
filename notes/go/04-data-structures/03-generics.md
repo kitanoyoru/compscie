@@ -40,7 +40,7 @@ func Sum[T Number](nums []T) T {
 }
 ```
 
-**The `~` (tilde) detail:** `~int` means "any type whose *underlying type* is `int`," not just `int` itself. Without the tilde, a custom type like `type UserID int` would NOT satisfy the constraint even though it behaves like an int — with `~int`, it does.
+**The `~` (tilde) detail:** `~int` means "any type whose _underlying type_ is `int`," not just `int` itself. Without the tilde, a custom type like `type UserID int` would NOT satisfy the constraint even though it behaves like an int — with `~int`, it does.
 
 **`comparable`** is a built-in constraint (not library-based) meaning the type supports `==`/`!=`. Structs containing slices, maps, or funcs don't satisfy it — same restriction covered under interface equality panics.
 
@@ -73,7 +73,7 @@ Conceptually it's built from:
 
 Mechanically, the dictionary is an extra hidden argument to shared-shape code. Its register/stack placement is architecture- and compiler-version-specific and should not be memorized as a portable rule.
 
-**Follow-up to have ready:** *"Why is `*Foo` and `*Bar` sharing a shape safe, given they point to totally different types?"* → The shared compiled code only ever needs to dereference, copy, or hand the pointer to the GC as "trace this word as a pointer" — none of that cares what's on the other end. Anything that DOES need to know the pointed-to type (calling a method, computing element size) goes through the dictionary instead of being baked into the shared machine code.
+**Follow-up to have ready:** _"Why is `*Foo` and `*Bar` sharing a shape safe, given they point to totally different types?"_ → The shared compiled code only ever needs to dereference, copy, or hand the pointer to the GC as "trace this word as a pointer" — none of that cares what's on the other end. Anything that DOES need to know the pointed-to type (calling a method, computing element size) goes through the dictionary instead of being baked into the shared machine code.
 
 ## 4. Performance Implications
 
@@ -129,7 +129,7 @@ func (s Set[T]) Has(v T) bool { _, ok := s[v]; return ok }
 
 ## 8. Follow-ups to Have Ready
 
-- *"When would you deliberately NOT use generics?"* → When a simple `interface{ Method() }`-based polymorphic design already captures the need cleanly and the type set is naturally small/fixed. Generics shine for algorithms over arbitrary data shapes (containers, Map/Filter/Reduce), less so for classic OOP-style polymorphism where a handful of concrete types share behavior.
+- _"When would you deliberately NOT use generics?"_ → When a simple `interface{ Method() }`-based polymorphic design already captures the need cleanly and the type set is naturally small/fixed. Generics shine for algorithms over arbitrary data shapes (containers, Map/Filter/Reduce), less so for classic OOP-style polymorphism where a handful of concrete types share behavior.
 
 ## Official Sources
 

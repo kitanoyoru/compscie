@@ -22,11 +22,11 @@ The unit is a **group of 8 slots**, and each group carries an 8-byte **control w
 
 Each control byte holds one of:
 
-| Value | Meaning |
-| --- | --- |
-| `0x80` (high bit set) | **Empty** — never used |
-| `0xFE` | **Deleted** — tombstone; probing must continue past it |
-| `0x00`–`0x7F` | **Full** — holds `h2`, the low 7 bits of the key's hash |
+| Value                 | Meaning                                                 |
+| --------------------- | ------------------------------------------------------- |
+| `0x80` (high bit set) | **Empty** — never used                                  |
+| `0xFE`                | **Deleted** — tombstone; probing must continue past it  |
+| `0x00`–`0x7F`         | **Full** — holds `h2`, the low 7 bits of the key's hash |
 
 The hash is split: **`h1`** (the upper bits) selects which group to probe, **`h2`** (7 bits) goes in the control byte as a cheap fingerprint.
 
@@ -43,7 +43,7 @@ This is the heart of the design, and the thing to be able to explain:
 
 Steps 2–4 test all 8 control bytes in parallel. Portable builds use word-at-a-time bit tricks (SWAR). On amd64, current Go compilers replace the matching helpers with architecture-specific intrinsics that use packed/SIMD instructions. This is an internal optimization, not a language guarantee; the full key comparison remains authoritative.
 
-**Why false positives are fine:** `h2` is only 7 bits, so unrelated keys collide on it roughly 1 in 128 times. A match on the control byte is just a *hint* to do the real key comparison. It filters cheaply; it doesn't decide.
+**Why false positives are fine:** `h2` is only 7 bits, so unrelated keys collide on it roughly 1 in 128 times. A match on the control byte is just a _hint_ to do the real key comparison. It filters cheaply; it doesn't decide.
 
 ## 4. Extendible Hashing — Growth Without Global Rehash
 
@@ -79,7 +79,7 @@ Go resolves collisions with open addressing, not overflow chains:
 
 This is the essential contrast with the legacy map: old maps followed linked overflow buckets; Swiss maps probe compact groups and filter candidates with control bytes.
 
-## 6. What Did *Not* Change
+## 6. What Did _Not_ Change
 
 All of these are language-level guarantees and behave identically:
 
@@ -90,7 +90,7 @@ All of these are language-level guarantees and behave identically:
 - **Maps still never shrink** on their own.
 - `len()` still O(1).
 
-So every piece of *user-visible* map advice from the legacy notes carries over unchanged. Only the performance characteristics moved.
+So every piece of _user-visible_ map advice from the legacy notes carries over unchanged. Only the performance characteristics moved.
 
 ## 7. War Story Worth Knowing
 
@@ -101,7 +101,7 @@ The actual cause, found by bisecting, was an unrelated refactor of `mallocgc`, w
 **Two takeaways that make this a good interview anecdote:**
 
 1. The headline feature of a release is a tempting culprit and often the wrong one. `GOEXPERIMENT` flags are excellent for cheaply falsifying that hypothesis.
-2. Go runtime metrics track the runtime's *own* accounting; RSS is what the kernel actually committed. A gap between them is a real signal, not a measurement error — and it's exactly the gap that gets pods OOM-killed. (Compare the scavenger's `MADV_DONTNEED` vs `MADV_FREE` history in the Scheduler notes §11 — same class of problem.)
+2. Go runtime metrics track the runtime's _own_ accounting; RSS is what the kernel actually committed. A gap between them is a real signal, not a measurement error — and it's exactly the gap that gets pods OOM-killed. (Compare the scavenger's `MADV_DONTNEED` vs `MADV_FREE` history in the Scheduler notes §11 — same class of problem.)
 
 ## 8. Version Boundary and Experiments
 
@@ -111,11 +111,11 @@ Go 1.26's experimental `simd/archsimd` package is a separate public-API experime
 
 ## 9. Interview Drills
 
-- *"How are Go maps implemented?"* → Lead with Swiss Tables and **date it** ("since 1.24; before that, buckets with overflow chains"). Naming the version boundary is what signals current knowledge.
-- *"Why is the control word fast?"* → §3, 8 fingerprints matched in parallel; portable SWAR and amd64 compiler intrinsics
-- *"What happens when a map grows?"* → §4, table split bounded at 1024 slots (about 896 live entries at 7/8 load), no global rehash — contrast with legacy doubling + lazy evacuation
-- *"Did anything change for me as a user?"* → §6, nothing semantically; only performance
-- *"Why tombstones?"* → §5, probe-sequence integrity
+- _"How are Go maps implemented?"_ → Lead with Swiss Tables and **date it** ("since 1.24; before that, buckets with overflow chains"). Naming the version boundary is what signals current knowledge.
+- _"Why is the control word fast?"_ → §3, 8 fingerprints matched in parallel; portable SWAR and amd64 compiler intrinsics
+- _"What happens when a map grows?"_ → §4, table split bounded at 1024 slots (about 896 live entries at 7/8 load), no global rehash — contrast with legacy doubling + lazy evacuation
+- _"Did anything change for me as a user?"_ → §6, nothing semantically; only performance
+- _"Why tombstones?"_ → §5, probe-sequence integrity
 
 ## Official Sources
 

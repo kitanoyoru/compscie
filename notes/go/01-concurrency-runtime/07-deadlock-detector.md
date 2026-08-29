@@ -50,7 +50,7 @@ func main() {
 }
 ```
 
-**Interview framing:** the deadlock detector is a last-resort safety net for a *fully-stuck* program, not a debugging tool for partial deadlocks. In production, a stuck pair of goroutines inside an otherwise-busy service silently leaks — you'd only catch it via goroutine-count metrics or a pprof goroutine profile showing an ever-growing count.
+**Interview framing:** the deadlock detector is a last-resort safety net for a _fully-stuck_ program, not a debugging tool for partial deadlocks. In production, a stuck pair of goroutines inside an otherwise-busy service silently leaks — you'd only catch it via goroutine-count metrics or a pprof goroutine profile showing an ever-growing count.
 
 **Production monitoring tie-in:** exporting `runtime.NumGoroutine()` as a Prometheus gauge metric is a standard way to catch exactly this class of leak, since the runtime itself won't surface it.
 
@@ -65,10 +65,10 @@ func main() {
 
 ## 5. Follow-ups to Have Ready
 
-- *"If this only catches global deadlocks, how would you detect a leaked/stuck goroutine in a live payment service?"* →
-	- `runtime.NumGoroutine()` as a monitored/alerted metric for unbounded growth
-	- Periodic `pprof` goroutine profile snapshots (`/debug/pprof/goroutine?debug=2`) — shows full stack traces of every goroutine, pinpointing exactly where they're stuck
-	- In code review: be suspicious of any channel operation without a corresponding `context.Context` cancellation path or timeout
+- _"If this only catches global deadlocks, how would you detect a leaked/stuck goroutine in a live payment service?"_ →
+  - `runtime.NumGoroutine()` as a monitored/alerted metric for unbounded growth
+  - Periodic `pprof` goroutine profile snapshots (`/debug/pprof/goroutine?debug=2`) — shows full stack traces of every goroutine, pinpointing exactly where they're stuck
+  - In code review: be suspicious of any channel operation without a corresponding `context.Context` cancellation path or timeout
 
 ## 6. Precision Notes
 
@@ -79,7 +79,7 @@ A few refinements worth being precise about if pushed:
 - **It counts Ms, not Ps.** `checkdead()` runs under `sched.lock` at the moment the **last M is about to park**, and its actual test is over thread counts: if there are no Ms running, none in syscalls, and no work that could produce a runnable G, the program is dead. The "every P has run dry" framing is the right intuition but the implementation is thread-oriented.
 - **Locked threads are handled specially.** Goroutines pinned via `runtime.LockOSThread` are checked separately — a runnable G locked to a parked M means the runtime starts that M rather than declaring deadlock.
 - **cgo does not suppress it merely because the binary uses cgo.** The explicit broad exemption is for `-buildmode=c-shared` and `-buildmode=c-archive` (except wasm), because the calling non-Go program may later enter Go again. Active syscalls/cgo callbacks also affect whether the runtime can conclude that no future work exists, but an ordinary cgo-enabled executable does not automatically lose deadlock detection.
-- **The netpoller counts as potential work.** A goroutine blocked on a socket read is waiting on the netpoller, so the runtime knows an event could still arrive. This is *not* a deadlock even if nothing will ever actually be sent — which is why an idle server never trips the detector.
+- **The netpoller counts as potential work.** A goroutine blocked on a socket read is waiting on the netpoller, so the runtime knows an event could still arrive. This is _not_ a deadlock even if nothing will ever actually be sent — which is why an idle server never trips the detector.
 
 ## 7. Detecting Leaks the Runtime Won't Report
 
@@ -93,14 +93,14 @@ It uses reachability to report a useful subset of permanently blocked goroutines
 
 ### Established techniques (still the working answer today)
 
-| Technique | What it catches |
-| --- | --- |
-| `runtime.NumGoroutine()` as a Prometheus gauge | Unbounded growth — the leak signature. Alert on trend, not absolute value. |
-| `/debug/pprof/goroutine?debug=2` | Full stacks of every goroutine, grouped. Shows exactly which line they're parked on. |
-| `SIGQUIT` to the process (`Ctrl-\`) | Same dump on the way to a crash, no pprof endpoint needed. `GOTRACEBACK=all` for full detail. |
-| `GODEBUG=schedtrace=1000` | Per-second scheduler state: runnable queue depths, idle Ps, thread counts. |
-| `go.uber.org/goleak` in tests | Fails a test if it leaves goroutines behind. Cheap to adopt, catches leaks at PR time. |
-| Block profile (`runtime.SetBlockProfileRate`) | Where goroutines spend time blocked — surfaces contention before it becomes a hang. |
+| Technique                                      | What it catches                                                                               |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `runtime.NumGoroutine()` as a Prometheus gauge | Unbounded growth — the leak signature. Alert on trend, not absolute value.                    |
+| `/debug/pprof/goroutine?debug=2`               | Full stacks of every goroutine, grouped. Shows exactly which line they're parked on.          |
+| `SIGQUIT` to the process (`Ctrl-\`)            | Same dump on the way to a crash, no pprof endpoint needed. `GOTRACEBACK=all` for full detail. |
+| `GODEBUG=schedtrace=1000`                      | Per-second scheduler state: runnable queue depths, idle Ps, thread counts.                    |
+| `go.uber.org/goleak` in tests                  | Fails a test if it leaves goroutines behind. Cheap to adopt, catches leaks at PR time.        |
+| Block profile (`runtime.SetBlockProfileRate`)  | Where goroutines spend time blocked — surfaces contention before it becomes a hang.           |
 
 The pprof reading trick worth mentioning: goroutines blocked for a long time show their wait duration in the `debug=2` output (e.g. `goroutine 42 [chan receive, 118 minutes]`). Sorting by that number finds leaks immediately.
 
@@ -108,10 +108,10 @@ The pprof reading trick worth mentioning: goroutines blocked for a long time sho
 
 ## 8. Adjacent Behaviours People Confuse With This
 
-- **The race detector (`-race`) does not detect deadlocks.** It finds unsynchronized concurrent access — the opposite failure mode. Over-synchronizing to silence it can *create* deadlocks.
+- **The race detector (`-race`) does not detect deadlocks.** It finds unsynchronized concurrent access — the opposite failure mode. Over-synchronizing to silence it can _create_ deadlocks.
 - **`main` returning kills everything.** When the main goroutine returns, the program exits immediately; remaining goroutines are killed mid-flight with no deferred functions run. Not a deadlock, but the same "my goroutine never finished" symptom.
 - **All goroutines in `time.Sleep` is not a deadlock** — pending timers are future work, so the detector correctly stays quiet. A program that sleeps forever just hangs.
-- **`sync.WaitGroup` misuse** — `Add` called *inside* the goroutine instead of before it means `Wait` may return early, or hang if a `Done` is missed. Detected only if it's the whole program.
+- **`sync.WaitGroup` misuse** — `Add` called _inside_ the goroutine instead of before it means `Wait` may return early, or hang if a `Done` is missed. Detected only if it's the whole program.
 - **Mutex self-deadlock:** Go's `sync.Mutex` is **not reentrant**. Locking twice from the same goroutine deadlocks that goroutine permanently. Deliberate design choice — reentrant mutexes make invariant reasoning much harder, since you can't assume the lock was just acquired.
 
 ## Official Sources

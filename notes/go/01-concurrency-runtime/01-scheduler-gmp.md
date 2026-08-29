@@ -18,23 +18,23 @@ An M must **hold a P** to execute Go code. This is the key invariant: P is the p
 
 This decouples "how much parallelism" (number of Ps) from "how many concurrent tasks" (unbounded Gs) — goroutines start at 2KB vs. OS threads at 1–8MB, so spawning hundreds of thousands is cheap.
 
-**Interview framing:** *"Walk me through `go func(){...}()` to it running on a core"* → created G lands on `runnext` / local queue / global queue → an idle or stealing P picks it up → its M executes it.
+**Interview framing:** _"Walk me through `go func(){...}()` to it running on a core"_ → created G lands on `runnext` / local queue / global queue → an idle or stealing P picks it up → its M executes it.
 
 ## 2. Run Queue Anatomy (the detail most people miss)
 
 There are **three** places a runnable G can live, checked in this priority order:
 
-| Queue | Capacity | Notes |
-| --- | --- | --- |
-| `runnext` | **1 slot**, per-P | The most recently readied G. Jumps the whole queue. |
-| Local run queue | **256**, per-P, lock-free ring | Fast path. No global lock needed. |
-| Global run queue | Unbounded, mutex-protected | Overflow + spillover target. |
+| Queue            | Capacity                       | Notes                                               |
+| ---------------- | ------------------------------ | --------------------------------------------------- |
+| `runnext`        | **1 slot**, per-P              | The most recently readied G. Jumps the whole queue. |
+| Local run queue  | **256**, per-P, lock-free ring | Fast path. No global lock needed.                   |
+| Global run queue | Unbounded, mutex-protected     | Overflow + spillover target.                        |
 
-**`runnext` — the locality optimization.** When goroutine A unblocks goroutine B (e.g. a channel send that wakes a receiver), B goes into A's P's `runnext` slot, not the tail of the queue. Rationale: B is probably about to consume data A just produced, so it's cache-hot *right now*. It runs next, inheriting the remainder of the current time slice. Whatever was previously in `runnext` gets kicked to the regular local queue.
+**`runnext` — the locality optimization.** When goroutine A unblocks goroutine B (e.g. a channel send that wakes a receiver), B goes into A's P's `runnext` slot, not the tail of the queue. Rationale: B is probably about to consume data A just produced, so it's cache-hot _right now_. It runs next, inheriting the remainder of the current time slice. Whatever was previously in `runnext` gets kicked to the regular local queue.
 
 **Overflow behaviour.** If the local queue is full on a push, the P moves **half of its local queue (128 Gs) plus the new G** to the global queue in one batch. Batching avoids hammering the global lock.
 
-**Global queue starvation guard.** A P that only ever drains its own local queue would starve the global queue forever. So every 61st scheduling tick, `schedule()` checks the global queue *first*:
+**Global queue starvation guard.** A P that only ever drains its own local queue would starve the global queue forever. So every 61st scheduling tick, `schedule()` checks the global queue _first_:
 
 ```go
 // runtime/proc.go, simplified
@@ -47,7 +47,7 @@ if pp.schedtick%61 == 0 && sched.runqsize > 0 {
 
 **Work stealing.** When a P finds nothing locally, it runs `findRunnable()`: check global queue → poll the netpoller → then attempt to steal from a **random** other P (randomized start order, 4 passes). A successful steal takes **half** the victim's queue. On the final pass it will also steal the victim's `runnext`, but only after a brief spin, giving the victim a chance to actually run it.
 
-**Spinning Ms.** An M looking for work is marked *spinning* (`sched.nmspinning`). The runtime maintains an invariant that if there is any runnable work and any idle P, at least one M is spinning — this is what prevents the classic "work was queued but everyone went to sleep" missed-wakeup bug. Spinning is capped (roughly at `GOMAXPROCS`) so idle machines don't burn CPU.
+**Spinning Ms.** An M looking for work is marked _spinning_ (`sched.nmspinning`). The runtime maintains an invariant that if there is any runnable work and any idle P, at least one M is spinning — this is what prevents the classic "work was queued but everyone went to sleep" missed-wakeup bug. Spinning is capped (roughly at `GOMAXPROCS`) so idle machines don't burn CPU.
 
 ## 3. GOMAXPROCS
 
@@ -64,7 +64,7 @@ These behave completely differently — a common trap question.
 
 ### Blocking syscall (file I/O, cgo)
 
-⚠️ *Corrected from the original notes — the handoff is optimistic, not immediate.*
+⚠️ _Corrected from the original notes — the handoff is optimistic, not immediate._
 
 On `entersyscall`, the runtime does **not** release the P. It marks it `_Psyscall` and the M keeps hold of it. Why: the overwhelming majority of syscalls return in microseconds, and a thread handoff costs far more than the syscall itself. If the syscall returns quickly, `exitsyscall` reacquires the same P on the fast path and nothing was lost.
 
@@ -74,7 +74,7 @@ The handoff only happens when the syscall turns out to be genuinely slow. **sysm
 - there are no idle/spinning Ps left to absorb the load
 - the syscall has been running for roughly **10ms+**
 
-There is also `entersyscallblock`, used for syscalls the runtime *knows* will block. That path releases the P immediately, skipping the optimistic phase.
+There is also `entersyscallblock`, used for syscalls the runtime _knows_ will block. That path releases the P immediately, skipping the optimistic phase.
 
 **So the correct one-liner is:** "The P is retained optimistically and only handed off if the syscall proves slow or the system is under pressure — sysmon does the retaking."
 
@@ -104,7 +104,7 @@ Each wake-up it checks:
 - **Netpoller backstop:** as above
 - **Forced GC:** trigger one if it's been over 2 minutes since the last (`forcegcperiod`)
 
-⚠️ **Correction:** the original notes listed *scavenging* as a sysmon duty. That was true historically, but **since Go 1.16 the scavenger is its own background goroutine** (`bgscavenge`) with its own pacing controller, precisely so that returning memory to the OS doesn't get starved or delayed by sysmon's other work. See §11.
+⚠️ **Correction:** the original notes listed _scavenging_ as a sysmon duty. That was true historically, but **since Go 1.16 the scavenger is its own background goroutine** (`bgscavenge`) with its own pacing controller, precisely so that returning memory to the OS doesn't get starved or delayed by sysmon's other work. See §11.
 
 ## 6. Preemption
 
@@ -112,9 +112,9 @@ Each wake-up it checks:
 
 **1.14+ (async preemption):** sysmon detects a G running over 10ms and sends the OS thread a `SIGURG` signal. The signal handler rewrites the G's saved PC so that on return it enters `asyncPreempt`, which spills all registers, yields to the scheduler, and later restores them exactly.
 
-⚠️ **Refinement of the original wording:** it is not *literally* any instruction. The handler first calls `isAsyncSafePoint()`. Preemption is declined if the G is inside a `nosplit` function, mid-write-barrier, in an unmapped-stack state, or anywhere the GC could not accurately describe the register set. It retries on the next sysmon tick. "Async safe point" is the precise term worth using in an interview.
+⚠️ **Refinement of the original wording:** it is not _literally_ any instruction. The handler first calls `isAsyncSafePoint()`. Preemption is declined if the G is inside a `nosplit` function, mid-write-barrier, in an unmapped-stack state, or anywhere the GC could not accurately describe the register set. It retries on the next sysmon tick. "Async safe point" is the precise term worth using in an interview.
 
-**Cooperative fallback still exists:** the runtime can poison a G's `stackguard0` with the `stackPreempt` sentinel to force the *next* function prologue check to fail and trigger preemption via the older path. Both paths are used together — the GC in particular sets both and takes whichever lands first.
+**Cooperative fallback still exists:** the runtime can poison a G's `stackguard0` with the `stackPreempt` sentinel to force the _next_ function prologue check to fail and trigger preemption via the older path. Both paths are used together — the GC in particular sets both and takes whichever lands first.
 
 **Limits:** can't save you from goroutines stuck in a syscall that never returns, or from non-preemptible runtime-internal sections.
 
@@ -122,15 +122,15 @@ Each wake-up it checks:
 
 Worth being able to name these; they show up constantly in `pprof` goroutine dumps.
 
-| State | Meaning |
-| --- | --- |
-| `_Gidle` | Just allocated, not initialized |
-| `_Grunnable` | On a run queue, waiting for an M |
-| `_Grunning` | Executing, owns an M and a P |
-| `_Gsyscall` | In a syscall, owns an M but not (logically) a P |
-| `_Gwaiting` | Blocked — channel, mutex, timer, netpoll. **Not** on any run queue; something must explicitly `goready()` it |
-| `_Gdead` | Finished or freshly freed; sits on a free list for reuse |
-| `_Gcopystack` | Stack is being moved (grow/shrink), see §9 |
+| State         | Meaning                                                                                                      |
+| ------------- | ------------------------------------------------------------------------------------------------------------ |
+| `_Gidle`      | Just allocated, not initialized                                                                              |
+| `_Grunnable`  | On a run queue, waiting for an M                                                                             |
+| `_Grunning`   | Executing, owns an M and a P                                                                                 |
+| `_Gsyscall`   | In a syscall, owns an M but not (logically) a P                                                              |
+| `_Gwaiting`   | Blocked — channel, mutex, timer, netpoll. **Not** on any run queue; something must explicitly `goready()` it |
+| `_Gdead`      | Finished or freshly freed; sits on a free list for reuse                                                     |
+| `_Gcopystack` | Stack is being moved (grow/shrink), see §9                                                                   |
 
 Note that `_Gdead` Gs are **pooled and reused** (`gfget`/`gfput`, per-P free lists), which is a large part of why goroutine creation is so cheap — it usually isn't an allocation at all.
 
@@ -152,12 +152,12 @@ Key fields on `runtime.g`:
 
 ## 9. Stack Growth vs. Shrink
 
-|  | Growth | Shrink |
-| --- | --- | --- |
-| Detected by | The goroutine itself, inline | GC, during stack scan |
-| Timing | Any function call, anytime | Only during a GC cycle |
-| Target state | Actively running | Paused/suspended first |
-| Executed on | g0 (via mcall from the G) | Whatever G/worker is doing GC scanning |
+|              | Growth                       | Shrink                                 |
+| ------------ | ---------------------------- | -------------------------------------- |
+| Detected by  | The goroutine itself, inline | GC, during stack scan                  |
+| Timing       | Any function call, anytime   | Only during a GC cycle                 |
+| Target state | Actively running             | Paused/suspended first                 |
+| Executed on  | g0 (via mcall from the G)    | Whatever G/worker is doing GC scanning |
 
 **Growth:** compiler-inserted prologue check (SP vs `stackguard0`) fails → calls `runtime.morestack` → switches to g0 → `runtime.newstack` decides new size (2x, capped by `maxstacksize`, default **1GB on 64-bit / 250MB on 32-bit**) → `copystack` allocates, memmoves, and rewrites every pointer into the old stack range → resumes G on new stack.
 
@@ -191,13 +191,13 @@ Every M has exactly one **g0** — not a user goroutine, never runs application 
 
 **m0/g0 special case:** the first M and its g0 are statically allocated at startup. Subsequent Ms receive runtime-managed system stacks when created via `newm`; their exact size and allocation strategy are implementation details and should not be treated as a portable constant.
 
-**Full trace to rehearse:** *G blocks on a channel send* → calls `gopark` → switches to g0 via `mcall` → g0 marks G `_Gwaiting`, detaches it from the M, calls `schedule()` → schedule finds next runnable G (runnext → local queue → global → netpoll → steal) → switches back via `gogo`, `curg` updates to the new G.
+**Full trace to rehearse:** _G blocks on a channel send_ → calls `gopark` → switches to g0 via `mcall` → g0 marks G `_Gwaiting`, detaches it from the M, calls `schedule()` → schedule finds next runnable G (runnext → local queue → global → netpoll → steal) → switches back via `gogo`, `curg` updates to the new G.
 
 ## 11. Idle Memory / Scavenging
 
-Go's heap is organized in 64MB arenas. When the heap shrinks, the *virtual* address space stays reserved, but the runtime tells the OS to reclaim the *physical* pages via `madvise`.
+Go's heap is organized in 64MB arenas. When the heap shrinks, the _virtual_ address space stays reserved, but the runtime tells the OS to reclaim the _physical_ pages via `madvise`.
 
-**Who does it (corrected):** since Go 1.16 this is a dedicated background goroutine, `bgscavenge`, running a pacing controller that targets roughly 1% of total CPU. There is also *eager* scavenging when an allocation would push the heap past `GOMEMLIMIT`.
+**Who does it (corrected):** since Go 1.16 this is a dedicated background goroutine, `bgscavenge`, running a pacing controller that targets roughly 1% of total CPU. There is also _eager_ scavenging when an allocation would push the heap past `GOMEMLIMIT`.
 
 **`MADV_DONTNEED` vs `MADV_FREE`:** Go 1.12 switched to `MADV_FREE` (lazier, cheaper — the kernel only reclaims under pressure) and then **reverted to `MADV_DONTNEED` in Go 1.16**, because `MADV_FREE` left RSS looking high in `top`/Kubernetes and made memory-limit tuning and OOM debugging miserable. Correctness of the metric beat raw speed. (`GODEBUG=madvdontneed=0` still exists.)
 
@@ -209,7 +209,7 @@ Go's heap is organized in 64MB arenas. When the heap shrinks, the *virtual* addr
 
 **When it's actually needed:** OS thread-local state — cgo libraries with thread affinity (OpenGL contexts, some GUI toolkits), Linux namespaces (`setns`), `seccomp`, and per-thread credentials.
 
-**Scheduler cost:** that M is removed from the general pool. If a locked G blocks, the runtime must hand the P to a *different* M (`stoplockedm`/`startlockedm`), so it's strictly more expensive than normal scheduling. The runtime uses the startup thread during initialization, but ordinary `main.main` is **not** guaranteed to remain locked to it. If a GUI or C library requires startup-thread affinity, call `runtime.LockOSThread` from an `init` function before that thread can be released.
+**Scheduler cost:** that M is removed from the general pool. If a locked G blocks, the runtime must hand the P to a _different_ M (`stoplockedm`/`startlockedm`), so it's strictly more expensive than normal scheduling. The runtime uses the startup thread during initialization, but ordinary `main.main` is **not** guaranteed to remain locked to it. If a GUI or C library requires startup-thread affinity, call `runtime.LockOSThread` from an `init` function before that thread can be released.
 
 ## 13. Observability Added in Go 1.26
 
@@ -217,11 +217,11 @@ Go 1.26 added scheduler metrics that are easier to reason about than deriving ev
 
 ## 14. Interview Drills
 
-- *"go func() to running on a core"* → §1 + §2 (mention `runnext`; it signals depth)
-- *"What happens when a goroutine does a blocking read?"* → distinguish file vs socket; get the optimistic P retention right (§4)
-- *"Why doesn't a tight `for {}` loop hang the program in modern Go?"* → §6, sysmon + SIGURG + async safe points
-- *"Our pod is CPU-throttled despite low average CPU"* → §3, parallelism vs throughput limits
-- *"Why are goroutines cheap?"* → 2KB stacks, `_Gdead` reuse, userspace context switch (§8), no kernel involvement
+- _"go func() to running on a core"_ → §1 + §2 (mention `runnext`; it signals depth)
+- _"What happens when a goroutine does a blocking read?"_ → distinguish file vs socket; get the optimistic P retention right (§4)
+- _"Why doesn't a tight `for {}` loop hang the program in modern Go?"_ → §6, sysmon + SIGURG + async safe points
+- _"Our pod is CPU-throttled despite low average CPU"_ → §3, parallelism vs throughput limits
+- _"Why are goroutines cheap?"_ → 2KB stacks, `_Gdead` reuse, userspace context switch (§8), no kernel involvement
 
 ## Official Sources
 

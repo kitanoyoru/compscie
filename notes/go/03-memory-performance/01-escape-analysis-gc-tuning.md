@@ -14,7 +14,7 @@ Every local variable could live on the **stack** (cheap — bump the stack point
 
 ## 2. Common Misconception
 
-Taking a variable's address (`&x`) does **not** automatically force a heap allocation. The compiler cares whether the pointer *escapes the function*, not whether `&` was used:
+Taking a variable's address (`&x`) does **not** automatically force a heap allocation. The compiler cares whether the pointer _escapes the function_, not whether `&` was used:
 
 ```go
 func addOne(x int) int {
@@ -83,7 +83,7 @@ func init() {
 
 The GC treats all package-level pointers (and everything reachable through them — global maps, slices, etc.) as part of its **root set**, exactly like goroutine stacks. Mark phase traces from goroutine stacks **and** globals, following pointer chains to find all reachable (live) objects.
 
-**Production gotcha:** a global that accumulates pointers and never releases them (e.g. an ever-growing global cache map) keeps every referenced object alive forever — the GC only reclaims *unreachable* memory, it has no concept of "logically stale." An unbounded `map[string]*Session` that never deletes expired entries holds every session alive forever, growing without bound, even though every object is still technically reachable from a root.
+**Production gotcha:** a global that accumulates pointers and never releases them (e.g. an ever-growing global cache map) keeps every referenced object alive forever — the GC only reclaims _unreachable_ memory, it has no concept of "logically stale." An unbounded `map[string]*Session` that never deletes expired entries holds every session alive forever, growing without bound, even though every object is still technically reachable from a root.
 
 **Detection:** exactly what pprof's heap profile is designed to catch — steadily growing `inuse_space` with no plateau.
 
@@ -110,8 +110,8 @@ The release notes report roughly 10–40% lower GC overhead in GC-heavy programs
 
 ## 11. Follow-ups to Have Ready
 
-- *"Would you use GOGC or GOMEMLIMIT alone, or both?"* → Both together — GOMEMLIMIT as the backstop, GOGC tuned for normal-operation efficiency.
-- *"Why is an unbounded global cache a common Go memory leak, given it has a GC?"* → GC only reclaims unreachable memory; a global holding stale-but-still-referenced entries keeps them alive forever regardless of whether they're logically still needed.
+- _"Would you use GOGC or GOMEMLIMIT alone, or both?"_ → Both together — GOMEMLIMIT as the backstop, GOGC tuned for normal-operation efficiency.
+- _"Why is an unbounded global cache a common Go memory leak, given it has a GC?"_ → GC only reclaims unreachable memory; a global holding stale-but-still-referenced entries keeps them alive forever regardless of whether they're logically still needed.
 
 ## Official Sources
 

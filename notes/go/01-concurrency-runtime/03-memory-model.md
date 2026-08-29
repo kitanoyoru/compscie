@@ -10,20 +10,20 @@
 
 A **data race** is a read or write to a memory location concurrent with another write to that location, unless the accesses are atomic. Race-free Go programs have **DRF-SC**: they behave as though all goroutines were interleaved on a single processor in a sequentially consistent order.
 
-This does **not** mean goroutines execute in source order. Connect operations with a *happens-before* relationship.
+This does **not** mean goroutines execute in source order. Connect operations with a _happens-before_ relationship.
 
 > ⚠️ Do not use sleeps, scheduler timing, "it worked in tests," or ordinary loads/stores as publication mechanisms. Use channels, locks, atomics, or another API with an explicit synchronization contract.
 
 ## 2. Core Synchronization Edges
 
-| Primitive | Guaranteed edge | Typical use |
-| --- | --- | --- |
-| Channel send/receive | A send is synchronized before the corresponding receive completes. | Publish data with ownership transfer. |
-| Channel close | Closing is synchronized before a receive that returns because the channel is closed. | Broadcast completion. |
-| Buffered channel | The kth receive is synchronized before completion of the k+Cth send, where C is capacity. | Bounded concurrency. |
-| `Mutex` / `RWMutex` | An `Unlock` is synchronized before a later successful `Lock`. | Protect shared invariants. |
-| `Once` | Return from the function passed to `Do` is synchronized before return from every `Do` call. | One-time publication. |
-| Atomics | Atomic operations behave as though executed in one sequentially consistent order. | Small state machines and flags. |
+| Primitive            | Guaranteed edge                                                                             | Typical use                           |
+| -------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------- |
+| Channel send/receive | A send is synchronized before the corresponding receive completes.                          | Publish data with ownership transfer. |
+| Channel close        | Closing is synchronized before a receive that returns because the channel is closed.        | Broadcast completion.                 |
+| Buffered channel     | The kth receive is synchronized before completion of the k+Cth send, where C is capacity.   | Bounded concurrency.                  |
+| `Mutex` / `RWMutex`  | An `Unlock` is synchronized before a later successful `Lock`.                               | Protect shared invariants.            |
+| `Once`               | Return from the function passed to `Do` is synchronized before return from every `Do` call. | One-time publication.                 |
+| Atomics              | Atomic operations behave as though executed in one sequentially consistent order.           | Small state machines and flags.       |
 
 ## 3. Channels: Publication, Not Just Transport
 
@@ -84,9 +84,9 @@ There is **no reverse edge** from a goroutine finishing back to its creator. Joi
 
 ## Interview Drills
 
-- *"What does data-race-free buy you?"* → DRF-SC.
-- *"Does starting a goroutine guarantee its writes are visible later?"* → start creates an edge into the goroutine, not a join edge back.
-- *"Can a failed TryLock be used as a memory fence?"* → no.
+- _"What does data-race-free buy you?"_ → DRF-SC.
+- _"Does starting a goroutine guarantee its writes are visible later?"_ → start creates an edge into the goroutine, not a join edge back.
+- _"Can a failed TryLock be used as a memory fence?"_ → no.
 
 ## Official Sources
 

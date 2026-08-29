@@ -68,5 +68,5 @@ The GC's root set = **goroutine stacks** (scanned once per goroutine during mark
 
 ## 8. Follow-ups to Have Ready
 
-- *"If goroutine stacks are scanned once during mark, what if the stack changes after that scan?"* → Covered by the write barrier's shading logic applied to the goroutine's own pointer writes, plus mutator assist cooperation — the runtime uses preemption to bring a goroutine to a safe point for its one-time scan.
-- *"Why not use a generational or compacting collector like Java?"* → See §6 — escape analysis already captures much of the generational benefit; compaction would require read barriers or STW pauses that conflict with Go's low-latency priority.
+- _"If goroutine stacks are scanned once during mark, what if the stack changes after that scan?"_ → Covered by the write barrier's shading logic applied to the goroutine's own pointer writes, plus mutator assist cooperation — the runtime uses preemption to bring a goroutine to a safe point for its one-time scan.
+- _"Why not use a generational or compacting collector like Java?"_ → See §6 — escape analysis already captures much of the generational benefit; compaction would require read barriers or STW pauses that conflict with Go's low-latency priority.
