@@ -6,12 +6,12 @@ class Solution:
 
         for i, v in enumerate(num):
             if i < half:
-                if v == '?':
+                if v == "?":
                     q_diff += 1
                 else:
                     sum_diff += int(v)
             else:
-                if v == '?':
+                if v == "?":
                     q_diff -= 1
                 else:
                     sum_diff -= int(v)
