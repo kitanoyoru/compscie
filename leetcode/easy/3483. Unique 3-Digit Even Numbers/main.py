@@ -18,6 +18,6 @@ class Solution:
                     if (k == i) or (k == j) or (digits[k] % 2 != 0):
                         continue
 
-                    seen[digits[i]*100+digits[j]*10+digits[k]] = True
+                    seen[digits[i] * 100 + digits[j] * 10 + digits[k]] = True
 
         return len(seen)

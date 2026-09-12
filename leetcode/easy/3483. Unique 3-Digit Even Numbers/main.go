@@ -15,7 +15,7 @@ func totalNumbers(digits []int) int {
 			}
 
 			for k := range n {
-				if k == i || k == j || digits[k] % 2 != 0 {
+				if k == i || k == j || digits[k]%2 != 0 {
 					continue
 				}
 
