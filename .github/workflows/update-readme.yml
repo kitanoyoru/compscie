@@ -1,0 +1,46 @@
+name: Update README stats
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "leetcode/**"
+      - "tools/organize.py"
+  workflow_dispatch:
+
+# A merged PR is a push to main. Regenerate READMEs + language chart and
+# commit back only if they changed. Commits pushed with GITHUB_TOKEN do not
+# retrigger workflows, so no loop.
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-readme
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Regenerate README stats
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Regenerate READMEs
+        run: python3 tools/organize.py --apply --no-move
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "README stats already up to date"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md leetcode/README.md docs/leetcode-languages.svg
+          git commit -m "Update README solving stats"
+          git push
