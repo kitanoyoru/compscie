@@ -1,6 +1,6 @@
 # LeetCode
 
-**596 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**601 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -276,7 +276,10 @@ make apply      # file them and refresh both READMEs
 | 2873 | [Maximum Value of an Ordered Triplet I](easy/2873.%20Maximum%20Value%20of%20an%20Ordered%20Triplet%20I) | Go |
 | 3105 | [Longest Strictly Increasing or Strictly Decreasing Subarray](easy/3105.%20Longest%20Strictly%20Increasing%20or%20Strictly%20Decreasing%20Subarray) | Go |
 | 3314 | [Construct the Minimum Bitwise Array I](easy/3314.%20Construct%20the%20Minimum%20Bitwise%20Array%20I) | Go, Kotlin, Python, Rust, TypeScript |
+| 3483 | [Unique 3-Digit Even Numbers](easy/3483.%20Unique%203-Digit%20Even%20Numbers) | Go, Python, TypeScript |
+| 3498 | [Reverse Degree of a String](easy/3498.%20Reverse%20Degree%20of%20a%20String) | Go, Python, Rust, TypeScript |
 | 3541 | [Find Most Frequent Vowel and Consonant](easy/3541.%20Find%20Most%20Frequent%20Vowel%20and%20Consonant) | Go, Rust, TypeScript |
+| 3550 | [Smallest Index With Digit Sum Equal to Index](easy/3550.%20Smallest%20Index%20With%20Digit%20Sum%20Equal%20to%20Index) | Go |
 | 3622 | [Check Divisibility by Digit Sum and Product](easy/3622.%20Check%20Divisibility%20by%20Digit%20Sum%20and%20Product) | C, Go, Python |
 | 3783 | [Mirror Distance of an Integer](easy/3783.%20Mirror%20Distance%20of%20an%20Integer) | Go, Python, TypeScript |
 
@@ -479,6 +482,7 @@ make apply      # file them and refresh both READMEs
 | 1143 | [Longest Common Subsequence](medium/1143.%20Longest%20Common%20Subsequence) | Go, TypeScript |
 | 1161 | [Maximum Level Sum of a Binary Tree](medium/1161.%20Maximum%20Level%20Sum%20of%20a%20Binary%20Tree) | Go |
 | 1162 | [As Far from Land as Possible](medium/1162.%20As%20Far%20from%20Land%20as%20Possible) | Go, TypeScript |
+| 1190 | [Reverse Substrings Between Each Pair of Parentheses](medium/1190.%20Reverse%20Substrings%20Between%20Each%20Pair%20of%20Parentheses) | Go, Python, TypeScript |
 | 1239 | [Maximum Length of a Concatenated String with Unique Characters](medium/1239.%20Maximum%20Length%20of%20a%20Concatenated%20String%20with%20Unique%20Characters) | Go, Rust |
 | 1249 | [Minimum Remove to Make Valid Parentheses](medium/1249.%20Minimum%20Remove%20to%20Make%20Valid%20Parentheses) | TypeScript |
 | 1254 | [Number of Closed Islands](medium/1254.%20Number%20of%20Closed%20Islands) | Go, TypeScript |
@@ -532,6 +536,7 @@ make apply      # file them and refresh both READMEs
 | 1905 | [Count Sub Islands](medium/1905.%20Count%20Sub%20Islands) | TypeScript |
 | 1915 | [Number of Wonderful Substrings](medium/1915.%20Number%20of%20Wonderful%20Substrings) | Go, Rust |
 | 1922 | [Count Good Numbers](medium/1922.%20Count%20Good%20Numbers) | Go |
+| 1927 | [Sum Game](medium/1927.%20Sum%20Game) | Go, Python, TypeScript |
 | 1930 | [Unique Length-3 Palindromic Subsequences](medium/1930.%20Unique%20Length-3%20Palindromic%20Subsequences) | Go, Rust |
 | 1942 | [The Number of the Smallest Unoccupied Chair](medium/1942.%20The%20Number%20of%20the%20Smallest%20Unoccupied%20Chair) | Go |
 | 1975 | [Maximum Matrix Sum](medium/1975.%20Maximum%20Matrix%20Sum) | Go |

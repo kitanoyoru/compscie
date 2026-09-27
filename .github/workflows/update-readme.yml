@@ -1,0 +1,44 @@
+name: Update LeetCode READMEs
+
+on:
+  push:
+    branches: [main]
+
+# After a merge to main, re-run the organizer in --no-move mode so both
+# READMEs (root summary + leetcode/ index) and the languages chart pick up
+# any problems added by the PR. If nothing changed (the PR already ran
+# `make readme`), the job exits cleanly without a commit.
+#
+# Folder placement itself is NOT done here - that's enforced pre-merge by
+# the check-organization workflow, so main should already be organized.
+
+permissions:
+  contents: write
+
+jobs:
+  readme:
+    name: Regenerate READMEs
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Regenerate READMEs and language chart
+        run: python3 tools/organize.py --apply --no-move
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet README.md leetcode/README.md docs/leetcode-languages.svg; then
+            echo "READMEs already up to date - nothing to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md leetcode/README.md docs/leetcode-languages.svg
+          git commit -m "chore: refresh LeetCode README stats [skip ci]"
+          git push

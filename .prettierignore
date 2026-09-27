@@ -1,3 +1,6 @@
 node_modules
 tools
+# prettier-ignore generated files
 README.md
+leetcode/README.md
+docs/leetcode-languages.svg

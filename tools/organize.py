@@ -130,7 +130,10 @@ def is_problem_dir(p: Path) -> bool:
     # README.md is generated index metadata, not a solution file - ignore it so a
     # container dir (e.g. leetcode/ itself, once it holds a generated README.md)
     # isn't mistaken for a leaf problem folder.
-    return any(f.is_file() and f.name.lower() != "readme.md" for f in p.iterdir())
+    return any(
+        f.is_file() and not f.name.startswith(".") and f.name.lower() != "readme.md"
+        for f in p.iterdir()
+    )
 
 
 def collect_sources(meta: dict[int, dict]) -> list[Path]:
@@ -163,7 +166,7 @@ def collect_sources(meta: dict[int, dict]) -> list[Path]:
 def languages(p: Path) -> list[str]:
     langs = set()
     for f in p.rglob("*"):
-        if f.is_file():
+        if f.is_file() and not any(part.startswith(".") for part in f.parts):
             langs.add(LANG_NAMES.get(f.suffix.lower(), f.suffix.lstrip(".").upper()))
     return sorted(x for x in langs if x)
 
