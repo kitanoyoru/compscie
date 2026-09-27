@@ -1,6 +1,6 @@
 # LeetCode
 
-**602 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**603 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -61,6 +61,7 @@ make apply      # file them and refresh both READMEs
 | 183 | [Customers Who Never Order](easy/0183.%20Customers%20Who%20Never%20Order) | Python |
 | 190 | [Reverse Bits](easy/0190.%20Reverse%20Bits) | Rust |
 | 191 | [Number of 1 Bits](easy/0191.%20Number%20of%201%20Bits) | Java, Python, Rust, TypeScript |
+| 195 | [Tenth Line](easy/0195.%20Tenth%20Line) | Shell |
 | 196 | [Delete Duplicate Emails](easy/0196.%20Delete%20Duplicate%20Emails) | Python, SQL |
 | 197 | [Rising Temperature](easy/0197.%20Rising%20Temperature) | SQL |
 | 202 | [Happy Number](easy/0202.%20Happy%20Number) | Go |
