@@ -1,6 +1,6 @@
 # LeetCode
 
-**601 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**602 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -53,6 +53,7 @@ make apply      # file them and refresh both READMEs
 | 144 | [Binary Tree Preorder Traversal](easy/0144.%20Binary%20Tree%20Preorder%20Traversal) | Go, Rust, TypeScript |
 | 145 | [Binary Tree Postorder Traversal](easy/0145.%20Binary%20Tree%20Postorder%20Traversal) | TypeScript |
 | 160 | [Intersection of Two Linked Lists](easy/0160.%20Intersection%20of%20Two%20Linked%20Lists) | TypeScript |
+| 168 | [Excel Sheet Column Title](easy/0168.%20Excel%20Sheet%20Column%20Title) | Go, Python |
 | 169 | [Majority Element](easy/0169.%20Majority%20Element) | TypeScript |
 | 175 | [Combine Two Tables](easy/0175.%20Combine%20Two%20Tables) | SQL |
 | 181 | [Employees Earning More Than Their Managers](easy/0181.%20Employees%20Earning%20More%20Than%20Their%20Managers) | SQL |

@@ -41,34 +41,78 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 INDEX = Path(__file__).resolve().parent / "leetcode-index.tsv"
 
-PROBLEMS = "leetcode"          # all problem folders live under this root
+PROBLEMS = "leetcode"  # all problem folders live under this root
 DIFF_DIRS = ["easy", "medium", "hard"]
 MISC = "misc"
 # Directories at the repo root that are never treated as problem folders.
 PROTECTED = {
-    ".git", ".github", "node_modules", "tools", "structures",
-    "notes", "docs", "research",
-    ".vscode", ".idea", ".ccls-cache",
+    ".git",
+    ".github",
+    "node_modules",
+    "tools",
+    "structures",
+    "notes",
+    "docs",
+    "research",
+    ".vscode",
+    ".idea",
+    ".ccls-cache",
 }
 LEGACY = ["codeforces", "codewars"]
 
 LANG_NAMES = {
-    ".go": "Go", ".ts": "TypeScript", ".js": "JavaScript", ".py": "Python",
-    ".rs": "Rust", ".java": "Java", ".cpp": "C++", ".c": "C", ".cs": "C#",
-    ".swift": "Swift", ".kt": "Kotlin", ".rb": "Ruby", ".ex": "Elixir",
-    ".exs": "Elixir", ".dart": "Dart", ".zig": "Zig", ".sql": "SQL",
-    ".scala": "Scala", ".hs": "Haskell", ".php": "PHP", ".lua": "Lua",
-    ".sh": "Shell", ".pl": "Perl", ".erl": "Erlang", ".clj": "Clojure",
+    ".go": "Go",
+    ".ts": "TypeScript",
+    ".js": "JavaScript",
+    ".py": "Python",
+    ".rs": "Rust",
+    ".java": "Java",
+    ".cpp": "C++",
+    ".c": "C",
+    ".cs": "C#",
+    ".swift": "Swift",
+    ".kt": "Kotlin",
+    ".rb": "Ruby",
+    ".ex": "Elixir",
+    ".exs": "Elixir",
+    ".dart": "Dart",
+    ".zig": "Zig",
+    ".sql": "SQL",
+    ".scala": "Scala",
+    ".hs": "Haskell",
+    ".php": "PHP",
+    ".lua": "Lua",
+    ".sh": "Shell",
+    ".pl": "Perl",
+    ".erl": "Erlang",
+    ".clj": "Clojure",
 }
 
 # Roughly GitHub's linguist colors, so the chart reads like a language you know.
 LANG_COLORS = {
-    "Go": "#00ADD8", "Rust": "#DEA584", "Python": "#3572A5", "Java": "#B07219",
-    "TypeScript": "#3178C6", "JavaScript": "#F1E05A", "C++": "#F34B7D",
-    "C": "#555555", "C#": "#178600", "Swift": "#F05138", "Kotlin": "#A97BFF",
-    "Ruby": "#701516", "Elixir": "#6E4A7E", "Dart": "#00B4AB", "Zig": "#EC915C",
-    "SQL": "#E38C00", "Scala": "#C22D40", "Haskell": "#5E5086", "PHP": "#4F5D95",
-    "Lua": "#000080", "Shell": "#89E051", "Perl": "#0298C3", "Erlang": "#B83998",
+    "Go": "#00ADD8",
+    "Rust": "#DEA584",
+    "Python": "#3572A5",
+    "Java": "#B07219",
+    "TypeScript": "#3178C6",
+    "JavaScript": "#F1E05A",
+    "C++": "#F34B7D",
+    "C": "#555555",
+    "C#": "#178600",
+    "Swift": "#F05138",
+    "Kotlin": "#A97BFF",
+    "Ruby": "#701516",
+    "Elixir": "#6E4A7E",
+    "Dart": "#00B4AB",
+    "Zig": "#EC915C",
+    "SQL": "#E38C00",
+    "Scala": "#C22D40",
+    "Haskell": "#5E5086",
+    "PHP": "#4F5D95",
+    "Lua": "#000080",
+    "Shell": "#89E051",
+    "Perl": "#0298C3",
+    "Erlang": "#B83998",
     "Clojure": "#DB5855",
 }
 LANG_COLOR_FALLBACK = "#8b949e"
@@ -262,7 +306,9 @@ def plan(meta: dict[int, dict]) -> tuple[list[tuple[Path, Path, str]], list[str]
             dest, reason = misc_dir / f"{safe(src.name)} (duplicate)", "duplicate"
             if dest in claimed or dest.exists():
                 n = 2
-                while (alt := misc_dir / f"{safe(src.name)} (duplicate {n})") in claimed or alt.exists():
+                while (
+                    alt := misc_dir / f"{safe(src.name)} (duplicate {n})"
+                ) in claimed or alt.exists():
                     n += 1
                 dest = alt
 
@@ -292,7 +338,9 @@ def prune_empty(root: Path) -> list[Path]:
 # ---------------------------------------------------------------- readme
 
 
-def build_root_readme(counts: dict[str, int], total: int, top_langs: list[tuple[str, int]]) -> str:
+def build_root_readme(
+    counts: dict[str, int], total: int, top_langs: list[tuple[str, int]]
+) -> str:
     out = [
         "# compscie",
         "",
@@ -308,7 +356,9 @@ def build_root_readme(counts: dict[str, int], total: int, top_langs: list[tuple[
         "| --- | ---: |",
     ]
     for d in DIFF_DIRS:
-        out.append(f"| [{d.capitalize()}]({PROBLEMS}/README.md#{d}) | {counts.get(d, 0)} |")
+        out.append(
+            f"| [{d.capitalize()}]({PROBLEMS}/README.md#{d}) | {counts.get(d, 0)} |"
+        )
     if counts.get(MISC):
         out.append(f"| [Misc]({PROBLEMS}/README.md#misc) | {counts[MISC]} |")
     out += [f"| **Total** | **{total}** |", ""]
@@ -317,8 +367,7 @@ def build_root_readme(counts: dict[str, int], total: int, top_langs: list[tuple[
         out += [
             "### Languages",
             "",
-            "![Top languages by solved problems]"
-            "(docs/leetcode-languages.svg)",
+            "![Top languages by solved problems](docs/leetcode-languages.svg)",
             "",
         ]
 
@@ -326,8 +375,12 @@ def build_root_readme(counts: dict[str, int], total: int, top_langs: list[tuple[
     if notes_root.is_dir():
         topics = sorted(x for x in notes_root.iterdir() if x.is_dir())
         if topics:
-            out += ["## Notes", "",
-                    "Research notes and deep dives, exported from my Notion knowledge base.", ""]
+            out += [
+                "## Notes",
+                "",
+                "Research notes and deep dives, exported from my Notion knowledge base.",
+                "",
+            ]
             for t in topics:
                 pages = len(list(t.rglob("*.md")))
                 out.append(f"- [{t.name}](notes/{t.name}/) - {pages} page(s)")
@@ -336,7 +389,9 @@ def build_root_readme(counts: dict[str, int], total: int, top_langs: list[tuple[
     return "\n".join(out).rstrip() + "\n"
 
 
-def build_leetcode_readme(buckets: dict[str, list[tuple[int, str, Path]]], total: int) -> str:
+def build_leetcode_readme(
+    buckets: dict[str, list[tuple[int, str, Path]]], total: int
+) -> str:
     out = [
         "# LeetCode",
         "",
@@ -418,14 +473,19 @@ def build_readmes() -> None:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     ap.add_argument("--apply", action="store_true", help="perform the moves")
-    ap.add_argument("--drop-legacy", action="store_true",
-                    help="delete codeforces/ and codewars/")
+    ap.add_argument(
+        "--drop-legacy", action="store_true", help="delete codeforces/ and codewars/"
+    )
     ap.add_argument("--no-readme", action="store_true", help="skip README regeneration")
-    ap.add_argument("--no-move", action="store_true",
-                    help="don't move anything; with --apply, just regenerate the README")
+    ap.add_argument(
+        "--no-move",
+        action="store_true",
+        help="don't move anything; with --apply, just regenerate the README",
+    )
     args = ap.parse_args()
 
     meta = load_index()
@@ -453,7 +513,11 @@ def main() -> int:
 
     legacy_present = [] if args.no_move else [d for d in LEGACY if (REPO / d).is_dir()]
     if legacy_present:
-        verb = "will delete" if (args.apply and args.drop_legacy) else "would delete (pass --drop-legacy)"
+        verb = (
+            "will delete"
+            if (args.apply and args.drop_legacy)
+            else "would delete (pass --drop-legacy)"
+        )
         print(f"\nlegacy: {verb} {', '.join(legacy_present)}")
 
     if not args.apply:
@@ -471,15 +535,19 @@ def main() -> int:
     removed = [] if args.no_move else prune_empty(REPO)
 
     if not args.no_move:
-        print(f"\nmoved {len(moves)} folder(s); removed {len(removed)} empty director(ies).")
+        print(
+            f"\nmoved {len(moves)} folder(s); removed {len(removed)} empty director(ies)."
+        )
 
     if not args.no_readme:
         build_readmes()
         print("README.md and leetcode/README.md regenerated.")
 
     if not args.no_move:
-        print("\nreview with `git status` / `git add -A && git status` "
-              "(git detects the renames), then commit.")
+        print(
+            "\nreview with `git status` / `git add -A && git status` "
+            "(git detects the renames), then commit."
+        )
     return 0
 
 
