@@ -1,6 +1,6 @@
 # LeetCode
 
-**605 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**606 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -109,6 +109,7 @@ make apply      # file them and refresh both READMEs
 | 496 | [Next Greater Element I](easy/0496.%20Next%20Greater%20Element%20I) | Rust |
 | 500 | [Keyboard Row](easy/0500.%20Keyboard%20Row) | Go, Rust |
 | 501 | [Find Mode in Binary Search Tree](easy/0501.%20Find%20Mode%20in%20Binary%20Search%20Tree) | Go, Python, Rust, Swift, TypeScript |
+| 504 | [Base 7](easy/0504.%20Base%207) | Go, Python |
 | 509 | [Fibonacci Number](easy/0509.%20Fibonacci%20Number) | TypeScript |
 | 511 | [Game Play Analysis I](easy/0511.%20Game%20Play%20Analysis%20I) | SQL |
 | 530 | [Minimum Absolute Difference in BST](easy/0530.%20Minimum%20Absolute%20Difference%20in%20BST) | Go, TypeScript |
