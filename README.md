@@ -4,15 +4,15 @@ LeetCode solutions and computer-science research notes.
 
 ## LeetCode
 
-**607 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in. Full index: [leetcode/README.md](leetcode/README.md).
+**608 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in. Full index: [leetcode/README.md](leetcode/README.md).
 
 | | Count |
 | --- | ---: |
-| [Easy](leetcode/README.md#easy) | 268 |
+| [Easy](leetcode/README.md#easy) | 269 |
 | [Medium](leetcode/README.md#medium) | 306 |
 | [Hard](leetcode/README.md#hard) | 24 |
 | [Misc](leetcode/README.md#misc) | 9 |
-| **Total** | **607** |
+| **Total** | **608** |
 
 ### Languages
 
