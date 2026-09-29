@@ -105,7 +105,7 @@ make apply      # file them and refresh both READMEs
 | 455 | [Assign Cookies](easy/0455.%20Assign%20Cookies) | Dart, Go, Rust, TypeScript |
 | 459 | [Repeated Substring Pattern](easy/0459.%20Repeated%20Substring%20Pattern) | Java, Python, TypeScript |
 | 463 | [Island Perimeter](easy/0463.%20Island%20Perimeter) | Go, Java, Python, Rust |
-| 476 | [Number Complement](easy/0476.%20Number%20Complement) | Go |
+| 476 | [Number Complement](easy/0476.%20Number%20Complement) | Go, Python |
 | 496 | [Next Greater Element I](easy/0496.%20Next%20Greater%20Element%20I) | Rust |
 | 500 | [Keyboard Row](easy/0500.%20Keyboard%20Row) | Go, Rust |
 | 501 | [Find Mode in Binary Search Tree](easy/0501.%20Find%20Mode%20in%20Binary%20Search%20Tree) | Go, Python, Rust, Swift, TypeScript |
