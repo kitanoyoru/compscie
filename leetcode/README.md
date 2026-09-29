@@ -1,6 +1,6 @@
 # LeetCode
 
-**603 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**604 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -78,6 +78,7 @@ make apply      # file them and refresh both READMEs
 | 234 | [Palindrome Linked List](easy/0234.%20Palindrome%20Linked%20List) | TypeScript |
 | 242 | [Valid Anagram](easy/0242.%20Valid%20Anagram) | Go, Rust, TypeScript |
 | 257 | [Binary Tree Paths](easy/0257.%20Binary%20Tree%20Paths) | Go, TypeScript |
+| 263 | [Ugly Number](easy/0263.%20Ugly%20Number) | Go, Python, Rust, TypeScript |
 | 268 | [Missing Number](easy/0268.%20Missing%20Number) | Go |
 | 278 | [First Bad Version](easy/0278.%20First%20Bad%20Version) | Java, Python, TypeScript |
 | 283 | [Move Zeroes](easy/0283.%20Move%20Zeroes) | TypeScript |
