@@ -1,6 +1,6 @@
 # LeetCode
 
-**608 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**609 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -153,6 +153,7 @@ make apply      # file them and refresh both READMEs
 | 746 | [Min Cost Climbing Stairs](easy/0746.%20Min%20Cost%20Climbing%20Stairs) | Go, Rust, TypeScript |
 | 771 | [Jewels and Stones](easy/0771.%20Jewels%20and%20Stones) | C, Go |
 | 783 | [Minimum Distance Between BST Nodes](easy/0783.%20Minimum%20Distance%20Between%20BST%20Nodes) | Go, Python, Rust |
+| 796 | [Rotate String](easy/0796.%20Rotate%20String) | Go, Python, TypeScript |
 | 804 | [Unique Morse Code Words](easy/0804.%20Unique%20Morse%20Code%20Words) | TypeScript |
 | 812 | [Largest Triangle Area](easy/0812.%20Largest%20Triangle%20Area) | Go, Rust |
 | 844 | [Backspace String Compare](easy/0844.%20Backspace%20String%20Compare) | TypeScript |
