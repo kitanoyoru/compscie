@@ -1,7 +1,7 @@
 impl Solution {
     pub fn is_ugly(mut n: i32) -> bool {
-        if n <= 0 { 
-            return false; 
+        if n <= 0 {
+            return false;
         }
 
         for p in [2, 3, 5] {
