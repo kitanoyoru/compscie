@@ -1,6 +1,6 @@
 # LeetCode
 
-**610 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**611 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -174,6 +174,7 @@ make apply      # file them and refresh both READMEs
 | 989 | [Add to Array-Form of Integer](easy/0989.%20Add%20to%20Array-Form%20of%20Integer) | TypeScript |
 | 993 | [Cousins in Binary Tree](easy/0993.%20Cousins%20in%20Binary%20Tree) | Go |
 | 1022 | [Sum of Root To Leaf Binary Numbers](easy/1022.%20Sum%20of%20Root%20To%20Leaf%20Binary%20Numbers) | Go |
+| 1037 | [Valid Boomerang](easy/1037.%20Valid%20Boomerang) | Go, Python |
 | 1046 | [Last Stone Weight](easy/1046.%20Last%20Stone%20Weight) | Go, Rust |
 | 1050 | [Actors and Directors Who Cooperated At Least Three Times](easy/1050.%20Actors%20and%20Directors%20Who%20Cooperated%20At%20Least%20Three%20Times) | SQL |
 | 1051 | [Height Checker](easy/1051.%20Height%20Checker) | Elixir, Go, Python, Rust, TypeScript, Zig |
