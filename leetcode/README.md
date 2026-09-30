@@ -1,6 +1,6 @@
 # LeetCode
 
-**611 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**612 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -173,6 +173,7 @@ make apply      # file them and refresh both READMEs
 | 977 | [Squares of a Sorted Array](easy/0977.%20Squares%20of%20a%20Sorted%20Array) | Java, Python, TypeScript |
 | 989 | [Add to Array-Form of Integer](easy/0989.%20Add%20to%20Array-Form%20of%20Integer) | TypeScript |
 | 993 | [Cousins in Binary Tree](easy/0993.%20Cousins%20in%20Binary%20Tree) | Go |
+| 1009 | [Complement of Base 10 Integer](easy/1009.%20Complement%20of%20Base%2010%20Integer) | Go, Python, TypeScript |
 | 1022 | [Sum of Root To Leaf Binary Numbers](easy/1022.%20Sum%20of%20Root%20To%20Leaf%20Binary%20Numbers) | Go |
 | 1037 | [Valid Boomerang](easy/1037.%20Valid%20Boomerang) | Go, Python |
 | 1046 | [Last Stone Weight](easy/1046.%20Last%20Stone%20Weight) | Go, Rust |
