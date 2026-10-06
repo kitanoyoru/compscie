@@ -114,7 +114,7 @@ make apply      # file them and refresh both READMEs
 | 507 | [Perfect Number](easy/0507.%20Perfect%20Number) | Go, Python |
 | 509 | [Fibonacci Number](easy/0509.%20Fibonacci%20Number) | TypeScript |
 | 511 | [Game Play Analysis I](easy/0511.%20Game%20Play%20Analysis%20I) | SQL |
-| 520 | [Detect Capital](easy/0520.%20Detect%20Capital) | Go |
+| 520 | [Detect Capital](easy/0520.%20Detect%20Capital) | Go, Python, TypeScript |
 | 530 | [Minimum Absolute Difference in BST](easy/0530.%20Minimum%20Absolute%20Difference%20in%20BST) | Go, TypeScript |
 | 543 | [Diameter of Binary Tree](easy/0543.%20Diameter%20of%20Binary%20Tree) | Go |
 | 557 | [Reverse Words in a String III](easy/0557.%20Reverse%20Words%20in%20a%20String%20III) | Go, Python, Rust, TypeScript |
