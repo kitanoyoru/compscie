@@ -1,6 +1,6 @@
 # LeetCode
 
-**615 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**617 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -99,6 +99,7 @@ make apply      # file them and refresh both READMEs
 | 401 | [Binary Watch](easy/0401.%20Binary%20Watch) | Go |
 | 404 | [Sum of Left Leaves](easy/0404.%20Sum%20of%20Left%20Leaves) | Go |
 | 409 | [Longest Palindrome](easy/0409.%20Longest%20Palindrome) | TypeScript |
+| 414 | [Third Maximum Number](easy/0414.%20Third%20Maximum%20Number) | Go |
 | 415 | [Add Strings](easy/0415.%20Add%20Strings) | TypeScript |
 | 441 | [Arranging Coins](easy/0441.%20Arranging%20Coins) | TypeScript |
 | 448 | [Find All Numbers Disappeared in an Array](easy/0448.%20Find%20All%20Numbers%20Disappeared%20in%20an%20Array) | Go |
@@ -116,6 +117,7 @@ make apply      # file them and refresh both READMEs
 | 511 | [Game Play Analysis I](easy/0511.%20Game%20Play%20Analysis%20I) | SQL |
 | 520 | [Detect Capital](easy/0520.%20Detect%20Capital) | Go, Python, TypeScript |
 | 530 | [Minimum Absolute Difference in BST](easy/0530.%20Minimum%20Absolute%20Difference%20in%20BST) | Go, TypeScript |
+| 541 | [Reverse String II](easy/0541.%20Reverse%20String%20II) | Go |
 | 543 | [Diameter of Binary Tree](easy/0543.%20Diameter%20of%20Binary%20Tree) | Go |
 | 557 | [Reverse Words in a String III](easy/0557.%20Reverse%20Words%20in%20a%20String%20III) | Go, Python, Rust, TypeScript |
 | 559 | [Maximum Depth of N-ary Tree](easy/0559.%20Maximum%20Depth%20of%20N-ary%20Tree) | Go |
