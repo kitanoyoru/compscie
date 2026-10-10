@@ -1,6 +1,6 @@
 # LeetCode
 
-**616 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**615 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -116,7 +116,6 @@ make apply      # file them and refresh both READMEs
 | 511 | [Game Play Analysis I](easy/0511.%20Game%20Play%20Analysis%20I) | SQL |
 | 520 | [Detect Capital](easy/0520.%20Detect%20Capital) | Go, Python, TypeScript |
 | 530 | [Minimum Absolute Difference in BST](easy/0530.%20Minimum%20Absolute%20Difference%20in%20BST) | Go, TypeScript |
-| 541 | [Reverse String II](easy/0541.%20Reverse%20String%20II) | Go |
 | 543 | [Diameter of Binary Tree](easy/0543.%20Diameter%20of%20Binary%20Tree) | Go |
 | 557 | [Reverse Words in a String III](easy/0557.%20Reverse%20Words%20in%20a%20String%20III) | Go, Python, Rust, TypeScript |
 | 559 | [Maximum Depth of N-ary Tree](easy/0559.%20Maximum%20Depth%20of%20N-ary%20Tree) | Go |
