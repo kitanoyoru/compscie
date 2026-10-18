@@ -1,30 +1,48 @@
 PYTHON ?= python3
 ORGANIZE := $(PYTHON) tools/organize.py
+NOTES := $(PYTHON) tools/notes.py
 
 .DEFAULT_GOAL := help
-.PHONY: help organize apply migrate readme pretty lint lint-fix
+.PHONY: help hooks topic note readme organize apply lint lint-fix pretty
 
 help: ## Show this help
-	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
-		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
+	@awk 'BEGIN {FS = ":.*?## "} \
+		/^##@/ {printf "\n\033[1m%s\033[0m\n", substr($$0, 5)} \
+		/^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}' \
+		$(MAKEFILE_LIST)
+
+##@ Setup
+
+hooks: ## Install git hooks: every commit updates topic logs, roadmaps and READMEs
+	@git config core.hooksPath .githooks
+	@echo "hooks installed from .githooks/"
+
+##@ Notes
+
+topic: ## New topic from notes/_template (NAME=clickhouse)
+	@$(NOTES) new-topic "$(NAME)"
+
+note: ## New note in a topic (TOPIC=clickhouse NOTE=02-storage/01-parts)
+	@$(NOTES) new-note "$(TOPIC)" "$(NOTE)"
+
+readme: ## Tick roadmaps and regenerate READMEs (the pre-commit hook runs this)
+	@$(NOTES) sync
+
+##@ LeetCode
 
 organize: ## Preview how loose problem folders would be filed (dry run)
 	@$(ORGANIZE)
 
-apply: ## File problem folders by difficulty and refresh both READMEs
+apply: ## File problem folders by difficulty and refresh READMEs
 	@$(ORGANIZE) --apply
 
-migrate: ## One-time restructure: file everything, drop codeforces/ and codewars/
-	@$(ORGANIZE) --apply --drop-legacy
-
-readme: ## Regenerate both READMEs without moving anything
-	@$(ORGANIZE) --apply --no-move
-
-pretty: ## Format the repo with prettier
-	@yarn pretty
+##@ Quality
 
 lint: ## Run the same format-checks as CI (gofmt/rustfmt/ruff/google-java-format/prettier)
 	@bash tools/lint.sh
 
 lint-fix: ## Same checks, but let each formatter rewrite badly formatted files
 	@bash tools/lint.sh --fix
+
+pretty: ## Format the whole repo with prettier
+	@yarn pretty

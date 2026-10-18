@@ -8,7 +8,7 @@ Layout produced:
     leetcode/medium/0002. Add Two Numbers/main.ts
     leetcode/hard/0004. Median of Two Sorted Arrays/main.rs
     leetcode/misc/<anything that could not be identified>
-    notes/                 research notes (untouched)
+    notes/<topic>/         learning notes, one folder per subject (untouched)
     structures/            shared helpers (untouched)
     README.md              (regenerated summary)
     leetcode/README.md     (regenerated problem index)
@@ -20,7 +20,7 @@ canonical name and both READMEs pick it up.
     make organize   # dry run, shows the plan
     make apply      # actually move things, refresh both READMEs
     make migrate    # one-time: apply + delete codeforces/ and codewars/
-    make readme     # regenerate both READMEs only
+    make readme     # regenerate both READMEs only (notes table: tools/notes.py)
 
 (or call this script directly: python3 tools/organize.py --apply)
 
@@ -37,6 +37,8 @@ import sys
 import urllib.parse
 from collections import Counter, defaultdict
 from pathlib import Path
+
+from notes import build_notes_section
 
 REPO = Path(__file__).resolve().parent.parent
 INDEX = Path(__file__).resolve().parent / "leetcode-index.tsv"
@@ -344,8 +346,11 @@ def build_root_readme(
     out = [
         "# compscie",
         "",
-        "LeetCode solutions and computer-science research notes.",
+        "My learning log: deep-dive notes on whatever I'm studying, plus LeetCode solutions.",
         "",
+    ]
+    out += build_notes_section()
+    out += [
         "## LeetCode",
         "",
         f"**{total} problems solved**, filed by difficulty - one folder each, "
@@ -370,21 +375,6 @@ def build_root_readme(
             "![Top languages by solved problems](docs/leetcode-languages.svg)",
             "",
         ]
-
-    notes_root = REPO / "notes"
-    if notes_root.is_dir():
-        topics = sorted(x for x in notes_root.iterdir() if x.is_dir())
-        if topics:
-            out += [
-                "## Notes",
-                "",
-                "Research notes and deep dives, exported from my Notion knowledge base.",
-                "",
-            ]
-            for t in topics:
-                pages = len(list(t.rglob("*.md")))
-                out.append(f"- [{t.name}](notes/{t.name}/) - {pages} page(s)")
-            out.append("")
 
     return "\n".join(out).rstrip() + "\n"
 
