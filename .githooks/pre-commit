@@ -1,0 +1,5 @@
+#!/bin/sh
+# Installed by `make hooks`. Logs staged note changes in each topic's
+# README, ticks roadmap items, regenerates the root/LeetCode READMEs, and
+# stages the results so they land in the same commit.
+exec python3 tools/notes.py pre-commit

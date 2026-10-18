@@ -1,3 +1,9 @@
+---
+title: Go
+status: active
+started: 2026-08-23
+---
+
 # 🐹 Go
 
 Deep-dive notes on Go internals and production engineering, organized for **senior/staff interview preparation** and day-to-day debugging.

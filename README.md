@@ -1,6 +1,15 @@
 # compscie
 
-LeetCode solutions and computer-science research notes.
+My learning log: deep-dive notes on whatever I'm studying, plus LeetCode solutions.
+
+## Notes
+
+One folder per subject under [notes/](notes/). Start a new one with `make topic NAME=<slug>`.
+
+| Topic | Status | Pages | Started |
+| --- | --- | ---: | --- |
+| [ClickHouse](notes/clickhouse/) | active | 3 | 2026-10-18 |
+| [Go](notes/go/) | active | 19 | 2026-08-23 |
 
 ## LeetCode
 
@@ -17,9 +26,3 @@ LeetCode solutions and computer-science research notes.
 ### Languages
 
 ![Top languages by solved problems](docs/leetcode-languages.svg)
-
-## Notes
-
-Research notes and deep dives, exported from my Notion knowledge base.
-
-- [go](notes/go/) - 20 page(s)

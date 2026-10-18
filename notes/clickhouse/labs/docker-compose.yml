@@ -1,0 +1,22 @@
+# Single-node ClickHouse for experiments. Data persists in the named volume;
+# `docker compose down -v` wipes it.
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.8
+    ports:
+      - "8123:8123" # HTTP
+      - "9000:9000" # native protocol
+    environment:
+      CLICKHOUSE_USER: lab
+      CLICKHOUSE_PASSWORD: lab
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - ./sql:/sql:ro
+
+volumes:
+  clickhouse-data:
