@@ -1,4 +1,4 @@
-name: Check File Organization
+name: Check LeetCode Organization
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   organize:
-    name: Verify file organization
+    name: Verify LeetCode folder layout
     runs-on: ubuntu-latest
 
     steps:
@@ -60,7 +60,7 @@ jobs:
             const fs = require('fs');
             const output = fs.readFileSync('/tmp/organize_output.txt', 'utf8');
 
-            let comment = '### 📁 File Organization Check\n\n';
+            let comment = '### 📁 LeetCode Organization Check\n\n';
 
             if (output.includes('folder(s) to move')) {
               comment += '❌ **Files need to be reorganized**\n\n';
