@@ -145,7 +145,7 @@ make apply      # file them and refresh both READMEs
 | 637 | [Average of Levels in Binary Tree](easy/0637.%20Average%20of%20Levels%20in%20Binary%20Tree) | TypeScript |
 | 653 | [Two Sum IV - Input is a BST](easy/0653.%20Two%20Sum%20IV%20-%20Input%20is%20a%20BST) | Go, Java, TypeScript |
 | 671 | [Second Minimum Node In a Binary Tree](easy/0671.%20Second%20Minimum%20Node%20In%20a%20Binary%20Tree) | Go |
-| 680 | [Valid Palindrome II](easy/680.%20Valid%20Palindrome%20II) | Go |
+| 680 | [Valid Palindrome II](easy/680.%20Valid%20Palindrome%20II) | Go, Python |
 | 697 | [Degree of an Array](easy/0697.%20Degree%20of%20an%20Array) | Rust |
 | 700 | [Search in a Binary Search Tree](easy/0700.%20Search%20in%20a%20Binary%20Search%20Tree) | Java, TypeScript |
 | 703 | [Kth Largest Element in a Stream](easy/0703.%20Kth%20Largest%20Element%20in%20a%20Stream) | Rust |
