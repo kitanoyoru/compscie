@@ -1,6 +1,6 @@
 # LeetCode
 
-**620 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**621 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -143,6 +143,7 @@ make apply      # file them and refresh both READMEs
 | 627 | [Swap Sex of Employees](easy/0627.%20Swap%20Sex%20of%20Employees) | SQL |
 | 628 | [Maximum Product of Three Numbers](easy/0628.%20Maximum%20Product%20of%20Three%20Numbers) | C, C++, Go, Python, Rust, Swift, TypeScript |
 | 637 | [Average of Levels in Binary Tree](easy/0637.%20Average%20of%20Levels%20in%20Binary%20Tree) | TypeScript |
+| 643 | [Maximum Average Subarray I](easy/0643.%20Maximum%20Average%20Subarray%20I) | Go, Python, TypeScript |
 | 653 | [Two Sum IV - Input is a BST](easy/0653.%20Two%20Sum%20IV%20-%20Input%20is%20a%20BST) | Go, Java, TypeScript |
 | 671 | [Second Minimum Node In a Binary Tree](easy/0671.%20Second%20Minimum%20Node%20In%20a%20Binary%20Tree) | Go |
 | 680 | [Valid Palindrome II](easy/0680.%20Valid%20Palindrome%20II) | Go, Python, TypeScript |
