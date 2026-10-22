@@ -13,15 +13,15 @@ One folder per subject under [notes/](notes/). Start a new one with `make topic 
 
 ## LeetCode
 
-**621 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in. Full index: [leetcode/README.md](leetcode/README.md).
+**622 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in. Full index: [leetcode/README.md](leetcode/README.md).
 
 | | Count |
 | --- | ---: |
-| [Easy](leetcode/README.md#easy) | 282 |
+| [Easy](leetcode/README.md#easy) | 283 |
 | [Medium](leetcode/README.md#medium) | 306 |
 | [Hard](leetcode/README.md#hard) | 24 |
 | [Misc](leetcode/README.md#misc) | 9 |
-| **Total** | **621** |
+| **Total** | **622** |
 
 ### Languages
 
