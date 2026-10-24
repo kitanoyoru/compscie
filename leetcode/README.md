@@ -159,7 +159,7 @@ make apply      # file them and refresh both READMEs
 | 733 | [Flood Fill](easy/0733.%20Flood%20Fill) | Java, TypeScript |
 | 744 | [Find Smallest Letter Greater Than Target](easy/0744.%20Find%20Smallest%20Letter%20Greater%20Than%20Target) | TypeScript |
 | 746 | [Min Cost Climbing Stairs](easy/0746.%20Min%20Cost%20Climbing%20Stairs) | Go, Rust, TypeScript |
-| 747 | [Largest Number At Least Twice of Others](easy/747.%20Largest%20Number%20At%20Least%20Twice%20of%20Others) | Go, Python, TypeScript |
+| 747 | [Largest Number At Least Twice of Others](easy/0747.%20Largest%20Number%20At%20Least%20Twice%20of%20Others) | Go, Python, TypeScript |
 | 771 | [Jewels and Stones](easy/0771.%20Jewels%20and%20Stones) | C, Go |
 | 783 | [Minimum Distance Between BST Nodes](easy/0783.%20Minimum%20Distance%20Between%20BST%20Nodes) | Go, Python, Rust |
 | 796 | [Rotate String](easy/0796.%20Rotate%20String) | Go, Python, TypeScript |

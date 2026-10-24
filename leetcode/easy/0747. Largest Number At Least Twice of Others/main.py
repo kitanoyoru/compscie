@@ -12,7 +12,7 @@ class Solution:
         return idx
 
     def findLargest(self, nums: list[int]) -> Tuple[int, int]:
-        largest, idx = float('-inf'), 0
+        largest, idx = float("-inf"), 0
 
         for i, num in enumerate(nums):
             if num > largest:
