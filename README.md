@@ -4,12 +4,12 @@ My learning log: deep-dive notes on whatever I'm studying, plus LeetCode solutio
 
 ## Notes
 
-One folder per subject under [notes/](notes/). Start a new one with `make topic NAME=<slug>`.
+One folder per subject under [notes/](notes/), notes flat inside it. Start a topic with `make topic NAME=<slug>`, a note with `make note TOPIC=<topic> NOTE=<slug>`.
 
-| Topic | Status | Pages | Started |
-| --- | --- | ---: | --- |
-| [ClickHouse](notes/clickhouse/) | active | 3 | 2026-10-18 |
-| [Go](notes/go/) | active | 19 | 2026-08-23 |
+| Topic | Status | Notes | Started | Last note |
+| --- | --- | ---: | --- | --- |
+| [ClickHouse](notes/clickhouse/) | active | 1 | 2026-10-18 | 2026-10-24 |
+| [Go](notes/go/) | active | 19 | 2026-08-23 | 2026-08-23 |
 
 ## LeetCode
 

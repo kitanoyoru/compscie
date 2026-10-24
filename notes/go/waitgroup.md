@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go sync.WaitGroup — State, Ordering, and WaitGroup.Go
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b2a407e452d8130996dc62bcb412c84)

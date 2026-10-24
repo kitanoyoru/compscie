@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go defer — Semantics, Open-Coded Implementation, and Gotchas
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b3a407e452d8135ad91dcc4d8a76029)

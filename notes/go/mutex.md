@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go sync.Mutex — Internals
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b2a407e452d814586d9fc7f1bf8e877)

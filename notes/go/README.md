@@ -33,43 +33,35 @@ Deep-dive notes on Go internals and production engineering, organized for **seni
 - **Performance debugging:** Scheduler → Escape Analysis & GC → collection internals
 - **Version-aware interviews:** Swiss Maps first; legacy maps only as historical context
 
-## Concurrency & Runtime
+## Notes
 
-Start with the scheduler. The remaining pages reuse its G/M/P, parking, wake-up, and synchronization vocabulary.
+One file per note, flat in this folder. Start one with `make note TOPIC=go NOTE=<slug>`; the list below rebuilds on commit.
 
-1. [Go Scheduler (GMP)](01-concurrency-runtime/01-scheduler-gmp.md)
-2. [Channels — Internals, sudog, and Select](01-concurrency-runtime/02-channels.md)
-3. [Memory Model — Practical Happens-Before Guide](01-concurrency-runtime/03-memory-model.md)
-4. [Context — Cancellation, Deadlines, and Ownership](01-concurrency-runtime/04-context.md)
-5. [context Package — Cancellation Trees, Value Lookup, Anti-Patterns](01-concurrency-runtime/05-context-package-internals.md)
-6. [Timers and Tickers — Current Semantics and Safe Patterns](01-concurrency-runtime/06-timers-tickers.md)
-7. [Deadlock Detector — `checkdead()`](01-concurrency-runtime/07-deadlock-detector.md)
+<!-- notes:start - generated, newest first -->
 
-## Synchronization Primitives
+- 2026-08-23 - [📡 Go Channels — Internals, sudog, and Select](channels.md)
+- 2026-08-23 - [Go context Package — Cancellation Trees, Value Lookup, and Anti-Patterns](context-package-internals.md)
+- 2026-08-23 - [🧭 Go Context — Cancellation, Deadlines, and Ownership](context.md)
+- 2026-08-23 - [Go Deadlock Detector — checkdead()](deadlock-detector.md)
+- 2026-08-23 - [Go defer — Semantics, Open-Coded Implementation, and Gotchas](defer.md)
+- 2026-08-23 - [Go Escape Analysis & GC Tuning](escape-analysis-gc-tuning.md)
+- 2026-08-23 - [Go Garbage Collector — Tri-Color Marking, Write Barriers, and Phases](garbage-collector.md)
+- 2026-08-23 - [Go Generics — Constraints, Inference, and GCShape](generics.md)
+- 2026-08-23 - [Go Interfaces — Internal Representation & Nil-Pointer Trap](interfaces.md)
+- 2026-08-23 - [Go Maps — Legacy Bucket Design (Before Go 1.24)](maps-legacy-buckets.md)
+- 2026-08-23 - [Go Maps — Swiss Tables (Go 1.24+)](maps-swiss-tables.md)
+- 2026-08-23 - [Go Memory Allocator — mcache/mcentral/mheap, Size Classes, Arenas](memory-allocator.md)
+- 2026-08-23 - [🧠 Go Memory Model — Practical Happens-Before Guide](memory-model.md)
+- 2026-08-23 - [Go sync.Mutex — Internals](mutex.md)
+- 2026-08-23 - [Go sync.RWMutex — Internals and Recursive RLock](rwmutex.md)
+- 2026-08-23 - [⚙️ Go Scheduler (GMP) — Interview Prep Notes](scheduler-gmp.md)
+- 2026-08-23 - [Go Slices — Internals, Aliasing, and Growth](slices.md)
+- 2026-08-23 - [Go Timers and Tickers — Current Semantics and Safe Patterns](timers-tickers.md)
+- 2026-08-23 - [Go sync.WaitGroup — State, Ordering, and WaitGroup.Go](waitgroup.md)
 
-1. [`sync.Mutex` — Internals](02-sync-primitives/01-mutex.md)
-2. [`sync.RWMutex` — Internals and Recursive RLock](02-sync-primitives/02-rwmutex.md)
-3. [`sync.WaitGroup` — State, Ordering, and `WaitGroup.Go`](02-sync-primitives/03-waitgroup.md)
-
-## Memory & Performance
-
-1. [Escape Analysis & GC Tuning](03-memory-performance/01-escape-analysis-gc-tuning.md)
-2. [Garbage Collector — Tri-Color Marking, Write Barriers, Phases](03-memory-performance/02-garbage-collector.md)
-3. [Memory Allocator — mcache/mcentral/mheap, Size Classes, Arenas](03-memory-performance/03-memory-allocator.md)
+<!-- notes:end -->
 
 > 🔬 **Measurement rule:** diagnose before tuning. Escape diagnostics explain compiler decisions; benchmarks, allocation profiles, GC traces, and execution traces show whether those decisions matter.
-
-## Data Structures & Type System
-
-1. [Slices — Internals, Aliasing, and Growth](04-data-structures/01-slices.md)
-2. [Interfaces — Internal Representation & Nil-Pointer Trap](04-data-structures/02-interfaces.md)
-3. [Generics — Constraints, Inference, and GCShape](04-data-structures/03-generics.md)
-4. [Maps — Swiss Tables (Go 1.24+)](04-data-structures/04-maps-swiss-tables.md)
-5. [Maps — Legacy Bucket Design (Before Go 1.24)](04-data-structures/05-maps-legacy-buckets.md)
-
-## Language
-
-1. [`defer` — Semantics, Open-Coded Implementation, and Gotchas](05-language/01-defer.md)
 
 ## Cross-Cutting Gotcha Index
 

@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go Maps — Swiss Tables (Go 1.24+)
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b1a407e452d81848c62ec9511ede68d)

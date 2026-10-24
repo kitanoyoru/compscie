@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go Timers and Tickers — Current Semantics and Safe Patterns
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b2a407e452d819ba350d2f5016cde8e)

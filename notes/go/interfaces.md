@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go Interfaces — Internal Representation & Nil-Pointer Trap
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b1a407e452d812db75ff1719017ff9c)

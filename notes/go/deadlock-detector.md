@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go Deadlock Detector — checkdead()
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b1a407e452d81708f43e791a0fabd7a)

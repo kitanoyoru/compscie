@@ -12,20 +12,18 @@ started: STARTED
 
 - What I want to be able to do when I'm done.
 
-## Roadmap
-
-One note per item, numbered by section. Start one with `make note`; the item ticks itself on commit.
-
-- [ ] `01-<section>/01-<note>.md` - ...
-
 ## Resources
 
 - Official docs:
 - Source code:
 - Papers / talks / books:
 
-## Log
+## Notes
 
-<!-- Appended by the pre-commit hook. -->
+One file per note, flat in this folder. Start one with `make note TOPIC=TITLE NOTE=<slug>`; the list below rebuilds on commit.
 
-- STARTED - Started.
+<!-- notes:start - generated, newest first -->
+
+_No notes yet._
+
+<!-- notes:end -->

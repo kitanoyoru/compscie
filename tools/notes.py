@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 """
-Housekeeping for notes/<topic>/ so READMEs and logs never need hand edits.
+Housekeeping for notes/<topic>/ so READMEs never need hand edits.
 
     python3 tools/notes.py new-topic clickhouse
-    python3 tools/notes.py new-note clickhouse 02-storage/01-parts-and-granules
-    python3 tools/notes.py sync          # tick roadmaps, regenerate READMEs
-    python3 tools/notes.py pre-commit    # log staged notes + sync, then re-stage
+    python3 tools/notes.py new-note clickhouse data-part
+    python3 tools/notes.py sync          # date new notes, regenerate READMEs
+    python3 tools/notes.py pre-commit    # sync, then stage the results
 
-Topic README conventions (see notes/_template/README.md):
+Layout (see notes/_template/):
 
-- frontmatter `title` / `status` / `started` feeds the root README table
-- roadmap lines "- [ ] `path/to/note.md` - what" tick and link themselves
-  once that file exists
-- "## Log" gets one line per note added/updated/moved/removed, per day
+- one folder per topic, notes sit flat inside it: notes/<topic>/<note>.md
+- each note opens with a `date: YYYY-MM-DD` frontmatter block; a note
+  without one gets today's date on the next sync
+- topic README frontmatter `title` / `status` / `started` feeds the root
+  README table; its note list between the NOTES_START / NOTES_END markers
+  is regenerated, newest first
 """
 
 from __future__ import annotations
@@ -32,10 +34,9 @@ GENERATED = ["README.md", "leetcode/README.md", "docs/leetcode-languages.svg"]
 
 STATUS_ORDER = ["active", "paused", "planned", "done"]
 SLUG = re.compile(r"[a-z0-9][a-z0-9-]*")
-# "- [ ] `a/b.md` - what" or, once ticked, "- [x] [`a/b.md`](a/b.md) - what"
-ROADMAP = re.compile(
-    r"^(\s*)- \[[ x]\] (?:\[`(?P<linked>[^`]+\.md)`\]\([^)]*\)|`(?P<bare>[^`]+\.md)`)(.*)$"
-)
+FRONTMATTER = re.compile(r"---\n(.*?)\n---\n", re.DOTALL)
+NOTES_START = "<!-- notes:start - generated, newest first -->"
+NOTES_END = "<!-- notes:end -->"
 
 
 def today() -> str:
@@ -51,34 +52,45 @@ def topics() -> list[Path]:
     )
 
 
-def note_title(path: Path) -> str:
-    if path.is_file():
-        for line in path.read_text(encoding="utf-8").splitlines():
-            if line.startswith("# "):
-                return line[2:].strip()
-    return path.stem
+def topic_notes(topic: Path) -> list[Path]:
+    return sorted(f for f in topic.glob("*.md") if f.name != "README.md")
+
+
+def frontmatter(text: str) -> dict[str, str]:
+    """Read the `key: value` block at the top of a markdown file."""
+    meta: dict[str, str] = {}
+    m = FRONTMATTER.match(text)
+    if m:
+        for line in m.group(1).splitlines():
+            key, sep, value = line.partition(":")
+            if sep:
+                meta[key.strip()] = value.strip()
+    return meta
+
+
+def note_meta(path: Path) -> dict[str, str]:
+    text = path.read_text(encoding="utf-8")
+    meta = frontmatter(text)
+    title = next(
+        (line[2:].strip() for line in text.splitlines() if line.startswith("# ")),
+        path.stem,
+    )
+    meta.setdefault("title", title)
+    meta.setdefault("date", "")
+    return meta
 
 
 # ---------------------------------------------------------------- root readme
 
 
 def topic_meta(topic: Path) -> dict[str, str]:
-    """Read the `key: value` frontmatter block at the top of a topic README.
+    """Frontmatter of a topic README.
 
     Missing README or frontmatter is fine - title falls back to the folder name
     and status/started stay blank.
     """
-    meta: dict[str, str] = {}
     readme = topic / "README.md"
-    if readme.is_file():
-        m = re.match(
-            r"---\n(.*?)\n---\n", readme.read_text(encoding="utf-8"), re.DOTALL
-        )
-        if m:
-            for line in m.group(1).splitlines():
-                key, sep, value = line.partition(":")
-                if sep:
-                    meta[key.strip()] = value.strip()
+    meta = frontmatter(readme.read_text(encoding="utf-8")) if readme.is_file() else {}
     meta.setdefault("title", topic.name)
     return meta
 
@@ -91,24 +103,27 @@ def build_notes_section() -> list[str]:
         rank = (
             STATUS_ORDER.index(status) if status in STATUS_ORDER else len(STATUS_ORDER)
         )
-        pages = sum(1 for f in t.rglob("*.md") if f.name != "README.md")
-        rows.append((rank, t.name, meta, status, pages))
+        dates = [d for d in (note_meta(f)["date"] for f in topic_notes(t)) if d]
+        rows.append(
+            (rank, t.name, meta, status, len(topic_notes(t)), max(dates, default=""))
+        )
     if not rows:
         return []
 
     out = [
         "## Notes",
         "",
-        "One folder per subject under [notes/](notes/). Start a new one with "
-        "`make topic NAME=<slug>`.",
+        "One folder per subject under [notes/](notes/), notes flat inside it. "
+        "Start a topic with `make topic NAME=<slug>`, a note with "
+        "`make note TOPIC=<topic> NOTE=<slug>`.",
         "",
-        "| Topic | Status | Pages | Started |",
-        "| --- | --- | ---: | --- |",
+        "| Topic | Status | Notes | Started | Last note |",
+        "| --- | --- | ---: | --- | --- |",
     ]
-    for _, name, meta, status, pages in sorted(rows):
+    for _, name, meta, status, count, last in sorted(rows):
         out.append(
-            f"| [{meta['title']}](notes/{name}/) | {status or '-'} | {pages} "
-            f"| {meta.get('started') or '-'} |"
+            f"| [{meta['title']}](notes/{name}/) | {status or '-'} | {count} "
+            f"| {meta.get('started') or '-'} | {last or '-'} |"
         )
     out.append("")
     return out
@@ -117,76 +132,50 @@ def build_notes_section() -> list[str]:
 # ---------------------------------------------------------------- topic readme
 
 
-def sync_roadmap(topic: Path) -> bool:
-    """Tick and link every roadmap line whose note exists; untick the rest."""
+def stamp_date(note: Path, date: str) -> bool:
+    """Give a note without a `date:` frontmatter key today's date."""
+    text = note.read_text(encoding="utf-8")
+    if frontmatter(text).get("date"):
+        return False
+    m = FRONTMATTER.match(text)
+    if m:
+        text = f"---\n{m.group(1)}\ndate: {date}\n---\n" + text[m.end() :]
+    else:
+        text = f"---\ndate: {date}\n---\n\n" + text
+    note.write_text(text, encoding="utf-8")
+    return True
+
+
+def sync_topic_readme(topic: Path) -> bool:
+    """Rewrite the note list between the markers; append it if missing."""
     readme = topic / "README.md"
     if not readme.is_file():
         return False
     old = readme.read_text(encoding="utf-8")
-    lines = old.splitlines()
-    for i, line in enumerate(lines):
-        m = ROADMAP.match(line)
-        if not m:
-            continue
-        path = m.group("linked") or m.group("bare")
-        indent, rest = m.group(1), m.group(4)
-        if (topic / path).is_file():
-            lines[i] = f"{indent}- [x] [`{path}`]({path}){rest}"
-        else:
-            lines[i] = f"{indent}- [ ] `{path}`{rest}"
-    new = "\n".join(lines) + "\n"
+
+    # newest date first; same-day notes stay in filename order
+    entries = sorted(
+        ((note_meta(f), f.name) for f in topic_notes(topic)),
+        key=lambda e: e[0]["date"],
+        reverse=True,
+    )
+    block = [NOTES_START, ""]
+    block += [
+        f"- {m['date'] or '????-??-??'} - [{m['title']}]({n})" for m, n in entries
+    ]
+    if not entries:
+        block.append("_No notes yet._")
+    block += ["", NOTES_END]
+
+    if NOTES_START in old and NOTES_END in old:
+        head, rest = old.split(NOTES_START, 1)
+        tail = rest.split(NOTES_END, 1)[1]
+        new = head + "\n".join(block) + tail
+    else:
+        new = old.rstrip("\n") + "\n\n## Notes\n\n" + "\n".join(block) + "\n"
     if new == old:
         return False
     readme.write_text(new, encoding="utf-8")
-    return True
-
-
-def log_entry(verb: str, rel: str, topic: Path) -> str:
-    if verb == "Removed":
-        return f"{verb} `{rel}`"
-    return f"{verb} [{note_title(topic / rel)}]({rel})"
-
-
-def add_log_entries(topic: Path, changes: list[tuple[str, str]], date: str) -> bool:
-    """Append "- <date> - <verb> <note>" lines to the topic's ## Log section.
-
-    One line per note per day: a note already logged today is skipped, so
-    several commits touching the same note don't pile up "Updated" lines.
-    """
-    readme = topic / "README.md"
-    if not readme.is_file() or not changes:
-        return False
-    lines = readme.read_text(encoding="utf-8").rstrip("\n").split("\n")
-
-    try:
-        start = lines.index("## Log")
-    except ValueError:
-        lines += ["", "## Log", ""]
-        start = len(lines) - 2
-    end = next(
-        (i for i in range(start + 1, len(lines)) if lines[i].startswith("## ")),
-        len(lines),
-    )
-    while end > start + 1 and not lines[end - 1].strip():
-        end -= 1
-
-    prefix = f"- {date} - "
-    seen = lines[start:end]
-    added = []
-    for verb, rel in changes:
-        if any(
-            s.startswith(prefix) and (f"]({rel})" in s or f"`{rel}`" in s)
-            for s in seen + added
-        ):
-            continue
-        added.append(prefix + log_entry(verb, rel, topic))
-    if not added:
-        return False
-
-    if end == start + 1:
-        added.insert(0, "")
-    lines[end:end] = added
-    readme.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return True
 
 
@@ -194,8 +183,10 @@ def add_log_entries(topic: Path, changes: list[tuple[str, str]], date: str) -> b
 
 
 def sync() -> list[Path]:
-    """Tick roadmaps and regenerate the root + LeetCode READMEs."""
-    changed = [t / "README.md" for t in topics() if sync_roadmap(t)]
+    """Date undated notes, rebuild topic note lists and the root/LeetCode READMEs."""
+    date = today()
+    changed = [f for t in topics() for f in topic_notes(t) if stamp_date(f, date)]
+    changed += [t / "README.md" for t in topics() if sync_topic_readme(t)]
 
     import organize  # lazy: organize imports this module for the notes table
 
@@ -203,55 +194,10 @@ def sync() -> list[Path]:
     return changed
 
 
-def staged_note_changes() -> dict[Path, list[tuple[str, str]]]:
-    """Map each topic to (verb, path-in-topic) for staged note .md files."""
-    out = subprocess.run(
-        ["git", "diff", "--cached", "--name-status", "-M", "-z"],
-        cwd=REPO,
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.split("\0")
-
-    verbs = {"A": "Added", "M": "Updated", "D": "Removed", "R": "Moved"}
-    changes: dict[Path, list[tuple[str, str]]] = {}
-    i = 0
-    while i < len(out) and out[i]:
-        status = out[i][0]
-        # renames/copies carry two paths (old, new); log the new one
-        n = 2 if status in "RC" else 1
-        path = Path(out[i + n])
-        i += n + 1
-
-        parts = path.parts
-        if (
-            status not in verbs
-            or len(parts) < 3
-            or parts[0] != "notes"
-            or parts[1].startswith("_")
-            or path.suffix != ".md"
-            or path.name == "README.md"
-        ):
-            continue
-        topic = REPO / parts[0] / parts[1]
-        changes.setdefault(topic, []).append(
-            (verbs[status], Path(*parts[2:]).as_posix())
-        )
-    return changes
-
-
 def pre_commit() -> int:
     # Generated files are rebuilt from the working tree and staged whole, so
-    # any unstaged edits to a topic README go into this commit too.
-    date = today()
-    touched = {
-        t / "README.md"
-        for t, c in staged_note_changes().items()
-        if add_log_entries(t, c, date)
-    }
-    touched.update(sync())
-
-    paths = [str(p.relative_to(REPO)) for p in sorted(touched)]
+    # any unstaged edits to a topic README or dated note go into this commit too.
+    paths = [str(p.relative_to(REPO)) for p in sorted(sync())]
     paths += [p for p in GENERATED if (REPO / p).exists()]
     subprocess.run(["git", "add", "--", *paths], cwd=REPO, check=True)
     return 0
@@ -277,14 +223,19 @@ def new_note(topic_name: str, note: str) -> int:
     topic = NOTES / topic_name
     if not (topic / "README.md").is_file():
         sys.exit(f"no topic notes/{topic_name} - run: make topic NAME={topic_name}")
-    path = topic / (note if note.endswith(".md") else f"{note}.md")
+    slug = note.removesuffix(".md")
+    if not SLUG.fullmatch(slug):
+        sys.exit(f"note name must be a lowercase slug, got {note!r}")
+    path = topic / f"{slug}.md"
     if path.exists():
         sys.exit(f"{path.relative_to(REPO)} already exists")
-    # "01-parts-and-granules" -> "Parts and granules"
-    title = re.sub(r"^\d+-", "", path.stem).replace("-", " ").capitalize()
+    # "data-part" -> "Data part"
+    title = slug.replace("-", " ").capitalize()
     text = (TEMPLATE / "note.md").read_text(encoding="utf-8")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text.replace("# Note title", f"# {title}", 1), encoding="utf-8")
+    path.write_text(
+        text.replace("DATE", today()).replace("# Note title", f"# {title}", 1),
+        encoding="utf-8",
+    )
     sync()
     print(f"created {path.relative_to(REPO)}")
     return 0
@@ -293,13 +244,13 @@ def new_note(topic_name: str, note: str) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0].strip())
     sub = ap.add_subparsers(dest="cmd", required=True)
-    sub.add_parser("sync", help="tick roadmaps and regenerate READMEs")
+    sub.add_parser("sync", help="date new notes and regenerate READMEs")
     sub.add_parser("pre-commit", help="git pre-commit hook entry point")
     p = sub.add_parser("new-topic", help="create notes/<name> from the template")
     p.add_argument("name")
-    p = sub.add_parser("new-note", help="create a note inside a topic")
+    p = sub.add_parser("new-note", help="create notes/<topic>/<note>.md")
     p.add_argument("topic")
-    p.add_argument("note", help="path inside the topic, e.g. 02-storage/01-parts")
+    p.add_argument("note", help="lowercase slug, e.g. data-part")
     args = ap.parse_args()
 
     if args.cmd == "sync":

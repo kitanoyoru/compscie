@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # ⚙️ Go Scheduler (GMP) — Interview Prep Notes
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b1a407e452d81178811cf20ed9317f2)
