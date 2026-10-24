@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go Generics — Constraints, Inference, and GCShape
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b2a407e452d81d7be23c8d09a7aad51)

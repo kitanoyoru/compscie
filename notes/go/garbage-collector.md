@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go Garbage Collector — Tri-Color Marking, Write Barriers, and Phases
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b3a407e452d81c698fde6b2a72945ed)

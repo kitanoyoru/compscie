@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go Slices — Internals, Aliasing, and Growth
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b1a407e452d81d18889fc338e5ae258)

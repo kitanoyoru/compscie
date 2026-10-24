@@ -1,3 +1,7 @@
+---
+date: DATE
+---
+
 # Note title
 
 > TL;DR in one or two sentences.

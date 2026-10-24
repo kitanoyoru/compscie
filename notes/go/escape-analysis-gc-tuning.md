@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go Escape Analysis & GC Tuning
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b2a407e452d812198a5dfbc05674dfc)

@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go Memory Allocator — mcache/mcentral/mheap, Size Classes, Arenas
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b3a407e452d819fb7bdc0a809dd7ead)

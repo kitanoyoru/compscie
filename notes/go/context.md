@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # 🧭 Go Context — Cancellation, Deadlines, and Ownership
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b2a407e452d81af9e4bd9daae42963e)

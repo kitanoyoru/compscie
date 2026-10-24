@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 # Safety net for commits made without the pre-commit hook (`make hooks`):
-# after a merge to main, tick topic roadmaps and regenerate both READMEs
+# after a merge to main, date new notes and regenerate the READMEs
 # (root summary + leetcode/ index) and the languages chart so they pick up
 # any problems or notes added by the PR. If nothing changed (the PR already ran
 # `make readme`), the job exits cleanly without a commit.

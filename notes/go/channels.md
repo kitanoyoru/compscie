@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # 📡 Go Channels — Internals, sudog, and Select
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b1a407e452d815fa62ee08279bdbe91)

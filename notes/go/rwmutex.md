@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # Go sync.RWMutex — Internals and Recursive RLock
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b2a407e452d81afaa37f89f385408d4)

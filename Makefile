@@ -13,7 +13,7 @@ help: ## Show this help
 
 ##@ Setup
 
-hooks: ## Install git hooks: every commit updates topic logs, roadmaps and READMEs
+hooks: ## Install git hooks: every commit dates new notes and rebuilds READMEs
 	@git config core.hooksPath .githooks
 	@echo "hooks installed from .githooks/"
 
@@ -22,10 +22,10 @@ hooks: ## Install git hooks: every commit updates topic logs, roadmaps and READM
 topic: ## New topic from notes/_template (NAME=clickhouse)
 	@$(NOTES) new-topic "$(NAME)"
 
-note: ## New note in a topic (TOPIC=clickhouse NOTE=02-storage/01-parts)
+note: ## New note in a topic (TOPIC=clickhouse NOTE=data-part)
 	@$(NOTES) new-note "$(TOPIC)" "$(NOTE)"
 
-readme: ## Tick roadmaps and regenerate READMEs (the pre-commit hook runs this)
+readme: ## Date new notes and regenerate READMEs (the pre-commit hook runs this)
 	@$(NOTES) sync
 
 ##@ LeetCode

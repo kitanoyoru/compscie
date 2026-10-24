@@ -1,3 +1,7 @@
+---
+date: 2026-08-23
+---
+
 # 🧠 Go Memory Model — Practical Happens-Before Guide
 
 > Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b2a407e452d81a2b88edf55ac74cb7d)
