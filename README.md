@@ -8,7 +8,7 @@ One folder per subject under [notes/](notes/), notes flat inside it. Start a top
 
 | Topic | Status | Notes | Started | Last note |
 | --- | --- | ---: | --- | --- |
-| [ClickHouse](notes/clickhouse/) | active | 2 | 2026-10-18 | 2026-10-24 |
+| [ClickHouse](notes/clickhouse/) | active | 3 | 2026-10-18 | 2026-10-24 |
 | [Go](notes/go/) | active | 19 | 2026-08-23 | 2026-08-23 |
 
 ## LeetCode

@@ -39,5 +39,6 @@ One file per note, flat in this folder. Start one with `make note TOPIC=clickhou
 
 - 2026-10-24 - [ClickHouse Data Part](data-part.md)
 - 2026-10-24 - [ClickHouse Granule](granule.md)
+- 2026-10-24 - [ClickHouse PRIMARY KEY vs ORDER BY](primary-key-vs-order-by.md)
 
 <!-- notes:end -->
