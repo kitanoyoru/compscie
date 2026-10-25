@@ -1,6 +1,6 @@
 # LeetCode
 
-**624 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**625 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -176,6 +176,7 @@ make apply      # file them and refresh both READMEs
 | 897 | [Increasing Order Search Tree](easy/0897.%20Increasing%20Order%20Search%20Tree) | Go |
 | 905 | [Sort Array By Parity](easy/0905.%20Sort%20Array%20By%20Parity) | Go, Python, Rust |
 | 917 | [Reverse Only Letters](easy/0917.%20Reverse%20Only%20Letters) | Go, Python |
+| 925 | [Long Pressed Name](easy/925.%20Long%20Pressed%20Name) | Go |
 | 938 | [Range Sum of BST](easy/0938.%20Range%20Sum%20of%20BST) | Go, Python |
 | 942 | [DI String Match](easy/0942.%20DI%20String%20Match) | Go |
 | 953 | [Verifying an Alien Dictionary](easy/0953.%20Verifying%20an%20Alien%20Dictionary) | Go, Rust |
