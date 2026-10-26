@@ -188,7 +188,7 @@ make apply      # file them and refresh both READMEs
 | 993 | [Cousins in Binary Tree](easy/0993.%20Cousins%20in%20Binary%20Tree) | Go |
 | 1002 | [Find Common Characters](easy/1002.%20Find%20Common%20Characters) | Go |
 | 1009 | [Complement of Base 10 Integer](easy/1009.%20Complement%20of%20Base%2010%20Integer) | Go, Python, TypeScript |
-| 1018 | [Binary Prefix Divisible By 5](easy/1018.%20Binary%20Prefix%20Divisible%20By%205) | Go |
+| 1018 | [Binary Prefix Divisible By 5](easy/1018.%20Binary%20Prefix%20Divisible%20By%205) | Go, Python |
 | 1022 | [Sum of Root To Leaf Binary Numbers](easy/1022.%20Sum%20of%20Root%20To%20Leaf%20Binary%20Numbers) | Go |
 | 1037 | [Valid Boomerang](easy/1037.%20Valid%20Boomerang) | Go, Python |
 | 1046 | [Last Stone Weight](easy/1046.%20Last%20Stone%20Weight) | Go, Rust |
