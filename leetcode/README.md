@@ -1,6 +1,6 @@
 # LeetCode
 
-**625 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**626 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -156,6 +156,7 @@ make apply      # file them and refresh both READMEs
 | 705 | [Design HashSet](easy/0705.%20Design%20HashSet) | Go, Rust |
 | 706 | [Design HashMap](easy/0706.%20Design%20HashMap) | TypeScript |
 | 709 | [To Lower Case](easy/0709.%20To%20Lower%20Case) | Go, Python, TypeScript |
+| 717 | [1-bit and 2-bit Characters](easy/717.%201-bit%20and%202-bit%20Characters) | Go |
 | 728 | [Self Dividing Numbers](easy/0728.%20Self%20Dividing%20Numbers) | Go |
 | 733 | [Flood Fill](easy/0733.%20Flood%20Fill) | Java, TypeScript |
 | 744 | [Find Smallest Letter Greater Than Target](easy/0744.%20Find%20Smallest%20Letter%20Greater%20Than%20Target) | TypeScript |
