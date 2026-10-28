@@ -201,7 +201,7 @@ make apply      # file them and refresh both READMEs
 | 1141 | [User Activity for the Past 30 Days I](easy/1141.%20User%20Activity%20for%20the%20Past%2030%20Days%20I) | SQL |
 | 1148 | [Article Views I](easy/1148.%20Article%20Views%20I) | Python, SQL |
 | 1154 | [Day of the Year](easy/1154.%20Day%20of%20the%20Year) | Go, Python, TypeScript |
-| 1185 | [Day of the Week](easy/1185.%20Day%20of%20the%20Week) | Go |
+| 1185 | [Day of the Week](easy/1185.%20Day%20of%20the%20Week) | Go, Python |
 | 1207 | [Unique Number of Occurrences](easy/1207.%20Unique%20Number%20of%20Occurrences) | Go, Rust |
 | 1221 | [Split a String in Balanced Strings](easy/1221.%20Split%20a%20String%20in%20Balanced%20Strings) | Go, Rust |
 | 1266 | [Minimum Time Visiting All Points](easy/1266.%20Minimum%20Time%20Visiting%20All%20Points) | Go |
