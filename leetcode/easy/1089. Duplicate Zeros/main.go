@@ -30,4 +30,3 @@ func writeInBounds(arr []int, idx, val, n int) {
 		arr[idx] = val
 	}
 }
-
