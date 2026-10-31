@@ -1,14 +1,15 @@
 WITH unique_nums AS (
-    SELECT
-        num
-    FROM
-        MyNumbers
-    GROUP BY
-        num
-    HAVING 
-        COUNT(*) = 1
+  SELECT
+    num
+  FROM
+    MyNumbers
+  GROUP BY
+    num
+  HAVING
+    COUNT(*) = 1
 )
-SELECT 
-    MAX(num) AS num
+
+SELECT
+  MAX(num) AS num
 FROM
-    unique_nums;
+  unique_nums;

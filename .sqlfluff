@@ -1,0 +1,23 @@
+# Used by `make lint` (tools/lint.sh) and the sqlfluff job in
+# .github/workflows/lint.yml.
+#
+# Solutions target LeetCode's MySQL judge, so mysql is the default dialect.
+# A file written for another engine sets its own on the first line, e.g.
+#   -- sqlfluff:dialect:postgres
+#
+# Like the other lint jobs this is a format-check: only layout and
+# capitalisation rules run, not the semantic ones (aliasing, references, ...).
+
+[sqlfluff]
+dialect = mysql
+templater = raw
+max_line_length = 100
+rules = layout, capitalisation
+# CP02: identifier case is fixed by the problem's schema (and MySQL table
+#       names are case-sensitive on Linux), so don't normalise it.
+# LT09: would force single-column SELECTs onto one line, against the
+#       `SELECT` / indented-column style used throughout.
+exclude_rules = CP02, LT09
+
+[sqlfluff:indentation]
+tab_space_size = 2

@@ -1,11 +1,10 @@
 SELECT
-    w.name,
-    w.population,
-    w.area
+  w.name,
+  w.population,
+  w.area
 FROM
-    World AS w
+  World AS w
 WHERE
-    w.population >= 25000000
-        OR
-    w.area >= 3000000;
-
+  w.population >= 25000000
+  OR
+  w.area >= 3000000;

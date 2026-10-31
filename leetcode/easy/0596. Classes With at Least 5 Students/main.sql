@@ -1,8 +1,8 @@
 SELECT
-    c.class
+  c.class
 FROM
-    Courses AS c
+  Courses AS c
 GROUP BY
-    class
+  class
 HAVING
-    COUNT(*) >= 5;
+  COUNT(*) >= 5;

@@ -7,7 +7,7 @@ FROM
   (
     SELECT
       customer_number,
-      COUNT(customer_number) as orders
+      COUNT(customer_number) AS orders
     FROM
       Orders
     GROUP BY

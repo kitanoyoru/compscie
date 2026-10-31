@@ -38,7 +38,7 @@ apply: ## File problem folders by difficulty and refresh READMEs
 
 ##@ Quality
 
-lint: ## Run the same format-checks as CI (gofmt/rustfmt/ruff/google-java-format/prettier)
+lint: ## Run the same format-checks as CI (gofmt/rustfmt/ruff/google-java-format/prettier/sqlfluff)
 	@bash tools/lint.sh
 
 lint-fix: ## Same checks, but let each formatter rewrite badly formatted files

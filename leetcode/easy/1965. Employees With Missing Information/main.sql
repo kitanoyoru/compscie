@@ -4,12 +4,12 @@
 SELECT
   e.employee_id
 FROM
-  Employees as e
+  Employees AS e
 WHERE
   e.employee_id NOT IN (
-    SELECT 
+    SELECT
       s.employee_id
-    FROM 
+    FROM
       Salaries AS s
   )
 
@@ -21,9 +21,9 @@ FROM
   Salaries AS s
 WHERE
   s.employee_id NOT IN (
-    SELECT 
+    SELECT
       e.employee_id
-    FROM 
+    FROM
       Employees AS e
   )
 ORDER BY

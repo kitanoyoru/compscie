@@ -14,4 +14,3 @@ FROM (
 ) AS sub
 WHERE
   rnk = 1;
-  
