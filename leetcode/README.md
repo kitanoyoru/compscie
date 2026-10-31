@@ -1,6 +1,6 @@
 # LeetCode
 
-**633 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**634 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -198,6 +198,7 @@ make apply      # file them and refresh both READMEs
 | 1089 | [Duplicate Zeros](easy/1089.%20Duplicate%20Zeros) | Go |
 | 1108 | [Defanging an IP Address](easy/1108.%20Defanging%20an%20IP%20Address) | Rust |
 | 1114 | [Print in Order](easy/1114.%20Print%20in%20Order) | Go |
+| 1122 | [Relative Sort Array](easy/1122.%20Relative%20Sort%20Array) | Go |
 | 1137 | [N-th Tribonacci Number](easy/1137.%20N-th%20Tribonacci%20Number) | TypeScript |
 | 1141 | [User Activity for the Past 30 Days I](easy/1141.%20User%20Activity%20for%20the%20Past%2030%20Days%20I) | SQL |
 | 1148 | [Article Views I](easy/1148.%20Article%20Views%20I) | Python, SQL |
