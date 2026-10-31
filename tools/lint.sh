@@ -15,6 +15,7 @@ source "$REPO_ROOT/tools/lint-collect-files.sh"
 GJF_VERSION="1.24.0"
 GJF_JAR="${XDG_CACHE_HOME:-$HOME/.cache}/leetcode-lint/google-java-format-$GJF_VERSION-all-deps.jar"
 PRETTIER="prettier@2.7.1"
+SQLFLUFF_VERSION="4.5.0"
 
 FIX=0
 case "${1:-}" in
@@ -148,6 +149,24 @@ if have npx; then
   fi
 else
   skipped+=("prettier (no npx)")
+fi
+
+echo "==> sqlfluff"
+# Rules and dialect live in .sqlfluff at the repo root. sqlfluff is run from
+# there so that config is picked up regardless of the caller's cwd.
+if have sqlfluff; then
+  collect_files "$REPO_ROOT/leetcode" -name '*.sql'
+  if [ "${#FILES[@]}" -eq 0 ]; then
+    echo "no SQL files to check"
+  elif [ "$FIX" -eq 1 ]; then
+    (cd "$REPO_ROOT" && sqlfluff fix --quiet "${FILES[@]}")
+    report sqlfluff $?
+  else
+    (cd "$REPO_ROOT" && sqlfluff lint "${FILES[@]}")
+    report sqlfluff $?
+  fi
+else
+  skipped+=("sqlfluff (pip install sqlfluff==$SQLFLUFF_VERSION)")
 fi
 
 echo

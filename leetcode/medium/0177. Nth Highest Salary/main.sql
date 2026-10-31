@@ -1,17 +1,18 @@
-CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT -- noqa: CP03
 BEGIN
   SET N = N - 1;
   RETURN (
-    SELECT
-        DISTINCT(salary)
+    SELECT DISTINCT
+      (salary)
     FROM
-        Employee
+      Employee
 
     ORDER BY
-        salary
-    DESC 
+      salary
+      DESC
 
-    LIMIT 1
-    OFFSET N
+    LIMIT
+      1
+      OFFSET N
   );
 END

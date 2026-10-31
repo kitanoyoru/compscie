@@ -9,6 +9,6 @@ FROM
 GROUP BY
   activity_date
 HAVING
-  activity_date > date_add('2019-07-27', INTERVAL -30 DAY) 
-    AND 
+  activity_date > DATE_ADD('2019-07-27', INTERVAL -30 DAY)
+  AND
   activity_date <= '2019-07-27';

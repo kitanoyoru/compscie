@@ -15,6 +15,5 @@ FROM
   Weather, yesterday
 WHERE
   Weather.temperature > yesterday.temperature
-    AND
+  AND
   DATEDIFF(Weather.recordDate, yesterday.recordDate) = 1;
-

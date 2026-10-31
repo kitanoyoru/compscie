@@ -1,7 +1,6 @@
 SELECT
-    t.tweet_id
+  t.tweet_id
 FROM
-    Tweets as t
+  Tweets AS t
 WHERE
-    LENGTH(t.content) > 15; 
-
+  LENGTH(t.content) > 15;

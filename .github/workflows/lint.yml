@@ -140,3 +140,32 @@ jobs:
           fi
 
           npx --yes prettier@2.7.1 --check "${FILES[@]}"
+
+  sql-lint:
+    name: sqlfluff
+    runs-on: ubuntu-latest
+    env:
+      SQLFLUFF_VERSION: "4.5.0"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: pip install sqlfluff
+        run: pip install "sqlfluff==${SQLFLUFF_VERSION}"
+
+      # Layout + keyword capitalisation only (see .sqlfluff), in keeping with
+      # the format-check-only policy above.
+      - name: sqlfluff lint
+        run: |
+          source tools/lint-collect-files.sh
+          collect_files leetcode -name '*.sql'
+
+          if [ "${#FILES[@]}" -eq 0 ]; then
+            echo "no SQL files to check"
+            exit 0
+          fi
+
+          sqlfluff lint --format github-annotation-native "${FILES[@]}"

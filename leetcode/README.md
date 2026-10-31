@@ -1,6 +1,6 @@
 # LeetCode
 
-**632 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**633 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -206,6 +206,7 @@ make apply      # file them and refresh both READMEs
 | 1200 | [Minimum Absolute Difference](easy/1200.%20Minimum%20Absolute%20Difference) | Go, Python, TypeScript |
 | 1207 | [Unique Number of Occurrences](easy/1207.%20Unique%20Number%20of%20Occurrences) | Go, Rust |
 | 1221 | [Split a String in Balanced Strings](easy/1221.%20Split%20a%20String%20in%20Balanced%20Strings) | Go, Rust |
+| 1251 | [Average Selling Price](easy/1251.%20Average%20Selling%20Price) | SQL |
 | 1266 | [Minimum Time Visiting All Points](easy/1266.%20Minimum%20Time%20Visiting%20All%20Points) | Go |
 | 1281 | [Subtract the Product and Sum of Digits of an Integer](easy/1281.%20Subtract%20the%20Product%20and%20Sum%20of%20Digits%20of%20an%20Integer) | TypeScript |
 | 1287 | [Element Appearing More Than 25% In Sorted Array](easy/1287.%20Element%20Appearing%20More%20Than%2025%25%20In%20Sorted%20Array) | Go |
