@@ -1,6 +1,6 @@
 # LeetCode
 
-**634 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
+**635 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in.
 
 ## Layout
 
@@ -169,6 +169,7 @@ make apply      # file them and refresh both READMEs
 | 812 | [Largest Triangle Area](easy/0812.%20Largest%20Triangle%20Area) | Go, Rust |
 | 832 | [Flipping an Image](easy/0832.%20Flipping%20an%20Image) | Go, Python, TypeScript |
 | 844 | [Backspace String Compare](easy/0844.%20Backspace%20String%20Compare) | TypeScript |
+| 859 | [Buddy Strings](easy/859.%20Buddy%20Strings) | Go |
 | 867 | [Transpose Matrix](easy/0867.%20Transpose%20Matrix) | Go |
 | 872 | [Leaf-Similar Trees](easy/0872.%20Leaf-Similar%20Trees) | Go, Rust |
 | 876 | [Middle of the Linked List](easy/0876.%20Middle%20of%20the%20Linked%20List) | Go, TypeScript |

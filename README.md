@@ -13,15 +13,15 @@ One folder per subject under [notes/](notes/), notes flat inside it. Start a top
 
 ## LeetCode
 
-**634 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in. Full index: [leetcode/README.md](leetcode/README.md).
+**635 problems solved**, filed by difficulty - one folder each, with one file per language I solved it in. Full index: [leetcode/README.md](leetcode/README.md).
 
 | | Count |
 | --- | ---: |
-| [Easy](leetcode/README.md#easy) | 295 |
+| [Easy](leetcode/README.md#easy) | 296 |
 | [Medium](leetcode/README.md#medium) | 306 |
 | [Hard](leetcode/README.md#hard) | 24 |
 | [Misc](leetcode/README.md#misc) | 9 |
-| **Total** | **634** |
+| **Total** | **635** |
 
 ### Languages
 
