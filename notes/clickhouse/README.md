@@ -37,6 +37,7 @@ One file per note, flat in this folder. Start one with `make note TOPIC=clickhou
 
 <!-- notes:start - generated, newest first -->
 
+- 2026-10-31 - [ClickHouse Sparse Index](sparse-index.md)
 - 2026-10-24 - [ClickHouse Data Part](data-part.md)
 - 2026-10-24 - [ClickHouse Granule](granule.md)
 - 2026-10-24 - [ClickHouse PRIMARY KEY vs ORDER BY](primary-key-vs-order-by.md)
