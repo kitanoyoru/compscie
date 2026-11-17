@@ -12,6 +12,7 @@ Layout produced:
     structures/            shared helpers (untouched)
     README.md              (regenerated summary)
     leetcode/README.md     (regenerated problem index)
+    leetcode/patterns.md   (regenerated index by algorithm/data-structure tag)
 
 Run it any time. It is idempotent: solve a new problem, drop the folder
 anywhere in the repo, run this, and it lands in the right place with a
@@ -173,11 +174,13 @@ def is_problem_dir(p: Path) -> bool:
     """A leaf-ish folder holding solution files (no nested problem folders)."""
     if not p.is_dir():
         return False
-    # README.md is generated index metadata, not a solution file - ignore it so a
-    # container dir (e.g. leetcode/ itself, once it holds a generated README.md)
-    # isn't mistaken for a leaf problem folder.
+    # Generated index metadata is not solution content. Ignore it so a container
+    # directory (e.g. leetcode/) is never mistaken for a leaf problem folder.
+    generated_index_files = {"readme.md", "patterns.md"}
     return any(
-        f.is_file() and not f.name.startswith(".") and f.name.lower() != "readme.md"
+        f.is_file()
+        and not f.name.startswith(".")
+        and f.name.lower() not in generated_index_files
         for f in p.iterdir()
     )
 
@@ -402,6 +405,8 @@ def build_leetcode_readme(
         "make apply      # file them and refresh both READMEs",
         "```",
         "",
+        "Browse the solved problems by [pattern and data structure](patterns.md).",
+        "",
     ]
 
     for d in DIFF_DIRS + [MISC]:
@@ -425,7 +430,42 @@ def build_leetcode_readme(
     return "\n".join(out).rstrip() + "\n"
 
 
+def build_pattern_index(
+    buckets: dict[str, list[tuple[int, str, Path]]], meta: dict[int, dict]
+) -> str:
+    """Build a discovery index without duplicating the canonical folders."""
+    tagged: dict[str, list[tuple[int, str, str]]] = defaultdict(list)
+    for difficulty in DIFF_DIRS:
+        for pid, name, _ in buckets.get(difficulty, []):
+            for tag in meta.get(pid, {}).get("tags", []):
+                tagged[tag].append((pid, name, difficulty))
+
+    out = [
+        "# LeetCode Patterns",
+        "",
+        "A generated discovery index. Problem folders remain organised by "
+        "difficulty; this page groups the solved set by LeetCode tag.",
+        "",
+        "[Back to the problem index](README.md).",
+        "",
+    ]
+
+    for tag, items in sorted(
+        tagged.items(), key=lambda entry: (-len(entry[1]), entry[0])
+    ):
+        out += [f"## {tag} ({len(items)})", ""]
+        links = []
+        for pid, name, difficulty in sorted(items):
+            label = name.split(". ", 1)[-1] if ". " in name else name
+            link = urllib.parse.quote(f"{difficulty}/{name}")
+            links.append(f"[{pid}. {label}]({link})")
+        out += [", ".join(links), ""]
+
+    return "\n".join(out).rstrip() + "\n"
+
+
 def build_readmes() -> None:
+    meta = load_index()
     buckets: dict[str, list[tuple[int, str, Path]]] = defaultdict(list)
     for d in DIFF_DIRS + [MISC]:
         base = REPO / PROBLEMS / d
@@ -456,6 +496,9 @@ def build_readmes() -> None:
     )
     (REPO / PROBLEMS / "README.md").write_text(
         build_leetcode_readme(buckets, total), encoding="utf-8"
+    )
+    (REPO / PROBLEMS / "patterns.md").write_text(
+        build_pattern_index(buckets, meta), encoding="utf-8"
     )
 
 

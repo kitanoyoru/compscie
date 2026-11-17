@@ -16,6 +16,8 @@ make organize   # preview where things would land
 make apply      # file them and refresh both READMEs
 ```
 
+Browse the solved problems by [pattern and data structure](patterns.md).
+
 ## Easy
 
 | # | Problem | Languages |

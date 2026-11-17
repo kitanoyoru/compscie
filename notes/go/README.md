@@ -2,6 +2,8 @@
 title: Go
 status: active
 started: 2026-08-23
+focus: Runtime internals and production debugging.
+next: Add pprof and runtime/trace workflows.
 ---
 
 # 🐹 Go

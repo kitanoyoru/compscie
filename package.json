@@ -1,7 +1,7 @@
 {
-  "name": "leetcode",
+  "name": "compscie",
   "version": "1.0.0",
-  "repository": "git@github.com:kitanoyoru/leetcode.git",
+  "repository": "git@github.com:kitanoyoru/compscie.git",
   "author": "Alexandr Rutkovskij <kitanoyoru@protonmail.com>",
   "scripts": {
     "pretty": "prettier --write .",
