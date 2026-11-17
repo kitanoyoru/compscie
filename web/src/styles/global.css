@@ -1,0 +1,90 @@
+:root {
+  color-scheme: light dark;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.5;
+  background-color: #f5f7fa;
+  color: #17202a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    background-color: #111827;
+    color: #f9fafb;
+  }
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.app-header {
+  display: flex;
+  min-height: 4.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 4vw, 3rem);
+  border-bottom: 1px solid rgb(23 32 42 / 0.12);
+  background-color: rgb(255 255 255 / 0.9);
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-header {
+    border-bottom-color: rgb(249 250 251 / 0.14);
+    background-color: rgb(17 24 39 / 0.94);
+  }
+}
+
+.app-kicker {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #52606d;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-kicker {
+    color: #9ca3af;
+  }
+}
+
+.app-header h1,
+.app-main h2 {
+  margin: 0;
+}
+
+.app-header h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.app-main {
+  width: min(68rem, 100%);
+  margin-inline: auto;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.app-main p {
+  max-width: 48rem;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}

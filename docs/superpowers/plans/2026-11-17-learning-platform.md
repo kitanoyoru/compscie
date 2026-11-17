@@ -57,7 +57,7 @@
 - Produces App(): JSX.Element and dev, build, test, and check scripts.
 - Produces Vite configuration with base "/compscie/", React plugin, jsdom, and the test setup file.
 
-- [ ] **Step 1: Write the failing smoke test**
+- [x] **Step 1: Write the failing smoke test**
 
 ~~~tsx
 it("renders the Compscie learning workspace", () => {
@@ -66,21 +66,21 @@ it("renders the Compscie learning workspace", () => {
 });
 ~~~
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: yarn --cwd web test App.test.tsx --run
 
 Expected: FAIL because the web package and App module do not exist.
 
-- [ ] **Step 3: Implement the Vite/React foundation**
+- [x] **Step 3: Implement the Vite/React foundation**
 
 Add React 19, react-dom, and react-router as runtime dependencies. Add Vite 8, @vitejs/plugin-react, TypeScript, Vitest, jsdom, and Testing Library packages as dev dependencies. Set engines.node to ^20.19.0 || >=22.12.0. Configure strict compilation and an accessible, responsive CSS baseline. At this stage, App has only a semantic branded header and main landmark.
 
-- [ ] **Step 4: Add developer entry points**
+- [x] **Step 4: Add developer entry points**
 
 Add platform, platform-test, and platform-build Make targets that delegate to yarn --cwd web. Add .superpowers/, web/dist/, and web/coverage/ to .gitignore; do not ignore generated source.
 
-- [ ] **Step 5: Verify and commit**
+- [x] **Step 5: Verify and commit**
 
 Run: yarn --cwd web check && yarn --cwd web test --run && yarn --cwd web build
 

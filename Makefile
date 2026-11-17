@@ -3,7 +3,7 @@ ORGANIZE := $(PYTHON) tools/organize.py
 NOTES := $(PYTHON) tools/notes.py
 
 .DEFAULT_GOAL := help
-.PHONY: help hooks topic note readme organize apply lint lint-fix pretty
+.PHONY: help hooks topic note readme organize apply platform platform-test platform-build lint lint-fix pretty
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*?## "} \
@@ -35,6 +35,17 @@ organize: ## Preview how loose problem folders would be filed (dry run)
 
 apply: ## File problem folders by difficulty and refresh READMEs
 	@$(ORGANIZE) --apply
+
+##@ Platform
+
+platform: ## Start the local React learning platform
+	@yarn --cwd web run dev
+
+platform-test: ## Run the React learning platform test suite
+	@yarn --cwd web run test --run
+
+platform-build: ## Type-check and build the React learning platform
+	@yarn --cwd web run build
 
 ##@ Quality
 

@@ -8,3 +8,4 @@ __pycache__/
 .worktrees/
 web/dist/
 web/coverage/
+!web/yarn.lock
