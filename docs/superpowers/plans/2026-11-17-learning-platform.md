@@ -213,7 +213,7 @@ git commit -m "feat(platform): add local learning state and recommendations"
 - Consumes Task 3 provider, hooks, and selectors.
 - Produces AppShell({ children }: PropsWithChildren) with Today, Knowledge Map, and LeetCode navigation; produces TodayPage(): JSX.Element.
 
-- [ ] **Step 1: Write failing UI/accessibility tests**
+- [x] **Step 1: Write failing UI/accessibility tests**
 
 ~~~tsx
 it("adds a task, recommends it, and completes it", async () => {
@@ -228,17 +228,17 @@ it("adds a task, recommends it, and completes it", async () => {
 
 Use userEvent.tab() and Enter to reach navigation and submit the task form. Assert the default Today route and aria-current="page" on the active route.
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: yarn --cwd web test TodayPage App --run
 
 Expected: FAIL because routes and task controls do not exist.
 
-- [ ] **Step 3: Implement the dashboard**
+- [x] **Step 3: Implement the dashboard**
 
 Wrap App in HashRouter and LearningProvider. Use NavLink in a labelled banner and render a main landmark. Today displays the selector's next action, accessible task title/topic/minutes inputs, Complete and Defer controls, weekly completion total, and a confirmed Reset action. Explain that repository facts are read-only and working state stays in this browser.
 
-- [ ] **Step 4: Verify and commit**
+- [x] **Step 4: Verify and commit**
 
 Run: yarn --cwd web test TodayPage App --run && yarn --cwd web build
 

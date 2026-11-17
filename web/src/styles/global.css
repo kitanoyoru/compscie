@@ -42,6 +42,30 @@ textarea {
   background-color: rgb(255 255 255 / 0.9);
 }
 
+.app-brand {
+  min-width: 12rem;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.app-nav a {
+  color: inherit;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.app-nav a[aria-current="page"] {
+  background-color: #2563eb;
+  color: white;
+}
+
 @media (prefers-color-scheme: dark) {
   .app-header {
     border-bottom-color: rgb(249 250 251 / 0.14);
@@ -82,6 +106,188 @@ textarea {
 .app-main p {
   max-width: 48rem;
   color: inherit;
+}
+
+.today-page {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.page-intro,
+.recommendation-card,
+.task-section {
+  border: 1px solid rgb(23 32 42 / 0.12);
+  border-radius: 1rem;
+  background-color: rgb(255 255 255 / 0.86);
+  padding: 1.25rem;
+}
+
+.recommendation-card {
+  border-color: #2563eb;
+  box-shadow: 0 12px 30px rgb(37 99 235 / 0.12);
+}
+
+.page-lede,
+.section-kicker,
+.section-heading,
+.empty-state,
+.recommendation-body p,
+.weekly-count,
+.task-content p {
+  margin: 0;
+}
+
+.page-intro h2,
+.recommendation-card h2,
+.task-section h2 {
+  margin: 0 0 0.75rem;
+}
+
+.section-kicker {
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.weekly-count {
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.task-composer {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.form-field label {
+  font-weight: 600;
+}
+
+input,
+select,
+button {
+  border-radius: 0.5rem;
+}
+
+input,
+select {
+  border: 1px solid rgb(23 32 42 / 0.25);
+  background-color: white;
+  color: inherit;
+  padding: 0.55rem 0.7rem;
+}
+
+button {
+  border: 1px solid #1d4ed8;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+
+.secondary-button {
+  border-color: rgb(23 32 42 / 0.25);
+  background-color: transparent;
+  color: inherit;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1rem;
+}
+
+.section-heading h2 {
+  margin: 0;
+}
+
+.task-list {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgb(23 32 42 / 0.12);
+  border-radius: 0.75rem;
+  padding: 0.85rem;
+}
+
+.task-item.recommended {
+  border-color: #2563eb;
+}
+
+.task-title {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 48rem) {
+  .task-composer {
+    grid-template-columns: minmax(12rem, 2fr) minmax(9rem, 1fr) minmax(8rem, 0.75fr) auto;
+    align-items: end;
+  }
+
+  .task-item {
+    padding-inline: 1rem;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-block: 1rem;
+  }
+
+  .task-item,
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .page-intro,
+  .recommendation-card,
+  .task-section {
+    border-color: rgb(249 250 251 / 0.14);
+    background-color: rgb(17 24 39 / 0.88);
+  }
+
+  input,
+  select {
+    border-color: rgb(249 250 251 / 0.25);
+    background-color: rgb(17 24 39 / 0.9);
+  }
+
+  .secondary-button {
+    border-color: rgb(249 250 251 / 0.3);
+  }
 }
 
 :focus-visible {
