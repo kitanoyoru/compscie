@@ -160,7 +160,7 @@ git commit -m "feat(platform): generate repository learning snapshot"
 - Produces getTodayRecommendation(snapshot, state), filterProblems(problems, filters), choosePracticeProblem(problems, sessions), and countCompletedThisIsoWeek(tasks, now).
 - Produces LearningProvider, useLearningState(), and useLearningDispatch().
 
-- [ ] **Step 1: Write failing domain and storage tests**
+- [x] **Step 1: Write failing domain and storage tests**
 
 ~~~ts
 it("prefers the earliest open task over deferred tasks and topic fallbacks", () => {
@@ -179,17 +179,17 @@ it("starts a new ISO week on Monday", () => {
 
 Also test the exact LeetCode rank: needs-review, then never-practiced, then least-recent completed, then ascending id; and the intersection of difficulty, language, and tag filters.
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: yarn --cwd web test recommendations storage learning-state --run
 
 Expected: FAIL because state and selector modules do not exist.
 
-- [ ] **Step 3: Implement reducer, persistence, and selectors**
+- [x] **Step 3: Implement reducer, persistence, and selectors**
 
 Use actions taskAdded, taskCompleted, taskDeferred, sessionCompleted, and stateReset. Give manual tasks crypto.randomUUID() ids. LearningProvider initializes with loadPersonalState and writes via savePersonalState after updates. Treat any stored value without version 1, task array, and session array as empty state. Implement only the fixed ordering rules in the design: no randomness or opaque scoring.
 
-- [ ] **Step 4: Verify and commit**
+- [x] **Step 4: Verify and commit**
 
 Run: yarn --cwd web test recommendations storage learning-state --run && yarn --cwd web check
 
