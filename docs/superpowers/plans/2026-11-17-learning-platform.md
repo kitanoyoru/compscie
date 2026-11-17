@@ -105,7 +105,7 @@ git commit -m "feat(platform): scaffold React learning workspace"
 - Produces collectRepositorySnapshot(repoRoot: string): RepositorySnapshot and renderRepositoryModule(snapshot: RepositorySnapshot): string.
 - Consumes topic READMEs/notes, canonical LeetCode folders, and tools/leetcode-index.tsv; it never changes them.
 
-- [ ] **Step 1: Write failing generator tests**
+- [x] **Step 1: Write failing generator tests**
 
 ~~~js
 test("collects topics, notes, solved problems, and languages", () => {
@@ -122,21 +122,21 @@ test("rejects duplicate solved problem ids", () => {
 
 Use tiny fixture repositories so duplicate-id coverage is controlled.
 
-- [ ] **Step 2: Run the generator tests to verify they fail**
+- [x] **Step 2: Run the generator tests to verify they fail**
 
 Run: node --test web/scripts/repository-data.test.mjs
 
 Expected: FAIL because the parser does not exist.
 
-- [ ] **Step 3: Implement repository data generation**
+- [x] **Step 3: Implement repository data generation**
 
 Parse topic README frontmatter (title, status, focus, next, started), note title/date frontmatter, problem folder ids, and TSV title/difficulty/tags. Derive languages from solution extensions using organizer display names. Sort topics by slug, notes newest-first then filename, and problems by id. Throw before output on duplicate numeric ids. Serialize a browser-safe repositorySnapshot module without filesystem imports.
 
-- [ ] **Step 4: Wire data freshness into local scripts**
+- [x] **Step 4: Wire data freshness into local scripts**
 
 Add generate:data, predev, and prebuild scripts. The CLI resolves repository root relative to itself, writes web/src/data/generated/repository.ts, and is run once so the file is committed.
 
-- [ ] **Step 5: Verify and commit**
+- [x] **Step 5: Verify and commit**
 
 Run: node --test web/scripts/repository-data.test.mjs && yarn --cwd web generate:data && yarn --cwd web check
 
