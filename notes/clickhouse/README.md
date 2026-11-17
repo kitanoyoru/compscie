@@ -2,6 +2,8 @@
 title: ClickHouse
 status: active
 started: 2026-10-18
+focus: MergeTree internals and date-time functions.
+next: Run and write up the date-parts lab.
 ---
 
 # ClickHouse
@@ -37,6 +39,7 @@ One file per note, flat in this folder. Start one with `make note TOPIC=clickhou
 
 <!-- notes:start - generated, newest first -->
 
+- 2026-11-17 - [ClickHouse date and time functions](date-time-functions.md)
 - 2026-10-31 - [ClickHouse Sparse Index](sparse-index.md)
 - 2026-10-24 - [ClickHouse Data Part](data-part.md)
 - 2026-10-24 - [ClickHouse Granule](granule.md)

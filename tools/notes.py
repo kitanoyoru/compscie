@@ -12,9 +12,9 @@ Layout (see notes/_template/):
 - one folder per topic, notes sit flat inside it: notes/<topic>/<note>.md
 - each note opens with a `date: YYYY-MM-DD` frontmatter block; a note
   without one gets today's date on the next sync
-- topic README frontmatter `title` / `status` / `started` feeds the root
-  README table; its note list between the NOTES_START / NOTES_END markers
-  is regenerated, newest first
+- topic README frontmatter `title` / `status` / `focus` / `next` / `started`
+  feeds the root README table; its note list between the NOTES_START /
+  NOTES_END markers is regenerated, newest first
 """
 
 from __future__ import annotations
@@ -30,7 +30,12 @@ REPO = Path(__file__).resolve().parent.parent
 NOTES = REPO / "notes"
 TEMPLATE = NOTES / "_template"
 # Written by organize.build_readmes(); staged by the pre-commit hook.
-GENERATED = ["README.md", "leetcode/README.md", "docs/leetcode-languages.svg"]
+GENERATED = [
+    "README.md",
+    "leetcode/README.md",
+    "leetcode/patterns.md",
+    "docs/leetcode-languages.svg",
+]
 
 STATUS_ORDER = ["active", "paused", "planned", "done"]
 SLUG = re.compile(r"[a-z0-9][a-z0-9-]*")
@@ -117,13 +122,16 @@ def build_notes_section() -> list[str]:
         "Start a topic with `make topic NAME=<slug>`, a note with "
         "`make note TOPIC=<topic> NOTE=<slug>`.",
         "",
-        "| Topic | Status | Notes | Started | Last note |",
-        "| --- | --- | ---: | --- | --- |",
+        "| Topic | Status | Notes | Focus / next | Started | Last note |",
+        "| --- | --- | ---: | --- | --- | --- |",
     ]
     for _, name, meta, status, count, last in sorted(rows):
+        focus = meta.get("focus", "")
+        next_step = meta.get("next", "")
+        direction = " → ".join(item for item in (focus, next_step) if item) or "-"
         out.append(
             f"| [{meta['title']}](notes/{name}/) | {status or '-'} | {count} "
-            f"| {meta.get('started') or '-'} | {last or '-'} |"
+            f"| {direction} | {meta.get('started') or '-'} | {last or '-'} |"
         )
     out.append("")
     return out

@@ -6,10 +6,10 @@ My learning log: deep-dive notes on whatever I'm studying, plus LeetCode solutio
 
 One folder per subject under [notes/](notes/), notes flat inside it. Start a topic with `make topic NAME=<slug>`, a note with `make note TOPIC=<topic> NOTE=<slug>`.
 
-| Topic | Status | Notes | Started | Last note |
-| --- | --- | ---: | --- | --- |
-| [ClickHouse](notes/clickhouse/) | active | 4 | 2026-10-18 | 2026-10-31 |
-| [Go](notes/go/) | active | 19 | 2026-08-23 | 2026-08-23 |
+| Topic | Status | Notes | Focus / next | Started | Last note |
+| --- | --- | ---: | --- | --- | --- |
+| [ClickHouse](notes/clickhouse/) | active | 5 | MergeTree internals and date-time functions. → Run and write up the date-parts lab. | 2026-10-18 | 2026-11-17 |
+| [Go](notes/go/) | active | 19 | Runtime internals and production debugging. → Add pprof and runtime/trace workflows. | 2026-08-23 | 2026-08-23 |
 
 ## LeetCode
 

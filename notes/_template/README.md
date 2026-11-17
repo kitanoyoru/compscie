@@ -2,6 +2,8 @@
 title: TITLE
 status: active
 started: STARTED
+focus: What I am working through now.
+next: The next concrete topic or experiment.
 ---
 
 # TITLE
