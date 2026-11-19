@@ -5,7 +5,8 @@ import { contrastRatio } from '../lib/contrast'
 import { repositorySnapshot } from './generated/repository'
 import icons from './language-icons.json'
 
-const SURFACES = ['--surface', '--surface-sunken', '--surface-hover'] as const
+// Every background an icon can sit on; --accent-soft is the selected problem row.
+const SURFACES = ['--surface', '--surface-sunken', '--surface-hover', '--accent-soft'] as const
 
 /** Reads the surface tokens from the first rule whose selector is exactly `selector`. */
 function surfaceTokens(selector: string): string[] {
@@ -24,7 +25,7 @@ const lightSurfaces = surfaceTokens(':root')
 const darkSurfaces = surfaceTokens(':root[data-theme="dark"]')
 
 describe('language icons', () => {
-  it.each(Object.entries(icons))('%s clears 3:1 on every card surface in both themes', (_, icon) => {
+  it.each(Object.entries(icons))('%s clears 3:1 on every icon background in both themes', (_, icon) => {
     for (const surface of lightSurfaces) {
       expect(contrastRatio(icon.light, surface)).toBeGreaterThanOrEqual(3)
     }

@@ -18,10 +18,13 @@ import { collectRepositorySnapshot } from './repository-data.mjs'
 const REGISTRY_URL = new URL('../../tools/languages.json', import.meta.url)
 const OUTPUT_URL = new URL('../src/data/language-icons.json', import.meta.url)
 
-/** Card surfaces from src/styles/global.css: --surface, --surface-sunken, --surface-hover. */
+/**
+ * Backgrounds from src/styles/global.css that icons sit on: --surface, --surface-sunken,
+ * --surface-hover, and --accent-soft (the selected problem row).
+ */
 export const ICON_BACKGROUNDS = {
-  light: ['#fcfcfb', '#f1f1ed', '#efefea'],
-  dark: ['#1a1a19', '#161615', '#232321'],
+  light: ['#fcfcfb', '#f1f1ed', '#efefea', '#eaf1fb'],
+  dark: ['#1a1a19', '#161615', '#232321', '#172334'],
 }
 export const MIN_ICON_CONTRAST = 3
 /** Widest box an icon may take, as a multiple of its height. */

@@ -239,7 +239,8 @@ textarea {
 }
 
 /* Language marks. --lang-light / --lang-dark come from language-icons.json and clear 3:1 on
-   --surface, --surface-sunken, and --surface-hover, so never put them on a tinted background. */
+   --surface, --surface-sunken, --surface-hover, and --accent-soft. Add any other background an
+   icon sits on to scripts/vendor-language-icons.mjs and src/data/language-icons.test.ts. */
 .lang-icon {
   display: inline-flex;
   flex: none;
@@ -1637,8 +1638,8 @@ details[open] .details-chevron {
   margin-top: 0.3rem;
 }
 
-/* Icon colors only clear 3:1 on --surface, --surface-sunken, and --surface-hover, so the
-   pressed state is marked by an accent outline and weight, never a tinted fill. */
+/* Icon colors only clear 3:1 on the backgrounds listed at .lang-icon, so the pressed state is
+   marked by an accent outline, never a new tinted fill. */
 .language-chip {
   display: inline-flex;
   min-height: 2rem;
