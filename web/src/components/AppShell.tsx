@@ -4,6 +4,8 @@ import { NavLink } from 'react-router'
 import { repositorySnapshot } from '../data/generated/repository'
 import { REPOSITORY_URL } from '../data/links'
 import { formatDay } from '../lib/format'
+import { dueProblems } from '../domain/review-schedule'
+import { useLearningState } from '../state/learning-state'
 import { useTheme } from '../state/theme'
 import { Icon, type IconName } from './Icon'
 import { RouteFocus } from './RouteEffects'
@@ -12,6 +14,7 @@ import { ExternalLink } from './ui'
 
 const NAVIGATION: readonly { to: string; label: string; icon: IconName; end?: boolean }[] = [
   { to: '/', label: 'Today', icon: 'target', end: true },
+  { to: '/review', label: 'Review', icon: 'cards' },
   { to: '/map', label: 'Knowledge Map', icon: 'map' },
   { to: '/leetcode', label: 'LeetCode', icon: 'code' },
 ]
@@ -39,6 +42,8 @@ function focusMain(): void {
 }
 
 export function AppShell({ children }: PropsWithChildren): JSX.Element {
+  const { sessions } = useLearningState()
+  const dueCount = dueProblems(repositorySnapshot.problems, sessions, new Date()).length
   const [settingsOpen, setSettingsOpen] = useState(false)
   const settingsButton = useRef<HTMLButtonElement>(null)
 
@@ -63,12 +68,26 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
             </span>
           </div>
           <nav className="app-nav" aria-label="Primary">
-            {NAVIGATION.map((item) => (
-              <NavLink key={item.to} to={item.to} end={item.end}>
-                <Icon name={item.icon} size={16} />
-                <span>{item.label}</span>
-              </NavLink>
-            ))}
+            {NAVIGATION.map((item) => {
+              const badge = item.to === '/review' && dueCount > 0 ? dueCount : undefined
+
+              return (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.end}
+                  aria-label={badge === undefined ? undefined : `${item.label}, ${badge} due`}
+                >
+                  <Icon name={item.icon} size={16} />
+                  <span className="nav-label">{item.label}</span>
+                  {badge !== undefined && (
+                    <span className="nav-badge" aria-hidden="true">
+                      {badge}
+                    </span>
+                  )}
+                </NavLink>
+              )
+            })}
           </nav>
           <div className="header-actions">
             <ThemeToggle />

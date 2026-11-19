@@ -1,6 +1,7 @@
 import type { Difficulty, RepositorySnapshot, SolvedProblem, TopicSummary } from '../data/types'
-import { addLocalDays, startOfLocalIsoWeek } from '../lib/calendar'
+import { addLocalDays, dayKeyOf, startOfLocalIsoWeek } from '../lib/calendar'
 import type { LearningTask, PersonalLearningState, SolveSession } from './personal-types'
+import { isDue, schedulesByProblem } from './review-schedule'
 
 export const FILTER_ALL = 'all'
 
@@ -116,62 +117,32 @@ export function filterProblems(problems: readonly SolvedProblem[], filters: Prob
   })
 }
 
-function latestSession(sessions: readonly SolveSession[]): SolveSession | undefined {
-  return sessions.reduce<SolveSession | undefined>((latest, session) => {
-    if (!latest || Date.parse(session.endedAt) > Date.parse(latest.endedAt)) {
-      return session
-    }
-
-    return latest
-  }, undefined)
-}
-
+/**
+ * What to practice next among `problems` (already filtered by the page):
+ * 1. problems due for review, most overdue first;
+ * 2. problems never practiced in this workspace, by number;
+ * 3. scheduled problems that are not due yet, soonest first.
+ * Ties break by problem number.
+ */
 export function choosePracticeProblem(
   problems: readonly SolvedProblem[],
   sessions: readonly SolveSession[],
+  now: Date,
 ): SolvedProblem | undefined {
-  const sessionsByProblem = new Map<number, SolveSession[]>()
-
-  for (const session of sessions) {
-    const problemSessions = sessionsByProblem.get(session.problemId) ?? []
-    problemSessions.push(session)
-    sessionsByProblem.set(session.problemId, problemSessions)
-  }
+  const schedules = schedulesByProblem(sessions)
+  const today = dayKeyOf(now)
 
   return [...problems]
     .map((problem) => {
-      const problemSessions = sessionsByProblem.get(problem.id) ?? []
-      const latest = latestSession(problemSessions)
+      const schedule = schedules.get(problem.id)
+      const rank = schedule === undefined ? 1 : isDue(schedule, today) ? 0 : 2
 
-      return {
-        problem,
-        category: latest === undefined ? 1 : latest.outcome === 'needs-review' ? 0 : 2,
-        timestamp: latest?.endedAt,
-      }
+      return { problem, rank, dueDay: schedule?.dueDay ?? '' }
     })
-    .sort((left, right) => {
-      if (left.category !== right.category) {
-        return left.category - right.category
-      }
-
-      if (left.category === 0) {
-        const leftTime = left.timestamp === undefined ? Number.NEGATIVE_INFINITY : Date.parse(left.timestamp)
-        const rightTime = right.timestamp === undefined ? Number.NEGATIVE_INFINITY : Date.parse(right.timestamp)
-        const timeDifference = rightTime - leftTime
-
-        return timeDifference !== 0 ? timeDifference : left.problem.id - right.problem.id
-      }
-
-      if (left.category === 2) {
-        const leftTime = left.timestamp === undefined ? Number.POSITIVE_INFINITY : Date.parse(left.timestamp)
-        const rightTime = right.timestamp === undefined ? Number.POSITIVE_INFINITY : Date.parse(right.timestamp)
-        const timeDifference = leftTime - rightTime
-
-        return timeDifference !== 0 ? timeDifference : left.problem.id - right.problem.id
-      }
-
-      return left.problem.id - right.problem.id
-    })
+    .sort(
+      (left, right) =>
+        left.rank - right.rank || left.dueDay.localeCompare(right.dueDay) || left.problem.id - right.problem.id,
+    )
     .at(0)?.problem
 }
 

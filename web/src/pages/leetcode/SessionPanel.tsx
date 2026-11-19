@@ -8,8 +8,10 @@ import { DifficultyBadge, ExternalLink, ProgressBadge } from '../../components/u
 import { leetcodeProblemUrl, repositoryFileUrl, repositoryTreeUrl } from '../../data/links'
 import type { SolvedProblem } from '../../data/types'
 import { sessionMinutes } from '../../domain/insights'
+import { isDue, scheduleFrom, type ReviewSchedule } from '../../domain/review-schedule'
+import { dayKeyOf } from '../../lib/calendar'
 import type { SolveOutcome, SolveSession } from '../../domain/personal-types'
-import { formatDay, formatElapsed, formatProblemNumber, formatRelativeDay, formatTime, plural } from '../../lib/format'
+import { formatDay, formatElapsed, formatProblemNumber, formatTime, plural } from '../../lib/format'
 import { useLearningDispatch } from '../../state/learning-state'
 import { clearSessionDraft, loadSessionDraft, saveSessionDraft } from '../../state/session-draft'
 
@@ -23,14 +25,31 @@ interface SessionPanelProps {
   readonly onSaved: (problemId: number) => void
 }
 
-function suggestionReason(latest: SolveSession | undefined): string {
-  if (latest === undefined) {
+/** Where this problem stands in the review schedule, or undefined when it has never been practiced. */
+function reviewStatus(schedule: ReviewSchedule | undefined, now: Date): string | undefined {
+  if (schedule === undefined) {
+    return undefined
+  }
+
+  const today = dayKeyOf(now)
+
+  if (schedule.dueDay < today) {
+    return `Due for review since ${formatDay(schedule.dueDay, now)}.`
+  }
+
+  return schedule.dueDay === today ? 'Due for review today.' : `Next review ${formatDay(schedule.dueDay, now)}.`
+}
+
+function suggestionReason(schedule: ReviewSchedule | undefined, now: Date): string {
+  const status = reviewStatus(schedule, now)
+
+  if (status === undefined) {
     return 'Not reviewed in this workspace yet.'
   }
 
-  return latest.outcome === 'needs-review'
-    ? `You flagged it for review ${formatRelativeDay(latest.endedAt)}.`
-    : `Last solved here ${formatRelativeDay(latest.endedAt)}, the longest time ago among your matches.`
+  return schedule !== undefined && !isDue(schedule, dayKeyOf(now))
+    ? `${status} Nothing in these filters is due sooner.`
+    : status
 }
 
 export function SessionPanel({
@@ -41,6 +60,9 @@ export function SessionPanel({
   onSaved,
 }: SessionPanelProps): JSX.Element {
   const latest = history[0]
+  const now = new Date()
+  const schedule = scheduleFrom(history)
+  const reason = suggested ? suggestionReason(schedule, now) : reviewStatus(schedule, now)
 
   return (
     <section className="card session-panel" aria-labelledby="session-heading">
@@ -59,7 +81,7 @@ export function SessionPanel({
       <h2 id="session-heading" className="session-title" tabIndex={-1}>
         <span className="problem-number">{formatProblemNumber(problem.id)}</span> {problem.title}
       </h2>
-      {suggested && <p className="session-reason">{suggestionReason(latest)}</p>}
+      {reason !== undefined && <p className="session-reason">{reason}</p>}
 
       <div className="chip-row">
         <DifficultyBadge difficulty={problem.difficulty} />
@@ -81,7 +103,7 @@ export function SessionPanel({
         </ExternalLink>
       </div>
 
-      <SessionRecorder key={problem.id} problem={problem} onSaved={onSaved} />
+      <SessionRecorder key={problem.id} problem={problem} history={history} onSaved={onSaved} />
       <SessionHistory history={history} />
     </section>
   )
@@ -124,10 +146,12 @@ function SolutionLinks({ problem }: { readonly problem: SolvedProblem }): JSX.El
 
 interface SessionRecorderProps {
   readonly problem: SolvedProblem
+  /** Earlier sessions for this problem, to tell the next review day after saving. */
+  readonly history: readonly SolveSession[]
   readonly onSaved: (problemId: number) => void
 }
 
-function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Element {
+function SessionRecorder({ problem, history, onSaved }: SessionRecorderProps): JSX.Element {
   const dispatch = useLearningDispatch()
   const reflectionId = useId()
   const hintId = useId()
@@ -218,6 +242,7 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
       reflection: text,
     }
     const minutes = sessionMinutes(session)
+    const next = scheduleFrom([...history, session])
 
     dispatch({ type: 'sessionCompleted', session })
     onSaved(problem.id)
@@ -227,7 +252,7 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
     setStatus(
       `Session saved${minutes === undefined ? '' : ` · ${plural(minutes, 'minute')}`} · ${
         outcome === 'success' ? 'solved' : 'needs review'
-      }`,
+      }${next === undefined ? '' : ` · next review ${formatDay(next.dueDay, endedAt)}`}`,
     )
   }
 

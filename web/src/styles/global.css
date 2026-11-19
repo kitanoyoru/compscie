@@ -440,6 +440,21 @@ textarea {
   color: var(--accent-text);
 }
 
+.nav-badge {
+  display: inline-flex;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
 .icon-button {
   display: inline-flex;
   width: 2.25rem;
@@ -1035,6 +1050,16 @@ textarea.input {
   color: var(--warning-mark);
 }
 
+.badge[data-status="due"] {
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.badge[data-status="due"] .icon {
+  color: var(--accent-text);
+}
+
 .swatch {
   width: 0.5rem;
   height: 0.5rem;
@@ -1540,6 +1565,17 @@ details[open] .details-chevron {
   gap: 0.125rem;
 }
 
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  align-items: start;
+  gap: 1.5rem;
+}
+
+.review-link .lang-icon-list {
+  flex: none;
+}
+
 .review-list {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -1570,7 +1606,7 @@ details[open] .details-chevron {
 }
 
 .review-title {
-  min-width: 0;
+  min-width: 4.5rem;
   flex: 1;
   overflow: hidden;
   font-size: 0.875rem;
@@ -1580,7 +1616,7 @@ details[open] .details-chevron {
 }
 
 .review-when {
-  margin-left: 0.6rem;
+  margin-left: 1.1rem;
   color: var(--ink-muted);
   font-size: 0.75rem;
   white-space: nowrap;
@@ -2329,11 +2365,28 @@ details[open] .details-chevron {
   }
 }
 
-@media (max-width: 26rem) {
-  .app-nav .icon {
-    display: none;
+/* Four nav items do not fit as text on a phone: keep the icons, hide the labels visually
+   (they stay the links' accessible names). */
+@media (max-width: 29.99rem) {
+  .app-nav .nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
   }
 
+  .app-nav a {
+    gap: 0.3rem;
+  }
+
+  .review-link .lang-icon-list {
+    display: none;
+  }
+}
+
+@media (max-width: 26rem) {
   .task-item {
     grid-template-columns: auto minmax(0, 1fr);
   }

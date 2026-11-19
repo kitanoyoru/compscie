@@ -2,7 +2,7 @@ import { createRequire } from 'node:module'
 
 import { expect, test, type Page } from '@playwright/test'
 
-const ROUTES = ['#/', '#/map', '#/leetcode'] as const
+const ROUTES = ['#/', '#/review', '#/map', '#/leetcode'] as const
 const AXE_PATH = createRequire(import.meta.url).resolve('axe-core')
 const STORAGE_KEY = 'compscie.learning-platform.v1'
 

@@ -2,7 +2,14 @@ import { useEffect, useId, useMemo, useRef, useState, type JSX } from 'react'
 
 import { Icon } from '../../components/Icon'
 import { LanguageIcon, LanguageIconList } from '../../components/LanguageIcon'
-import { DIFFICULTY_LABELS, DifficultyBadge, EmptyState, ProgressBadge, formatCount } from '../../components/ui'
+import {
+  DIFFICULTY_LABELS,
+  DifficultyBadge,
+  EmptyState,
+  ProgressBadge,
+  formatCount,
+  type ReviewProgress,
+} from '../../components/ui'
 import { repositorySnapshot } from '../../data/generated/repository'
 import type { SolvedProblem } from '../../data/types'
 import { problemProgress, rankCounts } from '../../domain/insights'
@@ -13,6 +20,12 @@ import { isModalOpen, isTypingTarget } from '../../lib/keyboard'
 import type { DifficultyFilter, LeetCodeParams } from './useLeetCodeParams'
 
 const PAGE_SIZE = 40
+const PROGRESS_LABELS: Record<ReviewProgress, string> = {
+  new: '',
+  success: ', solved',
+  'needs-review': ', needs review',
+  due: ', due for review',
+}
 const DIFFICULTY_OPTIONS: readonly DifficultyFilter[] = [FILTER_ALL, 'easy', 'medium', 'hard']
 
 const allProblems = repositorySnapshot.problems
@@ -27,6 +40,8 @@ interface ProblemBrowserProps {
   readonly problems: readonly SolvedProblem[]
   readonly selectedId: number | undefined
   readonly latestSessions: ReadonlyMap<number, SolveSession>
+  /** Problems due for review today; their rows show "Due" instead of the latest outcome. */
+  readonly dueIds: ReadonlySet<number>
   readonly onSelect: (problemId: number) => void
 }
 
@@ -35,6 +50,7 @@ export function ProblemBrowser({
   problems,
   selectedId,
   latestSessions,
+  dueIds,
   onSelect,
 }: ProblemBrowserProps): JSX.Element {
   const searchId = useId()
@@ -243,7 +259,9 @@ export function ProblemBrowser({
       ) : (
         <ul className="problem-list" aria-label="Matching problems">
           {visible.map((problem) => {
-            const progress = problemProgress(problem.id, latestSessions)
+            const progress: ReviewProgress = dueIds.has(problem.id)
+              ? 'due'
+              : problemProgress(problem.id, latestSessions)
 
             return (
               <li key={problem.id}>
@@ -252,7 +270,7 @@ export function ProblemBrowser({
                   className="problem-row"
                   aria-pressed={problem.id === selectedId}
                   aria-label={`${problem.title}, problem ${problem.id}, ${DIFFICULTY_LABELS[problem.difficulty]}${
-                    progress === 'needs-review' ? ', needs review' : progress === 'success' ? ', solved' : ''
+                    PROGRESS_LABELS[progress]
                   }, solutions in ${problem.languages.join(', ')}`}
                   onClick={() => onSelect(problem.id)}
                 >

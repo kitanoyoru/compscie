@@ -10,7 +10,6 @@ import {
   problemProgress,
   rankCounts,
   recentReflections,
-  reviewQueue,
   sessionMinutes,
   sessionsForProblem,
 } from './insights'
@@ -143,12 +142,6 @@ describe('practice history', () => {
     expect(problemProgress(1, latest)).toBe('success')
     expect(problemProgress(2, latest)).toBe('needs-review')
     expect(problemProgress(4, latest)).toBe('new')
-  })
-
-  it('queues problems whose latest outcome needs review, most recent first', () => {
-    const queue = reviewQueue([problem(1), problem(2), problem(3), problem(4)], sessions)
-
-    expect(queue.map((item) => item.problem.id)).toEqual([3, 2])
   })
 
   it('lists sessions for one problem and recent non-empty reflections', () => {

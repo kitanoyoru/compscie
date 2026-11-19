@@ -368,11 +368,15 @@ def build_root_readme(
         "## Learning platform",
         "",
         "A local-first React workspace over this repository, in [web/](web/): "
-        "Today, Knowledge Map, and LeetCode. Run it with `make platform`, or open "
+        "Today, Review, Knowledge Map, and LeetCode. Run it with `make platform`, or open "
         "the [hosted build](https://kitanoyoru.github.io/compscie/). Tasks, "
         "sessions, and settings live only in your browser; the repository stays "
         "the source of truth.",
         "",
+        "- **Review:** a practiced problem comes back 1 day after \"needs "
+        "review\", and 3, 7, 14, 30, then 60 days after clean solves. The Review "
+        "page lists what is due and what is coming up this week; the nav badge "
+        "counts what is due.",
         "- **Theme** (sun/moon button in the header): flips between light and "
         "dark. Landing on your system's theme clears the stored choice, so the "
         "app follows the system again.",
