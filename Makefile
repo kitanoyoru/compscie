@@ -3,7 +3,7 @@ ORGANIZE := $(PYTHON) tools/organize.py
 NOTES := $(PYTHON) tools/notes.py
 
 .DEFAULT_GOAL := help
-.PHONY: help hooks topic note readme organize apply platform platform-test platform-build lint lint-fix pretty
+.PHONY: help hooks topic note readme organize apply platform platform-test platform-e2e platform-build lint lint-fix pretty
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*?## "} \
@@ -43,6 +43,9 @@ platform: ## Start the local React learning platform
 
 platform-test: ## Run the React learning platform test suite
 	@yarn --cwd web run test --run
+
+platform-e2e: ## Run the browser smoke tests (first time: yarn --cwd web playwright install chromium)
+	@yarn --cwd web run e2e
 
 platform-build: ## Type-check and build the React learning platform
 	@yarn --cwd web run build

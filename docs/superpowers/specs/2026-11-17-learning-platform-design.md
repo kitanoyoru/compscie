@@ -100,3 +100,26 @@ These are implementation defaults I made because the conversation did not settle
 - LeetCode filters update the visible solved-problem list; starting a problem and completing a session creates a persisted reflection visible after refresh.
 - The generator detects duplicate solved problem ids deterministically and fails with a helpful error rather than emitting ambiguous data.
 - Component, reducer/storage, generator, accessibility-focused navigation, production build, and generated-data freshness checks all pass in CI.
+
+## Revision 2026-11-19 — polish
+
+Decisions made for the polish pass (plan: `docs/superpowers/plans/2026-11-19-learning-platform-polish.md`):
+
+1. **Viewer-local calendar.** Weeks, streaks, and "today" use the viewer's local time zone. Repository dates (`YYYY-MM-DD`) stay calendar dates and never shift.
+2. **Backup and restore ship.** A validated JSON export/import lives in Settings; import replaces state only after explicit confirmation. This supersedes the v1 non-goal "reset is preferable to export/import".
+3. **Undo instead of confirm.** Task delete, task complete, and session delete act immediately and offer Undo in a 6-second toast. Only full reset keeps a confirmation, now inside the Settings dialog.
+4. **Concept-to-note links are curated.** Explicit note paths in `map-relationships.ts`; nothing is inferred from prose.
+5. **Playwright smoke tests ship.** CI runs them in a read-only `test` job that gates the Pages `deploy` job.
+
+Shipped areas:
+
+- **Routing:** per-route page titles, focus moves to the page heading on navigation, and unknown routes show a not-found page.
+- **Time:** local-day and ISO-week helpers; repository dates are never shifted.
+- **Undo:** toasts for task delete/complete and session delete; Ctrl/Cmd+Z triggers Undo while a toast shows.
+- **Tasks:** inline editing of queued tasks.
+- **Activity:** the weekly strip includes practice sessions.
+- **LeetCode search:** stored in the URL (`?q=`); `/` focuses it and Esc clears it.
+- **Practice drafts:** timer and reflection persist in `sessionStorage` per tab; the tab title shows elapsed time; Cmd/Ctrl+Enter saves.
+- **Knowledge Map:** selecting a concept filters its curated notes.
+- **Settings:** theme (System/Light/Dark), backup export/import (validated, 5 MB cap), and reset; the footer reset is removed.
+- **Testing:** axe checks in Vitest for every route; Playwright smoke (360/390/1280 viewports, light/dark contrast, settings dialog, concept rows) via `yarn --cwd web e2e`.
