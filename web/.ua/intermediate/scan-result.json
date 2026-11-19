@@ -1,0 +1,363 @@
+{
+  "name": "@kitanoyoru/compscie-learning-platform",
+  "description": "No description available",
+  "languages": [
+    "css",
+    "csv",
+    "go",
+    "html",
+    "javascript",
+    "json",
+    "markdown",
+    "typescript"
+  ],
+  "frameworks": [
+    "React",
+    "Vite",
+    "Vitest"
+  ],
+  "files": [
+    {
+      "path": ".ua/config.json",
+      "language": "json",
+      "sizeLines": 3,
+      "fileCategory": "config"
+    },
+    {
+      "path": "index.html",
+      "language": "html",
+      "sizeLines": 16,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "sizeLines": 37,
+      "fileCategory": "config"
+    },
+    {
+      "path": "scripts/fixtures/duplicate/leetcode/easy/0001. Two Sum/main.go",
+      "language": "go",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/fixtures/duplicate/leetcode/medium/0001. Two Sum/main.ts",
+      "language": "typescript",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/fixtures/duplicate/notes/clickhouse/README.md",
+      "language": "markdown",
+      "sizeLines": 7,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "scripts/fixtures/duplicate/tools/leetcode-index.tsv",
+      "language": "csv",
+      "sizeLines": 2,
+      "fileCategory": "data"
+    },
+    {
+      "path": "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.go",
+      "language": "go",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.ts",
+      "language": "typescript",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/fixtures/valid/notes/clickhouse/README.md",
+      "language": "markdown",
+      "sizeLines": 9,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "scripts/fixtures/valid/notes/clickhouse/date-time-functions.md",
+      "language": "markdown",
+      "sizeLines": 5,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "scripts/fixtures/valid/tools/leetcode-index.tsv",
+      "language": "csv",
+      "sizeLines": 2,
+      "fileCategory": "data"
+    },
+    {
+      "path": "scripts/generate-repository-data.mjs",
+      "language": "javascript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/repository-data.mjs",
+      "language": "javascript",
+      "sizeLines": 350,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/repository-data.test.mjs",
+      "language": "javascript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/App.test.tsx",
+      "language": "typescript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/App.tsx",
+      "language": "typescript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/components/AppShell.tsx",
+      "language": "typescript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/components/TaskComposer.tsx",
+      "language": "typescript",
+      "sizeLines": 84,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/components/TaskList.tsx",
+      "language": "typescript",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/data/generated/repository.ts",
+      "language": "typescript",
+      "sizeLines": 9541,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/data/map-relationships.ts",
+      "language": "typescript",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/data/types.ts",
+      "language": "typescript",
+      "sizeLines": 43,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/domain/personal-types.ts",
+      "language": "typescript",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/domain/recommendations.test.ts",
+      "language": "typescript",
+      "sizeLines": 187,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/domain/recommendations.ts",
+      "language": "typescript",
+      "sizeLines": 184,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/main.tsx",
+      "language": "typescript",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/pages/KnowledgeMapPage.tsx",
+      "language": "typescript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/pages/LeetCodePage.tsx",
+      "language": "typescript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/pages/TodayPage.test.tsx",
+      "language": "typescript",
+      "sizeLines": 63,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/pages/TodayPage.tsx",
+      "language": "typescript",
+      "sizeLines": 63,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/state/learning-state.test.tsx",
+      "language": "typescript",
+      "sizeLines": 113,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/state/learning-state.tsx",
+      "language": "typescript",
+      "sizeLines": 100,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/state/storage.test.ts",
+      "language": "typescript",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/state/storage.ts",
+      "language": "typescript",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/styles/global.css",
+      "language": "css",
+      "sizeLines": 306,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "src/test/setup.ts",
+      "language": "typescript",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tsconfig.app.json",
+      "language": "json",
+      "sizeLines": 25,
+      "fileCategory": "config"
+    },
+    {
+      "path": "tsconfig.json",
+      "language": "json",
+      "sizeLines": 8,
+      "fileCategory": "config"
+    },
+    {
+      "path": "vite.config.ts",
+      "language": "typescript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    }
+  ],
+  "totalFiles": 40,
+  "filteredByIgnore": 0,
+  "estimatedComplexity": "moderate",
+  "importMap": {
+    ".ua/config.json": [],
+    "index.html": [],
+    "package.json": [],
+    "scripts/fixtures/duplicate/leetcode/easy/0001. Two Sum/main.go": [],
+    "scripts/fixtures/duplicate/leetcode/medium/0001. Two Sum/main.ts": [],
+    "scripts/fixtures/duplicate/notes/clickhouse/README.md": [],
+    "scripts/fixtures/duplicate/tools/leetcode-index.tsv": [],
+    "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.go": [],
+    "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.ts": [],
+    "scripts/fixtures/valid/notes/clickhouse/README.md": [],
+    "scripts/fixtures/valid/notes/clickhouse/date-time-functions.md": [],
+    "scripts/fixtures/valid/tools/leetcode-index.tsv": [],
+    "scripts/generate-repository-data.mjs": [
+      "scripts/repository-data.mjs"
+    ],
+    "scripts/repository-data.mjs": [],
+    "scripts/repository-data.test.mjs": [
+      "scripts/repository-data.mjs"
+    ],
+    "src/App.test.tsx": [
+      "src/App.tsx"
+    ],
+    "src/App.tsx": [
+      "src/components/AppShell.tsx",
+      "src/pages/KnowledgeMapPage.tsx",
+      "src/pages/LeetCodePage.tsx",
+      "src/pages/TodayPage.tsx",
+      "src/state/learning-state.tsx"
+    ],
+    "src/components/AppShell.tsx": [],
+    "src/components/TaskComposer.tsx": [
+      "src/data/generated/repository.ts",
+      "src/state/learning-state.tsx"
+    ],
+    "src/components/TaskList.tsx": [
+      "src/domain/personal-types.ts",
+      "src/state/learning-state.tsx"
+    ],
+    "src/data/generated/repository.ts": [
+      "src/data/types.ts"
+    ],
+    "src/data/map-relationships.ts": [],
+    "src/data/types.ts": [],
+    "src/domain/personal-types.ts": [],
+    "src/domain/recommendations.test.ts": [
+      "src/data/types.ts",
+      "src/domain/personal-types.ts",
+      "src/domain/recommendations.ts"
+    ],
+    "src/domain/recommendations.ts": [
+      "src/data/types.ts",
+      "src/domain/personal-types.ts"
+    ],
+    "src/main.tsx": [
+      "src/App.tsx",
+      "src/styles/global.css"
+    ],
+    "src/pages/KnowledgeMapPage.tsx": [
+      "src/data/generated/repository.ts",
+      "src/data/map-relationships.ts"
+    ],
+    "src/pages/LeetCodePage.tsx": [
+      "src/data/generated/repository.ts",
+      "src/domain/recommendations.ts",
+      "src/state/learning-state.tsx"
+    ],
+    "src/pages/TodayPage.test.tsx": [
+      "src/App.tsx"
+    ],
+    "src/pages/TodayPage.tsx": [
+      "src/components/TaskComposer.tsx",
+      "src/components/TaskList.tsx",
+      "src/data/generated/repository.ts",
+      "src/domain/recommendations.ts",
+      "src/state/learning-state.tsx"
+    ],
+    "src/state/learning-state.test.tsx": [
+      "src/domain/personal-types.ts",
+      "src/state/learning-state.tsx",
+      "src/state/storage.ts"
+    ],
+    "src/state/learning-state.tsx": [
+      "src/domain/personal-types.ts",
+      "src/state/storage.ts"
+    ],
+    "src/state/storage.test.ts": [
+      "src/domain/personal-types.ts",
+      "src/state/storage.ts"
+    ],
+    "src/state/storage.ts": [
+      "src/domain/personal-types.ts"
+    ],
+    "src/styles/global.css": [],
+    "src/test/setup.ts": [],
+    "tsconfig.app.json": [],
+    "tsconfig.json": [],
+    "vite.config.ts": []
+  }
+}
