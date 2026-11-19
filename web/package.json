@@ -15,7 +15,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "e2e": "playwright test",
-    "check": "tsc --project tsconfig.app.json --noEmit && tsc --project tsconfig.e2e.json --noEmit"
+    "check": "tsc --project tsconfig.app.json --noEmit && tsc --project tsconfig.e2e.json --noEmit",
+    "vendor:icons": "node scripts/vendor-language-icons.mjs"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -34,6 +35,7 @@
     "@vitejs/plugin-react": "^6.3.0",
     "axe-core": "^4.14.1",
     "jsdom": "^31.0.1",
+    "simple-icons": "^16.38.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.8",
     "vitest": "^5.1.0"
