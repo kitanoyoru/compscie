@@ -111,6 +111,12 @@ export async function generateNoteContent({ repoRoot, notes, outDir }) {
       )
     }
 
+    // Wide tables scroll inside a focusable container instead of widening the page.
+    md.renderer.rules.table_open = (tokens, index, options, _env, self) =>
+      `<div class="table-scroll" tabindex="0" role="group" aria-label="Table">${self.renderToken(tokens, index, options)}`
+    md.renderer.rules.table_close = (tokens, index, options, _env, self) =>
+      `${self.renderToken(tokens, index, options)}</div>`
+
     md.core.ruler.push('compscie_notes', (state) => {
       const { note } = state.env
       const ids = headings.get(note.path)

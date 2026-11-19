@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState, type JSX } from 'react'
+import { Link } from 'react-router'
 
 import { Icon } from '../../components/Icon'
-import { ExternalLink } from '../../components/ui'
 import { repositorySnapshot } from '../../data/generated/repository'
-import { repositoryFileUrl } from '../../data/links'
 import type { NoteSummary, TopicStatus, TopicSummary } from '../../data/types'
 import { cleanTitle, daysBetween, formatDay, formatRelativeDay, plural } from '../../lib/format'
 import { useLearningDispatch, useLearningState } from '../../state/learning-state'
+import { notePath } from '../../data/notes'
 
 const VISIBLE_NOTES = 6
 const STALE_AFTER_DAYS = 30
@@ -234,9 +234,9 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
           >
             {visibleNotes.map((note) => (
               <li key={note.path}>
-                <ExternalLink className="note-link" href={repositoryFileUrl(note.path)}>
+                <Link className="note-link" to={notePath(note)}>
                   {cleanTitle(note.title)}
-                </ExternalLink>
+                </Link>
                 <span className="note-date">{formatDay(note.date, now)}</span>
               </li>
             ))}

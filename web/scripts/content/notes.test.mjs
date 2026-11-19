@@ -59,6 +59,12 @@ test('rewrites links for the hash router and GitHub', async () => {
   assert.match(b.html, /href="#\/notes\/demo\/a">A</)
 })
 
+test('wraps tables in a focusable scroll container', async () => {
+  const { b } = await render('notes-render', ['a', 'b'])
+
+  assert.match(b.html, /<div class="table-scroll" tabindex="0" role="group" aria-label="Table"><table>.*<\/table>\n?<\/div>/s)
+})
+
 test('highlights code in a labelled, focusable group and keeps Mermaid as source', async () => {
   const { a } = await render('notes-render', ['a', 'b'])
 

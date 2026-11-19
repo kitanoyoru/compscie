@@ -2,7 +2,7 @@ import { createRequire } from 'node:module'
 
 import { expect, test, type Page } from '@playwright/test'
 
-const ROUTES = ['#/', '#/review', '#/map', '#/leetcode'] as const
+const ROUTES = ['#/', '#/review', '#/map', '#/leetcode', '#/notes/go/channels'] as const
 const AXE_PATH = createRequire(import.meta.url).resolve('axe-core')
 const STORAGE_KEY = 'compscie.learning-platform.v1'
 
@@ -135,6 +135,13 @@ for (const scheme of ['light', 'dark'] as const) {
     await expectNoContrastIssues(page, GRADIENT_CARD)
   })
 
+  test(`a rendered note with tables and code has no contrast issues (${scheme})`, async ({ page }) => {
+    await navigate(page, '#/notes/go/channels', { scheme })
+    await expect(page.locator('.prose .table-scroll').first()).toBeVisible()
+    await expect(page.locator('.prose .code-block pre').first()).toBeVisible()
+    await expectNoContrastIssues(page)
+  })
+
   test(`every solution tab of Two Sum has no contrast issues (${scheme})`, async ({ page }) => {
     await navigate(page, '#/leetcode?problem=1', { scheme })
     await page.getByRole('button', { name: 'Show my solution' }).click()
@@ -164,6 +171,13 @@ for (const scheme of ['light', 'dark'] as const) {
     await expectNoContrastIssues(page, GRADIENT_CARD)
   })
 }
+
+test('a rendered note fits 360px: tables and code scroll inside their own boxes', async ({ page }) => {
+  await navigate(page, '#/notes/clickhouse/partitioning', { width: 360 })
+  await expect(page.locator('.prose .table-scroll').first()).toBeVisible()
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
+  expect(overflow).toBeLessThanOrEqual(0)
+})
 
 test('knowledge-map concept rows contain their content at 360px', async ({ page }) => {
   await navigate(page, '#/map', { width: 360 })

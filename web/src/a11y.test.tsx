@@ -6,9 +6,13 @@ import { App } from './App'
 import { expectNoAxeViolations } from './test/axe'
 import { loadPersonalState } from './state/storage'
 import { seedLearningState, seededState } from './test/fixtures'
+import { sampleNote } from './test/note-content'
 import { sampleSolutions } from './test/solution-content'
 
-vi.mock('./data/content', () => ({ loadSolutions: async (id: number) => sampleSolutions(id) }))
+vi.mock('./data/content', () => ({
+  loadSolutions: async (id: number) => sampleSolutions(id),
+  loadNote: async (topic: string, slug: string) => sampleNote(`notes/${topic}/${slug}.md`),
+}))
 
 describe('seeded state fixture', () => {
   it('loads through the real storage layer', () => {
@@ -18,7 +22,7 @@ describe('seeded state fixture', () => {
   })
 })
 
-const ROUTES = ['#/', '#/review', '#/map', '#/leetcode', '#/nope'] as const
+const ROUTES = ['#/', '#/review', '#/map', '#/leetcode', '#/notes/go/channels', '#/nope'] as const
 
 describe.each(ROUTES)('accessibility of %s', (hash) => {
   beforeEach(() => {
