@@ -227,4 +227,56 @@ describe('LeetCode workspace', () => {
     expect(hint).toHaveTextContent('/')
     expect(hint).toHaveAttribute('aria-hidden', 'true')
   })
+
+  it('inserts mid-string without losing characters', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const search = screen.getByRole('searchbox', { name: /search problems/i })
+    await user.type(search, 'tsum')
+    await user.type(search, 'wo', { initialSelectionStart: 1, initialSelectionEnd: 1 })
+    expect(search).toHaveValue('twosum')
+    await user.type(search, '{ArrowLeft}{ArrowLeft}{ArrowLeft}-')
+    expect(search).toHaveValue('two-sum')
+    expect(window.location.hash).toContain('q=two-sum')
+  })
+
+  it('ignores Escape during IME composition', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const search = screen.getByRole('searchbox', { name: /search problems/i })
+    await user.type(search, 'two')
+    const event = new KeyboardEvent('keydown', {
+      key: 'Escape',
+      bubbles: true,
+      cancelable: true,
+      isComposing: true,
+    })
+    search.dispatchEvent(event)
+    expect(event.defaultPrevented).toBe(false)
+    expect(search).toHaveValue('two')
+    expect(window.location.hash).toContain('q=two')
+  })
+
+  it('does not take / while a dialog is open', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    const dialog = document.createElement('dialog')
+    dialog.setAttribute('open', '')
+    document.body.append(dialog)
+
+    try {
+      await user.keyboard('/')
+      expect(screen.getByRole('searchbox', { name: /search problems/i })).not.toHaveFocus()
+    } finally {
+      dialog.remove()
+    }
+  })
+
+  it('round-trips special characters through the URL', () => {
+    window.location.hash = '#/leetcode?q=c%2B%2B%20%26%20a%2Fb'
+    render(<App />)
+    expect(screen.getByRole('searchbox', { name: /search problems/i })).toHaveValue('c++ & a/b')
+  })
 })

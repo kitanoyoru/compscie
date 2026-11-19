@@ -40,6 +40,13 @@ export function ProblemBrowser({
   const searchId = useId()
   const searchRef = useRef<HTMLInputElement>(null)
   const { query } = params
+  const [draft, setDraft] = useState(query)
+
+  // Re-sync from the URL for external changes (clear, Escape, back/forward, deep link)
+  // without clobbering in-progress typing: only overwrite when the two differ.
+  useEffect(() => {
+    setDraft((current) => (current === query ? current : query))
+  }, [query])
   const languageId = useId()
   const tagId = useId()
   const [shown, setShown] = useState(PAGE_SIZE)
@@ -58,7 +65,10 @@ export function ProblemBrowser({
         event.metaKey ||
         event.altKey ||
         event.defaultPrevented ||
-        isTypingTarget(event.target)
+        event.isComposing ||
+        event.repeat ||
+        isTypingTarget(event.target) ||
+        document.querySelector('dialog[open]') !== null
       ) {
         return
       }
@@ -117,14 +127,19 @@ export function ProblemBrowser({
             autoComplete="off"
             aria-keyshortcuts="/"
             ref={searchRef}
-            value={query}
+            value={draft}
             onChange={(event) => {
               setShown(PAGE_SIZE)
+              setDraft(event.target.value)
               params.update({ q: event.target.value })
             }}
             onKeyDown={(event) => {
-              if (event.key === 'Escape' && query !== '') {
+              if (event.nativeEvent.isComposing || event.keyCode === 229) {
+                return
+              }
+              if (event.key === 'Escape' && (draft !== '' || query !== '')) {
                 event.preventDefault()
+                setDraft('')
                 setShown(PAGE_SIZE)
                 params.update({ q: null })
               }
