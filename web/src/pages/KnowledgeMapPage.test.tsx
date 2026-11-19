@@ -125,6 +125,32 @@ describe('Knowledge map', () => {
       }
     })
 
+    it('announces the filter and shows the visible count', async () => {
+      const user = userEvent.setup()
+      render(<App />)
+      const go = screen.getByRole('article', { name: 'Go' })
+      const status = within(go).getByRole('status')
+
+      expect(status).toBeEmptyDOMElement()
+      await user.click(within(go).getByRole('button', { name: 'Concurrency' }))
+      expect(status).toHaveTextContent('Showing 7 of 19 notes about Concurrency')
+      expect(within(go).getByRole('heading', { name: /7 of 19 notes/ })).toBeInTheDocument()
+
+      await user.click(within(go).getByRole('button', { name: 'Concurrency' }))
+      expect(status).toBeEmptyDOMElement()
+    })
+
+    it('returns focus to the active concept after Show all notes', async () => {
+      const user = userEvent.setup()
+      render(<App />)
+      const go = screen.getByRole('article', { name: 'Go' })
+
+      await user.click(within(go).getByRole('button', { name: 'Memory' }))
+      await user.click(within(go).getByRole('button', { name: 'Show all notes' }))
+
+      expect(within(go).getByRole('button', { name: 'Memory' })).toHaveFocus()
+    })
+
     it('does not affect other topic cards', async () => {
       const user = userEvent.setup()
       render(<App />)

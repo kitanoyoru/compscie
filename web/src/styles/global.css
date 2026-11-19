@@ -1826,11 +1826,12 @@ details[open] .details-chevron {
 .fan-concepts li {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: var(--ink-secondary);
-  font-size: 0.8125rem;
-  font-weight: 550;
-  line-height: 1.2;
+}
+
+.fan-hint {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.75rem;
 }
 
 .fan-concept {
@@ -1843,23 +1844,24 @@ details[open] .details-chevron {
   border: 0;
   border-radius: var(--radius);
   background: none;
-  color: inherit;
-  font: inherit;
-  line-height: inherit;
+  color: var(--ink-secondary);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  line-height: 1.2;
   text-align: left;
   cursor: pointer;
 }
 
-.fan-concept:hover,
-.fan-concept[aria-pressed='true'] {
+.fan-concept:hover {
   color: var(--ink);
 }
 
-.fan-concept:hover {
+.fan-concept:hover:not([aria-pressed='true']) {
   text-decoration: underline;
 }
 
 .fan-concept[aria-pressed='true'] {
+  color: var(--ink);
   font-weight: 700;
 }
 

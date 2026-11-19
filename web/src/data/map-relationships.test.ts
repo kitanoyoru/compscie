@@ -26,4 +26,9 @@ describe('map relationships', () => {
       }
     }
   })
+
+  it('uses unique concept names within each topic', () => {
+    const keys = mapRelationships.map((relationship) => `${relationship.topic}/${relationship.concept}`)
+    expect(new Set(keys).size).toBe(keys.length)
+  })
 })
