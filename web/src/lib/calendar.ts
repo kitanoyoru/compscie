@@ -9,15 +9,12 @@
 const CALENDAR_DATE = /^\d{4}-\d{2}-\d{2}$/
 const DAY_MS = 24 * 60 * 60 * 1000
 
-export function isCalendarDate(value: string): boolean {
-  return CALENDAR_DATE.test(value)
-}
-
 function pad(part: number, width = 2): string {
   return String(part).padStart(width, '0')
 }
 
-function keyOf(date: Date): string {
+/** `YYYY-MM-DD` from the local date parts of a valid `Date`. */
+export function dayKeyOf(date: Date): string {
   return `${pad(date.getFullYear(), 4)}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
 }
 
@@ -34,6 +31,11 @@ function parseCalendarDate(value: string): Date | undefined {
   return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day ? date : undefined
 }
 
+/** True for a real `YYYY-MM-DD` calendar date (`2026-02-31` is not). */
+export function isCalendarDate(value: string): boolean {
+  return CALENDAR_DATE.test(value) && parseCalendarDate(value) !== undefined
+}
+
 /**
  * Returns `YYYY-MM-DD` from local date parts. A calendar date is returned unchanged.
  * An unparsable value returns `undefined`.
@@ -45,7 +47,7 @@ export function localDayKey(value: Date | string): string | undefined {
 
   const time = typeof value === 'string' ? Date.parse(value) : value.getTime()
 
-  return Number.isNaN(time) ? undefined : keyOf(new Date(time))
+  return Number.isNaN(time) ? undefined : dayKeyOf(new Date(time))
 }
 
 /** Local Monday 00:00 of the ISO week containing `now`. */

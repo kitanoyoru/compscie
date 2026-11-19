@@ -1,6 +1,6 @@
 import type { Difficulty, SolvedProblem } from '../data/types'
 import type { LearningTask, SolveSession, SolveOutcome } from './personal-types'
-import { addLocalDays, localDayKey } from '../lib/calendar'
+import { addLocalDays, dayKeyOf, localDayKey } from '../lib/calendar'
 import { getIsoWeekStart } from './recommendations'
 
 export interface DayCount {
@@ -42,7 +42,7 @@ export function completionsByDayThisIsoWeek(tasks: readonly LearningTask[], now:
   }
 
   return Array.from({ length: 7 }, (_, offset) => {
-    const date = localDayKey(addLocalDays(weekStart, offset)) ?? ''
+    const date = dayKeyOf(addLocalDays(weekStart, offset))
 
     return { date, count: counts.get(date) ?? 0 }
   })
@@ -82,13 +82,13 @@ export function activityStreak(
 
   let cursor = new Date(now.getFullYear(), now.getMonth(), now.getDate())
 
-  if (!activeDays.has(localDayKey(cursor) ?? '')) {
+  if (!activeDays.has(dayKeyOf(cursor))) {
     cursor = addLocalDays(cursor, -1)
   }
 
   let streak = 0
 
-  while (activeDays.has(localDayKey(cursor) ?? '')) {
+  while (activeDays.has(dayKeyOf(cursor))) {
     streak += 1
     cursor = addLocalDays(cursor, -1)
   }

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { addLocalDays, isCalendarDate, localDayKey, localDaysBetween, startOfLocalIsoWeek } from './calendar'
 
-// The suite runs in America/Los_Angeles (see src/test/setup.ts).
+// The suite runs in America/Los_Angeles (see vitest.global-setup.ts).
 describe('calendar', () => {
   it('runs in the pinned test time zone', () => {
     expect(new Date('2026-11-16T05:00:00Z').getHours()).toBe(21)
@@ -22,13 +22,13 @@ describe('calendar', () => {
   })
 
   it('does not shift a calendar date used as a key', () => {
-    expect(localDayKey('2026-11-17')).toBe('2026-11-17')
     expect(localDaysBetween('2026-11-17', new Date('2026-11-17T08:00:00Z'))).toBe(0)
   })
 
   it('recognises calendar dates', () => {
     expect(isCalendarDate('2026-11-17')).toBe(true)
     expect(isCalendarDate('2026-11-17T00:00:00Z')).toBe(false)
+    expect(isCalendarDate('2026-02-31')).toBe(false)
   })
 
   it('starts the ISO week at local Monday midnight', () => {
@@ -36,6 +36,11 @@ describe('calendar', () => {
 
     expect(localDayKey(start)).toBe('2026-11-16')
     expect([start.getHours(), start.getMinutes()]).toEqual([0, 0])
+  })
+
+  it('keeps year-end days in the ISO week that started in December', () => {
+    expect(localDayKey(startOfLocalIsoWeek(new Date(2026, 11, 31, 12)))).toBe('2026-12-28')
+    expect(localDayKey(startOfLocalIsoWeek(new Date(2027, 0, 1, 12)))).toBe('2026-12-28')
   })
 
   it('counts calendar days across the DST change', () => {

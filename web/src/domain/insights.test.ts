@@ -69,13 +69,19 @@ describe('weekly activity', () => {
     expect(days.map((day) => day.count)).toEqual([1, 0, 0, 2, 0, 0, 0])
   })
 
-  it('counts sessions that ended in the current ISO week', () => {
+  it('counts sessions by the local ISO week boundaries', () => {
     expect(
       countSessionsThisIsoWeek(
-        [session(1, '2026-11-16T00:00:00.000Z'), session(2, '2026-11-23T00:00:00.000Z'), session(3, 'bad')],
+        [
+          session(1, '2026-11-16T07:59:59.000Z'), // Sun 23:59:59 PST, previous week: out
+          session(2, '2026-11-16T08:00:00.000Z'), // Mon 00:00 PST: in
+          session(3, '2026-11-23T07:59:59.000Z'), // Sun 23:59:59 PST: in
+          session(4, '2026-11-23T08:00:00.000Z'), // next Mon 00:00 PST: out
+          session(5, 'bad'), // out
+        ],
         now,
       ),
-    ).toBe(1)
+    ).toBe(2)
   })
 
   it('measures a streak that stays alive until today ends', () => {
