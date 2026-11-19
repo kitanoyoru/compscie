@@ -7,6 +7,13 @@ const DIFFICULTIES = new Set(['easy', 'medium', 'hard'])
 
 const LANGUAGE_REGISTRY_URL = new URL('../../tools/languages.json', import.meta.url)
 
+/** Display name to Shiki language id, from tools/languages.json. */
+export function loadShikiLanguages(registryUrl = LANGUAGE_REGISTRY_URL) {
+  const { languages } = JSON.parse(readFileSync(registryUrl, 'utf8'))
+
+  return Object.fromEntries(languages.map((language) => [language.name, language.shiki]))
+}
+
 /** File extension (lowercase, with the dot) to display name, from tools/languages.json. */
 export function loadLanguageNames(registryUrl = LANGUAGE_REGISTRY_URL) {
   const { languages } = JSON.parse(readFileSync(registryUrl, 'utf8'))

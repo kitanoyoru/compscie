@@ -238,6 +238,51 @@ textarea {
   opacity: 0.7;
 }
 
+/* Highlighted code from scripts/content/highlighter.mjs. Each token carries both theme colors as
+   custom properties; the line spans inherit the <pre>'s. Token colors clear 4.5:1 on --surface
+   and --surface-sunken in both themes. */
+.code-block {
+  max-height: 26rem;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-sunken);
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.code-block pre {
+  min-width: max-content;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+.code-block pre,
+.code-block span {
+  color: var(--shiki-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .code-block pre,
+  :root:not([data-theme="light"]) .code-block span {
+    color: var(--shiki-dark);
+  }
+}
+
+:root[data-theme="dark"] .code-block pre,
+:root[data-theme="dark"] .code-block span {
+  color: var(--shiki-dark);
+}
+
+.code-block:focus-visible {
+  outline-offset: 2px;
+}
+
 /* Language marks. --lang-light / --lang-dark come from language-icons.json and clear 3:1 on
    --surface, --surface-sunken, --surface-hover, and --accent-soft. Add any other background an
    icon sits on to scripts/vendor-language-icons.mjs and src/data/language-icons.test.ts. */
