@@ -2,8 +2,20 @@ import { repositorySnapshot } from '../data/generated/repository'
 import type { PersonalLearningState } from '../domain/personal-types'
 import { STORAGE_KEY } from '../state/storage'
 
+/**
+ * Reference "now" for seeded state: Thursday 10:00 in America/Los_Angeles.
+ * Every fixture timestamp falls in ISO week 2026-11-16..22 in both UTC and
+ * America/Los_Angeles and is not later than this instant.
+ *
+ * Tests asserting on week, streak or "today" content must pin the clock:
+ * `vi.useFakeTimers({ toFake: ['Date'] })` + `vi.setSystemTime(FIXTURE_NOW)`,
+ * and call `vi.useRealTimers()` in `afterEach`.
+ */
+export const FIXTURE_NOW = new Date('2026-11-19T18:00:00.000Z')
+
 export function seededState(): PersonalLearningState {
   const [first, second] = repositorySnapshot.problems
+  if (!first || !second) throw new Error('fixtures need at least two solved problems in the snapshot')
 
   return {
     version: 1,

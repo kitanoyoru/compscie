@@ -1,6 +1,7 @@
 import axe from 'axe-core'
 import { expect } from 'vitest'
 
+// Page-shell rules (html-has-lang, document-title) are out of scope: this runs on the render container and jsdom does not load index.html.
 export async function expectNoAxeViolations(root: Element): Promise<void> {
   const results = await axe.run(root, {
     runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] },
@@ -9,8 +10,9 @@ export async function expectNoAxeViolations(root: Element): Promise<void> {
   })
 
   expect(
-    results.violations.map(
-      (violation) => `${violation.id}: ${violation.nodes.map((node) => node.target.join(' ')).join(', ')}`,
-    ),
+    results.violations.map((violation) => {
+      const targets = violation.nodes.map((node) => `  ${node.target.join(' ')}`).join('\n')
+      return `${violation.id} (${violation.impact ?? 'n/a'}): ${violation.help} — ${violation.helpUrl}\n${targets}`
+    }),
   ).toEqual([])
 }

@@ -1,9 +1,18 @@
 import { render } from '@testing-library/react'
-import { beforeEach, describe, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 import { App } from './App'
 import { expectNoAxeViolations } from './test/axe'
-import { seedLearningState } from './test/fixtures'
+import { loadPersonalState } from './state/storage'
+import { seedLearningState, seededState } from './test/fixtures'
+
+describe('seeded state fixture', () => {
+  it('loads through the real storage layer', () => {
+    localStorage.clear()
+    seedLearningState()
+    expect(loadPersonalState()).toEqual(seededState())
+  })
+})
 
 const ROUTES = ['#/', '#/map', '#/leetcode'] as const
 
