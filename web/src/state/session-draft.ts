@@ -1,3 +1,4 @@
+import { isRecord } from '../lib/guards'
 import type { SolveOutcome } from '../domain/personal-types'
 
 export const SESSION_DRAFT_KEY = 'compscie.session-draft.v1'
@@ -11,10 +12,6 @@ export interface SessionDraft {
 }
 
 type DraftStore = Record<string, SessionDraft>
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value)
-}
 
 function isSessionDraft(value: unknown, key: string): value is SessionDraft {
   if (!isRecord(value)) {
@@ -106,4 +103,13 @@ export function clearSessionDraft(problemId: number): void {
 
   delete store[String(problemId)]
   writeStore(store)
+}
+
+/** Drops every draft, e.g. after the working state is reset or replaced. */
+export function clearAllSessionDrafts(): void {
+  try {
+    sessionStorage.removeItem(SESSION_DRAFT_KEY)
+  } catch {
+    // Drafts are a convenience; nothing to clean up without browser storage.
+  }
 }

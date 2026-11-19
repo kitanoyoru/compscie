@@ -133,6 +133,54 @@ describe('Toast', () => {
     expect(region()).not.toHaveTextContent('First message')
   })
 
+  it('moves focus to #app-main when Escape dismisses a focused toast', async () => {
+    const main = document.createElement('main')
+    main.id = 'app-main'
+    main.tabIndex = -1
+    document.body.append(main)
+    const user = setup(vi.fn())
+    await user.click(screen.getByRole('button', { name: 'first' }))
+
+    await user.tab()
+    await user.tab()
+    expect(screen.getByRole('button', { name: /undo/i })).toHaveFocus()
+    await user.keyboard('{Escape}')
+
+    expect(region()).not.toHaveTextContent('First message')
+    expect(main).toHaveFocus()
+    main.remove()
+  })
+
+  it('ignores Escape during IME composition', async () => {
+    const user = setup()
+    await user.click(screen.getByRole('button', { name: 'first' }))
+
+    act(() => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', isComposing: true, bubbles: true }))
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', keyCode: 229, bubbles: true }))
+    })
+
+    expect(region()).toHaveTextContent('First message')
+  })
+
+  it('does not undo or dismiss behind an open dialog', async () => {
+    const onAction = vi.fn()
+    const user = setup(onAction)
+    await user.click(screen.getByRole('button', { name: 'first' }))
+    const dialog = document.createElement('dialog')
+    dialog.setAttribute('open', '')
+    document.body.append(dialog)
+
+    await user.keyboard('{Control>}z{/Control}')
+    await user.keyboard('{Escape}')
+    expect(onAction).not.toHaveBeenCalled()
+    expect(region()).toHaveTextContent('First message')
+
+    dialog.remove()
+    await user.keyboard('{Control>}z{/Control}')
+    expect(onAction).toHaveBeenCalledTimes(1)
+  })
+
   it('replaces the old toast with a new one', async () => {
     const user = setup()
     await user.click(screen.getByRole('button', { name: 'first' }))

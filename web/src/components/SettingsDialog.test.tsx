@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { App } from '../App'
 import { createBackup } from '../state/backup'
+import { SESSION_DRAFT_KEY } from '../state/session-draft'
 import { STORAGE_KEY } from '../state/storage'
 import { THEME_STORAGE_KEY } from '../state/theme'
 import { seedLearningState, seededState } from '../test/fixtures'
@@ -133,6 +134,41 @@ describe('SettingsDialog', () => {
     expect(storedState()).toMatchObject({ tasks: [], sessions: [] })
     expect(within(dialog).queryByRole('button', { name: /yes, delete everything/i })).not.toBeInTheDocument()
     expect(confirm).not.toHaveBeenCalled()
+  })
+
+  it('clears session drafts when the reset is confirmed', async () => {
+    seedLearningState()
+    sessionStorage.setItem(SESSION_DRAFT_KEY, '{"1":{}}')
+    const user = userEvent.setup()
+    render(<App />)
+    const dialog = await openSettings(user)
+
+    await user.click(within(dialog).getByRole('button', { name: /reset working state/i }))
+    expect(sessionStorage.getItem(SESSION_DRAFT_KEY)).not.toBeNull()
+    await user.click(within(dialog).getByRole('button', { name: /yes, delete everything/i }))
+
+    expect(sessionStorage.getItem(SESSION_DRAFT_KEY)).toBeNull()
+  })
+
+  it('does not undo a delete behind the open dialog, but does once it closes', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/task title/i), 'Read the GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+    await user.click(screen.getByRole('button', { name: /delete read the gc note/i }))
+    expect(screen.queryByText('Read the GC note')).not.toBeInTheDocument()
+
+    const dialog = await openSettings(user)
+    within(dialog).getByRole('radio', { name: /system/i }).focus()
+    await user.keyboard('{Control>}z{/Control}')
+
+    expect(screen.queryByText('Read the GC note')).not.toBeInTheDocument()
+    expect(screen.getByRole('status', { name: /notifications/i })).toHaveTextContent(/deleted/i)
+
+    await user.click(within(dialog).getByRole('button', { name: /^close$/i }))
+    await user.keyboard('{Control>}z{/Control}')
+
+    expect(screen.getAllByText('Read the GC note').length).toBeGreaterThan(0)
   })
 
   it('exports a backup file named after the local day and revokes the URL later', async () => {

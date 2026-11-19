@@ -8,7 +8,7 @@ import { problemProgress, rankCounts } from '../../domain/insights'
 import type { SolveSession } from '../../domain/personal-types'
 import { FILTER_ALL } from '../../domain/recommendations'
 import { formatProblemNumber } from '../../lib/format'
-import { isTypingTarget } from '../../lib/keyboard'
+import { isModalOpen, isTypingTarget } from '../../lib/keyboard'
 import type { DifficultyFilter, LeetCodeParams } from './useLeetCodeParams'
 
 const PAGE_SIZE = 40
@@ -83,7 +83,7 @@ export function ProblemBrowser({
         event.isComposing ||
         event.repeat ||
         isTypingTarget(event.target) ||
-        document.querySelector('dialog[open]') !== null
+        isModalOpen()
       ) {
         return
       }

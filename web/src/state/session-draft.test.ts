@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { clearSessionDraft, loadSessionDraft, saveSessionDraft, SESSION_DRAFT_KEY, type SessionDraft } from './session-draft'
+import { clearAllSessionDrafts, clearSessionDraft, loadSessionDraft, saveSessionDraft, SESSION_DRAFT_KEY, type SessionDraft } from './session-draft'
 
 const first: SessionDraft = { problemId: 1, startedAt: 1_700_000_000_000, outcome: 'success', reflection: 'Hash map' }
 const at = first.startedAt! + 1000
@@ -73,5 +73,15 @@ describe('session drafts', () => {
 
     expect(loadSessionDraft(1, first.startedAt! + 12 * hour + 1)).toEqual({ ...first, startedAt: null })
     expect(loadSessionDraft(1, first.startedAt! + 12 * hour)).toEqual(first)
+  })
+
+  it('clears every draft', () => {
+    saveSessionDraft(first)
+    saveSessionDraft(second)
+
+    clearAllSessionDrafts()
+
+    expect(sessionStorage.getItem(SESSION_DRAFT_KEY)).toBeNull()
+    expect(loadSessionDraft(1, at)).toBeUndefined()
   })
 })

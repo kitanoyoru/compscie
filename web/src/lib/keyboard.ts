@@ -13,3 +13,8 @@ export function isTypingTarget(target: EventTarget | null): boolean {
     target.getAttribute('contenteditable') === 'true'
   )
 }
+
+/** True while a modal dialog is open; global shortcuts should leave the keyboard to it. */
+export function isModalOpen(): boolean {
+  return document.querySelector('dialog[open]') !== null
+}

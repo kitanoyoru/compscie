@@ -4,6 +4,7 @@ import type { PersonalLearningState } from '../domain/personal-types'
 import { plural } from '../lib/format'
 import { MAX_BACKUP_BYTES, backupFilename, createBackup, readBackup } from '../state/backup'
 import { useLearningDispatch, useLearningState } from '../state/learning-state'
+import { clearAllSessionDrafts } from '../state/session-draft'
 import { useTheme, type ThemePreference } from '../state/theme'
 import { Icon } from './Icon'
 import { useToast } from './Toast'
@@ -151,6 +152,7 @@ function SettingsContent(): JSX.Element {
     }
 
     dispatch({ type: 'stateReplaced', state: pending })
+    clearAllSessionDrafts()
     showToast({ message: 'Backup restored' })
     setPending(null)
     clearFile()
@@ -159,6 +161,7 @@ function SettingsContent(): JSX.Element {
 
   function confirmReset(): void {
     dispatch({ type: 'stateReset' })
+    clearAllSessionDrafts()
     showToast({ message: 'Working state cleared' })
     setConfirmingReset(false)
   }

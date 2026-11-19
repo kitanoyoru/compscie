@@ -9,7 +9,7 @@ import {
   type PropsWithChildren,
 } from 'react'
 
-import { isTypingTarget } from '../lib/keyboard'
+import { isModalOpen, isTypingTarget } from '../lib/keyboard'
 
 export const TOAST_DURATION_MS = 6000
 
@@ -49,20 +49,26 @@ export function ToastProvider({ children }: PropsWithChildren): JSX.Element {
   const toastId = active?.id
   const action = active?.action
 
+  const toastHasFocus = useCallback(() => toastRef.current?.contains(document.activeElement) === true, [])
+
+  // The focused toast button disappears with the toast; hand focus to the main region.
+  const restoreFocus = useCallback((hadFocus: boolean) => {
+    if (hadFocus) {
+      document.getElementById('app-main')?.focus()
+    }
+  }, [])
+
   const runAction = useCallback(() => {
     if (action === undefined) {
       return
     }
 
-    const hadFocus = toastRef.current?.contains(document.activeElement) === true
+    const hadFocus = toastHasFocus()
 
     action.onAction()
     dismiss()
-
-    if (hadFocus) {
-      document.getElementById('app-main')?.focus()
-    }
-  }, [action, dismiss])
+    restoreFocus(hadFocus)
+  }, [action, dismiss, toastHasFocus, restoreFocus])
 
   useEffect(() => {
     if (toastId === undefined || paused) {
@@ -80,12 +86,15 @@ export function ToastProvider({ children }: PropsWithChildren): JSX.Element {
     }
 
     function onKeyDown(event: KeyboardEvent): void {
-      if (event.defaultPrevented) {
+      if (event.defaultPrevented || event.isComposing || event.keyCode === 229 || isModalOpen()) {
         return
       }
 
       if (event.key === 'Escape') {
+        const hadFocus = toastHasFocus()
+
         dismiss()
+        restoreFocus(hadFocus)
         return
       }
 
@@ -106,7 +115,7 @@ export function ToastProvider({ children }: PropsWithChildren): JSX.Element {
     document.addEventListener('keydown', onKeyDown)
 
     return () => document.removeEventListener('keydown', onKeyDown)
-  }, [toastId, action, dismiss, runAction])
+  }, [toastId, action, dismiss, runAction, toastHasFocus, restoreFocus])
 
   return (
     <ToastContext.Provider value={show}>

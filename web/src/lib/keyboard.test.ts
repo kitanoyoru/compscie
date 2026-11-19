@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { isTypingTarget } from './keyboard'
+import { isModalOpen, isTypingTarget } from './keyboard'
 
 describe('isTypingTarget', () => {
   it('is true for inputs, textareas, selects and contenteditable', () => {
@@ -18,5 +18,18 @@ describe('isTypingTarget', () => {
     expect(isTypingTarget(document.createElement('div'))).toBe(false)
     expect(isTypingTarget(document)).toBe(false)
     expect(isTypingTarget(null)).toBe(false)
+  })
+})
+
+describe('isModalOpen', () => {
+  it('is true only while a dialog is open', () => {
+    const dialog = document.createElement('dialog')
+    document.body.append(dialog)
+
+    expect(isModalOpen()).toBe(false)
+    dialog.setAttribute('open', '')
+    expect(isModalOpen()).toBe(true)
+    dialog.remove()
+    expect(isModalOpen()).toBe(false)
   })
 })

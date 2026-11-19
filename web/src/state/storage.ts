@@ -1,13 +1,10 @@
+import { isRecord } from '../lib/guards'
 import type { LearningTask, PersonalLearningState, SolveSession } from '../domain/personal-types'
 
 export const STORAGE_KEY = 'compscie.learning-platform.v1'
 
 export function emptyPersonalState(): PersonalLearningState {
   return { version: 1, tasks: [], sessions: [] }
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
 const TASK_STATUSES: readonly string[] = ['open', 'deferred', 'completed']
