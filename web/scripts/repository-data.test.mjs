@@ -10,6 +10,8 @@ import {
 const validFixtureRoot = new URL('./fixtures/valid', import.meta.url)
 const duplicateFixtureRoot = new URL('./fixtures/duplicate', import.meta.url)
 const nestedFixtureRoot = new URL('./fixtures/nested', import.meta.url)
+const unknownConceptFixtureRoot = new URL('./fixtures/unknown-concept', import.meta.url)
+const unusedConceptFixtureRoot = new URL('./fixtures/unused-concept', import.meta.url)
 
 test('collects topics, notes, solved problems, and languages', () => {
   const snapshot = collectRepositorySnapshot(validFixtureRoot)
@@ -19,11 +21,13 @@ test('collects topics, notes, solved problems, and languages', () => {
   assert.equal(snapshot.topics[0]?.title, 'ClickHouse')
   assert.equal(snapshot.topics[0]?.noteCount, 1)
   assert.equal(snapshot.topics[0]?.lastNote, '2026-11-17')
+  assert.deepEqual(snapshot.topics[0]?.concepts, ['Date/time queries', 'MergeTree storage'])
 
   assert.equal(snapshot.notes.length, 1)
   assert.equal(snapshot.notes[0]?.topicSlug, 'clickhouse')
   assert.equal(snapshot.notes[0]?.title, 'Date and time functions')
   assert.equal(snapshot.notes[0]?.filename, 'date-time-functions.md')
+  assert.deepEqual(snapshot.notes[0]?.concepts, ['Date/time queries', 'MergeTree storage'])
 
   assert.equal(snapshot.problems.length, 1)
   assert.equal(snapshot.problems[0]?.id, 1)
@@ -53,6 +57,20 @@ test('rejects a problem folder nested inside another problem', () => {
   assert.throws(
     () => collectRepositorySnapshot(nestedFixtureRoot),
     /nested problem folder inside another problem: leetcode\/easy\/0001\. Two Sum\/0009\. Palindrome Number/i
+  )
+})
+
+test('rejects a note concept its topic README does not define', () => {
+  assert.throws(
+    () => collectRepositorySnapshot(unknownConceptFixtureRoot),
+    /notes\/clickhouse\/date-time-functions\.md lists concept "Joins", which notes\/clickhouse\/README\.md does not define/
+  )
+})
+
+test('rejects a topic concept that no note covers', () => {
+  assert.throws(
+    () => collectRepositorySnapshot(unusedConceptFixtureRoot),
+    /Concept "Joins" in notes\/clickhouse\/README\.md has no notes/
   )
 })
 

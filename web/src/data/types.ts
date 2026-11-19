@@ -10,6 +10,8 @@ export interface TopicSummary {
   readonly started: string
   readonly lastNote: string | null
   readonly noteCount: number
+  /** Concepts in display order, from the topic README's `concepts:` frontmatter. */
+  readonly concepts: readonly string[]
 }
 
 export interface NoteSummary {
@@ -18,6 +20,8 @@ export interface NoteSummary {
   readonly filename: string
   readonly path: string
   readonly date: string
+  /** Concepts this note covers, from its `concepts:` frontmatter; each one is in its topic's list. */
+  readonly concepts: readonly string[]
 }
 
 export interface SolutionFile {

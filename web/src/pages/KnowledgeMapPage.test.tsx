@@ -4,14 +4,13 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import { App } from '../App'
 import { repositorySnapshot } from '../data/generated/repository'
-import { mapRelationships } from '../data/map-relationships'
 import { cleanTitle } from '../lib/format'
 import { STORAGE_KEY } from '../state/storage'
 
 const goNoteCount = repositorySnapshot.notes.filter((note) => note.topicSlug === 'go').length
-const concurrencyNoteCount =
-  mapRelationships.find((relationship) => relationship.topic === 'go' && relationship.concept === 'Concurrency')?.notes
-    .length ?? 0
+const concurrencyNoteCount = repositorySnapshot.notes.filter(
+  (note) => note.topicSlug === 'go' && note.concepts.some((concept) => concept === 'Concurrency'),
+).length
 
 describe('Knowledge map', () => {
   beforeEach(() => {
@@ -32,6 +31,17 @@ describe('Knowledge map', () => {
     expect(summary.querySelectorAll('.lang-icon')).toHaveLength(Math.min(5, counts.languages.length))
     for (const language of counts.languages) {
       expect(summary.querySelector('.lang-icon-list .sr-only')).toHaveTextContent(language)
+    }
+  })
+
+  it('draws each topic’s concepts in the order its README lists them', () => {
+    render(<App />)
+
+    for (const topic of repositorySnapshot.topics) {
+      const article = screen.getByRole('article', { name: topic.title })
+      const list = within(article).getByRole('list', { name: `Concepts connected to ${topic.title}` })
+
+      expect(within(list).getAllByRole('button').map((button) => button.textContent)).toEqual([...topic.concepts])
     }
   })
 

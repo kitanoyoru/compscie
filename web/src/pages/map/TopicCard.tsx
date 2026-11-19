@@ -4,8 +4,7 @@ import { Icon } from '../../components/Icon'
 import { ExternalLink } from '../../components/ui'
 import { repositorySnapshot } from '../../data/generated/repository'
 import { repositoryFileUrl } from '../../data/links'
-import { mapRelationships, type TopicRelationship } from '../../data/map-relationships'
-import type { TopicStatus, TopicSummary } from '../../data/types'
+import type { NoteSummary, TopicStatus, TopicSummary } from '../../data/types'
 import { cleanTitle, daysBetween, formatDay, formatRelativeDay, plural } from '../../lib/format'
 import { useLearningDispatch, useLearningState } from '../../state/learning-state'
 
@@ -28,7 +27,7 @@ interface ConceptFanProps {
   readonly registerButton: (concept: string, element: HTMLButtonElement | null) => void
 }
 
-/** The topic node on the left, its curated concepts on the right, joined by curved links. */
+/** The topic node on the left, its concepts on the right, joined by curved links. */
 function ConceptFan({
   title,
   noteCount,
@@ -106,20 +105,16 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
   const conceptButtons = useRef(new Map<string, HTMLButtonElement>())
   const restoreFocusTo = useRef<string | null>(null)
   const headingId = `topic-${topic.slug}-heading`
-  const notes = repositorySnapshot.notes.filter((note) => note.topicSlug === topic.slug)
-  const relationships: readonly TopicRelationship[] = mapRelationships.filter(
-    (relationship) => relationship.topic === topic.slug,
-  )
-  const concepts = relationships.map((relationship) => relationship.concept)
-  const activeRelationship = relationships.find((relationship) => relationship.concept === activeConcept)
+  const notes: readonly NoteSummary[] = repositorySnapshot.notes.filter((note) => note.topicSlug === topic.slug)
+  // Concepts and their notes come from frontmatter: the topic README orders them, notes opt in.
+  const { concepts } = topic
+  const selectedConcept = activeConcept !== null && concepts.includes(activeConcept) ? activeConcept : undefined
   const filteredNotes =
-    activeRelationship === undefined
-      ? notes
-      : notes.filter((note) => activeRelationship.notes.includes(note.path))
+    selectedConcept === undefined ? notes : notes.filter((note) => note.concepts.includes(selectedConcept))
   const visibleNotes =
-    activeRelationship !== undefined || expanded ? filteredNotes : notes.slice(0, VISIBLE_NOTES)
+    selectedConcept !== undefined || expanded ? filteredNotes : notes.slice(0, VISIBLE_NOTES)
   const clearFilter = (): void => {
-    restoreFocusTo.current = activeRelationship?.concept ?? null
+    restoreFocusTo.current = selectedConcept ?? null
     setActiveConcept(null)
   }
 
@@ -151,7 +146,7 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
         title={topic.title}
         noteCount={topic.noteCount}
         concepts={concepts}
-        activeConcept={activeRelationship?.concept ?? null}
+        activeConcept={selectedConcept ?? null}
         onToggle={(concept) => setActiveConcept((current) => (current === concept ? null : concept))}
         registerButton={(concept, element) => {
           if (element === null) {
@@ -216,9 +211,9 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
       </dl>
 
       <p className="sr-only" role="status" aria-atomic="true">
-        {activeRelationship === undefined
+        {selectedConcept === undefined
           ? ''
-          : `Showing ${filteredNotes.length} of ${notes.length} notes about ${activeRelationship.concept}`}
+          : `Showing ${filteredNotes.length} of ${notes.length} notes about ${selectedConcept}`}
       </p>
 
       {notes.length > 0 && (
@@ -226,7 +221,7 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
           <h3 className="subheading">
             Notes
             <span className="count">
-              {activeRelationship === undefined
+              {selectedConcept === undefined
                 ? notes.length
                 : `${filteredNotes.length} of ${notes.length} notes`}
             </span>
@@ -234,7 +229,7 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
           <ol
             className="note-list"
             aria-label={
-              activeRelationship === undefined ? 'Notes' : `Notes about ${activeRelationship.concept}`
+              selectedConcept === undefined ? 'Notes' : `Notes about ${selectedConcept}`
             }
           >
             {visibleNotes.map((note) => (
@@ -246,12 +241,12 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
               </li>
             ))}
           </ol>
-          {activeRelationship !== undefined && (
+          {selectedConcept !== undefined && (
             <button type="button" className="text-button" onClick={clearFilter}>
               Show all notes
             </button>
           )}
-          {activeRelationship === undefined && notes.length > VISIBLE_NOTES && (
+          {selectedConcept === undefined && notes.length > VISIBLE_NOTES && (
             <button
               type="button"
               className="text-button"
