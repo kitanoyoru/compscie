@@ -135,6 +135,21 @@ for (const scheme of ['light', 'dark'] as const) {
     await expectNoContrastIssues(page, GRADIENT_CARD)
   })
 
+  test(`every solution tab of Two Sum has no contrast issues (${scheme})`, async ({ page }) => {
+    await navigate(page, '#/leetcode?problem=1', { scheme })
+    await page.getByRole('button', { name: 'Show my solution' }).click()
+    const tabs = page.getByRole('tablist', { name: 'Solutions' }).getByRole('tab')
+    await expect(tabs.first()).toBeVisible()
+
+    const count = await tabs.count()
+    expect(count).toBeGreaterThan(1)
+    for (let index = 0; index < count; index += 1) {
+      await tabs.nth(index).click()
+      await expect(page.locator('.code-block pre')).toBeVisible()
+      await expectNoContrastIssues(page)
+    }
+  })
+
   test(`settings dialog fits 360px and has no contrast issues (${scheme})`, async ({ page }) => {
     await navigate(page, '#/', { scheme, seeded: true, width: 360 })
     await page.getByRole('button', { name: 'Settings' }).click()
