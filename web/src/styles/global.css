@@ -238,6 +238,55 @@ textarea {
   opacity: 0.7;
 }
 
+/* Language marks. --lang-light / --lang-dark come from language-icons.json and clear 3:1 on
+   --surface, --surface-sunken, and --surface-hover, so never put them on a tinted background. */
+.lang-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--lang-light, var(--ink-muted));
+  line-height: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .lang-icon {
+    color: var(--lang-dark, var(--ink-muted));
+  }
+}
+
+:root[data-theme="dark"] .lang-icon {
+  color: var(--lang-dark, var(--ink-muted));
+}
+
+.lang-icon svg {
+  display: block;
+}
+
+.lang-monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.lang-icon-list {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.lang-more {
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
