@@ -14,6 +14,7 @@ export function RouteFocus(): null {
   useEffect(() => {
     if (previous.current !== null && previous.current !== pathname) {
       document.documentElement.scrollTop = 0
+      // Every routed page renders its title through PageHeader's h1.
       document.querySelector<HTMLElement>('#app-main h1')?.focus()
     }
     previous.current = pathname

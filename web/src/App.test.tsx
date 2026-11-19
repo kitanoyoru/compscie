@@ -1,12 +1,17 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { afterEach, expect, it } from 'vitest'
+import { StrictMode } from 'react'
+import { afterEach, beforeEach, expect, it } from 'vitest'
 
 import { App } from './App'
 import { THEME_STORAGE_KEY } from './state/theme'
 
-afterEach(() => {
+beforeEach(() => {
   window.location.hash = ''
+})
+
+afterEach(() => {
+  document.title = ''
   localStorage.clear()
   delete document.documentElement.dataset.theme
 })
@@ -42,6 +47,21 @@ it('names the document after the page and focuses its heading on navigation', as
 
   expect(document.title).toBe('Knowledge Map · Compscie')
   expect(screen.getByRole('heading', { level: 1, name: /your learning landscape/i })).toHaveFocus()
+
+  await user.click(screen.getByRole('link', { name: /^leetcode$/i }))
+
+  expect(document.title).toBe('LeetCode · Compscie')
+  expect(screen.getByRole('heading', { level: 1, name: /practice that sticks/i })).toHaveFocus()
+})
+
+it('does not steal focus on first load', () => {
+  render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  )
+
+  expect(document.body).toHaveFocus()
 })
 
 it('keeps focus in place when only LeetCode filters change', async () => {
