@@ -262,10 +262,10 @@ export function ProblemBrowser({
                     <span className="problem-languages">
                       <LanguageIconList languages={problem.languages} max={5} size={14} decorative />
                     </span>
-                  </span>
-                  <span className="problem-badges">
-                    <ProgressBadge progress={progress} />
-                    <DifficultyBadge difficulty={problem.difficulty} />
+                    <span className="problem-badges">
+                      <ProgressBadge progress={progress} />
+                      <DifficultyBadge difficulty={problem.difficulty} />
+                    </span>
                   </span>
                 </button>
               </li>
