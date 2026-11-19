@@ -9,9 +9,9 @@ export interface LanguageIconData {
   /** Box width over height, from 1 to 1.75; wide wordmarks such as Go render wider, not smaller. */
   readonly aspect: number
   readonly source: string
-  /** Glyph color on light surfaces, at least 3:1 against every card surface. */
+  /** Glyph color in the light theme, at least 3:1 against every background an icon sits on. */
   readonly light: string
-  /** Glyph color on dark surfaces, at least 3:1 against every card surface. */
+  /** Glyph color in the dark theme, at least 3:1 against every background an icon sits on. */
   readonly dark: string
 }
 

@@ -19,6 +19,22 @@ describe('Knowledge map', () => {
     window.location.hash = '#/map'
   })
 
+  it('sums up the repository in one strip', () => {
+    render(<App />)
+
+    const summary = screen.getByRole('region', { name: 'Repository summary' })
+    const { counts } = repositorySnapshot
+
+    expect(summary).toHaveTextContent(`Notes${counts.notes}`)
+    expect(summary).toHaveTextContent(`Languages${counts.languages.length}`)
+    expect(within(summary).getByRole('img', { name: /^solved problems by difficulty: easy/i })).toBeInTheDocument()
+    // Five icons are visible; screen readers hear every language.
+    expect(summary.querySelectorAll('.lang-icon')).toHaveLength(Math.min(5, counts.languages.length))
+    for (const language of counts.languages) {
+      expect(summary.querySelector('.lang-icon-list .sr-only')).toHaveTextContent(language)
+    }
+  })
+
   it('shows every topic with notes linked to the repository on GitHub', () => {
     render(<App />)
 

@@ -373,9 +373,11 @@ def build_root_readme(
         "sessions, and settings live only in your browser; the repository stays "
         "the source of truth.",
         "",
-        "- **Settings** (button in the header): theme (System, Light, Dark), JSON "
-        "backup export and import, and reset. Import is validated and asks "
-        "before replacing anything.",
+        "- **Theme** (sun/moon button in the header): flips between light and "
+        "dark. Landing on your system's theme clears the stored choice, so the "
+        "app follows the system again.",
+        "- **Settings** (button in the header): JSON backup export and import, "
+        "and reset. Import is validated and asks before replacing anything.",
         "- **Shortcuts:** `/` focuses LeetCode search, `Esc` clears it, "
         "`Ctrl/Cmd+Z` triggers Undo while a toast shows, and `Ctrl/Cmd+Enter` "
         "saves a practice session.",

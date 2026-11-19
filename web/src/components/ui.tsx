@@ -11,7 +11,7 @@ export function formatCount(value: number): string {
 }
 
 interface PageHeaderProps {
-  readonly eyebrow: ReactNode
+  readonly eyebrow?: ReactNode
   readonly title: string
   readonly titleId: string
   readonly description?: ReactNode
@@ -22,7 +22,7 @@ export function PageHeader({ eyebrow, title, titleId, description, aside }: Page
   return (
     <header className="page-header">
       <div className="page-header-text">
-        <p className="eyebrow">{eyebrow}</p>
+        {eyebrow !== undefined && <p className="eyebrow">{eyebrow}</p>}
         <h1 id={titleId} tabIndex={-1}>{title}</h1>
         {description !== undefined && <p className="page-description">{description}</p>}
       </div>
@@ -68,28 +68,23 @@ export function ProgressBadge({ progress }: { readonly progress: ProblemProgress
   return null
 }
 
-interface StatTileProps {
-  readonly label: string
-  readonly value: ReactNode
-  readonly hint?: ReactNode
-}
-
-export function StatTile({ label, value, hint }: StatTileProps): JSX.Element {
-  return (
-    <div className="stat-tile">
-      <p className="stat-label">{label}</p>
-      <p className="stat-value">{value}</p>
-      {hint !== undefined && <p className="stat-hint">{hint}</p>}
-    </div>
-  )
-}
-
 interface EmptyStateProps {
   readonly title: string
   readonly children?: ReactNode
+  /** One quiet line instead of a dashed box, for places where the empty state is routine. */
+  readonly compact?: boolean
 }
 
-export function EmptyState({ title, children }: EmptyStateProps): JSX.Element {
+export function EmptyState({ title, children, compact = false }: EmptyStateProps): JSX.Element {
+  if (compact) {
+    return (
+      <p className="empty-line">
+        <span className="empty-line-title">{title}.</span>
+        {children !== undefined && <> {children}</>}
+      </p>
+    )
+  }
+
   return (
     <div className="empty-state">
       <p className="empty-state-title">{title}</p>

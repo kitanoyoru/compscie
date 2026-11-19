@@ -17,16 +17,17 @@ const NAVIGATION: readonly { to: string; label: string; icon: IconName; end?: bo
 ]
 
 function ThemeToggle(): JSX.Element {
-  const { effective: theme, toggle } = useTheme()
+  const { effective: theme, system, toggle } = useTheme()
   const next = theme === 'dark' ? 'light' : 'dark'
+  const label = `Switch to ${next} theme`
 
   return (
     <button
       type="button"
       className="icon-button theme-toggle"
       onClick={toggle}
-      aria-label={`Switch to ${next} theme`}
-      title={`Switch to ${next} theme`}
+      aria-label={label}
+      title={next === system ? `${label} (follows system)` : label}
     >
       <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
     </button>
@@ -93,9 +94,8 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
       <footer className="app-footer">
         <div className="app-footer-inner">
           <p>
-            Notes and solved problems come from the repository snapshot of{' '}
-            {formatDay(repositorySnapshot.generatedAt.slice(0, 10))}. Tasks and practice sessions stay in this
-            browser only.
+            Snapshot {formatDay(repositorySnapshot.generatedAt.slice(0, 10))}
+            <span className="meta-dot">Personal data stays in this browser</span>
           </p>
           <div className="app-footer-actions">
             <ExternalLink href={REPOSITORY_URL} className="text-link">
