@@ -19,12 +19,7 @@ export function TodayPage(): JSX.Element {
 
   return (
     <div className="page">
-      <PageHeader
-        eyebrow={formatLongDay(now)}
-        title="Today"
-        titleId="today-heading"
-        description="One next action, a short queue, and steady weekly progress."
-      />
+      <PageHeader title="Today" titleId="today-heading" description={formatLongDay(now)} />
 
       <div className="today-grid">
         <div className="stack">

@@ -33,12 +33,7 @@ export function KnowledgeMapPage(): JSX.Element {
 
   return (
     <div className="page">
-      <PageHeader
-        eyebrow="Knowledge map"
-        title="Your learning landscape"
-        titleId="map-heading"
-        description="Topics you are strengthening, the concepts they cover, and what the repository shows you have practiced."
-      />
+      <PageHeader title="Knowledge Map" titleId="map-heading" />
 
       <div className="stat-grid" aria-label="Repository statistics" role="group">
         <StatTile label="Active topics" value={activeTopics} hint={`${plural(counts.topics, 'topic')} in total`} />

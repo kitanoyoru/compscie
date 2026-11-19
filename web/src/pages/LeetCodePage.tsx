@@ -55,10 +55,8 @@ export function LeetCodePage(): JSX.Element {
   return (
     <div className="page">
       <PageHeader
-        eyebrow="LeetCode review"
-        title="Practice that sticks"
+        title="LeetCode"
         titleId="leetcode-heading"
-        description="Revisit problems you have already solved, time a fresh attempt, and keep the one insight worth remembering."
         aside={
           <div className="header-stats">
             <p className="header-stat">

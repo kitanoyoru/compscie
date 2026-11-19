@@ -93,9 +93,8 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
       <footer className="app-footer">
         <div className="app-footer-inner">
           <p>
-            Notes and solved problems come from the repository snapshot of{' '}
-            {formatDay(repositorySnapshot.generatedAt.slice(0, 10))}. Tasks and practice sessions stay in this
-            browser only.
+            Snapshot {formatDay(repositorySnapshot.generatedAt.slice(0, 10))}
+            <span className="meta-dot">Personal data stays in this browser</span>
           </p>
           <div className="app-footer-actions">
             <ExternalLink href={REPOSITORY_URL} className="text-link">

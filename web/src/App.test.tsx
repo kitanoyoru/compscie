@@ -29,7 +29,7 @@ it('shows the snapshot date as its calendar day in the footer', () => {
 
   const day = repositorySnapshot.generatedAt.slice(0, 10)
 
-  expect(screen.getByRole('contentinfo')).toHaveTextContent(`repository snapshot of ${formatDay(day)}.`)
+  expect(screen.getByRole('contentinfo')).toHaveTextContent(`Snapshot ${formatDay(day)}`)
 })
 
 it('switches and remembers the color theme', async () => {
@@ -56,12 +56,12 @@ it('names the document after the page and focuses its heading on navigation', as
   await user.click(screen.getByRole('link', { name: /knowledge map/i }))
 
   expect(document.title).toBe('Knowledge Map · Compscie')
-  expect(screen.getByRole('heading', { level: 1, name: /your learning landscape/i })).toHaveFocus()
+  expect(screen.getByRole('heading', { level: 1, name: 'Knowledge Map' })).toHaveFocus()
 
   await user.click(screen.getByRole('link', { name: /^leetcode$/i }))
 
   expect(document.title).toBe('LeetCode · Compscie')
-  expect(screen.getByRole('heading', { level: 1, name: /practice that sticks/i })).toHaveFocus()
+  expect(screen.getByRole('heading', { level: 1, name: 'LeetCode' })).toHaveFocus()
 })
 
 it('does not steal focus on first load', () => {

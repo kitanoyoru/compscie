@@ -11,7 +11,7 @@ export function formatCount(value: number): string {
 }
 
 interface PageHeaderProps {
-  readonly eyebrow: ReactNode
+  readonly eyebrow?: ReactNode
   readonly title: string
   readonly titleId: string
   readonly description?: ReactNode
@@ -22,7 +22,7 @@ export function PageHeader({ eyebrow, title, titleId, description, aside }: Page
   return (
     <header className="page-header">
       <div className="page-header-text">
-        <p className="eyebrow">{eyebrow}</p>
+        {eyebrow !== undefined && <p className="eyebrow">{eyebrow}</p>}
         <h1 id={titleId} tabIndex={-1}>{title}</h1>
         {description !== undefined && <p className="page-description">{description}</p>}
       </div>
