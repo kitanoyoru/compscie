@@ -76,8 +76,21 @@ function writeStore(store: DraftStore): void {
   }
 }
 
-export function loadSessionDraft(problemId: number): SessionDraft | undefined {
-  return readStore()[String(problemId)]
+/** A timer start more than this far in the future is treated as clock skew. */
+const MAX_FUTURE_SKEW_MS = 60_000
+/** A timer left running longer than this is treated as abandoned. */
+const MAX_DRAFT_AGE_MS = 12 * 60 * 60 * 1000
+
+export function loadSessionDraft(problemId: number, now: number = Date.now()): SessionDraft | undefined {
+  const draft = readStore()[String(problemId)]
+
+  if (draft === undefined || draft.startedAt === null) {
+    return draft
+  }
+
+  const age = now - draft.startedAt
+
+  return age < -MAX_FUTURE_SKEW_MS || age > MAX_DRAFT_AGE_MS ? { ...draft, startedAt: null } : draft
 }
 
 export function saveSessionDraft(draft: SessionDraft): void {

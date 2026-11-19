@@ -1656,6 +1656,12 @@ details[open] .details-chevron {
   gap: 0.75rem;
 }
 
+.shortcut-hint {
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
 .save-status {
   color: var(--good-text);
   font-size: 0.8125rem;

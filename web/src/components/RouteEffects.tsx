@@ -1,9 +1,13 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router'
 
+export function formatPageTitle(title: string): string {
+  return `${title} · Compscie`
+}
+
 export function usePageTitle(title: string): void {
   useEffect(() => {
-    document.title = `${title} · Compscie`
+    document.title = formatPageTitle(title)
   }, [title])
 }
 

@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -18,6 +18,7 @@ describe('LeetCode workspace', () => {
   beforeEach(() => {
     localStorage.clear()
     sessionStorage.clear()
+    document.title = ''
     window.location.hash = '#/leetcode'
   })
 
@@ -165,14 +166,86 @@ describe('LeetCode workspace', () => {
     const view = render(<App />)
 
     await user.click(screen.getByRole('button', { name: /start timer/i }))
-    view.unmount()
-    expect(document.title).toBe('LeetCode · Compscie')
-
-    // A restored running timer must also restore the page title, not the stale one from mount time.
-    document.title = 'Elsewhere'
-    render(<App />)
-    await Promise.resolve()
     expect(document.title).toMatch(/^\d\d:\d\d · #\d+ · Compscie$/)
+    view.unmount()
+
+    expect(document.title).toBe('LeetCode · Compscie')
+  })
+
+  it('advances the title each second', async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true })
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+    window.location.hash = `#/leetcode?problem=${problems[0]!.id}`
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /start timer/i }))
+    const before = document.title
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1100)
+    })
+
+    expect(document.title).toMatch(/^\d\d:\d\d · #\d+ · Compscie$/)
+    expect(document.title).not.toBe(before)
+  })
+
+  it('resumes the title on the next tick after a running timer is restored', async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true })
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+    window.location.hash = `#/leetcode?problem=${problems[0]!.id}`
+    const first = render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /start timer/i }))
+    first.unmount()
+    render(<App />)
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(1100)
+    })
+
+    expect(document.title).toMatch(/^\d\d:\d\d · #\d+ · Compscie$/)
+  })
+
+  it('hands the title to the next page on route change', async () => {
+    const user = userEvent.setup()
+    window.location.hash = `#/leetcode?problem=${problems[0]!.id}`
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /start timer/i }))
+    await user.click(screen.getByRole('link', { name: /today/i }))
+
+    expect(document.title).toBe('Today · Compscie')
+  })
+
+  it('stops the title timer when another problem is selected', async () => {
+    const user = userEvent.setup()
+    window.location.hash = `#/leetcode?problem=${problems[0]!.id}`
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /start timer/i }))
+    await user.click(screen.getByRole('button', { name: /^add two numbers, problem 2,/i }))
+
+    expect(document.title).toBe('LeetCode · Compscie')
+    expect(screen.getByRole('button', { name: /start timer/i })).toBeInTheDocument()
+  })
+
+  it('keeps a non-default outcome across remounts', async () => {
+    const user = userEvent.setup()
+    window.location.hash = `#/leetcode?problem=${problems[0]!.id}`
+    const first = render(<App />)
+
+    await user.click(screen.getByRole('radio', { name: /needs review/i }))
+    first.unmount()
+    render(<App />)
+
+    expect(screen.getByRole('radio', { name: /needs review/i })).toBeChecked()
+  })
+
+  it('describes the save shortcut on the reflection field', () => {
+    window.location.hash = `#/leetcode?problem=${problems[0]!.id}`
+    render(<App />)
+
+    expect(screen.getByLabelText(/^reflection$/i)).toHaveAccessibleDescription(/press ⌘ or ctrl \+ enter to save/i)
   })
 
   it('opens a deep link with a filter and a selected problem', () => {

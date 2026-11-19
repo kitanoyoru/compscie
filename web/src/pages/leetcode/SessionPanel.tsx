@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState, type FormEvent, type JSX, type KeyboardEvent } from 'react'
 
 import { Icon } from '../../components/Icon'
+import { formatPageTitle } from '../../components/RouteEffects'
 import { useToast } from '../../components/Toast'
 import { DifficultyBadge, ExternalLink, ProgressBadge } from '../../components/ui'
 import { leetcodeProblemUrl, repositoryTreeUrl } from '../../data/links'
@@ -93,6 +94,7 @@ interface SessionRecorderProps {
 function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Element {
   const dispatch = useLearningDispatch()
   const reflectionId = useId()
+  const hintId = useId()
   const [draft] = useState(() => loadSessionDraft(problem.id))
   const [startedAt, setStartedAt] = useState<number | null>(draft?.startedAt ?? null)
   const [now, setNow] = useState(() => Date.now())
@@ -102,53 +104,47 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
   const running = startedAt !== null
   const elapsed = formatElapsed(running ? now - startedAt : 0)
   const timerTitle = `${elapsed} · #${problem.id} · Compscie`
-  const timerTitleRef = useRef(timerTitle)
-  const previousTitle = useRef<string | null>(null)
-
-  timerTitleRef.current = timerTitle
 
   // Persist on changes only; the per-second `now` ticks are deliberately not a dependency.
+  const loadedRef = useRef(draft)
   useEffect(() => {
-    if (startedAt !== null || reflection !== '') {
+    const loaded = loadedRef.current
+
+    loadedRef.current = undefined
+
+    if (
+      loaded !== undefined &&
+      loaded.startedAt === startedAt &&
+      loaded.outcome === outcome &&
+      loaded.reflection === reflection
+    ) {
+      return
+    }
+
+    if (startedAt !== null || reflection !== '' || outcome !== 'success') {
       saveSessionDraft({ problemId: problem.id, startedAt, outcome, reflection })
     } else {
       clearSessionDraft(problem.id)
     }
   }, [problem.id, startedAt, outcome, reflection])
 
-  // Capture the title that was current before the timer started, and restore it on stop or unmount.
-  // The capture is deferred to a microtask: on a remount with a restored timer, this child effect runs
-  // before the page's usePageTitle effect, so reading synchronously would capture a stale title.
-  // Microtasks run after the whole passive-effect flush, when the page title is already in place.
+  useEffect(() => {
+    if (running) {
+      document.title = timerTitle
+    }
+  }, [running, timerTitle])
+
+  // This recorder only lives on the LeetCode page, so its page title is known. On route change, passive
+  // cleanups run before the next page's usePageTitle effect, so restoring here never overrides that page.
   useEffect(() => {
     if (!running) {
       return undefined
     }
 
-    let cancelled = false
-
-    queueMicrotask(() => {
-      if (!cancelled) {
-        previousTitle.current = document.title
-        document.title = timerTitleRef.current
-      }
-    })
-
     return () => {
-      cancelled = true
-
-      if (previousTitle.current !== null) {
-        document.title = previousTitle.current
-        previousTitle.current = null
-      }
+      document.title = formatPageTitle('LeetCode')
     }
   }, [running])
-
-  useEffect(() => {
-    if (previousTitle.current !== null) {
-      document.title = timerTitle
-    }
-  }, [timerTitle])
 
   useEffect(() => {
     if (startedAt === null) {
@@ -285,6 +281,7 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
           rows={4}
           value={reflection}
           placeholder="The invariant, edge case, or trick worth remembering next time."
+          aria-describedby={hintId}
           aria-keyshortcuts="Control+Enter Meta+Enter"
           onChange={(event) => setReflection(event.target.value)}
           onKeyDown={handleReflectionKeyDown}
@@ -296,8 +293,8 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
           <Icon name="check" />
           Save session
         </button>
-        <span className="muted shortcut-hint" aria-hidden="true">
-          ⌘/Ctrl + Enter
+        <span id={hintId} className="shortcut-hint">
+          Press ⌘ or Ctrl + Enter to save
         </span>
         <p className="save-status" role="status">
           {status}
