@@ -1,0 +1,37 @@
+{
+  "name": "@kitanoyoru/compscie-learning-platform",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "generate:data": "node scripts/generate-repository-data.mjs",
+    "predev": "yarn run generate:data",
+    "dev": "vite",
+    "prebuild": "yarn run generate:data",
+    "build": "yarn run check && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "check": "tsc --project tsconfig.app.json --noEmit"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router": "^7.18.5"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.12",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.3.0",
+    "jsdom": "^31.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
+  }
+}

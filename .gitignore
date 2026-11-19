@@ -4,3 +4,8 @@ yarn.lock
 .ccls-cache
 __pycache__/
 .ruff_cache/
+.superpowers/
+.worktrees/
+web/dist/
+web/coverage/
+!web/yarn.lock
