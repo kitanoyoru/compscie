@@ -1,0 +1,1340 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "5fd35e7fb743310b1fb412e5265604e7b54cc01c",
+  "generatedAt": "2026-11-19T08:03:39.309Z",
+  "files": {
+    ".ua/config.json": {
+      "filePath": ".ua/config.json",
+      "contentHash": "08d37f20ea0af2233ae24f094723759f952381ecb6dd7f2aaa05ef96e95eae6b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": false
+    },
+    "index.html": {
+      "filePath": "index.html",
+      "contentHash": "b37c222667fd18295a0439609cb484904deacbbf5bc9d6b036e9141f3abaa8db",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": false
+    },
+    "package.json": {
+      "filePath": "package.json",
+      "contentHash": "bdb7977562faeac274f37253899d5bbc320efbaaab5bc9bd8812e78620d6107a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": false
+    },
+    "scripts/fixtures/duplicate/leetcode/easy/0001. Two Sum/main.go": {
+      "filePath": "scripts/fixtures/duplicate/leetcode/easy/0001. Two Sum/main.go",
+      "contentHash": "df1d036cbbf3df46e2045071e082245ece204c7f53ecf0a4e022bff9bb228f47",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/fixtures/duplicate/leetcode/medium/0001. Two Sum/main.ts": {
+      "filePath": "scripts/fixtures/duplicate/leetcode/medium/0001. Two Sum/main.ts",
+      "contentHash": "7992a39d6cde5e050eb78461a8bf9ad986175a94826e835c110b3967290bd249",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/fixtures/duplicate/notes/clickhouse/README.md": {
+      "filePath": "scripts/fixtures/duplicate/notes/clickhouse/README.md",
+      "contentHash": "cb85f2fe8843ab81b6bb97ade1a25df7bebd2ce2dfff9478e98b7c4a4e145da1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": false
+    },
+    "scripts/fixtures/duplicate/tools/leetcode-index.tsv": {
+      "filePath": "scripts/fixtures/duplicate/tools/leetcode-index.tsv",
+      "contentHash": "a118d8b6b66038ee465744364daf96259c02ca2acc4bea4f5015e1bad3d7abda",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": false
+    },
+    "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.go": {
+      "filePath": "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.go",
+      "contentHash": "df1d036cbbf3df46e2045071e082245ece204c7f53ecf0a4e022bff9bb228f47",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.ts": {
+      "filePath": "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.ts",
+      "contentHash": "7992a39d6cde5e050eb78461a8bf9ad986175a94826e835c110b3967290bd249",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/fixtures/valid/notes/clickhouse/README.md": {
+      "filePath": "scripts/fixtures/valid/notes/clickhouse/README.md",
+      "contentHash": "97eb432763e6fa64cdcb7cefcc41d96d4e8f356281150e9b096d5afb3c5b5d7a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": false
+    },
+    "scripts/fixtures/valid/notes/clickhouse/date-time-functions.md": {
+      "filePath": "scripts/fixtures/valid/notes/clickhouse/date-time-functions.md",
+      "contentHash": "8906c3bc93ebb8cee12ef07a03d1129772f5c85c127bd9840cb36b7c32344dbe",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": false
+    },
+    "scripts/fixtures/valid/tools/leetcode-index.tsv": {
+      "filePath": "scripts/fixtures/valid/tools/leetcode-index.tsv",
+      "contentHash": "a118d8b6b66038ee465744364daf96259c02ca2acc4bea4f5015e1bad3d7abda",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": false
+    },
+    "scripts/generate-repository-data.mjs": {
+      "filePath": "scripts/generate-repository-data.mjs",
+      "contentHash": "7a6adca436a01b4e57990db09e8bf3c41e0da916ebf2e721a339cd92b074baf6",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "mkdirSync",
+            "writeFileSync"
+          ]
+        },
+        {
+          "source": "node:url",
+          "specifiers": [
+            "fileURLToPath"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "./repository-data.mjs",
+          "specifiers": [
+            "collectRepositorySnapshot",
+            "renderRepositoryModule"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/repository-data.mjs": {
+      "filePath": "scripts/repository-data.mjs",
+      "contentHash": "d574e854ea42be4952c3df03ee9c51c7408df4ce2f97fc3938fe5fb05bd2958d",
+      "functions": [
+        {
+          "name": "repositoryPath",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "toPosix",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "relativePath",
+          "params": [
+            "repoRoot",
+            "target"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "parseFrontmatter",
+          "params": [
+            "content"
+          ],
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "noteTitle",
+          "params": [
+            "content",
+            "filename"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "collectNotes",
+          "params": [
+            "repoRoot",
+            "topicSlug"
+          ],
+          "exported": false,
+          "lineCount": 32
+        },
+        {
+          "name": "topicStatus",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "collectTopics",
+          "params": [
+            "repoRoot",
+            "notes"
+          ],
+          "exported": false,
+          "lineCount": 36
+        },
+        {
+          "name": "loadProblemIndex",
+          "params": [
+            "repoRoot"
+          ],
+          "exported": false,
+          "lineCount": 51
+        },
+        {
+          "name": "collectLanguages",
+          "params": [
+            "problemRoot"
+          ],
+          "exported": false,
+          "lineCount": 30
+        },
+        {
+          "name": "problemIdFromFolder",
+          "params": [
+            "name"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "collectProblems",
+          "params": [
+            "repoRoot"
+          ],
+          "exported": false,
+          "lineCount": 47
+        },
+        {
+          "name": "snapshotDate",
+          "params": [
+            "notes",
+            "topics"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "collectRepositorySnapshot",
+          "params": [
+            "repoRoot"
+          ],
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "renderRepositoryModule",
+          "params": [
+            "snapshot"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "existsSync",
+            "readdirSync",
+            "readFileSync"
+          ]
+        },
+        {
+          "source": "node:url",
+          "specifiers": [
+            "fileURLToPath"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        }
+      ],
+      "exports": [
+        "collectRepositorySnapshot",
+        "renderRepositoryModule"
+      ],
+      "totalLines": 351,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/repository-data.test.mjs": {
+      "filePath": "scripts/repository-data.test.mjs",
+      "contentHash": "4d9573c2a4e273d24f39ce2904c15991effe1304b4b534dd7d6e5c64aa9b478d",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:assert/strict",
+          "specifiers": [
+            "assert"
+          ]
+        },
+        {
+          "source": "node:test",
+          "specifiers": [
+            "test"
+          ]
+        },
+        {
+          "source": "./repository-data.mjs",
+          "specifiers": [
+            "collectRepositorySnapshot",
+            "renderRepositoryModule"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "src/App.test.tsx": {
+      "filePath": "src/App.test.tsx",
+      "contentHash": "8261564c7e5a230d724e365e68ac663c9b5a120cbdddf06f145ffa982e094b6b",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "./App",
+          "specifiers": [
+            "App"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "src/App.tsx": {
+      "filePath": "src/App.tsx",
+      "contentHash": "dffd8f6338e34bb628e2017d4bb3f8d8dabff1e665b78372f30c2defd74d23ed",
+      "functions": [
+        {
+          "name": "App",
+          "params": [],
+          "returnType": "JSX.Element",
+          "exported": true,
+          "lineCount": 15
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "JSX"
+          ]
+        },
+        {
+          "source": "react-router",
+          "specifiers": [
+            "HashRouter",
+            "Route",
+            "Routes"
+          ]
+        },
+        {
+          "source": "./components/AppShell",
+          "specifiers": [
+            "AppShell"
+          ]
+        },
+        {
+          "source": "./pages/TodayPage",
+          "specifiers": [
+            "TodayPage"
+          ]
+        },
+        {
+          "source": "./pages/KnowledgeMapPage",
+          "specifiers": [
+            "KnowledgeMapPage"
+          ]
+        },
+        {
+          "source": "./pages/LeetCodePage",
+          "specifiers": [
+            "LeetCodePage"
+          ]
+        },
+        {
+          "source": "./state/learning-state",
+          "specifiers": [
+            "LearningProvider"
+          ]
+        }
+      ],
+      "exports": [
+        "App"
+      ],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/AppShell.tsx": {
+      "filePath": "src/components/AppShell.tsx",
+      "contentHash": "bdb62e878cd8927544883e3158bdf54f59e38cdf81c2842b727508532dfb9057",
+      "functions": [
+        {
+          "name": "AppShell",
+          "params": [
+            "{ children }"
+          ],
+          "returnType": "JSX.Element",
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "JSX",
+            "PropsWithChildren"
+          ]
+        },
+        {
+          "source": "react-router",
+          "specifiers": [
+            "NavLink"
+          ]
+        }
+      ],
+      "exports": [
+        "AppShell"
+      ],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/TaskComposer.tsx": {
+      "filePath": "src/components/TaskComposer.tsx",
+      "contentHash": "ba642e4c9a906afe1c58184a20d907d0c582a390f7a09878c792a9dfdee42206",
+      "functions": [
+        {
+          "name": "TaskComposer",
+          "params": [],
+          "returnType": "JSX.Element",
+          "exported": true,
+          "lineCount": 79
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useId",
+            "useState",
+            "FormEvent",
+            "JSX"
+          ]
+        },
+        {
+          "source": "../data/generated/repository",
+          "specifiers": [
+            "repositorySnapshot"
+          ]
+        },
+        {
+          "source": "../state/learning-state",
+          "specifiers": [
+            "useLearningDispatch"
+          ]
+        }
+      ],
+      "exports": [
+        "TaskComposer"
+      ],
+      "totalLines": 85,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/TaskList.tsx": {
+      "filePath": "src/components/TaskList.tsx",
+      "contentHash": "5588b0702542520a4c2b737d11f26d9b4d7cd9b95fb575277dc2a019767089ae",
+      "functions": [
+        {
+          "name": "TaskList",
+          "params": [
+            "{ tasks, recommendedTaskId }"
+          ],
+          "returnType": "JSX.Element",
+          "exported": true,
+          "lineCount": 70
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "JSX"
+          ]
+        },
+        {
+          "source": "../domain/personal-types",
+          "specifiers": [
+            "LearningTask"
+          ]
+        },
+        {
+          "source": "../state/learning-state",
+          "specifiers": [
+            "useLearningDispatch"
+          ]
+        }
+      ],
+      "exports": [
+        "TaskList"
+      ],
+      "totalLines": 81,
+      "hasStructuralAnalysis": true
+    },
+    "src/data/generated/repository.ts": {
+      "filePath": "src/data/generated/repository.ts",
+      "contentHash": "544aeb182ffae11dcd940702b3793cb7285f11ef06a1b5253a40f3aeb4ebb922",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../types",
+          "specifiers": [
+            "RepositorySnapshot"
+          ]
+        }
+      ],
+      "exports": [
+        "repositorySnapshot"
+      ],
+      "totalLines": 9542,
+      "hasStructuralAnalysis": true
+    },
+    "src/data/map-relationships.ts": {
+      "filePath": "src/data/map-relationships.ts",
+      "contentHash": "065928cb381e015b1c2441788d33eae000af293aa4eccb6a5730607c4a7c2e4b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "mapRelationships"
+      ],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "src/data/types.ts": {
+      "filePath": "src/data/types.ts",
+      "contentHash": "a0e94e1b0aa6c565c2c17a50bee61400709feba2638cf0cacfb7f4be4faa0055",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 44,
+      "hasStructuralAnalysis": true
+    },
+    "src/domain/personal-types.ts": {
+      "filePath": "src/domain/personal-types.ts",
+      "contentHash": "f9f0952ad9d12ab3dd429255093c3e2aa2ce7b3af0b86b7e8530cce9e172a1c8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    "src/domain/recommendations.test.ts": {
+      "filePath": "src/domain/recommendations.test.ts",
+      "contentHash": "c6b5d445d1af3564a39cd4e53640623a7c3b10a0c9af8a4a425ad976f048a2fd",
+      "functions": [
+        {
+          "name": "task",
+          "params": [
+            "overrides"
+          ],
+          "returnType": "LearningTask",
+          "exported": false,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../data/types",
+          "specifiers": [
+            "RepositorySnapshot",
+            "SolvedProblem",
+            "TopicSummary"
+          ]
+        },
+        {
+          "source": "./recommendations",
+          "specifiers": [
+            "FILTER_ALL",
+            "filterProblems"
+          ]
+        },
+        {
+          "source": "./personal-types",
+          "specifiers": [
+            "LearningTask",
+            "PersonalLearningState",
+            "SolveSession"
+          ]
+        },
+        {
+          "source": "./recommendations",
+          "specifiers": [
+            "choosePracticeProblem",
+            "countCompletedThisIsoWeek",
+            "getTodayRecommendation"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 188,
+      "hasStructuralAnalysis": true
+    },
+    "src/domain/recommendations.ts": {
+      "filePath": "src/domain/recommendations.ts",
+      "contentHash": "a01d1b37ab59f2da18caf7561c4e525416335a80fd558606e5c11bfbff04556c",
+      "functions": [
+        {
+          "name": "compareTasks",
+          "params": [
+            "left",
+            "right"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "getTodayRecommendation",
+          "params": [
+            "snapshot",
+            "state"
+          ],
+          "returnType": "TodayRecommendation",
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "filterProblems",
+          "params": [
+            "problems",
+            "filters"
+          ],
+          "returnType": "SolvedProblem[]",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "latestSession",
+          "params": [
+            "sessions"
+          ],
+          "returnType": "SolveSession | undefined",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "choosePracticeProblem",
+          "params": [
+            "problems",
+            "sessions"
+          ],
+          "returnType": "SolvedProblem | undefined",
+          "exported": true,
+          "lineCount": 48
+        },
+        {
+          "name": "getIsoWeekStart",
+          "params": [
+            "now"
+          ],
+          "returnType": "Date",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "countCompletedThisIsoWeek",
+          "params": [
+            "tasks",
+            "now"
+          ],
+          "returnType": "number",
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../data/types",
+          "specifiers": [
+            "Difficulty",
+            "RepositorySnapshot",
+            "SolvedProblem",
+            "TopicSummary"
+          ]
+        },
+        {
+          "source": "./personal-types",
+          "specifiers": [
+            "LearningTask",
+            "PersonalLearningState",
+            "SolveSession"
+          ]
+        }
+      ],
+      "exports": [
+        "FILTER_ALL",
+        "getTodayRecommendation",
+        "filterProblems",
+        "choosePracticeProblem",
+        "countCompletedThisIsoWeek"
+      ],
+      "totalLines": 185,
+      "hasStructuralAnalysis": true
+    },
+    "src/main.tsx": {
+      "filePath": "src/main.tsx",
+      "contentHash": "916ffe7fb05910a50bce8f9b7a3f4792ea24233f904da31e5527e7b0c4159172",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "StrictMode"
+          ]
+        },
+        {
+          "source": "react-dom/client",
+          "specifiers": [
+            "createRoot"
+          ]
+        },
+        {
+          "source": "./App",
+          "specifiers": [
+            "App"
+          ]
+        },
+        {
+          "source": "./styles/global.css",
+          "specifiers": []
+        }
+      ],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "src/pages/KnowledgeMapPage.tsx": {
+      "filePath": "src/pages/KnowledgeMapPage.tsx",
+      "contentHash": "aa5ad4dfe268222d0aef952a367c4c441b2cdb8250e0e4761711bb9a84d9ad43",
+      "functions": [
+        {
+          "name": "KnowledgeMapPage",
+          "params": [],
+          "returnType": "JSX.Element",
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "JSX"
+          ]
+        },
+        {
+          "source": "../data/generated/repository",
+          "specifiers": [
+            "repositorySnapshot"
+          ]
+        },
+        {
+          "source": "../data/map-relationships",
+          "specifiers": [
+            "mapRelationships"
+          ]
+        }
+      ],
+      "exports": [
+        "KnowledgeMapPage"
+      ],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "src/pages/LeetCodePage.tsx": {
+      "filePath": "src/pages/LeetCodePage.tsx",
+      "contentHash": "116e44caf3956b3170d01ff989d02660b6f3efcb8fa6828961bdbf7f39844f06",
+      "functions": [
+        {
+          "name": "LeetCodePage",
+          "params": [],
+          "returnType": "JSX.Element",
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useMemo",
+            "useState",
+            "JSX"
+          ]
+        },
+        {
+          "source": "../data/generated/repository",
+          "specifiers": [
+            "repositorySnapshot"
+          ]
+        },
+        {
+          "source": "../domain/recommendations",
+          "specifiers": [
+            "filterProblems",
+            "choosePracticeProblem",
+            "ProblemFilters"
+          ]
+        },
+        {
+          "source": "../state/learning-state",
+          "specifiers": [
+            "useLearningDispatch",
+            "useLearningState"
+          ]
+        }
+      ],
+      "exports": [
+        "LeetCodePage"
+      ],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "src/pages/TodayPage.test.tsx": {
+      "filePath": "src/pages/TodayPage.test.tsx",
+      "contentHash": "694201bfbd6fda355040761770fa15081636b81a144fdd9c56eb9da4e0cb0ba2",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "@testing-library/user-event",
+          "specifiers": [
+            "userEvent"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "beforeEach",
+            "describe",
+            "expect",
+            "it",
+            "vi"
+          ]
+        },
+        {
+          "source": "../App",
+          "specifiers": [
+            "App"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "src/pages/TodayPage.tsx": {
+      "filePath": "src/pages/TodayPage.tsx",
+      "contentHash": "1842355ca6f432b8c65f1adea68793a69a3f8286b3ec650e9d68d22774f3a97c",
+      "functions": [
+        {
+          "name": "TodayPage",
+          "params": [],
+          "returnType": "JSX.Element",
+          "exported": true,
+          "lineCount": 55
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "JSX"
+          ]
+        },
+        {
+          "source": "../components/TaskComposer",
+          "specifiers": [
+            "TaskComposer"
+          ]
+        },
+        {
+          "source": "../components/TaskList",
+          "specifiers": [
+            "TaskList"
+          ]
+        },
+        {
+          "source": "../data/generated/repository",
+          "specifiers": [
+            "repositorySnapshot"
+          ]
+        },
+        {
+          "source": "../domain/recommendations",
+          "specifiers": [
+            "countCompletedThisIsoWeek",
+            "getTodayRecommendation"
+          ]
+        },
+        {
+          "source": "../state/learning-state",
+          "specifiers": [
+            "useLearningState"
+          ]
+        }
+      ],
+      "exports": [
+        "TodayPage"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "src/state/learning-state.test.tsx": {
+      "filePath": "src/state/learning-state.test.tsx",
+      "contentHash": "ccfafe712ab1166fbbb80c4f14d88172e091dfe2d278b43631deb614c40f06c5",
+      "functions": [
+        {
+          "name": "useProbe",
+          "params": [],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "dispatch",
+          "params": [
+            "action"
+          ],
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "act",
+            "renderHook"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "beforeEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../domain/personal-types",
+          "specifiers": [
+            "LearningAction"
+          ]
+        },
+        {
+          "source": "./learning-state",
+          "specifiers": [
+            "LearningProvider",
+            "useLearningDispatch",
+            "useLearningState"
+          ]
+        },
+        {
+          "source": "./storage",
+          "specifiers": [
+            "STORAGE_KEY",
+            "emptyPersonalState",
+            "loadPersonalState"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 114,
+      "hasStructuralAnalysis": true
+    },
+    "src/state/learning-state.tsx": {
+      "filePath": "src/state/learning-state.tsx",
+      "contentHash": "45b06f8616329c43712fa33ac3acea55209eff6292eee6205975bfe47b1457a9",
+      "functions": [
+        {
+          "name": "createTaskId",
+          "params": [],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "learningReducer",
+          "params": [
+            "state",
+            "action"
+          ],
+          "returnType": "PersonalLearningState",
+          "exported": true,
+          "lineCount": 46
+        },
+        {
+          "name": "LearningProvider",
+          "params": [
+            "{ children }"
+          ],
+          "returnType": "JSX.Element",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "useLearningState",
+          "params": [],
+          "returnType": "PersonalLearningState",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "useLearningDispatch",
+          "params": [],
+          "returnType": "Dispatch<LearningAction>",
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "createContext",
+            "useContext",
+            "useEffect",
+            "useReducer",
+            "Dispatch",
+            "JSX",
+            "PropsWithChildren"
+          ]
+        },
+        {
+          "source": "../domain/personal-types",
+          "specifiers": [
+            "LearningAction",
+            "LearningTask",
+            "PersonalLearningState"
+          ]
+        },
+        {
+          "source": "./storage",
+          "specifiers": [
+            "emptyPersonalState",
+            "loadPersonalState",
+            "savePersonalState"
+          ]
+        }
+      ],
+      "exports": [
+        "learningReducer",
+        "LearningProvider",
+        "useLearningState",
+        "useLearningDispatch"
+      ],
+      "totalLines": 101,
+      "hasStructuralAnalysis": true
+    },
+    "src/state/storage.test.ts": {
+      "filePath": "src/state/storage.test.ts",
+      "contentHash": "30f297e4ec60890762515cb9fd29aa7f088b32d72c985e64eaf90db6a2910658",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "beforeEach",
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../domain/personal-types",
+          "specifiers": [
+            "LearningTask",
+            "SolveSession"
+          ]
+        },
+        {
+          "source": "./storage",
+          "specifiers": [
+            "STORAGE_KEY",
+            "emptyPersonalState",
+            "loadPersonalState",
+            "savePersonalState"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 46,
+      "hasStructuralAnalysis": true
+    },
+    "src/state/storage.ts": {
+      "filePath": "src/state/storage.ts",
+      "contentHash": "db05213d4902f5340dba69ffec40b2f32d329d058d4e5772119323371ee36460",
+      "functions": [
+        {
+          "name": "emptyPersonalState",
+          "params": [],
+          "returnType": "PersonalLearningState",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "isRecord",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "isLearningTask",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "isSolveSession",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "loadPersonalState",
+          "params": [],
+          "returnType": "PersonalLearningState",
+          "exported": true,
+          "lineCount": 36
+        },
+        {
+          "name": "savePersonalState",
+          "params": [
+            "state"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../domain/personal-types",
+          "specifiers": [
+            "LearningTask",
+            "PersonalLearningState",
+            "SolveSession"
+          ]
+        }
+      ],
+      "exports": [
+        "STORAGE_KEY",
+        "emptyPersonalState",
+        "loadPersonalState",
+        "savePersonalState"
+      ],
+      "totalLines": 83,
+      "hasStructuralAnalysis": true
+    },
+    "src/styles/global.css": {
+      "filePath": "src/styles/global.css",
+      "contentHash": "cd907e75c799365e73521a9948832ac903897825b2158fce47a95a8b66013a1a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 307,
+      "hasStructuralAnalysis": false
+    },
+    "src/test/setup.ts": {
+      "filePath": "src/test/setup.ts",
+      "contentHash": "81c5f1d7ba79bea949bc636250c52d71d18f2d56bfeff58ac15181786b93211d",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testing-library/jest-dom/vitest",
+          "specifiers": []
+        },
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "cleanup"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "tsconfig.app.json": {
+      "filePath": "tsconfig.app.json",
+      "contentHash": "8508132032bf471ff929d0b8cef26c4e59c6af16469f1ff1ab5e38ec6095cc86",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": false
+    },
+    "tsconfig.json": {
+      "filePath": "tsconfig.json",
+      "contentHash": "57fd7d3b4e628246cd4cf793b3ce3ad6cd707a0e36192e41891005fc7e1fcee2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": false
+    },
+    "vite.config.ts": {
+      "filePath": "vite.config.ts",
+      "contentHash": "2ccb86d30119c4f1149d9e15ddca9aa8972fd82b6eb371341c1633757946a8ef",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@vitejs/plugin-react",
+          "specifiers": [
+            "react"
+          ]
+        },
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

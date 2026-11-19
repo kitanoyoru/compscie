@@ -1,0 +1,886 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-19T08:02:16.140Z",
+  "files": {
+    "index.html": {
+      "overview": "This is the browser document shell for the single-page learning workspace. It supplies the accessibility metadata and the root DOM element that Vite uses to start the React application.",
+      "sections": [
+        {
+          "title": "Document metadata",
+          "lineRange": [
+            1,
+            10
+          ],
+          "explanation": "The document declares English content, UTF-8 encoding, a responsive viewport, and a concise description. These settings establish the page identity before any JavaScript runs.",
+          "tourOrder": 1
+        },
+        {
+          "title": "React mount point",
+          "lineRange": [
+            12,
+            15
+          ],
+          "explanation": "The empty root element is the handoff point to React. The module script loads the TypeScript bootstrap module, which renders the application into this element.",
+          "tourOrder": 1
+        }
+      ]
+    },
+    "package.json": {
+      "overview": "The package manifest defines this private React learning workspace, its supported Node versions, and its development commands. It couples Vite's frontend workflow with a repository-data generation step and Vitest-based verification.",
+      "sections": [
+        {
+          "title": "Package identity",
+          "lineRange": [
+            1,
+            8
+          ],
+          "explanation": "The manifest records the package name, marks it private, selects ESM semantics, and constrains supported Node runtimes. ESM aligns the application and its build scripts on modern import syntax.",
+          "tourOrder": 1
+        },
+        {
+          "title": "Development workflow",
+          "lineRange": [
+            9,
+            17
+          ],
+          "explanation": "The scripts generate a repository snapshot before development and builds, type-check before bundling, and expose preview and test commands. This ensures generated learning data is refreshed before the UI consumes it.",
+          "tourOrder": 1
+        },
+        {
+          "title": "Runtime and test tooling",
+          "lineRange": [
+            19,
+            36
+          ],
+          "explanation": "React and React Router are runtime dependencies for rendering and navigation. Vite, TypeScript, Vitest, jsdom, and Testing Library provide the compiler, development server, and browser-like test environment.",
+          "tourOrder": 1
+        }
+      ]
+    },
+    "src/main.tsx": {
+      "overview": "This module is the application bootstrap point. It locates the HTML root, imports global styles, and renders the routed application under React Strict Mode.",
+      "sections": [
+        {
+          "title": "Runtime imports",
+          "lineRange": [
+            1,
+            5
+          ],
+          "explanation": "The entry point imports React's development checks, the DOM renderer, the root application component, and shared styles. Keeping styles here makes them available before the component tree renders.",
+          "tourOrder": 2
+        },
+        {
+          "title": "Root validation",
+          "lineRange": [
+            7,
+            11
+          ],
+          "explanation": "The code explicitly checks for the root element supplied by index.html. Failing immediately gives a clear configuration error instead of a later null-reference failure.",
+          "tourOrder": 2
+        },
+        {
+          "title": "React render",
+          "lineRange": [
+            13,
+            17
+          ],
+          "explanation": "createRoot starts React's client renderer and mounts App into the validated container. StrictMode enables additional development-time checks without changing production behavior.",
+          "tourOrder": 2
+        }
+      ]
+    },
+    "src/App.tsx": {
+      "overview": "App composes the global routing and learning-state boundaries around the page views. It is the central map from hash URL paths to the Today, Knowledge Map, and LeetCode screens.",
+      "sections": [
+        {
+          "title": "Application dependencies",
+          "lineRange": [
+            1,
+            8
+          ],
+          "explanation": "The module imports React's JSX type, hash-based routing primitives, the common shell, each page, and the learning-state provider. These imports reveal the application's top-level composition.",
+          "tourOrder": 2
+        },
+        {
+          "title": "Provider and route tree",
+          "lineRange": [
+            10,
+            24
+          ],
+          "explanation": "HashRouter keeps navigation compatible with static hosting, while LearningProvider makes personal state available to every page. AppShell supplies persistent chrome around Routes, whose three declarations select the main learning experiences.",
+          "tourOrder": 2
+        }
+      ]
+    },
+    "src/components/AppShell.tsx": {
+      "overview": "AppShell provides the persistent branded header, accessible navigation, and main-content region shared by all routed pages. It accepts route content through children so layout concerns remain separate from page-specific content.",
+      "sections": [
+        {
+          "title": "Layout contract",
+          "lineRange": [
+            1,
+            4
+          ],
+          "explanation": "PropsWithChildren expresses that this component wraps arbitrary page content, while JSX describes its render result. NavLink is imported so navigation can expose its active state semantically.",
+          "tourOrder": 3
+        },
+        {
+          "title": "Header navigation",
+          "lineRange": [
+            5,
+            19
+          ],
+          "explanation": "The header identifies the workspace and presents links to all top-level routes. NavLink automatically marks the active route, which the global stylesheet uses to visually distinguish it.",
+          "tourOrder": 3
+        },
+        {
+          "title": "Page content region",
+          "lineRange": [
+            20,
+            24
+          ],
+          "explanation": "The main landmark receives routed children and gives it a stable ID for navigation or accessibility hooks. This is the seam between persistent layout and changing page content.",
+          "tourOrder": 3
+        }
+      ]
+    },
+    "src/styles/global.css": {
+      "overview": "This stylesheet defines the application's global visual system, responsive layout, and accessible interaction states. It styles the application shell, learning pages, task workflows, and both light and dark color schemes.",
+      "sections": [
+        {
+          "title": "Global theme defaults",
+          "lineRange": [
+            1,
+            32
+          ],
+          "explanation": "Root rules establish system typography, color preferences, and the light and dark palettes. The body and form controls then receive resilient base sizing and inherited typography.",
+          "tourOrder": 3
+        },
+        {
+          "title": "Application shell",
+          "lineRange": [
+            34,
+            109
+          ],
+          "explanation": "These rules arrange the header, responsive navigation, brand treatment, and constrained main column. The active navigation selector corresponds to NavLink's aria-current output, avoiding a custom active-state implementation.",
+          "tourOrder": 3
+        },
+        {
+          "title": "Learning page components",
+          "lineRange": [
+            111,
+            164
+          ],
+          "explanation": "Grid, card, and typography rules provide reusable visual patterns for map statistics, recommendations, and task sections. Shared selectors keep page-level UI consistent without component-scoped style duplication.",
+          "tourOrder": 3
+        },
+        {
+          "title": "Task form and list",
+          "lineRange": [
+            166,
+            268
+          ],
+          "explanation": "Form controls, action buttons, and task rows are laid out for both compact and wider screens. The larger-screen media query turns the composer into a multi-column form while preserving a stacked mobile flow.",
+          "tourOrder": 3
+        },
+        {
+          "title": "Responsive accessibility",
+          "lineRange": [
+            270,
+            306
+          ],
+          "explanation": "Small-screen rules stack the header and task controls, dark-mode rules adjust surfaces and inputs, and focus-visible adds a clear keyboard outline. These rules make interaction usable across display preferences and input methods.",
+          "tourOrder": 3
+        }
+      ]
+    },
+    "src/data/types.ts": {
+      "overview": "This module describes the immutable repository snapshot consumed by the UI. Its TypeScript types make generated topics, notes, solved problems, and aggregate counts consistent across data generation and rendering.",
+      "sections": [
+        {
+          "title": "Status and difficulty unions",
+          "lineRange": [
+            1,
+            2
+          ],
+          "explanation": "Literal unions restrict topic status and problem difficulty to known values. They give views exhaustive, type-safe categories without a runtime enum.",
+          "tourOrder": 4
+        },
+        {
+          "title": "Topic and note records",
+          "lineRange": [
+            4,
+            21
+          ],
+          "explanation": "TopicSummary and NoteSummary model the metadata needed for learning-progress and note displays. Readonly properties make the generated repository data a value to consume rather than mutate.",
+          "tourOrder": 4
+        },
+        {
+          "title": "Problem snapshot contract",
+          "lineRange": [
+            23,
+            43
+          ],
+          "explanation": "SolvedProblem captures indexed practice metadata, and RepositorySnapshot joins topics, notes, problems, and their counts. The final contract is the generated data module's public boundary.",
+          "tourOrder": 4
+        }
+      ]
+    },
+    "src/data/generated/repository.ts": {
+      "overview": "This generated module exports a strongly checked snapshot of repository learning material. The UI reads its topic, note, and solved-problem collections rather than scanning the repository at runtime.",
+      "sections": [
+        {
+          "title": "Generated module contract",
+          "lineRange": [
+            1,
+            4
+          ],
+          "explanation": "The module imports the RepositorySnapshot type and starts a constant snapshot object with its generation timestamp. The type-only import keeps the contract available to TypeScript without adding runtime code.",
+          "tourOrder": 4
+        },
+        {
+          "title": "Repository snapshot data",
+          "lineRange": [
+            5,
+            9541
+          ],
+          "explanation": "The object serializes learning topics, note metadata, solved problems, and aggregate counts discovered by the generation script. The `as const satisfies RepositorySnapshot` ending preserves precise literals while verifying the generated shape against the shared contract.",
+          "tourOrder": 4
+        }
+      ]
+    },
+    "src/data/map-relationships.ts": {
+      "overview": "This small data module supplies the explicit topic-to-concept relationships used by the Knowledge Map view. It keeps curated conceptual structure separate from the generated repository inventory.",
+      "sections": [
+        {
+          "title": "Exported map",
+          "lineRange": [
+            1,
+            1
+          ],
+          "explanation": "The module exposes one immutable collection rather than a function, because its relationships are curated static data. Consumers can import it directly for rendering or aggregation.",
+          "tourOrder": 4
+        },
+        {
+          "title": "Topic concept entries",
+          "lineRange": [
+            2,
+            9
+          ],
+          "explanation": "The entries map the Go and ClickHouse topics to their core concepts. `as const` preserves literal values so consumers can rely on the exact topic and concept vocabulary.",
+          "tourOrder": 4
+        }
+      ]
+    },
+    "src/domain/personal-types.ts": {
+      "overview": "This module defines the personal, browser-managed learning model: tasks, solved-problem sessions, persisted state, and reducer actions. It is the shared domain contract used by storage, state management, and UI components.",
+      "sections": [
+        {
+          "title": "Task and session models",
+          "lineRange": [
+            1,
+            20
+          ],
+          "explanation": "Status and outcome unions constrain lifecycle values, while LearningTask and SolveSession describe the information tracked for planning and practice. Optional fields represent information that is genuinely absent until a task is completed or reflected on.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Persisted state shape",
+          "lineRange": [
+            22,
+            26
+          ],
+          "explanation": "PersonalLearningState fixes the storage version and groups task and session collections. The literal version gives storage validation a simple compatibility boundary.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Reducer action union",
+          "lineRange": [
+            28,
+            52
+          ],
+          "explanation": "The discriminated LearningAction union lists every supported state transition and the data it needs. Reducers can switch on `type` and receive narrow, action-specific fields without casting.",
+          "tourOrder": 5
+        }
+      ]
+    },
+    "src/state/storage.ts": {
+      "overview": "This module safely persists personal learning state in browser localStorage. It validates untrusted serialized values before returning them and lets the application continue when storage is unavailable.",
+      "sections": [
+        {
+          "title": "Storage key and empty state",
+          "lineRange": [
+            1,
+            7
+          ],
+          "explanation": "The versioned key isolates this application's persisted data, while emptyPersonalState provides a single safe default. Both storage loading and reducer reset reuse this baseline.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Runtime data guards",
+          "lineRange": [
+            9,
+            37
+          ],
+          "explanation": "The helpers narrow unknown parsed JSON into record, task, and session values by checking essential fields and allowed literals. This avoids trusting localStorage merely because it parses as JSON.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Defensive loading",
+          "lineRange": [
+            39,
+            74
+          ],
+          "explanation": "loadPersonalState catches storage access and JSON errors, validates the version and collection contents, and falls back to an empty state on any mismatch. The result is always a usable PersonalLearningState.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Best effort saving",
+          "lineRange": [
+            76,
+            82
+          ],
+          "explanation": "Saving serializes the current state under the versioned key. Errors are intentionally ignored because lack of persistence should not prevent the in-memory workspace from functioning.",
+          "tourOrder": 5
+        }
+      ]
+    },
+    "src/state/learning-state.tsx": {
+      "overview": "This module implements the React state boundary for personal learning data. It reduces typed actions into immutable state, hydrates from storage once, persists subsequent changes, and exposes guarded hooks for consumers.",
+      "sections": [
+        {
+          "title": "Imports and task IDs",
+          "lineRange": [
+            1,
+            16
+          ],
+          "explanation": "React context and reducer hooks are combined with domain types and storage helpers. crypto.randomUUID creates task identifiers locally without requiring a server or global counter.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Learning reducer",
+          "lineRange": [
+            18,
+            63
+          ],
+          "explanation": "The reducer handles every discriminated action by returning new immutable collections. It creates, completes, defers, records sessions, or resets state while retaining the fields not affected by each transition.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Context provider",
+          "lineRange": [
+            65,
+            80
+          ],
+          "explanation": "Separate contexts hold state and dispatch so consumers can subscribe to the capability they need. useReducer hydrates lazily from storage, and the effect persists each resulting state change.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Consumer hooks",
+          "lineRange": [
+            82,
+            100
+          ],
+          "explanation": "The two hooks retrieve state or dispatch and throw a clear error when used outside LearningProvider. This turns a provider-placement mistake into an immediate, explainable failure.",
+          "tourOrder": 5
+        }
+      ]
+    },
+    "src/pages/TodayPage.tsx": {
+      "overview": "This page turns the persistent learning state and generated repository snapshot into the daily workspace. It chooses a next action, reports weekly completion, and composes the task creation and queue components for tour step 6.",
+      "sections": [
+        {
+          "title": "Data and state inputs",
+          "lineRange": [
+            1,
+            12
+          ],
+          "explanation": "The page imports its two child components, the generated repository snapshot, recommendation helpers, and the shared learning state hook. It derives the current recommendation and weekly completion total before rendering so the JSX can stay focused on presentation.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Page introduction",
+          "lineRange": [
+            14,
+            23
+          ],
+          "explanation": "The introductory section uses an explicit heading association for accessible navigation. Its copy distinguishes immutable repository evidence from the browser-local task and practice data used by the application.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Recommendation card",
+          "lineRange": [
+            25,
+            50
+          ],
+          "explanation": "The recommendation is a discriminated union, so each kind receives a narrow rendering branch. The live region lets assistive technology announce recommendation changes, while the weekly total is calculated separately from the visible task list.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Task workflow composition",
+          "lineRange": [
+            52,
+            60
+          ],
+          "explanation": "TaskComposer handles creation while TaskList receives the current tasks and optional recommended task id. Keeping mutation behavior in child components and passing plain data down makes this page the orchestration point for the daily flow.",
+          "tourOrder": 6
+        }
+      ]
+    },
+    "src/components/TaskComposer.tsx": {
+      "overview": "TaskComposer is the controlled form that adds a personal learning task to shared state. It offers topics from the generated repository snapshot and is the creation half of the daily task workflow in tour step 6.",
+      "sections": [
+        {
+          "title": "Form state setup",
+          "lineRange": [
+            1,
+            13
+          ],
+          "explanation": "React IDs connect labels to inputs without hard-coded DOM identifiers. The component keeps title, topic, and estimated duration as local strings until it can validate them on submission.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Submission validation",
+          "lineRange": [
+            15,
+            37
+          ],
+          "explanation": "The submit handler prevents the browser navigation, trims the title, and exits for an empty value. It dispatches a taskAdded action only after converting a positive finite duration; blank or invalid durations are deliberately stored as undefined. The local form fields are reset after the action is sent.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Accessible task form",
+          "lineRange": [
+            39,
+            83
+          ],
+          "explanation": "The JSX renders controlled title, topic, and minutes fields. Topic options come from the repository snapshot, so users can link work to known learning topics without duplicating that catalogue in component state.",
+          "tourOrder": 6
+        }
+      ]
+    },
+    "src/components/TaskList.tsx": {
+      "overview": "TaskList renders the personal queue and sends lifecycle actions to the shared learning-state reducer. It highlights the current recommendation while providing completion, deferral, and reset controls for tour step 6.",
+      "sections": [
+        {
+          "title": "Props and dispatch",
+          "lineRange": [
+            1,
+            12
+          ],
+          "explanation": "The typed props accept a read-only task array and an optional recommended task id, preventing this view from mutating its input directly. The dispatch hook is the component's only route for changing persisted learning state.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Reset confirmation",
+          "lineRange": [
+            14,
+            22
+          ],
+          "explanation": "A browser confirmation dialog guards the destructive stateReset action. No reset is dispatched unless the user explicitly confirms, which protects both tasks and practice sessions mentioned in the prompt.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Queue rendering and actions",
+          "lineRange": [
+            24,
+            80
+          ],
+          "explanation": "The component presents an empty-state message or maps tasks to list items keyed by stable task id. Recommended work gets an additional CSS class, and incomplete tasks expose accessible Complete and Defer controls that dispatch focused reducer actions.",
+          "tourOrder": 6
+        }
+      ]
+    },
+    "src/domain/recommendations.ts": {
+      "overview": "This domain module contains deterministic filtering, recommendation, practice-selection, and weekly-completion rules. It separates learning decisions from React components, so multiple views can reuse the same behavior in tour step 7.",
+      "sections": [
+        {
+          "title": "Domain contracts",
+          "lineRange": [
+            1,
+            28
+          ],
+          "explanation": "The module defines shared filter inputs and a discriminated TodayRecommendation result. The union forces callers to account for a task recommendation, a fallback topic, or no recommendation at all.",
+          "tourOrder": 7
+        },
+        {
+          "title": "Daily task priority",
+          "lineRange": [
+            30,
+            86
+          ],
+          "explanation": "compareTasks provides deterministic ordering even when timestamps are invalid by falling back to negative infinity and then id. getTodayRecommendation prefers open tasks over deferred tasks; if neither exists, it selects the oldest active topic with a last note before returning none.",
+          "tourOrder": 7
+        },
+        {
+          "title": "Problem filtering",
+          "lineRange": [
+            88,
+            99
+          ],
+          "explanation": "filterProblems applies each optional difficulty, language, and tag filter independently. The sentinel all value deliberately behaves like an omitted filter, making it suitable for select controls.",
+          "tourOrder": 7
+        },
+        {
+          "title": "Practice ranking",
+          "lineRange": [
+            101,
+            158
+          ],
+          "explanation": "The module groups sessions by problem and classifies each candidate by its latest outcome. Problems needing review are prioritized first, unseen problems second, and successful sessions last; timestamps and ids make ties predictable.",
+          "tourOrder": 7
+        },
+        {
+          "title": "ISO week completion count",
+          "lineRange": [
+            160,
+            184
+          ],
+          "explanation": "getIsoWeekStart normalizes the supplied date to a UTC Monday boundary. countCompletedThisIsoWeek then includes only completed tasks with valid timestamps inside the half-open seven-day interval, avoiding locale-dependent week boundaries.",
+          "tourOrder": 7
+        }
+      ]
+    },
+    "src/pages/LeetCodePage.tsx": {
+      "overview": "LeetCodePage lets a learner filter solved problems, receive a practice suggestion, and store a reflection session. It consumes the recommendation rules and shared learning state during tour step 7.",
+      "sections": [
+        {
+          "title": "State and recommendation setup",
+          "lineRange": [
+            1,
+            9
+          ],
+          "explanation": "The page tracks filter controls, reflection text, and outcome locally while reading and dispatching global learning state. useMemo recalculates matching problems only when filter values change, and choosePracticeProblem derives the suggested item from those problems and prior sessions.",
+          "tourOrder": 7
+        },
+        {
+          "title": "Session completion action",
+          "lineRange": [
+            10,
+            10
+          ],
+          "explanation": "The finish callback requires both a suggested problem and non-empty reflection before dispatching sessionCompleted. It records the current timestamp for both start and end in this compact review flow, then clears the reflection field.",
+          "tourOrder": 7
+        },
+        {
+          "title": "Practice interface",
+          "lineRange": [
+            12,
+            12
+          ],
+          "explanation": "This compact JSX expression renders filter selectors, the suggested problem, reflection and outcome controls, and a bounded list of matching problems. It provides an explicit empty state when filters eliminate every solved problem.",
+          "tourOrder": 7
+        }
+      ]
+    },
+    "src/pages/KnowledgeMapPage.tsx": {
+      "overview": "KnowledgeMapPage presents active topics, repository counts, notes, and explicit concept links as a learning landscape. It is the visual evidence view introduced in tour step 8.",
+      "sections": [
+        {
+          "title": "Repository map inputs",
+          "lineRange": [
+            1,
+            6
+          ],
+          "explanation": "The page reads the generated snapshot and separately maintained relationship list. It selects only active topics before rendering, so planned or completed areas do not appear as current learning work.",
+          "tourOrder": 8
+        },
+        {
+          "title": "Topic map rendering",
+          "lineRange": [
+            7,
+            12
+          ],
+          "explanation": "The markup pairs an accessible heading with repository statistics and one article per active topic. Each card filters notes and relationship entries by the topic slug, making the displayed evidence traceable back to the generated data.",
+          "tourOrder": 8
+        }
+      ]
+    },
+    "scripts/generate-repository-data.mjs": {
+      "overview": "This build-time entry script generates the TypeScript repository snapshot consumed by the React app. It forms the bridge between the larger repository structure and the UI data used in tour step 9.",
+      "sections": [
+        {
+          "title": "Generator dependencies",
+          "lineRange": [
+            1,
+            8
+          ],
+          "explanation": "The script imports filesystem and path helpers along with the collection and rendering functions. Those imports keep repository traversal and code generation in the reusable repository-data module.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Path resolution",
+          "lineRange": [
+            10,
+            19
+          ],
+          "explanation": "fileURLToPath converts the ESM module URL into a filesystem path, allowing the script to locate the repository root and generated output relative to itself. This avoids depending on the caller's working directory.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Snapshot publication",
+          "lineRange": [
+            21,
+            25
+          ],
+          "explanation": "The script collects a repository snapshot, renders it as a TypeScript module, creates the generated directory if needed, and writes the module. The sequence makes the frontend data a reproducible build artifact.",
+          "tourOrder": 9
+        }
+      ]
+    },
+    "scripts/repository-data.mjs": {
+      "overview": "This module validates and collects notes, topic metadata, solved-problem data, and language counts from the repository, then renders a typed frontend module. It is the main repository-data pipeline examined in tour step 9.",
+      "sections": [
+        {
+          "title": "Constants and path helpers",
+          "lineRange": [
+            1,
+            46
+          ],
+          "explanation": "The module centralizes allowed topic statuses, difficulties, and file-extension language names. Small helpers normalize URL or path inputs and force repository-relative paths to POSIX separators for stable generated output.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Note metadata collection",
+          "lineRange": [
+            48,
+            106
+          ],
+          "explanation": "parseFrontmatter extracts simple key-value metadata, while noteTitle chooses a Markdown heading or filename fallback. collectNotes reads non-hidden Markdown files for one topic and sorts them by descending date with a filename tie-breaker.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Topic validation",
+          "lineRange": [
+            108,
+            151
+          ],
+          "explanation": "topicStatus rejects unknown statuses before they enter the snapshot. collectTopics requires a README and required frontmatter for every topic directory, then joins its notes to compute last-note and note-count fields.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Problem index parsing",
+          "lineRange": [
+            153,
+            203
+          ],
+          "explanation": "loadProblemIndex validates the TSV header, numeric ids, allowed difficulties, non-empty titles, and duplicate entries. The resulting map is the authoritative metadata source for directories under the solved-problem tree.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Language and problem discovery",
+          "lineRange": [
+            205,
+            293
+          ],
+          "explanation": "collectLanguages recursively inspects solution files and maps recognized extensions to display names. collectProblems walks difficulty directories, checks index coverage and duplicate ids, requires at least one known language, and returns a stable id-sorted list.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Snapshot and module output",
+          "lineRange": [
+            295,
+            350
+          ],
+          "explanation": "snapshotDate derives a deterministic generated timestamp from repository dates. collectRepositorySnapshot assembles sorted topics, notes, problems, and aggregate counts; renderRepositoryModule serializes that snapshot into a TypeScript const that satisfies the frontend contract.",
+          "tourOrder": 9
+        }
+      ]
+    },
+    "scripts/fixtures/valid/notes/clickhouse/README.md": {
+      "overview": "This fixture is a valid topic README used by the repository-data test corpus. Its frontmatter demonstrates the required topic metadata parsed by the generator in tour step 9.",
+      "sections": [
+        {
+          "title": "Topic frontmatter",
+          "lineRange": [
+            1,
+            7
+          ],
+          "explanation": "The YAML-style block supplies title, status, start date, focus, and next-step values. These fields satisfy the generator's required title, status, and started validation while also providing optional context.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Document heading",
+          "lineRange": [
+            9,
+            9
+          ],
+          "explanation": "The Markdown heading gives the topic a human-readable document title. The generator can use headings as note titles elsewhere when metadata is not used.",
+          "tourOrder": 9
+        }
+      ]
+    },
+    "scripts/fixtures/duplicate/tools/leetcode-index.tsv": {
+      "overview": "This fixture provides a minimal LeetCode index row for a duplicate-data test scenario. It participates in tour step 9 by exercising the repository-data parser's TSV input format.",
+      "sections": [
+        {
+          "title": "TSV schema and row",
+          "lineRange": [
+            1,
+            2
+          ],
+          "explanation": "The header declares id, difficulty, title, and tags in tab-separated columns. The following row represents problem 1, allowing the fixture suite to combine it with duplicate directory data and verify duplicate detection.",
+          "tourOrder": 9
+        }
+      ]
+    },
+    "src/test/setup.ts": {
+      "overview": "This Vitest setup file installs DOM matchers and cleans up rendered React trees after each test. It is part of the verification environment in tour step 10.",
+      "sections": [
+        {
+          "title": "Testing environment setup",
+          "lineRange": [
+            1,
+            8
+          ],
+          "explanation": "The setup imports Testing Library's Vitest matcher integration, then registers cleanup in an afterEach hook. Cleaning up each render prevents DOM state from leaking between component tests.",
+          "tourOrder": 10
+        }
+      ]
+    },
+    "src/App.test.tsx": {
+      "overview": "This focused component test verifies that the root application renders its identifiable learning-workspace banner. It provides a smoke-level assertion for the app shell in tour step 10.",
+      "sections": [
+        {
+          "title": "Root workspace smoke test",
+          "lineRange": [
+            1,
+            10
+          ],
+          "explanation": "The test renders App with Testing Library and queries for the banner by accessible role and case-insensitive name. The assertion checks user-visible semantics rather than implementation details, which makes the test resilient to internal refactors.",
+          "tourOrder": 10
+        }
+      ]
+    },
+    "src/domain/recommendations.test.ts": {
+      "overview": "This Vitest suite specifies the ordering rules behind daily and practice recommendations. It builds small typed fixtures rather than reading repository files, so the policy can be exercised as pure domain logic. In the verification tour step, it demonstrates how recommendation behavior is kept independent of the React UI.",
+      "sections": [
+        {
+          "title": "Typed recommendation fixtures",
+          "lineRange": [
+            1,
+            44
+          ],
+          "explanation": "The test imports both the recommendation functions and the data contracts they consume. Two active topics and a minimal repository snapshot establish predictable fallback data. The `task` helper fills in a default open status while allowing each scenario to override only the relevant fields.",
+          "tourOrder": 10
+        },
+        {
+          "title": "Daily priority rules",
+          "lineRange": [
+            46,
+            105
+          ],
+          "explanation": "These cases pin down the priority order for a daily recommendation: oldest open task, then deferred task, then a topic fallback. A separate date-boundary case verifies that weekly completion counting starts on Monday under ISO-week semantics. Keeping these assertions explicit protects user-facing ordering from accidental changes.",
+          "tourOrder": 10
+        },
+        {
+          "title": "Practice ranking and filters",
+          "lineRange": [
+            107,
+            187
+          ],
+          "explanation": "The local problem and session fixtures test the practice selector without rendering a page. The assertions cover review priority, unseen-problem selection, least-recent completion ordering, and deterministic ID tie-breaking. The final case confirms that difficulty, language, and tag filters are intersected, while the all-values sentinel leaves every problem visible.",
+          "tourOrder": 10
+        }
+      ]
+    },
+    "scripts/repository-data.test.mjs": {
+      "overview": "This Node test suite verifies the build-time repository-data collector and the module renderer consumed by the frontend. It uses separate valid and duplicate fixture trees, which lets the tests exercise both successful parsing and data-integrity failures. In the verification step, it is the safety net for the generator pipeline described earlier in the tour.",
+      "sections": [
+        {
+          "title": "Fixture-backed snapshot checks",
+          "lineRange": [
+            1,
+            37
+          ],
+          "explanation": "Node's strict assertions and test runner execute the same helper that the generation script uses. URLs relative to the test module identify the valid fixture corpus without depending on the caller's working directory. The first test checks the extracted topic, note, problem, and aggregate-language fields rather than just confirming that a snapshot exists.",
+          "tourOrder": 10
+        },
+        {
+          "title": "Integrity and rendered module",
+          "lineRange": [
+            39,
+            55
+          ],
+          "explanation": "The duplicate fixture must throw an error for a repeated solved-problem ID, making invalid source material fail fast. The rendering test then checks the generated TypeScript module for its exported snapshot, static contract assertion, and representative serialized data. It also rejects Node-specific imports, ensuring the result can safely run in the browser bundle.",
+          "tourOrder": 10
+        }
+      ]
+    },
+    "vite.config.ts": {
+      "overview": "This is the shared Vite and Vitest configuration for the React application. It sets the deployment base path, enables the React transform plugin, and defines the browser-like environment used by the component test suite. The final tour step uses it to connect the application code to its development and verification toolchain.",
+      "sections": [
+        {
+          "title": "Vite and React setup",
+          "lineRange": [
+            1,
+            6
+          ],
+          "explanation": "The configuration imports the React plugin and Vitest's compatible `defineConfig` helper. The `/compscie/` base path makes generated asset URLs work when the site is hosted beneath that subpath. Registering `react()` enables the JSX and Fast Refresh behavior expected by the application.",
+          "tourOrder": 10
+        },
+        {
+          "title": "Vitest browser configuration",
+          "lineRange": [
+            7,
+            13
+          ],
+          "explanation": "Tests run in jsdom so React components can interact with a simulated DOM. Globals are enabled for the chosen test style, while the include pattern limits discovery to source test files. The setup module runs before each suite to install shared Testing Library matchers and test environment behavior.",
+          "tourOrder": 10
+        }
+      ]
+    },
+    "src/pages/TodayPage.test.tsx": {
+      "overview": "Exercises task creation, completion, keyboard flow, deferral, and browser-state reset through the application UI.",
+      "sections": []
+    },
+    "src/state/learning-state.test.tsx": {
+      "overview": "Tests the learning-state provider's task lifecycle, session recording, reset behavior, and persistence integration.",
+      "sections": []
+    },
+    "src/state/storage.test.ts": {
+      "overview": "Tests local-storage recovery for malformed and obsolete values and verifies valid personal state round-trips.",
+      "sections": []
+    },
+    "tsconfig.app.json": {
+      "overview": "Configures strict TypeScript checking for the application and Vite configuration, including React JSX, bundler resolution, and browser library types.",
+      "sections": []
+    },
+    "tsconfig.json": {
+      "overview": "Root TypeScript project configuration that delegates compilation settings to the application configuration through project references.",
+      "sections": []
+    },
+    ".ua/config.json": {
+      "overview": "Stores Understand Anything output preferences for this project, including the English analysis language.",
+      "sections": []
+    },
+    "scripts/fixtures/duplicate/leetcode/easy/0001. Two Sum/main.go": {
+      "overview": "Minimal Go fixture representing a duplicate Two Sum solution in the easy-problem fixture tree.",
+      "sections": []
+    },
+    "scripts/fixtures/duplicate/leetcode/medium/0001. Two Sum/main.ts": {
+      "overview": "Minimal TypeScript fixture used to model a duplicate Two Sum entry under an inconsistent difficulty path.",
+      "sections": []
+    },
+    "scripts/fixtures/duplicate/notes/clickhouse/README.md": {
+      "overview": "Fixture note metadata for a ClickHouse learning topic, used to exercise duplicate-content detection.",
+      "sections": []
+    },
+    "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.go": {
+      "overview": "Minimal Go fixture representing the valid easy-problem Two Sum source location.",
+      "sections": []
+    },
+    "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.ts": {
+      "overview": "Minimal TypeScript fixture representing the valid easy-problem Two Sum source location.",
+      "sections": []
+    },
+    "scripts/fixtures/valid/notes/clickhouse/date-time-functions.md": {
+      "overview": "Fixture note page introducing the ClickHouse date and time functions study topic.",
+      "sections": []
+    },
+    "scripts/fixtures/valid/tools/leetcode-index.tsv": {
+      "overview": "Tab-separated fixture index containing the valid Two Sum problem record for repository-data validation.",
+      "sections": []
+    }
+  }
+}

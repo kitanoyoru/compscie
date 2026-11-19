@@ -1,0 +1,2069 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "@kitanoyoru/compscie-learning-platform",
+    "languages": [
+      "css",
+      "csv",
+      "go",
+      "html",
+      "javascript",
+      "json",
+      "markdown",
+      "typescript"
+    ],
+    "frameworks": [
+      "React",
+      "Vite",
+      "Vitest"
+    ],
+    "description": "No description available",
+    "analyzedAt": "2026-11-19T08:02:40.868Z",
+    "gitCommitHash": "5fd35e7fb743310b1fb412e5265604e7b54cc01c"
+  },
+  "nodes": [
+    {
+      "id": "file:src/App.test.tsx",
+      "type": "file",
+      "name": "App.test.tsx",
+      "filePath": "src/App.test.tsx",
+      "summary": "Verifies that the application renders the Compscie learning-workspace banner.",
+      "tags": [
+        "test",
+        "react",
+        "component-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/App.tsx",
+      "type": "file",
+      "name": "App.tsx",
+      "filePath": "src/App.tsx",
+      "summary": "Composes the React application shell, learning-state provider, and hash-routed page views.",
+      "tags": [
+        "react",
+        "routing",
+        "application-shell",
+        "state-provider",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/App.tsx:App",
+      "type": "function",
+      "name": "App",
+      "filePath": "src/App.tsx",
+      "startLine": 10,
+      "endLine": 24,
+      "summary": "Builds the routed application tree inside the shared learning-state provider and visual shell.",
+      "tags": [
+        "react-component",
+        "routing",
+        "composition",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/AppShell.tsx",
+      "type": "file",
+      "name": "AppShell.tsx",
+      "filePath": "src/components/AppShell.tsx",
+      "summary": "Provides the persistent branded header, primary navigation, and main-content landmark for every route.",
+      "tags": [
+        "react",
+        "layout",
+        "navigation",
+        "accessibility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/AppShell.tsx:AppShell",
+      "type": "function",
+      "name": "AppShell",
+      "filePath": "src/components/AppShell.tsx",
+      "startLine": 4,
+      "endLine": 25,
+      "summary": "Renders the shared workspace header and navigation around route-provided page content.",
+      "tags": [
+        "react-component",
+        "layout",
+        "navigation",
+        "accessibility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/data/map-relationships.ts",
+      "type": "file",
+      "name": "map-relationships.ts",
+      "filePath": "src/data/map-relationships.ts",
+      "summary": "Defines the static topic-to-concept relationships displayed by the knowledge-map view.",
+      "tags": [
+        "data",
+        "knowledge-map",
+        "static-data"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main.tsx",
+      "type": "file",
+      "name": "main.tsx",
+      "filePath": "src/main.tsx",
+      "summary": "Bootstraps the React application into the DOM root, enables Strict Mode, and loads global styles.",
+      "tags": [
+        "entry-point",
+        "react",
+        "bootstrap",
+        "strict-mode"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/pages/KnowledgeMapPage.tsx",
+      "type": "file",
+      "name": "KnowledgeMapPage.tsx",
+      "filePath": "src/pages/KnowledgeMapPage.tsx",
+      "summary": "Renders active learning topics, repository statistics, notes, and their connected concepts as a knowledge map.",
+      "tags": [
+        "react",
+        "page",
+        "knowledge-map",
+        "repository-data"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/pages/KnowledgeMapPage.tsx:KnowledgeMapPage",
+      "type": "function",
+      "name": "KnowledgeMapPage",
+      "filePath": "src/pages/KnowledgeMapPage.tsx",
+      "startLine": 5,
+      "endLine": 12,
+      "summary": "Filters active topics and derives note and concept displays from repository snapshot data.",
+      "tags": [
+        "react-component",
+        "data-rendering",
+        "knowledge-map",
+        "filtering"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/pages/TodayPage.test.tsx",
+      "type": "file",
+      "name": "TodayPage.test.tsx",
+      "filePath": "src/pages/TodayPage.test.tsx",
+      "summary": "Exercises task creation, completion, keyboard flow, deferral, and browser-state reset through the application UI.",
+      "tags": [
+        "test",
+        "react",
+        "integration-test",
+        "accessibility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/TaskComposer.tsx",
+      "type": "file",
+      "name": "TaskComposer.tsx",
+      "filePath": "src/components/TaskComposer.tsx",
+      "summary": "Renders the form used to add a learning task, including optional topic and time estimates, and dispatches the resulting task into browser-held learning state.",
+      "tags": [
+        "react",
+        "component",
+        "task-entry",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/TaskComposer.tsx:TaskComposer",
+      "type": "function",
+      "name": "TaskComposer",
+      "filePath": "src/components/TaskComposer.tsx",
+      "lineRange": [
+        6,
+        84
+      ],
+      "summary": "Manages controlled task-form fields, validates the title and duration, and dispatches a taskAdded action before resetting the form.",
+      "tags": [
+        "react-component",
+        "form-handling",
+        "state-dispatch"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/data/generated/repository.ts",
+      "type": "file",
+      "name": "repository.ts",
+      "filePath": "src/data/generated/repository.ts",
+      "summary": "Provides the generated, read-only repository snapshot of learning topics, notes, solved problems, and aggregate counts consumed by the application.",
+      "tags": [
+        "generated-data",
+        "repository",
+        "snapshot",
+        "read-only"
+      ],
+      "complexity": "complex",
+      "languageNotes": "The constant is checked with TypeScript's satisfies operator to preserve literal data while enforcing the RepositorySnapshot contract."
+    },
+    {
+      "id": "file:src/data/types.ts",
+      "type": "file",
+      "name": "types.ts",
+      "filePath": "src/data/types.ts",
+      "summary": "Defines the TypeScript contracts for repository topics, notes, solved problems, and the generated repository snapshot.",
+      "tags": [
+        "typescript",
+        "type-definition",
+        "repository-data"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/domain/recommendations.test.ts",
+      "type": "file",
+      "name": "recommendations.test.ts",
+      "filePath": "src/domain/recommendations.test.ts",
+      "summary": "Exercises daily recommendation, ISO-week completion, practice-ranking, and filter behavior against focused in-memory learning data.",
+      "tags": [
+        "test",
+        "vitest",
+        "recommendations",
+        "domain-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/domain/recommendations.ts",
+      "type": "file",
+      "name": "recommendations.ts",
+      "filePath": "src/domain/recommendations.ts",
+      "summary": "Implements deterministic learning recommendations, solved-problem filtering, practice prioritization, and ISO-week task-completion metrics.",
+      "tags": [
+        "domain-logic",
+        "recommendations",
+        "filtering",
+        "learning",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/recommendations.ts:compareTasks",
+      "type": "function",
+      "name": "compareTasks",
+      "filePath": "src/domain/recommendations.ts",
+      "lineRange": [
+        30,
+        41
+      ],
+      "summary": "Orders learning tasks by creation time and uses task ID as a stable tie-breaker when timestamps are equal or invalid.",
+      "tags": [
+        "sorting",
+        "task-priority",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/domain/recommendations.ts:getTodayRecommendation",
+      "type": "function",
+      "name": "getTodayRecommendation",
+      "filePath": "src/domain/recommendations.ts",
+      "lineRange": [
+        43,
+        86
+      ],
+      "summary": "Selects the earliest open task, then a deferred task, or falls back to the least-recently-noted active topic for today's recommended action.",
+      "tags": [
+        "recommendations",
+        "task-priority",
+        "domain-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/recommendations.ts:filterProblems",
+      "type": "function",
+      "name": "filterProblems",
+      "filePath": "src/domain/recommendations.ts",
+      "lineRange": [
+        88,
+        99
+      ],
+      "summary": "Returns solved problems that satisfy all selected difficulty, language, and tag filters while accepting omitted and all-values as wildcards.",
+      "tags": [
+        "filtering",
+        "leetcode",
+        "domain-logic"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/domain/recommendations.ts:choosePracticeProblem",
+      "type": "function",
+      "name": "choosePracticeProblem",
+      "filePath": "src/domain/recommendations.ts",
+      "lineRange": [
+        111,
+        158
+      ],
+      "summary": "Ranks solved problems to revisit, prioritizing the latest needs-review session, then unpracticed problems, then least-recent successful practice.",
+      "tags": [
+        "recommendations",
+        "ranking",
+        "leetcode"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/domain/recommendations.ts:countCompletedThisIsoWeek",
+      "type": "function",
+      "name": "countCompletedThisIsoWeek",
+      "filePath": "src/domain/recommendations.ts",
+      "lineRange": [
+        167,
+        184
+      ],
+      "summary": "Counts completed learning tasks whose completion timestamps fall within the UTC-based current ISO week.",
+      "tags": [
+        "analytics",
+        "date-handling",
+        "task-progress"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/pages/LeetCodePage.tsx",
+      "type": "file",
+      "name": "LeetCodePage.tsx",
+      "filePath": "src/pages/LeetCodePage.tsx",
+      "summary": "Renders the solved-problem review page with filters, a ranked practice suggestion, and controls for recording a review session.",
+      "tags": [
+        "react",
+        "page",
+        "leetcode",
+        "practice"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/pages/LeetCodePage.tsx:LeetCodePage",
+      "type": "function",
+      "name": "LeetCodePage",
+      "filePath": "src/pages/LeetCodePage.tsx",
+      "lineRange": [
+        6,
+        13
+      ],
+      "summary": "Combines repository problem data, local filter state, recommendation logic, and learning-state dispatches into the practice-review interface.",
+      "tags": [
+        "react-component",
+        "leetcode",
+        "state-management"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/pages/TodayPage.tsx",
+      "type": "file",
+      "name": "TodayPage.tsx",
+      "filePath": "src/pages/TodayPage.tsx",
+      "summary": "Builds the daily-learning view by showing a current recommendation, weekly completion count, task composer, and task list.",
+      "tags": [
+        "react",
+        "page",
+        "daily-learning",
+        "dashboard"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/pages/TodayPage.tsx:TodayPage",
+      "type": "function",
+      "name": "TodayPage",
+      "filePath": "src/pages/TodayPage.tsx",
+      "lineRange": [
+        9,
+        63
+      ],
+      "summary": "Reads learning state, derives today's next action and weekly progress, and composes the task-entry and task-list sections of the dashboard.",
+      "tags": [
+        "react-component",
+        "daily-learning",
+        "recommendations"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/TaskList.tsx",
+      "type": "file",
+      "name": "TaskList.tsx",
+      "filePath": "src/components/TaskList.tsx",
+      "summary": "Renders the personal learning-task queue with completion, deferral, and reset actions backed by the learning-state dispatcher.",
+      "tags": [
+        "react-component",
+        "task-management",
+        "state-dispatch"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/TaskList.tsx:TaskList",
+      "type": "function",
+      "name": "TaskList",
+      "filePath": "src/components/TaskList.tsx",
+      "summary": "Displays tasks, highlights the recommended task, and dispatches user actions to update or reset working state.",
+      "tags": [
+        "react-component",
+        "task-management",
+        "event-handler"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/domain/personal-types.ts",
+      "type": "file",
+      "name": "personal-types.ts",
+      "filePath": "src/domain/personal-types.ts",
+      "summary": "Defines the versioned personal-learning state model, task and session records, and reducer action union used across the application.",
+      "tags": [
+        "type-definition",
+        "domain-model",
+        "learning-state"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/state/learning-state.test.tsx",
+      "type": "file",
+      "name": "learning-state.test.tsx",
+      "filePath": "src/state/learning-state.test.tsx",
+      "summary": "Tests the learning-state provider's task lifecycle, session recording, reset behavior, and persistence integration.",
+      "tags": [
+        "test",
+        "react-testing",
+        "learning-state"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/state/learning-state.tsx",
+      "type": "file",
+      "name": "learning-state.tsx",
+      "filePath": "src/state/learning-state.tsx",
+      "summary": "Provides the React reducer, context provider, and guarded hooks that manage and persist personal learning tasks and solving sessions.",
+      "tags": [
+        "react-context",
+        "state-management",
+        "persistence",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/state/learning-state.tsx:learningReducer",
+      "type": "function",
+      "name": "learningReducer",
+      "filePath": "src/state/learning-state.tsx",
+      "summary": "Applies typed task, session, and reset actions immutably to the personal-learning state.",
+      "tags": [
+        "reducer",
+        "state-management",
+        "domain-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/state/learning-state.tsx:LearningProvider",
+      "type": "function",
+      "name": "LearningProvider",
+      "filePath": "src/state/learning-state.tsx",
+      "summary": "Initializes reducer state from storage, persists changes, and exposes state and dispatch through React contexts.",
+      "tags": [
+        "react-provider",
+        "state-management",
+        "persistence"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/state/learning-state.tsx:useLearningState",
+      "type": "function",
+      "name": "useLearningState",
+      "filePath": "src/state/learning-state.tsx",
+      "summary": "Returns the current learning state and rejects calls outside the provider boundary.",
+      "tags": [
+        "react-hook",
+        "state-access",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/state/learning-state.tsx:useLearningDispatch",
+      "type": "function",
+      "name": "useLearningDispatch",
+      "filePath": "src/state/learning-state.tsx",
+      "summary": "Returns the learning-state dispatch function and enforces provider usage.",
+      "tags": [
+        "react-hook",
+        "state-dispatch",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/state/storage.test.ts",
+      "type": "file",
+      "name": "storage.test.ts",
+      "filePath": "src/state/storage.test.ts",
+      "summary": "Tests local-storage recovery for malformed and obsolete values and verifies valid personal state round-trips.",
+      "tags": [
+        "test",
+        "persistence",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/state/storage.ts",
+      "type": "file",
+      "name": "storage.ts",
+      "filePath": "src/state/storage.ts",
+      "summary": "Loads, validates, and saves the versioned personal-learning state in browser local storage with safe fallbacks.",
+      "tags": [
+        "persistence",
+        "local-storage",
+        "validation",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/state/storage.ts:emptyPersonalState",
+      "type": "function",
+      "name": "emptyPersonalState",
+      "filePath": "src/state/storage.ts",
+      "summary": "Creates the empty version-one personal-learning state used as a recovery default.",
+      "tags": [
+        "factory",
+        "state-management",
+        "default-state"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/state/storage.ts:isLearningTask",
+      "type": "function",
+      "name": "isLearningTask",
+      "filePath": "src/state/storage.ts",
+      "summary": "Validates the required fields and allowed status values of a persisted learning task.",
+      "tags": [
+        "validation",
+        "type-guard",
+        "persistence"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/state/storage.ts:isSolveSession",
+      "type": "function",
+      "name": "isSolveSession",
+      "filePath": "src/state/storage.ts",
+      "summary": "Validates the persisted shape and outcome values of a solve-session record.",
+      "tags": [
+        "validation",
+        "type-guard",
+        "persistence"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/state/storage.ts:loadPersonalState",
+      "type": "function",
+      "name": "loadPersonalState",
+      "filePath": "src/state/storage.ts",
+      "summary": "Reads local storage and returns only valid version-one state, falling back safely for unavailable or malformed data.",
+      "tags": [
+        "persistence",
+        "validation",
+        "error-handling"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/state/storage.ts:savePersonalState",
+      "type": "function",
+      "name": "savePersonalState",
+      "filePath": "src/state/storage.ts",
+      "summary": "Serializes personal-learning state to browser storage while preserving in-tab usability when storage fails.",
+      "tags": [
+        "persistence",
+        "local-storage",
+        "error-handling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/generate-repository-data.mjs",
+      "type": "file",
+      "name": "generate-repository-data.mjs",
+      "filePath": "scripts/generate-repository-data.mjs",
+      "summary": "Build script that collects repository learning data and writes it as a browser-safe TypeScript module for the frontend.",
+      "tags": [
+        "build-script",
+        "data-generation",
+        "repository-data"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/repository-data.mjs",
+      "type": "file",
+      "name": "repository-data.mjs",
+      "filePath": "scripts/repository-data.mjs",
+      "summary": "Collects, validates, and serializes notes, topics, and solved-problem metadata from the repository into a frontend-ready snapshot.",
+      "tags": [
+        "data-collection",
+        "validation",
+        "repository-data",
+        "build-tooling",
+        "tested"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Uses Node.js filesystem APIs and ES modules to validate repository conventions before generating typed data."
+    },
+    {
+      "id": "file:scripts/repository-data.test.mjs",
+      "type": "file",
+      "name": "repository-data.test.mjs",
+      "filePath": "scripts/repository-data.test.mjs",
+      "summary": "Node test suite that verifies repository snapshot collection, duplicate-problem detection, and browser-safe module rendering against fixtures.",
+      "tags": [
+        "test",
+        "repository-data",
+        "fixtures",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:scripts/repository-data.mjs:parseFrontmatter",
+      "type": "function",
+      "name": "parseFrontmatter",
+      "filePath": "scripts/repository-data.mjs",
+      "lineRange": [
+        48,
+        63
+      ],
+      "summary": "Parses a YAML-like frontmatter block into a key-value object while tolerating files without frontmatter.",
+      "tags": [
+        "parsing",
+        "frontmatter",
+        "metadata"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:scripts/repository-data.mjs:collectNotes",
+      "type": "function",
+      "name": "collectNotes",
+      "filePath": "scripts/repository-data.mjs",
+      "lineRange": [
+        75,
+        106
+      ],
+      "summary": "Reads a topic's Markdown notes, derives titles and dates, and returns them in descending chronological order.",
+      "tags": [
+        "data-collection",
+        "notes",
+        "filesystem",
+        "sorting"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:scripts/repository-data.mjs:collectTopics",
+      "type": "function",
+      "name": "collectTopics",
+      "filePath": "scripts/repository-data.mjs",
+      "lineRange": [
+        116,
+        151
+      ],
+      "summary": "Builds validated topic metadata from topic README frontmatter and the collected note inventory.",
+      "tags": [
+        "data-collection",
+        "topics",
+        "validation",
+        "frontmatter"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:scripts/repository-data.mjs:loadProblemIndex",
+      "type": "function",
+      "name": "loadProblemIndex",
+      "filePath": "scripts/repository-data.mjs",
+      "lineRange": [
+        153,
+        203
+      ],
+      "summary": "Validates the LeetCode TSV index and maps each problem identifier to normalized difficulty, title, and tags.",
+      "tags": [
+        "data-parsing",
+        "validation",
+        "leetcode",
+        "tsv"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:scripts/repository-data.mjs:collectLanguages",
+      "type": "function",
+      "name": "collectLanguages",
+      "filePath": "scripts/repository-data.mjs",
+      "lineRange": [
+        205,
+        234
+      ],
+      "summary": "Recursively detects supported solution-language extensions in a problem directory and returns their display names in sorted order.",
+      "tags": [
+        "filesystem",
+        "language-detection",
+        "leetcode",
+        "recursion"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:scripts/repository-data.mjs:collectProblems",
+      "type": "function",
+      "name": "collectProblems",
+      "filePath": "scripts/repository-data.mjs",
+      "lineRange": [
+        247,
+        293
+      ],
+      "summary": "Matches solved-problem folders against the validated index, rejects duplicates and missing data, and returns an ordered problem list.",
+      "tags": [
+        "data-collection",
+        "leetcode",
+        "validation",
+        "filesystem"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:scripts/repository-data.mjs:collectRepositorySnapshot",
+      "type": "function",
+      "name": "collectRepositorySnapshot",
+      "filePath": "scripts/repository-data.mjs",
+      "lineRange": [
+        305,
+        342
+      ],
+      "summary": "Exports the top-level repository snapshot assembler that combines topics, notes, problems, language counts, and generated timestamp.",
+      "tags": [
+        "data-collection",
+        "repository-data",
+        "exported-api",
+        "aggregation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:scripts/repository-data.mjs:renderRepositoryModule",
+      "type": "function",
+      "name": "renderRepositoryModule",
+      "filePath": "scripts/repository-data.mjs",
+      "lineRange": [
+        344,
+        350
+      ],
+      "summary": "Exports a renderer that turns a repository snapshot into a typed browser-safe TypeScript data module.",
+      "tags": [
+        "code-generation",
+        "serialization",
+        "exported-api",
+        "typescript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "index.html",
+      "summary": "HTML shell for the Vite application. It defines document metadata, provides the React mount element, and loads the TypeScript entry module.",
+      "tags": [
+        "html",
+        "application-shell",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Defines the private React learning-workspace package, its Node.js requirement, development commands, and runtime and test dependencies.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dependencies"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.app.json",
+      "type": "config",
+      "name": "tsconfig.app.json",
+      "filePath": "tsconfig.app.json",
+      "summary": "Configures strict TypeScript checking for the application and Vite configuration, including React JSX, bundler resolution, and browser library types.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "compiler"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses bundler-oriented resolution and strict compiler checks without emitting JavaScript."
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "Root TypeScript project configuration that delegates compilation settings to the application configuration through project references.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "project-reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.ua/config.json",
+      "type": "config",
+      "name": "config.json",
+      "filePath": ".ua/config.json",
+      "summary": "Stores Understand Anything output preferences for this project, including the English analysis language.",
+      "tags": [
+        "configuration",
+        "analysis",
+        "project-settings"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/fixtures/duplicate/leetcode/easy/0001. Two Sum/main.go",
+      "type": "file",
+      "name": "main.go",
+      "filePath": "scripts/fixtures/duplicate/leetcode/easy/0001. Two Sum/main.go",
+      "summary": "Minimal Go fixture representing a duplicate Two Sum solution in the easy-problem fixture tree.",
+      "tags": [
+        "fixture",
+        "leetcode",
+        "go"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/fixtures/duplicate/leetcode/medium/0001. Two Sum/main.ts",
+      "type": "file",
+      "name": "main.ts",
+      "filePath": "scripts/fixtures/duplicate/leetcode/medium/0001. Two Sum/main.ts",
+      "summary": "Minimal TypeScript fixture used to model a duplicate Two Sum entry under an inconsistent difficulty path.",
+      "tags": [
+        "fixture",
+        "leetcode",
+        "typescript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:scripts/fixtures/duplicate/notes/clickhouse/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "scripts/fixtures/duplicate/notes/clickhouse/README.md",
+      "summary": "Fixture note metadata for a ClickHouse learning topic, used to exercise duplicate-content detection.",
+      "tags": [
+        "fixture",
+        "documentation",
+        "clickhouse"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/fixtures/duplicate/tools/leetcode-index.tsv",
+      "type": "file",
+      "name": "leetcode-index.tsv",
+      "filePath": "scripts/fixtures/duplicate/tools/leetcode-index.tsv",
+      "summary": "Tab-separated fixture index containing a duplicate Two Sum problem record for repository-data validation.",
+      "tags": [
+        "fixture",
+        "test-data",
+        "leetcode"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.go",
+      "type": "file",
+      "name": "main.go",
+      "filePath": "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.go",
+      "summary": "Minimal Go fixture representing the valid easy-problem Two Sum source location.",
+      "tags": [
+        "fixture",
+        "leetcode",
+        "go"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.ts",
+      "type": "file",
+      "name": "main.ts",
+      "filePath": "scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.ts",
+      "summary": "Minimal TypeScript fixture representing the valid easy-problem Two Sum source location.",
+      "tags": [
+        "fixture",
+        "leetcode",
+        "typescript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:scripts/fixtures/valid/notes/clickhouse/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "scripts/fixtures/valid/notes/clickhouse/README.md",
+      "summary": "Fixture note for an active ClickHouse learning topic, including MergeTree and date-time-function study goals.",
+      "tags": [
+        "fixture",
+        "documentation",
+        "clickhouse"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:scripts/fixtures/valid/notes/clickhouse/date-time-functions.md",
+      "type": "document",
+      "name": "date-time-functions.md",
+      "filePath": "scripts/fixtures/valid/notes/clickhouse/date-time-functions.md",
+      "summary": "Fixture note page introducing the ClickHouse date and time functions study topic.",
+      "tags": [
+        "fixture",
+        "documentation",
+        "clickhouse"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/fixtures/valid/tools/leetcode-index.tsv",
+      "type": "file",
+      "name": "leetcode-index.tsv",
+      "filePath": "scripts/fixtures/valid/tools/leetcode-index.tsv",
+      "summary": "Tab-separated fixture index containing the valid Two Sum problem record for repository-data validation.",
+      "tags": [
+        "fixture",
+        "test-data",
+        "leetcode"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/styles/global.css",
+      "type": "file",
+      "name": "global.css",
+      "filePath": "src/styles/global.css",
+      "summary": "Defines the global responsive visual system for navigation, learning pages, task controls, dark mode, and keyboard focus states.",
+      "tags": [
+        "styles",
+        "responsive-design",
+        "dark-mode",
+        "accessibility"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Uses native CSS custom properties, media queries, and :focus-visible styling rather than a CSS framework."
+    },
+    {
+      "id": "file:src/test/setup.ts",
+      "type": "file",
+      "name": "setup.ts",
+      "filePath": "src/test/setup.ts",
+      "summary": "Configures Vitest's React test environment with DOM matchers and automatic cleanup after each test.",
+      "tags": [
+        "test",
+        "vitest",
+        "test-setup"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:vite.config.ts",
+      "type": "file",
+      "name": "vite.config.ts",
+      "filePath": "vite.config.ts",
+      "summary": "Configures the Vite React build and Vitest browser-like test environment, including the deployed base path and shared test setup.",
+      "tags": [
+        "build-system",
+        "vite",
+        "vitest",
+        "configuration"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/App.test.tsx",
+      "target": "file:src/App.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/components/AppShell.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/pages/KnowledgeMapPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/pages/LeetCodePage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/pages/TodayPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/state/learning-state.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main.tsx",
+      "target": "file:src/App.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main.tsx",
+      "target": "file:src/styles/global.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/KnowledgeMapPage.tsx",
+      "target": "file:src/data/generated/repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/KnowledgeMapPage.tsx",
+      "target": "file:src/data/map-relationships.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/TodayPage.test.tsx",
+      "target": "file:src/App.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "function:src/App.tsx:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "function:src/App.tsx:App",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/AppShell.tsx",
+      "target": "function:src/components/AppShell.tsx:AppShell",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/AppShell.tsx",
+      "target": "function:src/components/AppShell.tsx:AppShell",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/pages/KnowledgeMapPage.tsx",
+      "target": "function:src/pages/KnowledgeMapPage.tsx:KnowledgeMapPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/KnowledgeMapPage.tsx",
+      "target": "function:src/pages/KnowledgeMapPage.tsx:KnowledgeMapPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/App.tsx:App",
+      "target": "function:src/components/AppShell.tsx:AppShell",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/App.tsx:App",
+      "target": "function:src/pages/KnowledgeMapPage.tsx:KnowledgeMapPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/App.tsx:App",
+      "target": "function:src/pages/LeetCodePage.tsx:LeetCodePage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/App.tsx:App",
+      "target": "function:src/pages/TodayPage.tsx:TodayPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/App.tsx:App",
+      "target": "function:src/state/learning-state.tsx:LearningProvider",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/App.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/pages/TodayPage.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/components/TaskComposer.tsx",
+      "target": "file:src/data/generated/repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/TaskComposer.tsx",
+      "target": "file:src/state/learning-state.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/data/generated/repository.ts",
+      "target": "file:src/data/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/domain/recommendations.test.ts",
+      "target": "file:src/data/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/domain/recommendations.test.ts",
+      "target": "file:src/domain/personal-types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/domain/recommendations.test.ts",
+      "target": "file:src/domain/recommendations.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "file:src/data/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "file:src/domain/personal-types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/LeetCodePage.tsx",
+      "target": "file:src/data/generated/repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/LeetCodePage.tsx",
+      "target": "file:src/domain/recommendations.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/LeetCodePage.tsx",
+      "target": "file:src/state/learning-state.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/TodayPage.tsx",
+      "target": "file:src/components/TaskComposer.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/TodayPage.tsx",
+      "target": "file:src/components/TaskList.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/TodayPage.tsx",
+      "target": "file:src/data/generated/repository.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/TodayPage.tsx",
+      "target": "file:src/domain/recommendations.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/pages/TodayPage.tsx",
+      "target": "file:src/state/learning-state.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/TaskComposer.tsx",
+      "target": "function:src/components/TaskComposer.tsx:TaskComposer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/TaskComposer.tsx",
+      "target": "function:src/components/TaskComposer.tsx:TaskComposer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "function:src/domain/recommendations.ts:compareTasks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "function:src/domain/recommendations.ts:getTodayRecommendation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "function:src/domain/recommendations.ts:getTodayRecommendation",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "function:src/domain/recommendations.ts:filterProblems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "function:src/domain/recommendations.ts:filterProblems",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "function:src/domain/recommendations.ts:choosePracticeProblem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "function:src/domain/recommendations.ts:choosePracticeProblem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "function:src/domain/recommendations.ts:countCompletedThisIsoWeek",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "function:src/domain/recommendations.ts:countCompletedThisIsoWeek",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/pages/LeetCodePage.tsx",
+      "target": "function:src/pages/LeetCodePage.tsx:LeetCodePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/LeetCodePage.tsx",
+      "target": "function:src/pages/LeetCodePage.tsx:LeetCodePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/pages/TodayPage.tsx",
+      "target": "function:src/pages/TodayPage.tsx:TodayPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/pages/TodayPage.tsx",
+      "target": "function:src/pages/TodayPage.tsx:TodayPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/TaskComposer.tsx:TaskComposer",
+      "target": "function:src/state/learning-state.tsx:useLearningDispatch",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/pages/LeetCodePage.tsx:LeetCodePage",
+      "target": "function:src/domain/recommendations.ts:filterProblems",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/pages/LeetCodePage.tsx:LeetCodePage",
+      "target": "function:src/domain/recommendations.ts:choosePracticeProblem",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/pages/LeetCodePage.tsx:LeetCodePage",
+      "target": "function:src/state/learning-state.tsx:useLearningState",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/pages/LeetCodePage.tsx:LeetCodePage",
+      "target": "function:src/state/learning-state.tsx:useLearningDispatch",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/pages/TodayPage.tsx:TodayPage",
+      "target": "function:src/domain/recommendations.ts:getTodayRecommendation",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/pages/TodayPage.tsx:TodayPage",
+      "target": "function:src/domain/recommendations.ts:countCompletedThisIsoWeek",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/domain/recommendations.ts",
+      "target": "file:src/domain/recommendations.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/components/TaskList.tsx",
+      "target": "file:src/domain/personal-types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/TaskList.tsx",
+      "target": "file:src/state/learning-state.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/state/learning-state.test.tsx",
+      "target": "file:src/domain/personal-types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/state/learning-state.test.tsx",
+      "target": "file:src/state/learning-state.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/state/learning-state.test.tsx",
+      "target": "file:src/state/storage.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "file:src/domain/personal-types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "file:src/state/storage.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/state/storage.test.ts",
+      "target": "file:src/domain/personal-types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/state/storage.test.ts",
+      "target": "file:src/state/storage.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "file:src/domain/personal-types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/TaskList.tsx",
+      "target": "function:src/components/TaskList.tsx:TaskList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/TaskList.tsx",
+      "target": "function:src/components/TaskList.tsx:TaskList",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "function:src/state/learning-state.tsx:learningReducer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "function:src/state/learning-state.tsx:learningReducer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "function:src/state/learning-state.tsx:LearningProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "function:src/state/learning-state.tsx:LearningProvider",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "function:src/state/learning-state.tsx:useLearningState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "function:src/state/learning-state.tsx:useLearningState",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "function:src/state/learning-state.tsx:useLearningDispatch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "function:src/state/learning-state.tsx:useLearningDispatch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "function:src/state/storage.ts:emptyPersonalState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "function:src/state/storage.ts:emptyPersonalState",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "function:src/state/storage.ts:isLearningTask",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "function:src/state/storage.ts:isSolveSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "function:src/state/storage.ts:loadPersonalState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "function:src/state/storage.ts:loadPersonalState",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "function:src/state/storage.ts:savePersonalState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "function:src/state/storage.ts:savePersonalState",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/state/learning-state.tsx",
+      "target": "file:src/state/learning-state.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "file:src/state/learning-state.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/state/storage.ts",
+      "target": "file:src/state/storage.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:scripts/generate-repository-data.mjs",
+      "target": "file:scripts/repository-data.mjs",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:scripts/repository-data.test.mjs",
+      "target": "file:scripts/repository-data.mjs",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "function:scripts/repository-data.mjs:parseFrontmatter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "function:scripts/repository-data.mjs:collectNotes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "function:scripts/repository-data.mjs:collectTopics",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "function:scripts/repository-data.mjs:loadProblemIndex",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "function:scripts/repository-data.mjs:collectLanguages",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "function:scripts/repository-data.mjs:collectProblems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "function:scripts/repository-data.mjs:collectRepositorySnapshot",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "function:scripts/repository-data.mjs:renderRepositoryModule",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "function:scripts/repository-data.mjs:collectRepositorySnapshot",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "function:scripts/repository-data.mjs:renderRepositoryModule",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:scripts/repository-data.mjs",
+      "target": "file:scripts/repository-data.test.mjs",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:index.html",
+      "target": "file:src/main.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:src/main.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:scripts/generate-repository-data.mjs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.app.json",
+      "target": "file:src/main.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.app.json",
+      "target": "file:src/App.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.app.json",
+      "target": "file:vite.config.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "config:tsconfig.app.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:vite.config.ts",
+      "target": "file:src/test/setup.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:ui",
+      "name": "UI and Application Shell",
+      "description": "React bootstrap, routed page views, reusable task components, and global styling that make up the learning workspace interface.",
+      "nodeIds": [
+        "file:src/App.tsx",
+        "file:src/main.tsx",
+        "file:src/components/AppShell.tsx",
+        "file:src/components/TaskComposer.tsx",
+        "file:src/components/TaskList.tsx",
+        "file:src/pages/KnowledgeMapPage.tsx",
+        "file:src/pages/LeetCodePage.tsx",
+        "file:src/pages/TodayPage.tsx",
+        "file:src/styles/global.css"
+      ],
+      "containerLabels": [
+        {
+          "name": "Application Shell",
+          "nodeIds": [
+            "file:src/main.tsx",
+            "file:src/App.tsx",
+            "file:src/components/AppShell.tsx",
+            "file:src/styles/global.css"
+          ]
+        },
+        {
+          "name": "Daily Task Flow",
+          "nodeIds": [
+            "file:src/pages/TodayPage.tsx",
+            "file:src/components/TaskComposer.tsx",
+            "file:src/components/TaskList.tsx"
+          ]
+        },
+        {
+          "name": "Learning Pages",
+          "nodeIds": [
+            "file:src/pages/KnowledgeMapPage.tsx",
+            "file:src/pages/LeetCodePage.tsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "layer:learning-domain",
+      "name": "Learning Domain and State",
+      "description": "Repository snapshot data, learning recommendations, and browser-backed personal state that power the workspace features.",
+      "nodeIds": [
+        "file:src/data/map-relationships.ts",
+        "file:src/data/generated/repository.ts",
+        "file:src/data/types.ts",
+        "file:src/domain/recommendations.ts",
+        "file:src/domain/personal-types.ts",
+        "file:src/state/learning-state.tsx",
+        "file:src/state/storage.ts"
+      ]
+    },
+    {
+      "id": "layer:verification",
+      "name": "Verification",
+      "description": "Component, integration, domain, and persistence tests plus their shared Vitest setup.",
+      "nodeIds": [
+        "file:src/App.test.tsx",
+        "file:src/pages/TodayPage.test.tsx",
+        "file:src/domain/recommendations.test.ts",
+        "file:src/state/learning-state.test.tsx",
+        "file:src/state/storage.test.ts",
+        "file:src/test/setup.ts",
+        "file:scripts/repository-data.test.mjs"
+      ]
+    },
+    {
+      "id": "layer:repository-tooling",
+      "name": "Repository Data Tooling",
+      "description": "Build-time repository snapshot generation and its valid and duplicate fixture corpus for notes, problems, and indexes.",
+      "nodeIds": [
+        "file:scripts/generate-repository-data.mjs",
+        "file:scripts/repository-data.mjs",
+        "file:scripts/fixtures/duplicate/leetcode/easy/0001. Two Sum/main.go",
+        "file:scripts/fixtures/duplicate/leetcode/medium/0001. Two Sum/main.ts",
+        "document:scripts/fixtures/duplicate/notes/clickhouse/README.md",
+        "file:scripts/fixtures/duplicate/tools/leetcode-index.tsv",
+        "file:scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.go",
+        "file:scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.ts",
+        "document:scripts/fixtures/valid/notes/clickhouse/README.md",
+        "document:scripts/fixtures/valid/notes/clickhouse/date-time-functions.md",
+        "file:scripts/fixtures/valid/tools/leetcode-index.tsv"
+      ],
+      "containerLabels": [
+        {
+          "name": "Snapshot Generator",
+          "nodeIds": [
+            "file:scripts/generate-repository-data.mjs",
+            "file:scripts/repository-data.mjs"
+          ]
+        },
+        {
+          "name": "Valid Fixture Corpus",
+          "nodeIds": [
+            "file:scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.go",
+            "file:scripts/fixtures/valid/leetcode/easy/0001. Two Sum/main.ts",
+            "document:scripts/fixtures/valid/notes/clickhouse/README.md",
+            "document:scripts/fixtures/valid/notes/clickhouse/date-time-functions.md",
+            "file:scripts/fixtures/valid/tools/leetcode-index.tsv"
+          ]
+        },
+        {
+          "name": "Duplicate Fixture Corpus",
+          "nodeIds": [
+            "file:scripts/fixtures/duplicate/leetcode/easy/0001. Two Sum/main.go",
+            "file:scripts/fixtures/duplicate/leetcode/medium/0001. Two Sum/main.ts",
+            "document:scripts/fixtures/duplicate/notes/clickhouse/README.md",
+            "file:scripts/fixtures/duplicate/tools/leetcode-index.tsv"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "layer:project-configuration",
+      "name": "Project Configuration",
+      "description": "The HTML shell and package, compiler, Vite, and analysis settings that configure local development, builds, and graph generation.",
+      "nodeIds": [
+        "file:index.html",
+        "config:package.json",
+        "config:tsconfig.app.json",
+        "config:tsconfig.json",
+        "config:.ua/config.json",
+        "file:vite.config.ts"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Project Orientation",
+      "description": "Start with the Vite HTML shell and package manifest to see how the learning workspace is delivered and which development commands drive it. The application is a private React package with data generation, type-checking, build, and Vitest test workflows. This gives the surrounding context for the code explored next.",
+      "nodeIds": [
+        "file:index.html",
+        "config:package.json"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "React Bootstrap",
+      "description": "The browser entry point mounts the React tree in Strict Mode and loads the global stylesheet. Its root component then wires together shared learning state, the application shell, and hash-routed page views. Read these files together for the top-level runtime flow.",
+      "nodeIds": [
+        "file:src/main.tsx",
+        "file:src/App.tsx"
+      ],
+      "languageLesson": "React applications commonly bootstrap once with createRoot, then compose providers and routes beneath a root component; Strict Mode helps surface unsafe development-time behavior."
+    },
+    {
+      "order": 3,
+      "title": "Shared Application Shell",
+      "description": "The shell supplies the persistent header, primary navigation, and main-content landmark that frame every route. Global CSS establishes the shared visual foundation around those reusable layout pieces. This separation keeps page components focused on their individual learning workflows.",
+      "nodeIds": [
+        "file:src/components/AppShell.tsx",
+        "file:src/styles/global.css"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Repository Learning Data",
+      "description": "The generated repository snapshot and its type definitions provide the static learning material consumed throughout the interface. Understanding this contract first makes it easier to follow how pages display topics, notes, and problem metadata. The relationship map adds the explicit topic-to-concept links used by the knowledge view.",
+      "nodeIds": [
+        "file:src/data/types.ts",
+        "file:src/data/generated/repository.ts",
+        "file:src/data/map-relationships.ts"
+      ],
+      "languageLesson": "TypeScript types act as shared contracts: they describe the generated data shape without adding runtime code, so producers and React consumers can be checked together."
+    },
+    {
+      "order": 5,
+      "title": "Personal Learning State",
+      "description": "Personal type definitions establish the vocabulary for tasks and solve sessions, while storage loads and saves that data in the browser. The learning-state module builds on those foundations with a reducer, provider, and hooks for shared UI access. This is the stateful core behind the workspace’s personal progress features.",
+      "nodeIds": [
+        "file:src/domain/personal-types.ts",
+        "file:src/state/storage.ts",
+        "file:src/state/learning-state.tsx"
+      ],
+      "languageLesson": "A React context provider paired with reducer-driven state centralizes updates while custom hooks give components a focused read or dispatch interface."
+    },
+    {
+      "order": 6,
+      "title": "Today Task Workflow",
+      "description": "The Today page brings repository data and personal state together into the daily learning flow. Its composer and list components isolate task input and task rendering, keeping the page responsible for coordination. Follow these components after the state layer to see how user actions become persisted progress.",
+      "nodeIds": [
+        "file:src/pages/TodayPage.tsx",
+        "file:src/components/TaskComposer.tsx",
+        "file:src/components/TaskList.tsx"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Practice Recommendations",
+      "description": "Recommendation helpers select and filter practice work, count weekly completions, and provide the daily suggestion logic. The LeetCode page consumes those functions along with shared learning state to turn the repository index into an interactive practice view. This keeps selection rules independent from presentation.",
+      "nodeIds": [
+        "file:src/domain/recommendations.ts",
+        "file:src/pages/LeetCodePage.tsx"
+      ],
+      "languageLesson": "Separating pure selection functions from React components makes recommendation behavior easier to test and reuse without rendering a UI."
+    },
+    {
+      "order": 8,
+      "title": "Knowledge Map View",
+      "description": "The knowledge-map page combines active topics, repository statistics, notes, and the relationship data introduced earlier. It gives learners a connected view of the material rather than treating each repository item in isolation. This is the main visualization-oriented endpoint of the static data layer.",
+      "nodeIds": [
+        "file:src/pages/KnowledgeMapPage.tsx",
+        "file:src/data/map-relationships.ts"
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Data Generation Tooling",
+      "description": "The generation script turns repository learning material into the browser-safe TypeScript module consumed by the frontend. Its repository-data helper collects notes, topics, languages, and problem indexes, while fixtures exercise valid and duplicate-content cases. Study this path to understand how source content becomes UI data at build time.",
+      "nodeIds": [
+        "file:scripts/generate-repository-data.mjs",
+        "file:scripts/repository-data.mjs",
+        "document:scripts/fixtures/valid/notes/clickhouse/README.md",
+        "file:scripts/fixtures/duplicate/tools/leetcode-index.tsv"
+      ]
+    },
+    {
+      "order": 10,
+      "title": "Verification and Toolchain",
+      "description": "The test setup and representative component, domain, state, and tooling tests verify the main learning workflows and data-processing behavior. Vite configuration connects the frontend toolchain to the test environment, while TypeScript configuration enforces strict application checks. Finish here to see the safety net around the application and its generator.",
+      "nodeIds": [
+        "file:src/test/setup.ts",
+        "file:src/App.test.tsx",
+        "file:src/domain/recommendations.test.ts",
+        "file:scripts/repository-data.test.mjs",
+        "file:vite.config.ts"
+      ]
+    }
+  ]
+}
