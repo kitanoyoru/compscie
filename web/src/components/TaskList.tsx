@@ -267,7 +267,7 @@ export function TaskList({ tasks, recommendedTaskId }: TaskListProps): JSX.Eleme
       <TaskComposer />
 
       {tasks.length === 0 ? (
-        <EmptyState title="Your queue is empty">
+        <EmptyState title="Your queue is empty" compact>
           Add one small, concrete action: a note to write, a lab to run, or a problem to revisit.
         </EmptyState>
       ) : (

@@ -1,10 +1,10 @@
 import type { JSX } from 'react'
 import { Link } from 'react-router'
 
-import { BarList } from '../components/charts'
-import { LanguageIcon, languageColorStyle } from '../components/LanguageIcon'
+import { BarList, SegmentedBar } from '../components/charts'
+import { LanguageIcon, LanguageIconList, languageColorStyle } from '../components/LanguageIcon'
 import { usePageTitle } from '../components/RouteEffects'
-import { PageHeader, StatTile, formatCount } from '../components/ui'
+import { DIFFICULTY_LABELS, PageHeader, formatCount } from '../components/ui'
 import { repositorySnapshot } from '../data/generated/repository'
 import type { TopicStatus } from '../data/types'
 import { difficultyCounts, rankCounts } from '../domain/insights'
@@ -23,6 +23,11 @@ const topics = [...repositorySnapshot.topics].sort(
 const languageRanking = rankCounts(problems.flatMap((problem) => problem.languages))
 const patternRanking = rankCounts(problems.flatMap((problem) => problem.tags))
 const difficulty = difficultyCounts(problems)
+const difficultySegments = (['easy', 'medium', 'hard'] as const).map((key) => ({
+  key,
+  label: DIFFICULTY_LABELS[key],
+  value: difficulty[key],
+}))
 const activeTopics = topics.filter((topic) => topic.status === 'active').length
 const latestNote = notes.map((note) => note.date).filter(Boolean).sort().at(-1)
 
@@ -35,30 +40,40 @@ export function KnowledgeMapPage(): JSX.Element {
     <div className="page">
       <PageHeader title="Knowledge Map" titleId="map-heading" />
 
-      <div className="stat-grid" aria-label="Repository statistics" role="group">
-        <StatTile label="Active topics" value={activeTopics} hint={`${plural(counts.topics, 'topic')} in total`} />
-        <StatTile
-          label="Notes"
-          value={formatCount(counts.notes)}
-          hint={latestNote === undefined ? undefined : `Latest ${formatDay(latestNote, now)}`}
-        />
-        <StatTile
-          label="Solved problems"
-          value={formatCount(counts.solvedProblems)}
-          hint={`${formatCount(difficulty.easy)} easy · ${formatCount(difficulty.medium)} medium · ${formatCount(difficulty.hard)} hard`}
-        />
-        <StatTile
-          label="Languages"
-          value={counts.languages.length}
-          hint={
-            languageRanking[0] === undefined ? undefined : (
-              <>
-                Mostly <LanguageIcon language={languageRanking[0].label} size={14} className="inline-lang" />
-              </>
-            )
-          }
-        />
-      </div>
+      <section className="card summary-strip" aria-label="Repository summary">
+        <dl className="summary-facts">
+          <div className="summary-fact">
+            <dt>Active topics</dt>
+            <dd>
+              <span className="summary-value">{activeTopics}</span>
+              <span className="summary-hint">of {counts.topics}</span>
+            </dd>
+          </div>
+          <div className="summary-fact">
+            <dt>Notes</dt>
+            <dd>
+              <span className="summary-value">{formatCount(counts.notes)}</span>
+              {latestNote !== undefined && (
+                <span className="summary-hint">latest {formatDay(latestNote, now)}</span>
+              )}
+            </dd>
+          </div>
+          <div className="summary-fact summary-fact-wide">
+            <dt>Solved problems</dt>
+            <dd>
+              <span className="summary-value">{formatCount(counts.solvedProblems)}</span>
+              <SegmentedBar segments={difficultySegments} label="Solved problems by difficulty" />
+            </dd>
+          </div>
+          <div className="summary-fact">
+            <dt>Languages</dt>
+            <dd>
+              <span className="summary-value">{counts.languages.length}</span>
+              <LanguageIconList languages={languageRanking.map((entry) => entry.label)} max={5} />
+            </dd>
+          </div>
+        </dl>
+      </section>
 
       <div className="topic-grid">
         {topics.map((topic) => (

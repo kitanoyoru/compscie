@@ -20,6 +20,17 @@ describe('weekly activity strip', () => {
     vi.useRealTimers()
   })
 
+  it('shows one quiet line instead of zeros when the week has no activity', () => {
+    render(<App />)
+
+    const week = screen.getByRole('region', { name: /this week/i })
+
+    expect(week).toHaveTextContent(/no activity yet this week/i)
+    expect(week).not.toHaveTextContent(/tasks completed/i)
+    expect(within(week).queryByText('Streak')).not.toBeInTheDocument()
+    expect(within(week).getByRole('list', { name: /activity this week/i })).toBeInTheDocument()
+  })
+
   it('lists practice sessions in the weekly activity strip', () => {
     seedLearningState()
     render(<App />)

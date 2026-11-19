@@ -21,6 +21,8 @@ export function WeekCard({ state, now }: WeekCardProps): JSX.Element {
   const days = activityByDayThisIsoWeek(state.tasks, state.sessions, now)
   const sessions = countSessionsThisIsoWeek(state.sessions, now)
   const streak = activityStreak(state.tasks, state.sessions, now)
+  // Nothing to celebrate yet: one quiet line instead of a big zero and empty stats.
+  const quiet = completed === 0 && sessions === 0 && streak === 0
   const firstDay = days[0]?.date
   const lastDay = days.at(-1)?.date
 
@@ -34,21 +36,27 @@ export function WeekCard({ state, now }: WeekCardProps): JSX.Element {
           </p>
         )}
       </div>
-      <p className="hero-figure">
-        <span className="hero-figure-value">{completed}</span>{' '}
-        <span className="hero-figure-label">{completed === 1 ? 'task' : 'tasks'} completed</span>
-      </p>
+      {quiet ? (
+        <p className="empty-line">No activity yet this week. Finished tasks and practice sessions show up here.</p>
+      ) : (
+        <p className="hero-figure">
+          <span className="hero-figure-value">{completed}</span>{' '}
+          <span className="hero-figure-label">{completed === 1 ? 'task' : 'tasks'} completed</span>
+        </p>
+      )}
       <WeekStrip days={days} today={localDayKey(now) ?? ''} />
-      <dl className="mini-stats">
-        <div>
-          <dt>Practice sessions</dt>
-          <dd>{sessions}</dd>
-        </div>
-        <div>
-          <dt>Streak</dt>
-          <dd>{plural(streak, 'day')}</dd>
-        </div>
-      </dl>
+      {!quiet && (
+        <dl className="mini-stats">
+          <div>
+            <dt>Practice sessions</dt>
+            <dd>{sessions}</dd>
+          </div>
+          <div>
+            <dt>Streak</dt>
+            <dd>{plural(streak, 'day')}</dd>
+          </div>
+        </dl>
+      )}
     </section>
   )
 }

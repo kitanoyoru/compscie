@@ -68,28 +68,23 @@ export function ProgressBadge({ progress }: { readonly progress: ProblemProgress
   return null
 }
 
-interface StatTileProps {
-  readonly label: string
-  readonly value: ReactNode
-  readonly hint?: ReactNode
-}
-
-export function StatTile({ label, value, hint }: StatTileProps): JSX.Element {
-  return (
-    <div className="stat-tile">
-      <p className="stat-label">{label}</p>
-      <p className="stat-value">{value}</p>
-      {hint !== undefined && <p className="stat-hint">{hint}</p>}
-    </div>
-  )
-}
-
 interface EmptyStateProps {
   readonly title: string
   readonly children?: ReactNode
+  /** One quiet line instead of a dashed box, for places where the empty state is routine. */
+  readonly compact?: boolean
 }
 
-export function EmptyState({ title, children }: EmptyStateProps): JSX.Element {
+export function EmptyState({ title, children, compact = false }: EmptyStateProps): JSX.Element {
+  if (compact) {
+    return (
+      <p className="empty-line">
+        <span className="empty-line-title">{title}.</span>
+        {children !== undefined && <> {children}</>}
+      </p>
+    )
+  }
+
   return (
     <div className="empty-state">
       <p className="empty-state-title">{title}</p>

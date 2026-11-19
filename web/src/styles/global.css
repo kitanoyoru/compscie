@@ -712,6 +712,16 @@ textarea {
   max-width: 28rem;
 }
 
+.empty-line {
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+}
+
+.empty-line-title {
+  color: var(--ink-secondary);
+  font-weight: 600;
+}
+
 /* ==========================================================================
    Controls
    ========================================================================== */
@@ -1045,39 +1055,61 @@ textarea.input {
   background: var(--warning-mark);
 }
 
-.stat-grid {
+.summary-facts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: 1rem 1.5rem;
+  margin: 0;
 }
 
-.stat-tile {
+.summary-fact {
   display: grid;
+  min-width: 0;
   align-content: start;
-  gap: 0.15rem;
-  padding: 1rem 1.125rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  box-shadow: var(--shadow);
+  gap: 0.3rem;
 }
 
-.stat-label {
+.summary-fact dt {
   color: var(--ink-secondary);
   font-size: 0.8125rem;
   font-weight: 600;
 }
 
-.stat-value {
-  font-size: 1.875rem;
+.summary-fact dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  margin: 0;
+}
+
+.summary-value {
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
   font-weight: 650;
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
-.stat-hint {
+.summary-hint {
   color: var(--ink-muted);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
+}
+
+.summary-fact .segmented {
+  min-width: min(100%, 12rem);
+  flex: 1 1 12rem;
+}
+
+@media (min-width: 64rem) {
+  .summary-facts {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 0.8fr) minmax(0, 2fr) minmax(0, 1.4fr);
+  }
+
+  .summary-fact + .summary-fact {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--border);
+  }
 }
 
 .hero-figure {
