@@ -1,10 +1,10 @@
 import { isRecord } from '../lib/guards'
-import type { LearningTask, PersonalLearningState, SolveSession } from '../domain/personal-types'
+import type { CardReview, LearningTask, PersonalLearningState, SolveSession } from '../domain/personal-types'
 
 export const STORAGE_KEY = 'compscie.learning-platform.v1'
 
 export function emptyPersonalState(): PersonalLearningState {
-  return { version: 1, tasks: [], sessions: [] }
+  return { version: 1, tasks: [], sessions: [], cardReviews: [] }
 }
 
 const TASK_STATUSES: readonly string[] = ['open', 'deferred', 'completed']
@@ -76,6 +76,27 @@ function sanitizeSession(value: unknown): SolveSession | null {
   }
 }
 
+/** Rebuilds a card review from known fields only. Returns null when a field is invalid. */
+function sanitizeCardReview(value: unknown): CardReview | null {
+  if (!isRecord(value)) {
+    return null
+  }
+
+  const { cardId, reviewedAt, outcome } = value
+
+  if (
+    typeof cardId !== 'string' ||
+    cardId === '' ||
+    !isDateString(reviewedAt) ||
+    typeof outcome !== 'string' ||
+    !SESSION_OUTCOMES.includes(outcome)
+  ) {
+    return null
+  }
+
+  return { cardId, reviewedAt, outcome: outcome as CardReview['outcome'] }
+}
+
 function sanitizeAll<T>(items: readonly unknown[], sanitize: (item: unknown) => T | null): T[] | null {
   const result: T[] = []
 
@@ -95,6 +116,8 @@ function sanitizeAll<T>(items: readonly unknown[], sanitize: (item: unknown) => 
 /**
  * Validates an untrusted value (stored or imported) and rebuilds it from known fields.
  * Unknown keys and wrong-typed optional fields are dropped; invalid required fields reject it.
+ * `cardReviews` came later, so it is forgiving: a missing list is empty, and invalid entries are
+ * dropped one by one instead of rejecting the state.
  */
 export function parsePersonalState(value: unknown): PersonalLearningState | null {
   if (!isRecord(value) || value.version !== 1 || !Array.isArray(value.tasks) || !Array.isArray(value.sessions)) {
@@ -104,7 +127,15 @@ export function parsePersonalState(value: unknown): PersonalLearningState | null
   const tasks = sanitizeAll(value.tasks, sanitizeTask)
   const sessions = sanitizeAll(value.sessions, sanitizeSession)
 
-  return tasks === null || sessions === null ? null : { version: 1, tasks, sessions }
+  if (tasks === null || sessions === null) {
+    return null
+  }
+
+  const cardReviews = Array.isArray(value.cardReviews)
+    ? value.cardReviews.map(sanitizeCardReview).filter((review): review is CardReview => review !== null)
+    : []
+
+  return { version: 1, tasks, sessions, cardReviews }
 }
 
 export function loadPersonalState(): PersonalLearningState {

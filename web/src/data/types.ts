@@ -16,12 +16,16 @@ export interface TopicSummary {
 
 export interface NoteSummary {
   readonly topicSlug: string
+  /** File name without `.md`; the note reader lives at `/notes/<topicSlug>/<slug>`. */
+  readonly slug: string
   readonly title: string
   readonly filename: string
   readonly path: string
   readonly date: string
   /** Concepts this note covers, from its `concepts:` frontmatter; each one is in its topic's list. */
   readonly concepts: readonly string[]
+  /** Plain-text bullets under `## Questions this answers`; each one is a self-quiz card. */
+  readonly questions: readonly string[]
 }
 
 export interface SolutionFile {

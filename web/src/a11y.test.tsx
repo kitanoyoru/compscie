@@ -6,9 +6,13 @@ import { App } from './App'
 import { expectNoAxeViolations } from './test/axe'
 import { loadPersonalState } from './state/storage'
 import { seedLearningState, seededState } from './test/fixtures'
+import { sampleNote } from './test/note-content'
 import { sampleSolutions } from './test/solution-content'
 
-vi.mock('./data/content', () => ({ loadSolutions: async (id: number) => sampleSolutions(id) }))
+vi.mock('./data/content', () => ({
+  loadSolutions: async (id: number) => sampleSolutions(id),
+  loadNote: async (topic: string, slug: string) => sampleNote(`notes/${topic}/${slug}.md`),
+}))
 
 describe('seeded state fixture', () => {
   it('loads through the real storage layer', () => {
@@ -18,7 +22,7 @@ describe('seeded state fixture', () => {
   })
 })
 
-const ROUTES = ['#/', '#/review', '#/map', '#/leetcode', '#/nope'] as const
+const ROUTES = ['#/', '#/review', '#/map', '#/leetcode', '#/notes/go/channels', '#/nope'] as const
 
 describe.each(ROUTES)('accessibility of %s', (hash) => {
   beforeEach(() => {
@@ -85,6 +89,18 @@ describe('accessibility of the solution viewer', () => {
 
     await userEvent.setup().click(screen.getByRole('button', { name: /show my solution/i }))
     expect(await screen.findByRole('tablist', { name: 'Solutions' })).toBeInTheDocument()
+    await expectNoAxeViolations(container)
+  })
+})
+
+describe('accessibility of a note question with its note open', () => {
+  it('has no WCAG A/AA violations', async () => {
+    localStorage.clear()
+    window.location.hash = '#/review'
+    const { container } = render(<App />)
+
+    await userEvent.setup().click(screen.getByRole('button', { name: /show note/i }))
+    expect(await screen.findByText('A short summary.')).toBeInTheDocument()
     await expectNoAxeViolations(container)
   })
 })

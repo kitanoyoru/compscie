@@ -4,6 +4,7 @@ import { NavLink } from 'react-router'
 import { repositorySnapshot } from '../data/generated/repository'
 import { REPOSITORY_URL } from '../data/links'
 import { formatDay } from '../lib/format'
+import { quizQueue } from '../domain/quiz'
 import { dueProblems } from '../domain/review-schedule'
 import { useLearningState } from '../state/learning-state'
 import { useTheme } from '../state/theme'
@@ -42,8 +43,11 @@ function focusMain(): void {
 }
 
 export function AppShell({ children }: PropsWithChildren): JSX.Element {
-  const { sessions } = useLearningState()
-  const dueCount = dueProblems(repositorySnapshot.problems, sessions, new Date()).length
+  const { sessions, cardReviews } = useLearningState()
+  const now = new Date()
+  // Due problems and due note questions; new questions are not "due", so the badge can reach zero.
+  const dueCount =
+    dueProblems(repositorySnapshot.problems, sessions, now).length + quizQueue(repositorySnapshot, cardReviews, now).due.length
   const [settingsOpen, setSettingsOpen] = useState(false)
   const settingsButton = useRef<HTMLButtonElement>(null)
 

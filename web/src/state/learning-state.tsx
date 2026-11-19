@@ -97,6 +97,18 @@ export function learningReducer(state: PersonalLearningState, action: LearningAc
         ? state
         : { ...state, sessions: state.sessions.filter((_, position) => position !== index) }
     }
+    case 'cardReviewed': {
+      return { ...state, cardReviews: [...state.cardReviews, action.review] }
+    }
+    case 'cardReviewUndone': {
+      const index = state.cardReviews.findIndex(
+        (review) => review.cardId === action.cardId && review.reviewedAt === action.reviewedAt,
+      )
+
+      return index === -1
+        ? state
+        : { ...state, cardReviews: state.cardReviews.filter((_, position) => position !== index) }
+    }
     case 'stateReset': {
       return emptyPersonalState()
     }

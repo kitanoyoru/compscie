@@ -5,9 +5,11 @@ import { usePageTitle } from '../components/RouteEffects'
 import { EmptyState, PageHeader } from '../components/ui'
 import { repositorySnapshot } from '../data/generated/repository'
 import type { SolvedProblem } from '../data/types'
+import { quizQueue } from '../domain/quiz'
 import { UPCOMING_DAYS, dueProblems, upcomingProblems } from '../domain/review-schedule'
 import { plural } from '../lib/format'
 import { useLearningState } from '../state/learning-state'
+import { QuestionRunner } from './review/QuestionRunner'
 import { RecentReflections } from './review/RecentReflections'
 import { SCHEDULE_SUMMARY, ScheduledList, scheduleLabel } from './review/ScheduledList'
 
@@ -16,18 +18,28 @@ const problemsById = new Map<number, SolvedProblem>(allProblems.map((problem) =>
 
 export function ReviewPage(): JSX.Element {
   usePageTitle('Review')
-  const { sessions } = useLearningState()
+  const { sessions, cardReviews } = useLearningState()
   const now = new Date()
   const due = dueProblems(allProblems, sessions, now)
   const upcoming = upcomingProblems(allProblems, sessions, now)
   const next = upcoming[0]
+  const questionsDue = quizQueue(repositorySnapshot, cardReviews, now).due.length
+  const summary =
+    due.length === 0 && questionsDue === 0
+      ? 'Nothing due today.'
+      : `${[
+          due.length > 0 ? plural(due.length, 'problem') : undefined,
+          questionsDue > 0 ? plural(questionsDue, 'question') : undefined,
+        ]
+          .filter(Boolean)
+          .join(' and ')} due today.`
 
   return (
     <div className="page">
       <PageHeader
         title="Review"
         titleId="review-heading"
-        description={due.length === 0 ? 'Nothing due today.' : `${plural(due.length, 'problem')} due today.`}
+        description={summary}
       />
 
       <div className="review-grid">
@@ -67,6 +79,8 @@ export function ReviewPage(): JSX.Element {
           )}
         </section>
       </div>
+
+      <QuestionRunner />
 
       <RecentReflections sessions={sessions} problemsById={problemsById} />
     </div>

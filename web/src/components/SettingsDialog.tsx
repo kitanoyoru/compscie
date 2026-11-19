@@ -166,6 +166,7 @@ function SettingsContent(): JSX.Element {
         </h3>
         <p className="settings-note">
           {plural(state.tasks.length, 'task')} · {plural(state.sessions.length, 'practice session')}
+          {state.cardReviews.length > 0 && <> · {plural(state.cardReviews.length, 'question answer')}</>}
         </p>
         <div className="settings-actions">
           <button type="button" className="button" onClick={() => downloadBackup(state)}>

@@ -38,46 +38,73 @@ export const repositorySnapshot = {
   "notes": [
     {
       "topicSlug": "clickhouse",
+      "slug": "partitioning",
       "title": "ClickHouse Partitioning",
       "filename": "partitioning.md",
       "path": "notes/clickhouse/partitioning.md",
       "date": "2026-11-19",
       "concepts": [
         "MergeTree storage"
+      ],
+      "questions": [
+        "What is a partition on disk, and how is its ID derived?",
+        "Does partitioning make queries faster?",
+        "What can I do with a whole partition that I cannot do cheaply with rows?",
+        "How do I choose a partition key, and what happens when I choose a bad one?"
       ]
     },
     {
       "topicSlug": "clickhouse",
+      "slug": "date-time-functions",
       "title": "ClickHouse date and time functions",
       "filename": "date-time-functions.md",
       "path": "notes/clickhouse/date-time-functions.md",
       "date": "2026-11-17",
       "concepts": [
         "Date/time queries"
+      ],
+      "questions": [
+        "How do I extract calendar and clock parts from a ClickHouse timestamp?",
+        "When should I use a numeric accessor versus a display label?"
       ]
     },
     {
       "topicSlug": "clickhouse",
+      "slug": "sparse-index",
       "title": "ClickHouse Sparse Index",
       "filename": "sparse-index.md",
       "path": "notes/clickhouse/sparse-index.md",
       "date": "2026-10-31",
       "concepts": [
         "Sparse indexing"
+      ],
+      "questions": [
+        "What does \"sparse\" mean, and how is it different from a B-tree index?",
+        "What is stored on disk and what is kept in memory?",
+        "Which filters can use the index, and which cannot?",
+        "Why does the order of the key columns matter so much?"
       ]
     },
     {
       "topicSlug": "clickhouse",
+      "slug": "data-part",
       "title": "ClickHouse Data Part",
       "filename": "data-part.md",
       "path": "notes/clickhouse/data-part.md",
       "date": "2026-10-24",
       "concepts": [
         "MergeTree storage"
+      ],
+      "questions": [
+        "What does an INSERT actually create on disk?",
+        "What do part names like 202610_1_2_1 mean?",
+        "What files are inside a part, and what is the difference between Wide and Compact?",
+        "Why do too many small inserts end in TOO_MANY_PARTS?"
       ]
     },
     {
       "topicSlug": "clickhouse",
+      "slug": "granule",
       "title": "ClickHouse Granule",
       "filename": "granule.md",
       "path": "notes/clickhouse/granule.md",
@@ -85,10 +112,17 @@ export const repositorySnapshot = {
       "concepts": [
         "MergeTree storage",
         "Sparse indexing"
+      ],
+      "questions": [
+        "What is a granule, and how big is it?",
+        "How do the primary index and marks use granules?",
+        "Why does a point lookup still read thousands of rows?",
+        "How do I see how many granules a query reads?"
       ]
     },
     {
       "topicSlug": "clickhouse",
+      "slug": "primary-key-vs-order-by",
       "title": "ClickHouse PRIMARY KEY vs ORDER BY",
       "filename": "primary-key-vs-order-by.md",
       "path": "notes/clickhouse/primary-key-vs-order-by.md",
@@ -96,30 +130,55 @@ export const repositorySnapshot = {
       "concepts": [
         "MergeTree storage",
         "Sparse indexing"
+      ],
+      "questions": [
+        "What does each clause control in a MergeTree table?",
+        "When is it worth setting them differently?",
+        "Does the primary key enforce uniqueness?",
+        "What can be changed later with ALTER?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "channels",
       "title": "Go Channels",
       "filename": "channels.md",
       "path": "notes/go/channels.md",
       "date": "2026-08-23",
       "concepts": [
         "Concurrency"
+      ],
+      "questions": [
+        "What is inside a channel, and why is it not lock-free?",
+        "Why does select need sudog, and how does it avoid deadlocking on its own locks?",
+        "How do you switch off a select case at runtime, and why does a closed channel make a worker spin?",
+        "Why is it safe to pass a pointer through a channel?",
+        "Who should close a channel, and why is there no isClosed()?",
+        "When is a channel the wrong tool compared with a mutex or an atomic?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "context",
       "title": "Go Context",
       "filename": "context.md",
       "path": "notes/go/context.md",
       "date": "2026-08-23",
       "concepts": [
         "Concurrency"
+      ],
+      "questions": [
+        "Who owns a cancel function, and what happens if nobody calls it?",
+        "Why does Done() return a channel that is closed rather than one that receives a value?",
+        "How does Value() find a value, and what does it cost?",
+        "How do I tell a timeout from an explicit cancel, or a domain abort from a client disconnect?",
+        "When is WithoutCancel or AfterFunc the right tool?",
+        "Which context patterns leak goroutines?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "deadlock-detector",
       "title": "Go Deadlock Detector",
       "filename": "deadlock-detector.md",
       "path": "notes/go/deadlock-detector.md",
@@ -127,20 +186,37 @@ export const repositorySnapshot = {
       "concepts": [
         "Runtime",
         "Production diagnostics"
+      ],
+      "questions": [
+        "When does fatal error: all goroutines are asleep - deadlock! appear, and when does it not?",
+        "Can the detector find two goroutines stuck on each other?",
+        "Can the fatal error be recovered?",
+        "How do I find leaked goroutines in a live service?",
+        "Which behaviours look like deadlocks but are not?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "defer",
       "title": "Go defer",
       "filename": "defer.md",
       "path": "notes/go/defer.md",
       "date": "2026-08-23",
       "concepts": [
         "Runtime"
+      ],
+      "questions": [
+        "When exactly does a deferred call run, and in what order?",
+        "When are the arguments of a deferred call evaluated?",
+        "Is defer expensive, and what changed in Go 1.13 and 1.14?",
+        "How does a deferred function turn a panic into an error?",
+        "Where does recover() work, and where does it silently do nothing?",
+        "Why is defer inside a loop a resource-leak smell?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "escape-analysis-gc-tuning",
       "title": "Go Escape Analysis and GC Tuning",
       "filename": "escape-analysis-gc-tuning.md",
       "path": "notes/go/escape-analysis-gc-tuning.md",
@@ -148,10 +224,19 @@ export const repositorySnapshot = {
       "concepts": [
         "Memory",
         "Production diagnostics"
+      ],
+      "questions": [
+        "How does the compiler decide between stack and heap?",
+        "What are the common causes of escaping, and how do I check them?",
+        "Why is a global variable not a heap allocation, yet still a GC root?",
+        "What do GOGC and GOMEMLIMIT control, and should I use both?",
+        "What changes with Green Tea GC in Go 1.26?",
+        "What should I measure before tuning?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "garbage-collector",
       "title": "Go Garbage Collector",
       "filename": "garbage-collector.md",
       "path": "notes/go/garbage-collector.md",
@@ -159,122 +244,235 @@ export const repositorySnapshot = {
       "concepts": [
         "Memory",
         "Production diagnostics"
+      ],
+      "questions": [
+        "What kind of collector is Go's, and what does tri-color marking do?",
+        "Why is a write barrier needed, and what does the hybrid barrier shade?",
+        "What are the phases of a GC cycle, and which ones stop the world?",
+        "What is mutator assist, and why does it show up as latency?",
+        "Why is Go's GC not generational or compacting?",
+        "What counts as a GC root?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "generics",
       "title": "Go Generics",
       "filename": "generics.md",
       "path": "notes/go/generics.md",
       "date": "2026-08-23",
-      "concepts": []
+      "concepts": [],
+      "questions": [
+        "How do constraints work, and what does ~ mean?",
+        "When must I instantiate a generic function explicitly?",
+        "How does Go implement generics compared with C++ and Java?",
+        "What is a GCShape, and why can *Foo and *Bar share compiled code?",
+        "What can generics not do?",
+        "When should I use interfaces instead?"
+      ]
     },
     {
       "topicSlug": "go",
+      "slug": "interfaces",
       "title": "Go Interfaces",
       "filename": "interfaces.md",
       "path": "notes/go/interfaces.md",
       "date": "2026-08-23",
-      "concepts": []
+      "concepts": [],
+      "questions": [
+        "What is inside an interface value, and how does eface differ from iface?",
+        "Why does my type not satisfy this interface?",
+        "Does converting a value to an interface allocate?",
+        "What does calling a method through an interface cost, and what can remove that cost?",
+        "Why is err != nil true when I returned a nil pointer?",
+        "When should I use interfaces and when generics?"
+      ]
     },
     {
       "topicSlug": "go",
+      "slug": "maps-legacy-buckets",
       "title": "Go Maps: Legacy Buckets (before Go 1.24)",
       "filename": "maps-legacy-buckets.md",
       "path": "notes/go/maps-legacy-buckets.md",
       "date": "2026-08-23",
       "concepts": [
         "Memory"
+      ],
+      "questions": [
+        "How was the bucket-based map laid out, and how did lookup work?",
+        "What triggered growth, and who did the migration work?",
+        "Why was growth spread across later writes?",
+        "How did the runtime detect concurrent map access in this design?",
+        "What did sync.Map look like before Go 1.24?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "maps-swiss-tables",
       "title": "Go Maps: Swiss Tables (Go 1.24+)",
       "filename": "maps-swiss-tables.md",
       "path": "notes/go/maps-swiss-tables.md",
       "date": "2026-08-23",
       "concepts": [
         "Memory"
+      ],
+      "questions": [
+        "How are Go maps implemented today, and what changed in Go 1.24?",
+        "Why is the control word fast, and why are false positives fine?",
+        "What happens when a large map grows?",
+        "Why do deletes leave tombstones?",
+        "Which map semantics are the same as before, and which advice still holds?",
+        "What does fatal error: concurrent map writes mean, and what is the fix?",
+        "When is sync.Map the right choice?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "memory-allocator",
       "title": "Go Memory Allocator",
       "filename": "memory-allocator.md",
       "path": "notes/go/memory-allocator.md",
       "date": "2026-08-23",
       "concepts": [
         "Memory"
+      ],
+      "questions": [
+        "Why is Go's allocator organized as mcache, mcentral, and mheap?",
+        "What are size classes, and what do they cost and buy?",
+        "Which allocation path does an object take: tiny, small, or large?",
+        "Why are scan and noscan spans separate, and how does that help the GC?",
+        "What is an arena, and how does the runtime find the span for an address?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "memory-model",
       "title": "Go Memory Model",
       "filename": "memory-model.md",
       "path": "notes/go/memory-model.md",
       "date": "2026-08-23",
       "concepts": [
         "Concurrency"
+      ],
+      "questions": [
+        "What is a data race, and what does data-race-free buy you?",
+        "Which primitives create a happens-before edge, and what exactly do they guarantee?",
+        "Why is a channel a publication mechanism and not just transport?",
+        "Does starting or finishing a goroutine synchronize anything?",
+        "Which common patterns look safe but are racy?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "mutex",
       "title": "Go sync.Mutex",
       "filename": "mutex.md",
       "path": "notes/go/mutex.md",
       "date": "2026-08-23",
       "concepts": [
         "Concurrency"
+      ],
+      "questions": [
+        "What is in a Mutex, and what does the state word encode?",
+        "What does an uncontended Lock cost, and what happens when it is contended?",
+        "What is the difference between normal and starvation mode?",
+        "How does the runtime park and wake waiters without losing a wakeup?",
+        "What does a mutex guarantee under the memory model?",
+        "How do you find mutex contention in production?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "rwmutex",
       "title": "Go sync.RWMutex",
       "filename": "rwmutex.md",
       "path": "notes/go/rwmutex.md",
       "date": "2026-08-23",
       "concepts": [
         "Concurrency"
+      ],
+      "questions": [
+        "How does RWMutex track readers and a waiting writer with one counter?",
+        "Why does a waiting writer block new readers?",
+        "Why does a recursive RLock deadlock?",
+        "When is RWMutex actually worth it over a plain Mutex?",
+        "Can you upgrade a read lock to a write lock?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "scheduler-gmp",
       "title": "Go Scheduler (GMP)",
       "filename": "scheduler-gmp.md",
       "path": "notes/go/scheduler-gmp.md",
       "date": "2026-08-23",
       "concepts": [
         "Runtime"
+      ],
+      "questions": [
+        "How does go func(){...}() end up running on a core?",
+        "Where can a runnable goroutine live, and how does work stealing work?",
+        "Why is a pod CPU-throttled despite a correct GOMAXPROCS?",
+        "What really happens on a blocking syscall versus a socket read?",
+        "Why doesn't a tight for {} loop hang the program?",
+        "Why are goroutines cheap, and how do their stacks grow and shrink?",
+        "Why does RSS stay high after a memory spike?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "slices",
       "title": "Go Slices",
       "filename": "slices.md",
       "path": "notes/go/slices.md",
       "date": "2026-08-23",
       "concepts": [
         "Memory"
+      ],
+      "questions": [
+        "What is inside a slice header, and what is copied when a slice is passed to a function?",
+        "Why can append silently overwrite data that belongs to another slice?",
+        "How much capacity does append add, and when should I preallocate?",
+        "Why does a tiny slice keep a huge array alive, and why does a pooled buffer leak?",
+        "Why does my API return null instead of []?",
+        "What do copy() and string to []byte conversions cost?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "timers-tickers",
       "title": "Go Timers and Tickers",
       "filename": "timers-tickers.md",
       "path": "notes/go/timers-tickers.md",
       "date": "2026-08-23",
       "concepts": [
         "Runtime"
+      ],
+      "questions": [
+        "Which tool fits: time.After, NewTimer, AfterFunc, NewTicker, or a context deadline?",
+        "Do I still need to drain a timer channel before Reset?",
+        "Is time.After still a garbage-collection leak?",
+        "Does Stop close the channel?",
+        "What does a ticker do when the receiver is slow?"
       ]
     },
     {
       "topicSlug": "go",
+      "slug": "waitgroup",
       "title": "Go sync.WaitGroup",
       "filename": "waitgroup.md",
       "path": "notes/go/waitgroup.md",
       "date": "2026-08-23",
       "concepts": [
         "Concurrency"
+      ],
+      "questions": [
+        "How does one atomic word hold both the counter and the waiters?",
+        "Why must Add happen before Wait, and what goes wrong if it does not?",
+        "Why is copying a WaitGroup a bug?",
+        "Is it safe to reuse a WaitGroup for a second round?",
+        "What does WaitGroup.Go do, and when should you use it?",
+        "What does Wait guarantee under the memory model?"
       ]
     }
   ],

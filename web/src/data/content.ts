@@ -19,19 +19,43 @@ export interface SolutionContent {
   readonly files: readonly SolutionFileContent[]
 }
 
+export interface NoteHeading {
+  readonly id: string
+  readonly text: string
+  readonly depth: number
+}
+
+export interface NoteContent {
+  readonly path: string
+  /** markdown-it HTML with GitHub heading ids; note links point at `#/notes/<topic>/<slug>?section=<id>`. */
+  readonly html: string
+  /** The note's h2 and h3 headings, in order. */
+  readonly toc: readonly NoteHeading[]
+}
+
 const CONTENT_URL = `${import.meta.env.BASE_URL}content/`
 
 /**
- * The highlighted solutions of one problem. Resolves to `undefined` when the file does not exist;
- * dev servers answer unknown paths with the HTML app shell, so anything but JSON counts as missing.
+ * Fetches one generated JSON file. Resolves to `undefined` when it does not exist; dev servers
+ * answer unknown paths with the HTML app shell, so anything but JSON counts as missing.
  * Rejects when the request itself fails.
  */
-export async function loadSolutions(problemId: number): Promise<SolutionContent | undefined> {
-  const response = await fetch(`${CONTENT_URL}solutions/${problemId}.json`)
+async function fetchContent<T>(relativePath: string): Promise<T | undefined> {
+  const response = await fetch(`${CONTENT_URL}${relativePath}`)
 
   if (!response.ok || !(response.headers.get('content-type') ?? '').includes('json')) {
     return undefined
   }
 
-  return (await response.json()) as SolutionContent
+  return (await response.json()) as T
+}
+
+/** The highlighted solutions of one problem. */
+export function loadSolutions(problemId: number): Promise<SolutionContent | undefined> {
+  return fetchContent<SolutionContent>(`solutions/${problemId}.json`)
+}
+
+/** One rendered note. */
+export function loadNote(topicSlug: string, slug: string): Promise<NoteContent | undefined> {
+  return fetchContent<NoteContent>(`notes/${encodeURIComponent(topicSlug)}/${encodeURIComponent(slug)}.json`)
 }

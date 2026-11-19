@@ -45,7 +45,7 @@ describe('Knowledge map', () => {
     }
   })
 
-  it('shows every topic with notes linked to the repository on GitHub', () => {
+  it('shows every topic with notes linked to the in-app reader', () => {
     render(<App />)
 
     for (const topic of repositorySnapshot.topics) {
@@ -59,13 +59,13 @@ describe('Knowledge map', () => {
       throw new Error('The repository snapshot has no notes.')
     }
 
-    const expectedHref = `https://github.com/kitanoyoru/compscie/blob/main/${note.path}`
+    const expectedHref = `#/notes/${note.topicSlug}/${note.slug}`
     const link = within(screen.getByRole('article', { name: topic.title }))
       .getAllByRole('link')
       .find((element) => element.getAttribute('href') === expectedHref)
 
     expect(link).toHaveTextContent(cleanTitle(note.title))
-    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).not.toHaveAttribute('target')
   })
 
   it('adds a topic next step to the task queue', async () => {
@@ -123,8 +123,8 @@ describe('Knowledge map', () => {
       await user.click(within(go).getByRole('button', { name: 'Concurrency' }))
 
       const hrefs = hrefsIn(within(go).getByRole('list', { name: /notes about concurrency/i }))
-      expect(hrefs.some((href) => href.endsWith('notes/go/channels.md'))).toBe(true)
-      expect(hrefs.some((href) => href.endsWith('notes/go/garbage-collector.md'))).toBe(false)
+      expect(hrefs).toContain('#/notes/go/channels')
+      expect(hrefs).not.toContain('#/notes/go/garbage-collector')
       expect(hrefs).toHaveLength(concurrencyNoteCount)
       expect(within(go).queryByRole('button', { name: /^show all \d+ notes$/i })).not.toBeInTheDocument()
     })

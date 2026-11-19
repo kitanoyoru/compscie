@@ -19,10 +19,20 @@ export interface SolveSession {
   readonly reflection?: string
 }
 
+/** One self-graded answer to a note question ("Got it" is success, "Shaky" is needs-review). */
+export interface CardReview {
+  /** `<note path>::<question slug>`; see domain/quiz.ts. */
+  readonly cardId: string
+  readonly reviewedAt: string
+  readonly outcome: SolveOutcome
+}
+
 export interface PersonalLearningState {
   readonly version: 1
   readonly tasks: readonly LearningTask[]
   readonly sessions: readonly SolveSession[]
+  /** Added after version 1 shipped: older stored data and backups load with an empty list. */
+  readonly cardReviews: readonly CardReview[]
 }
 
 export type LearningAction =
@@ -70,6 +80,15 @@ export type LearningAction =
       type: 'sessionDeleted'
       problemId: number
       endedAt: string
+    }
+  | {
+      type: 'cardReviewed'
+      review: CardReview
+    }
+  | {
+      type: 'cardReviewUndone'
+      cardId: string
+      reviewedAt: string
     }
   | {
       type: 'stateReset'

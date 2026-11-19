@@ -42,6 +42,7 @@ describe('learning state', () => {
     })
     expect(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}')).toMatchObject({
       version: 1,
+      cardReviews: [],
       tasks: [{ id: 'task-1' }],
     })
   })
@@ -112,6 +113,7 @@ describe('learning state', () => {
       STORAGE_KEY,
       JSON.stringify({
         version: 1,
+        cardReviews: [],
         tasks: [
           {
             id: 'task-1',
@@ -140,7 +142,7 @@ describe('learning state', () => {
       status: 'deferred',
       createdAt: '2026-11-17T09:00:00.000Z',
     }
-    const state = { version: 1, tasks: [base], sessions: [] } as const
+    const state = { version: 1, cardReviews: [], tasks: [base], sessions: [] } as const
 
     it('returns the same state for a whitespace-only title', () => {
       expect(learningReducer(state, { type: 'taskEdited', taskId: 'a', title: '   ' })).toBe(state)
@@ -188,7 +190,7 @@ describe('learning state', () => {
 
     it('restores the exact previous version of a task in place', () => {
       const deferred: LearningTask = { ...task('a'), status: 'deferred' }
-      const state = { version: 1, tasks: [deferred, task('b')], sessions: [] } as const
+      const state = { version: 1, cardReviews: [], tasks: [deferred, task('b')], sessions: [] } as const
       const completed = learningReducer(state, {
         type: 'taskCompleted',
         taskId: 'a',
@@ -202,7 +204,7 @@ describe('learning state', () => {
     })
 
     it('appends a restored task when it is absent', () => {
-      const state = { version: 1, tasks: [task('b')], sessions: [] } as const
+      const state = { version: 1, cardReviews: [], tasks: [task('b')], sessions: [] } as const
 
       expect(learningReducer(state, { type: 'taskRestored', task: task('a') }).tasks).toEqual([
         task('b'),
@@ -213,6 +215,7 @@ describe('learning state', () => {
     it('deletes only the first session matching problem and end time', () => {
       const state = {
         version: 1,
+        cardReviews: [],
         tasks: [],
         sessions: [session(1, 'A'), session(1, 'B'), session(1, 'A')],
       } as const
@@ -227,11 +230,35 @@ describe('learning state', () => {
     it('replaces the whole state', () => {
       const next = {
         version: 1,
+        cardReviews: [],
         tasks: [{ id: 'z', title: 'Z', status: 'open', createdAt: '2026-11-17T09:00:00.000Z' }],
         sessions: [{ problemId: 7, startedAt: 'S', endedAt: 'E', outcome: 'success' }],
       } as const
 
       expect(learningReducer(emptyPersonalState(), { type: 'stateReplaced', state: next })).toEqual(next)
     })
+  })
+})
+
+describe('card reviews', () => {
+  const review = { cardId: 'notes/go/channels.md::why', reviewedAt: '2026-11-19T18:00:00.000Z', outcome: 'success' } as const
+
+  it('records a review and undoes exactly that review', () => {
+    const later = { ...review, reviewedAt: '2026-11-20T18:00:00.000Z' }
+    const once = learningReducer(emptyPersonalState(), { type: 'cardReviewed', review })
+    const twice = learningReducer(once, { type: 'cardReviewed', review: later })
+
+    expect(twice.cardReviews).toEqual([review, later])
+    expect(
+      learningReducer(twice, { type: 'cardReviewUndone', cardId: review.cardId, reviewedAt: later.reviewedAt })
+        .cardReviews,
+    ).toEqual([review])
+    expect(learningReducer(twice, { type: 'cardReviewUndone', cardId: 'other', reviewedAt: review.reviewedAt })).toBe(twice)
+  })
+
+  it('clears reviews on reset', () => {
+    const reviewed = learningReducer(emptyPersonalState(), { type: 'cardReviewed', review })
+
+    expect(learningReducer(reviewed, { type: 'stateReset' }).cardReviews).toEqual([])
   })
 })

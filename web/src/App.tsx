@@ -6,6 +6,7 @@ import { TodayPage } from './pages/TodayPage'
 import { KnowledgeMapPage } from './pages/KnowledgeMapPage'
 import { LeetCodePage } from './pages/LeetCodePage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { NotePage } from './pages/NotePage'
 import { ReviewPage } from './pages/ReviewPage'
 import { ToastProvider } from './components/Toast'
 import { LearningProvider } from './state/learning-state'
@@ -23,6 +24,7 @@ export function App(): JSX.Element {
               <Route path="/review" element={<ReviewPage />} />
               <Route path="/map" element={<KnowledgeMapPage />} />
               <Route path="/leetcode" element={<LeetCodePage />} />
+              <Route path="/notes/:topic/:slug" element={<NotePage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </AppShell>

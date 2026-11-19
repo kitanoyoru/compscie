@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
+import { generateNoteContent } from './content/notes.mjs'
 import { generateSolutionContent } from './content/solutions.mjs'
 import {
   collectRepositorySnapshot,
@@ -41,3 +42,11 @@ const seconds = ((performance.now() - started) / 1000).toFixed(1)
 console.log(
   `Solutions: ${solutions.written} highlighted, ${solutions.skipped} unchanged, ${solutions.removed} removed (${seconds}s)`
 )
+
+const notes = await generateNoteContent({
+  repoRoot: repositoryRoot,
+  notes: snapshot.notes,
+  outDir: path.join(webRoot, 'public', 'content', 'notes'),
+})
+
+console.log(`Notes: ${notes.written} rendered`)
