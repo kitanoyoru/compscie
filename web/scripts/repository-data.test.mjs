@@ -3,6 +3,7 @@ import test from 'node:test'
 
 import {
   collectRepositorySnapshot,
+  extractQuestions,
   loadLanguageNames,
   renderRepositoryModule,
 } from './repository-data.mjs'
@@ -28,6 +29,7 @@ test('collects topics, notes, solved problems, and languages', () => {
   assert.equal(snapshot.notes[0]?.title, 'Date and time functions')
   assert.equal(snapshot.notes[0]?.filename, 'date-time-functions.md')
   assert.deepEqual(snapshot.notes[0]?.concepts, ['Date/time queries', 'MergeTree storage'])
+  assert.equal(snapshot.notes[0]?.slug, 'date-time-functions')
 
   assert.equal(snapshot.problems.length, 1)
   assert.equal(snapshot.problems[0]?.id, 1)
@@ -95,4 +97,27 @@ test('maps every registry extension to exactly one language', () => {
     () => loadLanguageNames(new URL('./fixtures/languages-duplicate.json', import.meta.url)),
     /extension \.go is listed for both go and golang/i
   )
+})
+
+test('extracts plain-text questions from the "Questions this answers" section', () => {
+  const content = [
+    '# Title',
+    '',
+    '## Questions this answers',
+    '',
+    '- What does `toStartOfDay()` return?',
+    '- Why is **this** a [link](other.md) and *that* not?',
+    '- What about snake_case_names?',
+    '',
+    '## Notes',
+    '',
+    '- Not a question.',
+  ].join('\n')
+
+  assert.deepEqual(extractQuestions(content), [
+    'What does toStartOfDay() return?',
+    'Why is this a link and that not?',
+    'What about snake_case_names?',
+  ])
+  assert.deepEqual(extractQuestions('# No questions here'), [])
 })

@@ -73,6 +73,44 @@ function conceptList(value) {
     .filter(Boolean)
 }
 
+const QUESTIONS_HEADING = /^##\s+Questions this answers\s*$/
+
+/** Markdown inline syntax reduced to plain text: links keep their text, code keeps its content. */
+function plainText(markdown) {
+  return markdown
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/`([^`]*)`/g, '$1')
+    .replace(/(\*\*|__)(.+?)\1/g, '$2')
+    .replace(/(^|[^\w*])[*_]([^*_]+)[*_](?=[^\w*]|$)/g, '$1$2')
+    .trim()
+}
+
+/** The bullets under `## Questions this answers`, as plain text, in order. */
+export function extractQuestions(content) {
+  const lines = content.split(/\r?\n/)
+  const start = lines.findIndex((line) => QUESTIONS_HEADING.test(line))
+
+  if (start === -1) {
+    return []
+  }
+
+  const questions = []
+
+  for (const line of lines.slice(start + 1)) {
+    if (/^#{1,6}\s/.test(line)) {
+      break
+    }
+
+    const bullet = /^\s*[-*]\s+(.+)$/.exec(line)
+
+    if (bullet?.[1]) {
+      questions.push(plainText(bullet[1]))
+    }
+  }
+
+  return questions
+}
+
 function noteTitle(content, filename) {
   const heading = /^#\s+(.+)$/m.exec(content)
 
@@ -101,11 +139,13 @@ function collectNotes(repoRoot, topicSlug) {
 
       return {
         topicSlug,
+        slug: entry.name.replace(/\.md$/, ''),
         title: noteTitle(content, entry.name),
         filename: entry.name,
         path: relativePath(repoRoot, notePath),
         date: frontmatter.date ?? '',
         concepts: conceptList(frontmatter.concepts),
+        questions: extractQuestions(content),
       }
     })
     .sort((left, right) => {
