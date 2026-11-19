@@ -11,6 +11,7 @@ const dayWithYearFormatter = new Intl.DateTimeFormat(undefined, {
   year: 'numeric',
   timeZone: 'UTC',
 })
+const timeFormatter = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' })
 const localDayFormatter = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' })
 const localDayWithYearFormatter = new Intl.DateTimeFormat(undefined, {
   month: 'short',
@@ -57,6 +58,13 @@ export function formatDay(value: Date | string, now: Date = new Date()): string 
   const sameYear = new Date(time).getFullYear() === now.getFullYear()
 
   return (sameYear ? localDayFormatter : localDayWithYearFormatter).format(time)
+}
+
+/** Local time such as `9:05 AM`, in the viewer's time zone. */
+export function formatTime(value: Date | string): string {
+  const time = toTime(value)
+
+  return Number.isNaN(time) ? '' : timeFormatter.format(time)
 }
 
 /** `Thursday, November 19` in the viewer's time zone. */

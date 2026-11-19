@@ -98,6 +98,7 @@ function TaskItem({ task, recommended }: TaskItemProps): JSX.Element {
           title="Delete"
           onClick={() => {
             dispatch({ type: 'taskDeleted', taskId: task.id })
+            document.getElementById('task-list-heading')?.focus()
             showToast({
               message: `Deleted “${task.title}”`,
               action: { label: 'Undo', onAction: () => dispatch({ type: 'taskRestored', task }) },
@@ -149,7 +150,7 @@ export function TaskList({ tasks, recommendedTaskId }: TaskListProps): JSX.Eleme
     <section className="card" aria-labelledby="task-list-heading">
       <div className="card-header">
         <div>
-          <h2 id="task-list-heading">Task queue</h2>
+          <h2 id="task-list-heading" tabIndex={-1}>Task queue</h2>
           <p className="card-subtitle">
             {open.length} open · {deferred.length} deferred · {completed.length} done
           </p>

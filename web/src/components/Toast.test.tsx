@@ -60,12 +60,12 @@ describe('Toast', () => {
     expect(region()).toHaveTextContent('First message')
 
     act(() => {
-      vi.advanceTimersByTime(5900)
+      vi.advanceTimersByTime(5000)
     })
     expect(region()).toHaveTextContent('First message')
 
     act(() => {
-      vi.advanceTimersByTime(200)
+      vi.advanceTimersByTime(1500)
     })
     expect(region()).not.toHaveTextContent('First message')
   })
@@ -84,6 +84,43 @@ describe('Toast', () => {
     act(() => {
       vi.advanceTimersByTime(6100)
     })
+    expect(region()).not.toHaveTextContent('First message')
+  })
+
+  it('pauses while focus is within the toast', async () => {
+    const user = setup(vi.fn())
+    await user.click(screen.getByRole('button', { name: 'first' }))
+    act(() => screen.getByRole('button', { name: /undo/i }).focus())
+
+    act(() => {
+      vi.advanceTimersByTime(10000)
+    })
+    expect(region()).toHaveTextContent('First message')
+
+    act(() => screen.getByRole('button', { name: 'first' }).focus())
+    act(() => {
+      vi.advanceTimersByTime(6500)
+    })
+    expect(region()).not.toHaveTextContent('First message')
+  })
+
+  it('runs the action on Ctrl+Z and Cmd+Z but not while typing', async () => {
+    const onAction = vi.fn()
+    const user = setup(onAction)
+    await user.click(screen.getByRole('button', { name: 'first' }))
+
+    await user.keyboard('{Shift>}{Control>}z{/Control}{/Shift}')
+    expect(onAction).not.toHaveBeenCalled()
+
+    const input = document.createElement('input')
+    document.body.append(input)
+    input.focus()
+    await user.keyboard('{Control>}z{/Control}')
+    expect(onAction).not.toHaveBeenCalled()
+    input.remove()
+
+    await user.keyboard('{Meta>}z{/Meta}')
+    expect(onAction).toHaveBeenCalledTimes(1)
     expect(region()).not.toHaveTextContent('First message')
   })
 

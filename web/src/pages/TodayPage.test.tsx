@@ -174,4 +174,31 @@ describe('Today dashboard', () => {
     await user.click(screen.getByRole('button', { name: /^undo$/i }))
     expect(within(screen.getByRole('list', { name: /open tasks/i })).getByText('Read the GC note')).toBeInTheDocument()
   })
+
+  it('undoes a deleted task with Ctrl+Z and moves focus to the queue heading', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/task title/i), 'Read the GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+    await user.click(screen.getByRole('button', { name: /delete read the gc note/i }))
+
+    expect(screen.getByRole('heading', { name: /task queue/i })).toHaveFocus()
+
+    await user.keyboard('{Control>}z{/Control}')
+    expect(screen.getByRole('button', { name: /delete read the gc note/i })).toBeInTheDocument()
+  })
+
+  it('does not hijack Ctrl+Z while typing in a field', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/task title/i), 'Read the GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+    await user.click(screen.getByRole('button', { name: /delete read the gc note/i }))
+
+    await user.click(screen.getByLabelText(/task title/i))
+    await user.keyboard('{Control>}z{/Control}')
+
+    expect(screen.queryByRole('button', { name: /delete read the gc note/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /^undo$/i })).toBeInTheDocument()
+  })
 })

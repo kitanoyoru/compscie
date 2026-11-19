@@ -1,4 +1,4 @@
-import { useEffect, useId, useState, type FormEvent, type JSX } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent, type JSX } from 'react'
 
 import { Icon } from '../../components/Icon'
 import { useToast } from '../../components/Toast'
@@ -7,7 +7,7 @@ import { leetcodeProblemUrl, repositoryTreeUrl } from '../../data/links'
 import type { SolvedProblem } from '../../data/types'
 import { sessionMinutes } from '../../domain/insights'
 import type { SolveOutcome, SolveSession } from '../../domain/personal-types'
-import { formatDay, formatElapsed, formatProblemNumber, formatRelativeDay, plural } from '../../lib/format'
+import { formatDay, formatElapsed, formatProblemNumber, formatRelativeDay, formatTime, plural } from '../../lib/format'
 import { useLearningDispatch } from '../../state/learning-state'
 
 interface SessionPanelProps {
@@ -229,9 +229,11 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
 function SessionHistory({ history }: { readonly history: readonly SolveSession[] }): JSX.Element {
   const dispatch = useLearningDispatch()
   const showToast = useToast()
+  const headingRef = useRef<HTMLHeadingElement>(null)
 
   function deleteSession(session: SolveSession): void {
     dispatch({ type: 'sessionDeleted', problemId: session.problemId, endedAt: session.endedAt })
+    headingRef.current?.focus()
     showToast({
       message: `Removed a session for #${session.problemId}`,
       action: { label: 'Undo', onAction: () => dispatch({ type: 'sessionCompleted', session }) },
@@ -240,7 +242,7 @@ function SessionHistory({ history }: { readonly history: readonly SolveSession[]
 
   return (
     <div className="session-history">
-      <h3 className="subheading">
+      <h3 className="subheading" ref={headingRef} tabIndex={-1}>
         Your history
         <span className="count">{history.length}</span>
       </h3>
@@ -260,7 +262,7 @@ function SessionHistory({ history }: { readonly history: readonly SolveSession[]
                   <button
                     type="button"
                     className="icon-button icon-button-danger"
-                    aria-label={`Delete session from ${formatDay(session.endedAt)}`}
+                    aria-label={`Delete session from ${formatDay(session.endedAt)} at ${formatTime(session.endedAt)}`}
                     title="Delete session"
                     onClick={() => deleteSession(session)}
                   >

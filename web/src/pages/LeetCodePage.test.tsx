@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import { App } from '../App'
 import { repositorySnapshot } from '../data/generated/repository'
-import { formatDay } from '../lib/format'
+import { formatDay, formatTime } from '../lib/format'
 import { STORAGE_KEY } from '../state/storage'
 import { seedLearningState, seededState } from '../test/fixtures'
 
@@ -99,7 +99,7 @@ describe('LeetCode workspace', () => {
     render(<App />)
 
     const history = () => within(screen.getByRole('list', { name: /session history/i }))
-    const name = `Delete session from ${formatDay(seeded.endedAt)}`
+    const name = `Delete session from ${formatDay(seeded.endedAt)} at ${formatTime(seeded.endedAt)}`
     expect(history().getByText(seeded.reflection ?? '')).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name }))
@@ -114,5 +114,36 @@ describe('LeetCode workspace', () => {
 
     expect(history().getByText(seeded.reflection ?? '')).toBeInTheDocument()
     expect(screen.getByRole('button', { name })).toBeInTheDocument()
+  })
+
+  it('gives same-day sessions distinct delete names and removes only the chosen one', async () => {
+    const [first] = problems
+
+    if (first === undefined) {
+      throw new Error('snapshot needs a problem')
+    }
+
+    const base = { problemId: first.id, outcome: 'success', startedAt: '2026-11-19T17:00:00.000Z' } as const
+    seedLearningState({
+      version: 1,
+      tasks: [],
+      sessions: [
+        { ...base, endedAt: '2026-11-19T17:30:00.000Z', reflection: 'Morning attempt' },
+        { ...base, endedAt: '2026-11-19T19:45:00.000Z', reflection: 'Afternoon attempt' },
+      ],
+    })
+    window.location.hash = `#/leetcode?problem=${first.id}`
+    const user = userEvent.setup()
+    render(<App />)
+
+    const buttons = screen.getAllByRole('button', { name: /^delete session from/i })
+    const names = buttons.map((button) => button.getAttribute('aria-label'))
+    expect(new Set(names).size).toBe(2)
+
+    await user.click(buttons[0] as HTMLElement)
+
+    const history = within(screen.getByRole('list', { name: /session history/i }))
+    expect(history.getAllByRole('listitem')).toHaveLength(1)
+    expect(screen.getByRole('heading', { name: /your history/i })).toHaveFocus()
   })
 })
