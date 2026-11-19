@@ -9,3 +9,6 @@ __pycache__/
 web/dist/
 web/coverage/
 !web/yarn.lock
+web/test-results/
+web/playwright-report/
+web/blob-report/

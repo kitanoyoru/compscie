@@ -30,6 +30,8 @@ jobs:
       - run: yarn --cwd web run check
       - run: yarn --cwd web test --run
       - run: yarn --cwd web build
+      - run: npx --prefix web playwright install --with-deps chromium
+      - run: yarn --cwd web e2e
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

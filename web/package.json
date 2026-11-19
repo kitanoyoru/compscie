@@ -14,6 +14,7 @@
     "build": "yarn run check && vite build",
     "preview": "vite preview",
     "test": "vitest",
+    "e2e": "playwright test",
     "check": "tsc --project tsconfig.app.json --noEmit"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "react-router": "^7.18.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.3",
