@@ -1,7 +1,9 @@
-name: Deploy learning platform
+name: Learning platform
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -9,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: learning-platform-pages
+  group: learning-platform-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'pages' }}
   cancel-in-progress: true
 
 jobs:
@@ -47,6 +49,7 @@ jobs:
 
   deploy:
     needs: test
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
