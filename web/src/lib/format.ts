@@ -25,6 +25,7 @@ const longDayFormatter = new Intl.DateTimeFormat(undefined, {
 })
 const weekdayFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'short', timeZone: 'UTC' })
 const narrowWeekdayFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'narrow', timeZone: 'UTC' })
+const longWeekdayFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'long', timeZone: 'UTC' })
 const relativeFormatter = new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' })
 
 function toTime(value: Date | string): number {
@@ -72,10 +73,12 @@ export function formatLongDay(value: Date): string {
   return longDayFormatter.format(value)
 }
 
-export function formatWeekday(day: string, style: 'short' | 'narrow' = 'short'): string {
+export function formatWeekday(day: string, style: 'short' | 'narrow' | 'long' = 'short'): string {
   const time = Date.parse(day)
+  const formatter =
+    style === 'narrow' ? narrowWeekdayFormatter : style === 'long' ? longWeekdayFormatter : weekdayFormatter
 
-  return Number.isNaN(time) ? '' : (style === 'narrow' ? narrowWeekdayFormatter : weekdayFormatter).format(time)
+  return Number.isNaN(time) ? '' : formatter.format(time)
 }
 
 /** Whole calendar days from `value` to `now`, in the viewer's time zone. Calendar dates never shift. */

@@ -28,14 +28,15 @@ describe('weekly activity strip', () => {
 
     expect(strip).toHaveTextContent(/practice session/)
     // Local days: the Nov 19 task (02:00 PST) and session (04:25 PST) share Thursday.
-    expect(strip).toHaveTextContent('Thu: 1 task, 1 practice session')
-    expect(strip).toHaveTextContent('Wed: 0 tasks, 1 practice session')
-    expect(strip).toHaveTextContent('Fri: 0 tasks, 0 practice sessions')
+    const day = within(strip)
+    expect(day.getByText('Thursday: 1 task, 1 practice session')).toBeInTheDocument()
+    expect(day.getByText('Wednesday: 0 tasks, 1 practice session')).toBeInTheDocument()
+    expect(day.getByText('Friday: 0 tasks, 0 practice sessions')).toBeInTheDocument()
     expect(screen.getByRole('region', { name: /this week/i })).toHaveTextContent(/1 task completed/i)
 
-    const legend = within(screen.getByRole('region', { name: /this week/i }))
-    expect(legend.getByText('Tasks')).toBeVisible()
-    expect(legend.getByText('Practice')).toBeVisible()
+    const legend = strip.parentElement?.querySelector<HTMLElement>('.week-legend')
+    expect(legend).toHaveAttribute('aria-hidden', 'true')
+    expect(legend).toHaveTextContent(/^Tasks\s*Practice sessions$/)
   })
 })
 

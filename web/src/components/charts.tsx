@@ -104,7 +104,7 @@ export function WeekStrip({ days, today }: WeekStripProps): JSX.Element {
       <ol className="week-strip" aria-label="Activity this week">
         {days.map((day) => {
           const total = day.tasks + day.sessions
-          const summary = `${formatWeekday(day.date)}: ${plural(day.tasks, 'task')}, ${plural(day.sessions, 'practice session')}`
+          const summary = `${formatWeekday(day.date, 'long')}: ${plural(day.tasks, 'task')}, ${plural(day.sessions, 'practice session')}`
 
           return (
             <li
@@ -112,7 +112,6 @@ export function WeekStrip({ days, today }: WeekStripProps): JSX.Element {
               className="week-day"
               data-today={day.date === today ? 'true' : undefined}
               data-empty={total === 0 ? 'true' : undefined}
-              title={summary}
             >
               <span className="week-bar-slot" aria-hidden="true">
                 <span className="week-bar" style={ratioStyle(total / max)}>
@@ -130,14 +129,14 @@ export function WeekStrip({ days, today }: WeekStripProps): JSX.Element {
           )
         })}
       </ol>
-      <ul className="legend week-legend">
+      <ul className="legend week-legend" aria-hidden="true">
         <li>
           <span className="swatch" data-series="tasks" aria-hidden="true" />
           Tasks
         </li>
         <li>
           <span className="swatch" data-series="sessions" aria-hidden="true" />
-          Practice
+          Practice sessions
         </li>
       </ul>
     </div>

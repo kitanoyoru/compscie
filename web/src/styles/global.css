@@ -44,7 +44,9 @@
   --warning-mark: #a86f00;
   --warning-soft: #fcf2d9;
 
-  /* Data colors: validated as a set (CVD-safe all-pairs) against this surface. */
+  /* Data colors: the difficulty colors (--easy/--medium/--hard) are validated as a set against
+     this surface. --series-1 and --series-2 are a CVD-distinct blue/orange pair that is never
+     charted together with the difficulty colors. */
   --series-1: #2a78d6;
   --series-2: #e0680f;
   --easy: #1baf7a;
@@ -1146,12 +1148,12 @@ textarea.input {
 }
 
 .week-seg {
-  min-height: 0;
+  min-height: 3px;
   flex-basis: 0;
 }
 
 .week-seg + .week-seg {
-  border-bottom: 1px solid var(--surface);
+  box-shadow: 0 -1px 0 var(--surface);
 }
 
 .week-seg[data-series="tasks"],
