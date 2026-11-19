@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router'
 
 import { AppShell } from './components/AppShell'
 import { TodayPage } from './pages/TodayPage'
+import { KnowledgeMapPage } from './pages/KnowledgeMapPage'
 import { LearningProvider } from './state/learning-state'
 
 export function App(): JSX.Element {
@@ -12,15 +13,7 @@ export function App(): JSX.Element {
         <AppShell>
           <Routes>
             <Route path="/" element={<TodayPage />} />
-            <Route
-              path="/map"
-              element={
-                <section aria-labelledby="map-heading">
-                  <h2 id="map-heading">Knowledge Map</h2>
-                  <p>The explicit knowledge map is coming next.</p>
-                </section>
-              }
-            />
+            <Route path="/map" element={<KnowledgeMapPage />} />
             <Route
               path="/leetcode"
               element={

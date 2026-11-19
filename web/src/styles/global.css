@@ -112,6 +112,13 @@ textarea {
   display: grid;
   gap: 1.5rem;
 }
+.map-page { display: grid; gap: 1.5rem; }
+.map-stats, .topic-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+.map-stats strong, .topic-card { border: 1px solid rgb(23 32 42 / 0.12); border-radius: 1rem; background: rgb(255 255 255 / .86); padding: 1rem; }
+.map-stats small { display: block; font-weight: 500; }
+.topic-card h3 { margin-top: 0; }
+.topic-card ul { padding-left: 1.2rem; }
+.concepts { color: #2563eb; }
 
 .page-intro,
 .recommendation-card,
