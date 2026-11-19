@@ -2482,26 +2482,6 @@ details[open] .details-chevron {
   font-size: 0.9375rem;
 }
 
-.settings-fieldset {
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.settings-radios {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
-}
-
-.settings-radio {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  cursor: pointer;
-}
-
 .settings-note {
   color: var(--ink-secondary);
 }

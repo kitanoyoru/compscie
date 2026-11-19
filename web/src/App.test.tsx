@@ -32,19 +32,42 @@ it('shows the snapshot date as its calendar day in the footer', () => {
   expect(screen.getByRole('contentinfo')).toHaveTextContent(`Snapshot ${formatDay(day)}`)
 })
 
-it('switches and remembers the color theme', async () => {
+// jsdom has no matchMedia, so the operating system theme reads as light in these tests.
+it('stores a theme that differs from the system and forgets one that matches it', async () => {
   const user = userEvent.setup()
   render(<App />)
 
+  expect(screen.getByRole('button', { name: /switch to dark theme/i })).toHaveAttribute(
+    'title',
+    'Switch to dark theme',
+  )
   await user.click(screen.getByRole('button', { name: /switch to dark theme/i }))
 
   expect(document.documentElement.dataset.theme).toBe('dark')
   expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark')
+  expect(screen.getByRole('button', { name: /switch to light theme/i })).toHaveAttribute(
+    'title',
+    'Switch to light theme (follows system)',
+  )
 
   await user.click(screen.getByRole('button', { name: /switch to light theme/i }))
 
+  expect(document.documentElement.dataset.theme).toBeUndefined()
+  expect(localStorage.getItem(THEME_STORAGE_KEY)).toBeNull()
+})
+
+it('returns to following the system from a stored theme that matches it', async () => {
+  localStorage.setItem(THEME_STORAGE_KEY, 'light')
+  const user = userEvent.setup()
+  render(<App />)
+
   expect(document.documentElement.dataset.theme).toBe('light')
-  expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('light')
+  await user.click(screen.getByRole('button', { name: /switch to dark theme/i }))
+  expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark')
+  await user.click(screen.getByRole('button', { name: /switch to light theme/i }))
+
+  expect(localStorage.getItem(THEME_STORAGE_KEY)).toBeNull()
+  expect(document.documentElement.dataset.theme).toBeUndefined()
 })
 
 it('names the document after the page and focuses its heading on navigation', async () => {

@@ -5,15 +5,8 @@ import { plural } from '../lib/format'
 import { MAX_BACKUP_BYTES, backupFilename, createBackup, readBackup } from '../state/backup'
 import { useLearningDispatch, useLearningState } from '../state/learning-state'
 import { clearAllSessionDrafts } from '../state/session-draft'
-import { useTheme, type ThemePreference } from '../state/theme'
 import { Icon } from './Icon'
 import { useToast } from './Toast'
-
-const THEME_OPTIONS: readonly { value: ThemePreference; label: string }[] = [
-  { value: 'system', label: 'System' },
-  { value: 'light', label: 'Light' },
-  { value: 'dark', label: 'Dark' },
-]
 
 function describeCounts(state: PersonalLearningState): string {
   return `${plural(state.tasks.length, 'task')} and ${plural(state.sessions.length, 'session')}`
@@ -48,7 +41,6 @@ function readFileText(file: File): Promise<string> {
 }
 
 function SettingsContent(): JSX.Element {
-  const { preference, setPreference } = useTheme()
   const state = useLearningState()
   const dispatch = useLearningDispatch()
   const showToast = useToast()
@@ -168,29 +160,6 @@ function SettingsContent(): JSX.Element {
 
   return (
     <>
-      <section className="settings-section" aria-labelledby="settings-appearance">
-        <h3 id="settings-appearance" className="settings-heading">
-          Appearance
-        </h3>
-        <fieldset className="settings-fieldset">
-          <legend className="field-label">Theme</legend>
-          <div className="settings-radios">
-            {THEME_OPTIONS.map((option) => (
-              <label key={option.value} className="settings-radio">
-                <input
-                  type="radio"
-                  name="theme-preference"
-                  value={option.value}
-                  checked={preference === option.value}
-                  onChange={() => setPreference(option.value)}
-                />
-                {option.label}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-      </section>
-
       <section className="settings-section" aria-labelledby="settings-data">
         <h3 id="settings-data" className="settings-heading">
           Your data

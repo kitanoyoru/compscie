@@ -17,16 +17,17 @@ const NAVIGATION: readonly { to: string; label: string; icon: IconName; end?: bo
 ]
 
 function ThemeToggle(): JSX.Element {
-  const { effective: theme, toggle } = useTheme()
+  const { effective: theme, system, toggle } = useTheme()
   const next = theme === 'dark' ? 'light' : 'dark'
+  const label = `Switch to ${next} theme`
 
   return (
     <button
       type="button"
       className="icon-button theme-toggle"
       onClick={toggle}
-      aria-label={`Switch to ${next} theme`}
-      title={`Switch to ${next} theme`}
+      aria-label={label}
+      title={next === system ? `${label} (follows system)` : label}
     >
       <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
     </button>

@@ -34,7 +34,13 @@ function systemTheme(): Theme {
 export interface ThemeApi {
   readonly preference: ThemePreference
   readonly effective: Theme
+  /** The operating system's theme, which the app follows while no choice is stored. */
+  readonly system: Theme
   readonly setPreference: (preference: ThemePreference) => void
+  /**
+   * Flips the visible theme. Landing on the operating system's theme clears the stored choice,
+   * so the app follows the system again; landing on the other theme stores it.
+   */
   readonly toggle: () => void
 }
 
@@ -86,14 +92,15 @@ export function ThemeProvider({ children }: PropsWithChildren): JSX.Element {
     }
   }, [])
 
-  const toggle = useCallback(
-    () => setPreference(effective === 'dark' ? 'light' : 'dark'),
-    [effective, setPreference],
-  )
+  const toggle = useCallback(() => {
+    const next: Theme = effective === 'dark' ? 'light' : 'dark'
+
+    setPreference(next === system ? 'system' : next)
+  }, [effective, system, setPreference])
 
   const value = useMemo<ThemeApi>(
-    () => ({ preference: stored ?? 'system', effective, setPreference, toggle }),
-    [stored, effective, setPreference, toggle],
+    () => ({ preference: stored ?? 'system', effective, system, setPreference, toggle }),
+    [stored, effective, system, setPreference, toggle],
   )
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

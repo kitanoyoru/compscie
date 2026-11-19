@@ -6,7 +6,6 @@ import { App } from '../App'
 import { createBackup } from '../state/backup'
 import { SESSION_DRAFT_KEY } from '../state/session-draft'
 import { STORAGE_KEY } from '../state/storage'
-import { THEME_STORAGE_KEY } from '../state/theme'
 import { seedLearningState, seededState } from '../test/fixtures'
 
 function storedState(): { tasks: unknown[]; sessions: unknown[] } {
@@ -30,32 +29,13 @@ afterEach(() => {
 })
 
 describe('SettingsDialog', () => {
-  it('switches back to the system theme', async () => {
-    localStorage.setItem(THEME_STORAGE_KEY, 'dark')
+  it('leaves the theme to the header toggle', async () => {
     const user = userEvent.setup()
     render(<App />)
     const dialog = await openSettings(user)
 
-    expect(within(dialog).getByRole('radio', { name: /dark/i })).toBeChecked()
-    await user.click(within(dialog).getByRole('radio', { name: /system/i }))
-
-    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBeNull()
-    expect(document.documentElement.dataset.theme).toBeUndefined()
-  })
-
-  it('keeps the header toggle and the dialog radios in sync', async () => {
-    const user = userEvent.setup()
-    render(<App />)
-    const dialog = await openSettings(user)
-
-    await user.click(within(dialog).getByRole('radio', { name: /dark/i }))
-    expect(screen.getByRole('button', { name: /switch to light theme/i })).toBeInTheDocument()
-
-    await user.click(within(dialog).getByRole('button', { name: /^close$/i }))
-    await user.click(screen.getByRole('button', { name: /switch to light theme/i }))
-    await openSettings(user)
-
-    expect(within(screen.getByRole('dialog', { name: /settings/i })).getByRole('radio', { name: /light/i })).toBeChecked()
+    expect(within(dialog).queryByRole('radio')).not.toBeInTheDocument()
+    expect(within(dialog).queryByText(/theme/i)).not.toBeInTheDocument()
   })
 
   it('shows live counts', async () => {
@@ -159,7 +139,7 @@ describe('SettingsDialog', () => {
     expect(screen.queryByText('Read the GC note')).not.toBeInTheDocument()
 
     const dialog = await openSettings(user)
-    within(dialog).getByRole('radio', { name: /system/i }).focus()
+    within(dialog).getByRole('button', { name: /export backup/i }).focus()
     await user.keyboard('{Control>}z{/Control}')
 
     expect(screen.queryByText('Read the GC note')).not.toBeInTheDocument()

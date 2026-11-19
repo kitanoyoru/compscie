@@ -31,7 +31,8 @@ One folder per subject under [notes/](notes/), notes flat inside it. Start a top
 
 A local-first React workspace over this repository, in [web/](web/): Today, Knowledge Map, and LeetCode. Run it with `make platform`, or open the [hosted build](https://kitanoyoru.github.io/compscie/). Tasks, sessions, and settings live only in your browser; the repository stays the source of truth.
 
-- **Settings** (button in the header): theme (System, Light, Dark), JSON backup export and import, and reset. Import is validated and asks before replacing anything.
+- **Theme** (sun/moon button in the header): flips between light and dark. Landing on your system's theme clears the stored choice, so the app follows the system again.
+- **Settings** (button in the header): JSON backup export and import, and reset. Import is validated and asks before replacing anything.
 - **Shortcuts:** `/` focuses LeetCode search, `Esc` clears it, `Ctrl/Cmd+Z` triggers Undo while a toast shows, and `Ctrl/Cmd+Enter` saves a practice session.
 - Days and weeks follow your local time zone.
 - A running timer and reflection draft survive navigation and reload in the same tab.
