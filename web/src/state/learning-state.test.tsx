@@ -131,6 +131,52 @@ describe('learning state', () => {
     expect(loadPersonalState()).toEqual(emptyPersonalState())
   })
 
+  describe('taskEdited', () => {
+    const base: LearningTask = {
+      id: 'a',
+      title: 'Old',
+      topicId: 'go',
+      estimatedMinutes: 30,
+      status: 'deferred',
+      createdAt: '2026-11-17T09:00:00.000Z',
+    }
+    const state = { version: 1, tasks: [base], sessions: [] } as const
+
+    it('returns the same state for a whitespace-only title', () => {
+      expect(learningReducer(state, { type: 'taskEdited', taskId: 'a', title: '   ' })).toBe(state)
+    })
+
+    it('clears omitted fields and keeps status and dates', () => {
+      const completed: LearningTask = { ...base, status: 'completed', completedAt: '2026-11-19T10:00:00.000Z' }
+      const next = learningReducer(
+        { ...state, tasks: [completed] },
+        { type: 'taskEdited', taskId: 'a', title: '  New title ' },
+      )
+
+      expect(next.tasks[0]).toEqual({
+        id: 'a',
+        title: 'New title',
+        topicId: undefined,
+        estimatedMinutes: undefined,
+        status: 'completed',
+        createdAt: '2026-11-17T09:00:00.000Z',
+        completedAt: '2026-11-19T10:00:00.000Z',
+      })
+    })
+
+    it('sets topic and minutes', () => {
+      const next = learningReducer(state, {
+        type: 'taskEdited',
+        taskId: 'a',
+        title: 'Old',
+        topicId: 'clickhouse',
+        estimatedMinutes: 15,
+      })
+
+      expect(next.tasks[0]).toMatchObject({ topicId: 'clickhouse', estimatedMinutes: 15, status: 'deferred' })
+    })
+  })
+
   describe('undo actions', () => {
     function task(id: string): LearningTask {
       return { id, title: `Task ${id}`, status: 'open', createdAt: '2026-11-17T09:00:00.000Z' }

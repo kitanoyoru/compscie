@@ -201,4 +201,73 @@ describe('Today dashboard', () => {
     expect(screen.queryByRole('button', { name: /delete read the gc note/i })).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: /^undo$/i })).toBeInTheDocument()
   })
+
+  it('edits a queued task inline', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/^task title$/i), 'Read GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+
+    await user.click(screen.getByRole('button', { name: /edit read gc note/i }))
+    const title = screen.getByRole('textbox', { name: /edit task title/i })
+    expect(title).toHaveFocus()
+
+    await user.clear(title)
+    await user.type(title, 'Read GC pacer note{Enter}')
+
+    expect(screen.getByRole('heading', { name: 'Read GC pacer note' })).toBeInTheDocument()
+    expect(screen.queryByRole('form', { name: /edit/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /edit read gc pacer note/i })).toHaveFocus()
+  })
+
+  it('cancels an edit with Escape', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/^task title$/i), 'Read GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+
+    await user.click(screen.getByRole('button', { name: /edit read gc note/i }))
+    const title = screen.getByRole('textbox', { name: /edit task title/i })
+    await user.clear(title)
+    await user.type(title, 'Something else{Escape}')
+
+    expect(screen.getByRole('heading', { name: 'Read GC note' })).toBeInTheDocument()
+    expect(screen.queryByText('Something else')).not.toBeInTheDocument()
+    expect(screen.queryByRole('form', { name: /edit/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /edit read gc note/i })).toHaveFocus()
+  })
+
+  it('cancels an edit with the Cancel button and saves topic and minutes', async () => {
+    seedLearningState()
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /edit review clickhouse merge trees/i }))
+    await user.click(screen.getByRole('button', { name: /^cancel$/i }))
+    expect(screen.getByRole('button', { name: /edit review clickhouse merge trees/i })).toHaveFocus()
+
+    await user.click(screen.getByRole('button', { name: /edit review clickhouse merge trees/i }))
+    await user.clear(screen.getByRole('spinbutton', { name: /edit minutes/i }))
+    await user.selectOptions(screen.getByRole('combobox', { name: /edit topic/i }), '')
+    await user.click(screen.getByRole('button', { name: /^save$/i }))
+
+    expect(
+      JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}').tasks.find(
+        (task: { id: string }) => task.id === 'task-deferred',
+      ),
+    ).toEqual({
+      id: 'task-deferred',
+      title: 'Review ClickHouse merge trees',
+      status: 'deferred',
+      createdAt: '2026-11-17T09:00:00.000Z',
+    })
+  })
+
+  it('offers no Edit button on completed tasks', () => {
+    seedLearningState()
+    render(<App />)
+
+    expect(screen.getByRole('button', { name: /edit read the go scheduler notes/i })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /edit finish the go channels lab/i, hidden: true })).not.toBeInTheDocument()
+  })
 })

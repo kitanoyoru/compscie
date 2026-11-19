@@ -35,6 +35,13 @@ export type LearningAction =
       createdAt?: string
     }
   | {
+      type: 'taskEdited'
+      taskId: string
+      title: string
+      topicId?: string
+      estimatedMinutes?: number
+    }
+  | {
       type: 'taskCompleted'
       taskId: string
       completedAt?: string

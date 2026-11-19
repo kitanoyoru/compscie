@@ -121,3 +121,14 @@ export function plural(count: number, singular: string, pluralForm = `${singular
 export function cleanTitle(title: string): string {
   return title.replace(/^[^\p{L}\p{N}]+/u, '').trim() || title
 }
+
+/** Parses a minutes field. Returns a positive finite number, or `undefined` when blank or invalid. */
+export function parseMinutes(raw: string): number | undefined {
+  if (raw.trim() === '') {
+    return undefined
+  }
+
+  const minutes = Number(raw)
+
+  return Number.isFinite(minutes) && minutes > 0 ? minutes : undefined
+}

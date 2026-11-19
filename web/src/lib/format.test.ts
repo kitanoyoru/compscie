@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { daysBetween, formatDay, formatRelativeDay, formatWeekday } from './format'
+import { daysBetween, parseMinutes, formatDay, formatRelativeDay, formatWeekday } from './format'
 
 // The suite runs in America/Los_Angeles (see src/test/setup.ts).
 const now = new Date('2026-11-19T18:00:00Z')
@@ -36,5 +36,16 @@ describe('daysBetween and formatRelativeDay', () => {
   it('uses the local day for timestamps', () => {
     // Thursday 04:00Z is still Wednesday evening in Los Angeles.
     expect(formatRelativeDay('2026-11-19T04:00:00Z', now)).toBe('yesterday')
+  })
+})
+
+describe('parseMinutes', () => {
+  it('parses positive finite numbers', () => {
+    expect(parseMinutes('25')).toBe(25)
+    expect(parseMinutes(' 7.5 ')).toBe(7.5)
+  })
+
+  it.each(['', '   ', '0', '-5', 'abc', 'Infinity'])('rejects %j', (raw) => {
+    expect(parseMinutes(raw)).toBeUndefined()
   })
 })

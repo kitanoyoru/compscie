@@ -1,4 +1,5 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { App } from './App'
@@ -30,6 +31,19 @@ describe.each(ROUTES)('accessibility of %s', (hash) => {
   it('has no WCAG A/AA violations with seeded state', async () => {
     seedLearningState()
     const { container } = render(<App />)
+    await expectNoAxeViolations(container)
+  })
+})
+
+describe('accessibility of the inline task editor', () => {
+  it('has no WCAG A/AA violations while editing', async () => {
+    localStorage.clear()
+    window.location.hash = '#/'
+    seedLearningState()
+    const { container } = render(<App />)
+
+    await userEvent.setup().click(screen.getByRole('button', { name: /edit read the go scheduler notes/i }))
+    expect(screen.getByRole('form', { name: /edit read the go scheduler notes/i })).toBeInTheDocument()
     await expectNoAxeViolations(container)
   })
 })

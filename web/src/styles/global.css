@@ -1209,6 +1209,22 @@ textarea.input {
   background: var(--surface-sunken);
 }
 
+.task-item:has(.task-edit-form) {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.task-edit-form {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.task-edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .task-groups {
   display: grid;
   gap: 1.25rem;
@@ -1868,6 +1884,15 @@ details[open] .details-chevron {
   .task-composer {
     grid-template-columns: minmax(0, 1fr) 9rem 5.5rem auto;
     align-items: end;
+  }
+
+  .task-edit-form {
+    grid-template-columns: minmax(0, 1fr) 9rem 5.5rem;
+    align-items: end;
+  }
+
+  .task-edit-actions {
+    grid-column: 1 / -1;
   }
 
   .browser-filters {

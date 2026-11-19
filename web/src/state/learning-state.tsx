@@ -29,6 +29,22 @@ export function learningReducer(state: PersonalLearningState, action: LearningAc
 
       return { ...state, tasks: [...state.tasks, task] }
     }
+    case 'taskEdited': {
+      const title = action.title.trim()
+
+      if (title === '') {
+        return state
+      }
+
+      return {
+        ...state,
+        tasks: state.tasks.map((task) =>
+          task.id === action.taskId
+            ? { ...task, title, topicId: action.topicId, estimatedMinutes: action.estimatedMinutes }
+            : task,
+        ),
+      }
+    }
     case 'taskCompleted': {
       return {
         ...state,
