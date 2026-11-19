@@ -22,7 +22,7 @@ export interface NoteSummary {
 
 export interface SolutionFile {
   readonly language: string
-  /** Repository-relative path, such as `leetcode/easy/0001. Two Sum/main.go`. */
+  /** Path inside the problem folder, usually just the file name, such as `main.go`. */
   readonly file: string
 }
 

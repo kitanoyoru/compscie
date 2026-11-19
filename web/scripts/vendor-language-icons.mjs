@@ -1,5 +1,6 @@
 // Writes src/data/language-icons.json from tools/languages.json and the simple-icons package.
-// Run it after adding a language to the registry:
+// Only languages the repository has solutions in are written, to keep the bundle small.
+// Run it whenever a solution in a new language lands (a unit test fails until you do):
 //
 //   yarn --cwd web run vendor:icons
 //
@@ -11,6 +12,8 @@
 
 import { readFileSync, writeFileSync } from 'node:fs'
 import * as simpleIcons from 'simple-icons'
+
+import { collectRepositorySnapshot } from './repository-data.mjs'
 
 const REGISTRY_URL = new URL('../../tools/languages.json', import.meta.url)
 const OUTPUT_URL = new URL('../src/data/language-icons.json', import.meta.url)
@@ -189,7 +192,9 @@ function iconPath(language) {
 
 async function main() {
   const { languages } = JSON.parse(readFileSync(REGISTRY_URL, 'utf8'))
-  const entries = [...languages]
+  const used = new Set(collectRepositorySnapshot(new URL('../..', import.meta.url)).counts.languages)
+  const entries = languages
+    .filter((language) => used.has(language.name))
     .sort((left, right) => left.name.localeCompare(right.name))
     .map((language) => ({ language, icon: iconPath(language) }))
     .filter((entry) => entry.icon !== undefined)

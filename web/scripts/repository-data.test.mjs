@@ -32,8 +32,8 @@ test('collects topics, notes, solved problems, and languages', () => {
   assert.deepEqual(snapshot.problems[0]?.tags, ['Array', 'Hash Table'])
   assert.deepEqual(snapshot.problems[0]?.languages, ['Go', 'TypeScript'])
   assert.deepEqual(snapshot.problems[0]?.solutions, [
-    { language: 'Go', file: 'leetcode/easy/0001. Two Sum/main.go' },
-    { language: 'TypeScript', file: 'leetcode/easy/0001. Two Sum/main.ts' },
+    { language: 'Go', file: 'main.go' },
+    { language: 'TypeScript', file: 'main.ts' },
   ])
 
   assert.equal(snapshot.counts.topics, 1)

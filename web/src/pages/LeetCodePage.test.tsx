@@ -96,9 +96,12 @@ describe('LeetCode workspace', () => {
 
     expect(links).toHaveLength(twoSum.solutions.length)
     expect(links[0]).toHaveAccessibleName(
-      `${twoSum.solutions[0]!.language} solution, ${twoSum.solutions[0]!.file.split('/').at(-1)} (opens in a new tab)`,
+      `${twoSum.solutions[0]!.language} solution, ${twoSum.solutions[0]!.file} (opens in a new tab)`,
     )
-    expect(links[0]).toHaveAttribute('href', expect.stringContaining(encodeURIComponent('0001. Two Sum')))
+    expect(links[0]).toHaveAttribute(
+      'href',
+      expect.stringMatching(new RegExp(`${encodeURIComponent('0001. Two Sum')}/${twoSum.solutions[0]!.file}$`)),
+    )
   })
 
   it('records a timed session with a reflection and surfaces it for review', async () => {

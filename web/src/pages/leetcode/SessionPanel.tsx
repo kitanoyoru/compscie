@@ -104,7 +104,7 @@ function SolutionLinks({ problem }: { readonly problem: SolvedProblem }): JSX.El
             <li key={solution.file}>
               <a
                 className="solution-link"
-                href={repositoryFileUrl(solution.file)}
+                href={repositoryFileUrl(`${problem.path}/${solution.file}`)}
                 target="_blank"
                 rel="noreferrer"
                 title={`${filename} on GitHub`}

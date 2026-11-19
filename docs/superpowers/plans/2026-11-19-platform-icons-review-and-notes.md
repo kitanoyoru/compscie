@@ -134,19 +134,19 @@ Deleted: `web/src/data/map-relationships.ts` and its test, `StatTile` (if unused
 **Files:** `web/scripts/vendor-language-icons.mjs` (new), `web/src/data/language-icons.json` (new, committed), `web/src/data/LANGUAGE_ICONS_LICENSE.md` (new), `web/package.json`
 
 - [ ] `yarn --cwd web add -D simple-icons`. Add script `"vendor:icons": "node scripts/vendor-language-icons.mjs"`.
-- [ ] The script reads the registry and imports `* as icons from 'simple-icons'`. For each slug it looks up `icons['si' + PascalCase(slug)]` and writes `{ path, viewBox: '0 0 24 24', source }`.
+- [ ] The script reads the registry and imports `* as icons from 'simple-icons'`. For each slug it looks up `icons['si' + PascalCase(slug)]` and writes `{ path, viewBox, aspect, source }`. Glyph boxes are measured in Chromium (Playwright) so wide wordmarks such as Go get a tight `viewBox` and render up to 1.75 times wider instead of smaller. _(Implemented: only languages the repository uses are vendored, to keep the bundle small.)_
 - [ ] Gaps:
   - **Java:** check for a Java or OpenJDK export (`siOpenjdk`). If neither fits, copy the devicon "java-plain" path by hand (MIT), set `source: "devicon"` and its own `viewBox`, and record the MIT notice in `LANGUAGE_ICONS_LICENSE.md`.
   - **SQL:** no brand mark. Use a stroke-style database glyph (cylinder) drawn in the 24×24 grid, `source: "local"`.
   - **Shell:** `siGnubash`.
-  - Languages in the registry but not in the repository (Haskell, PHP, and so on) may stay without an icon. The component falls back to a monogram (Task 4).
+  - Languages in the registry but not in the repository (Haskell, PHP, and so on) get no icon. The component falls back to a monogram (Task 4), and a unit test fails until a newly used language is vendored.
 - [ ] Colors: for each language compute `light` and `dark` variants from `color`. Darken (light theme) or lighten (dark theme) in HSL lightness steps of 2% until contrast is ≥ 3:1 against **every** background the icon can sit on:
   - Light theme: `--surface #fcfcfb`, `--surface-sunken #f1f1ed`, `--surface-hover #efefea`.
   - Dark theme: `--surface #1a1a19`, `--surface-sunken #161615`, `--surface-hover #232321`.
 
   Keep the original value when it already passes. Several linguist colors fail on light surfaces as-is (JavaScript `#F1E05A`, Shell `#89E051`, Rust `#DEA584`, Go `#00ADD8`), so this step is required.
 
-- [ ] Output shape: `{ "Go": { "path": "…", "viewBox": "0 0 24 24", "source": "simple-icons", "light": "#…", "dark": "#…" } }`, keys sorted.
+- [ ] Output shape: `{ "Go": { "path": "…", "viewBox": "-0.5 4.86 25 14.29", "aspect": 1.75, "source": "simple-icons:go", "light": "#…", "dark": "#…" } }`, keys sorted.
 - [ ] `LANGUAGE_ICONS_LICENSE.md`: simple-icons is CC0 (no notice required, credit given anyway). Add the devicon MIT notice if used. Brand marks remain trademarks of their owners and are used here only to identify languages.
 - [ ] Commit: `feat(platform): vendor language icons with theme-safe brand colors`.
 
@@ -161,7 +161,7 @@ Deleted: `web/src/data/map-relationships.ts` and its test, `StatTile` (if unused
 ```ts
 export interface SolutionFile {
   readonly language: string
-  /** Repository-relative path, e.g. `leetcode/easy/0001. Two Sum/main.go`. */
+  /** Path inside the problem folder, usually just `main.go` (keeps the snapshot small). */
   readonly file: string
 }
 
@@ -233,7 +233,7 @@ Non-decorative icons render `role="img"` with `aria-label={language}`. All icons
 
 - [ ] **Problem rows:** replace `.problem-languages` text with `<LanguageIconList languages={problem.languages} max={5} decorative />`. Append `, solved in Go, TypeScript` to the row button's `aria-label`.
 - [ ] **Language filter:** replace the `<select>` with a toggle group: `role="group" aria-label="Language"`, an "All" button first, then one icon button per language **sorted by count, highest first**. Each button: icon plus count, `aria-pressed`, accessible name `Go, 421 problems`. It keeps the same `language` URL param, so `/leetcode?language=Go` deep links still work. Buttons wrap on narrow screens.
-- [ ] **Session panel:** replace "Solved in …" with one `lang-chip` link per `solutions` entry, pointing to `repositoryFileUrl(file)`, accessible name `Go solution (opens in a new tab)`. Task 15 turns these into viewer tabs.
+- [ ] **Session panel:** replace "Solved in …" with one `lang-chip` link per `solutions` entry, pointing to ``repositoryFileUrl(`${problem.path}/${file}`)``, accessible name `Go solution, main.go (opens in a new tab)`. Task 15 turns these into viewer tabs.
 - [ ] **Knowledge Map chart:** extend `BarListItem` with optional `icon?: ReactNode` and `color?: string`. With `icon`, the visible label is the icon only; the link keeps `aria-label={label}` and `title`. With `color`, the bar fill uses `--bar-color` (set the light and dark values the same way `.lang-icon` does). Turn the "Also: Zig (3), …" footnote into an icon list with counts.
 - [ ] Update tests: `LeetCodePage.test.tsx` and `ProblemBrowser.test.tsx` switch from `selectOptions` to clicking `{ name: /^go,/i }`. `KnowledgeMapPage.test.tsx:69` (`link` named `Go`) should still pass.
 - [ ] Run `make platform-test`, `make platform-e2e` (contrast in both schemes).
@@ -457,7 +457,7 @@ export async function loadSolutions(
 
 - [ ] The viewer is **collapsed by default** behind a "Show my solution" disclosure button (`aria-expanded`). Reviewing should start from memory, not from the answer. It does not remember the open state.
 - [ ] When open: a tablist (`role="tablist" aria-label="Solutions"`), one tab per solution file showing its `LanguageIcon` (tab name `Go`, or `Python (2)` for a second file in the same language). Roving tabindex with Left/Right/Home/End per the WAI-ARIA tabs pattern.
-- [ ] The tab panel holds the `CodeBlock`. It is a focusable scroll region (`tabIndex={0}`, labelled) so axe's `scrollable-region-focusable` passes. Toolbar: "Copy" (Clipboard API, toast "Copied"), line count, "View on GitHub" (`repositoryFileUrl`).
+- [ ] The tab panel holds the `CodeBlock`. It is a focusable scroll region (`tabIndex={0}`, labelled) so axe's `scrollable-region-focusable` passes. Toolbar: "Copy" (Clipboard API, toast "Copied"), line count, "View on GitHub" (``repositoryFileUrl(`${problem.path}/${file}`)``).
 - [ ] The language chips from Task 5 are replaced by this viewer. Keep the "My solutions" folder link.
 - [ ] States: loading (skeleton with `aria-busy`), missing content (dev server before generation): "Solution not built yet. Run `yarn --cwd web run generate:data`." plus the GitHub link.
 - [ ] Tests mock `../../data/content`: disclosure, tab keyboard navigation, copy calls `navigator.clipboard.writeText`, axe with the viewer open. e2e: open problem 1, expand the viewer, run the contrast check in both schemes.

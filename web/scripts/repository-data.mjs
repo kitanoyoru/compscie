@@ -200,7 +200,10 @@ function loadProblemIndex(repoRoot) {
 
 const NESTED_PROBLEM_FOLDER = /^\s*\d{1,4}\./
 
-/** Solution files under a problem folder, with their language, sorted by language then path. */
+/**
+ * Solution files under a problem folder, with their language, sorted by language then path.
+ * `file` is relative to the problem folder (usually just `main.go`) to keep the snapshot small.
+ */
 function collectSolutions(repoRoot, problemRoot) {
   const solutions = []
 
@@ -229,7 +232,7 @@ function collectSolutions(repoRoot, problemRoot) {
 
       const language = LANGUAGE_NAMES[path.extname(entry.name).toLowerCase()]
       if (language) {
-        solutions.push({ language, file: relativePath(repoRoot, entryPath) })
+        solutions.push({ language, file: toPosix(path.relative(problemRoot, entryPath)) })
       }
     }
   }

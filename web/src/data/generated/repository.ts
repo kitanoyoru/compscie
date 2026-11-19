@@ -214,27 +214,27 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Dart",
-          "file": "leetcode/easy/0001. Two Sum/main.dart"
+          "file": "main.dart"
         },
         {
           "language": "Elixir",
-          "file": "leetcode/easy/0001. Two Sum/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/0001. Two Sum/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0001. Two Sum/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Swift",
-          "file": "leetcode/easy/0001. Two Sum/main.swift"
+          "file": "main.swift"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0001. Two Sum/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0001. Two Sum"
@@ -255,11 +255,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0002. Add Two Numbers/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0002. Add Two Numbers/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0002. Add Two Numbers"
@@ -280,11 +280,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0003. Longest Substring Without Repeating Characters/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0003. Longest Substring Without Repeating Characters/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0003. Longest Substring Without Repeating Characters"
@@ -305,11 +305,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0005. Longest Palindromic Substring/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0005. Longest Palindromic Substring/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0005. Longest Palindromic Substring"
@@ -327,7 +327,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0007. Reverse Integer/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0007. Reverse Integer"
@@ -346,11 +346,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0009. Palindrome Number/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0009. Palindrome Number/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0009. Palindrome Number"
@@ -370,7 +370,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0011. Container With Most Water/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0011. Container With Most Water"
@@ -390,7 +390,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0012. Integer to Roman/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/medium/0012. Integer to Roman"
@@ -410,7 +410,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0013. Roman to Integer/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0013. Roman to Integer"
@@ -430,7 +430,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0014. Longest Common Prefix/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0014. Longest Common Prefix"
@@ -451,11 +451,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0015. 3Sum/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0015. 3Sum/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0015. 3Sum"
@@ -476,11 +476,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0017. Letter Combinations of a Phone Number/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0017. Letter Combinations of a Phone Number/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0017. Letter Combinations of a Phone Number"
@@ -499,7 +499,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0019. Remove Nth Node From End of List/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0019. Remove Nth Node From End of List"
@@ -519,11 +519,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/0020. Valid Parentheses/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0020. Valid Parentheses/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0020. Valid Parentheses"
@@ -543,11 +543,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0021. Merge Two Sorted Lists/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0021. Merge Two Sorted Lists/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0021. Merge Two Sorted Lists"
@@ -567,7 +567,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0022. Generate Parentheses/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0022. Generate Parentheses"
@@ -586,7 +586,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0024. Swap Nodes in Pairs/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0024. Swap Nodes in Pairs"
@@ -605,7 +605,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0027. Remove Element/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0027. Remove Element"
@@ -626,11 +626,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0028. Find the Index of the First Occurrence in a String/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0028. Find the Index of the First Occurrence in a String/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0028. Find the Index of the First Occurrence in a String"
@@ -650,7 +650,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/hard/0030. Substring with Concatenation of All Words/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/hard/0030. Substring with Concatenation of All Words"
@@ -672,19 +672,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0033. Search in Rotated Sorted Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0033. Search in Rotated Sorted Array/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0033. Search in Rotated Sorted Array/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0033. Search in Rotated Sorted Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0033. Search in Rotated Sorted Array"
@@ -705,15 +705,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0034. Find First and Last Position of Element in Sorted Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0034. Find First and Last Position of Element in Sorted Array/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0034. Find First and Last Position of Element in Sorted Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0034. Find First and Last Position of Element in Sorted Array"
@@ -734,15 +734,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0035. Search Insert Position/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0035. Search Insert Position/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0035. Search Insert Position/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0035. Search Insert Position"
@@ -763,11 +763,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0036. Valid Sudoku/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0036. Valid Sudoku/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0036. Valid Sudoku"
@@ -785,7 +785,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0038. Count and Say/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0038. Count and Say"
@@ -804,7 +804,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0039. Combination Sum/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0039. Combination Sum"
@@ -823,7 +823,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0040. Combination Sum II/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0040. Combination Sum II"
@@ -843,7 +843,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0043. Multiply Strings/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0043. Multiply Strings"
@@ -863,7 +863,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0045. Jump Game II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0045. Jump Game II"
@@ -883,11 +883,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0046. Permutations/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0046. Permutations/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0046. Permutations"
@@ -907,7 +907,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0047. Permutations II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0047. Permutations II"
@@ -928,11 +928,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0048. Rotate Image/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0048. Rotate Image/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0048. Rotate Image"
@@ -956,19 +956,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0049. Group Anagrams/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0049. Group Anagrams/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0049. Group Anagrams/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0049. Group Anagrams/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0049. Group Anagrams"
@@ -988,11 +988,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0050. Pow(x, n)/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0050. Pow(x, n)/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0050. Pow(x, n)"
@@ -1013,11 +1013,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0053. Maximum Subarray/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0053. Maximum Subarray/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0053. Maximum Subarray"
@@ -1039,15 +1039,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0054. Spiral Matrix/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0054. Spiral Matrix/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0054. Spiral Matrix/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0054. Spiral Matrix"
@@ -1071,23 +1071,23 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C++",
-          "file": "leetcode/medium/0055. Jump Game/main.cpp"
+          "file": "main.cpp"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/0055. Jump Game/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0055. Jump Game/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0055. Jump Game/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0055. Jump Game/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0055. Jump Game"
@@ -1106,7 +1106,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0056. Merge Intervals/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0056. Merge Intervals"
@@ -1126,15 +1126,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0058. Length of Last Word/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0058. Length of Last Word/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0058. Length of Last Word/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0058. Length of Last Word"
@@ -1155,11 +1155,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0059. Spiral Matrix II/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0059. Spiral Matrix II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0059. Spiral Matrix II"
@@ -1181,15 +1181,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0062. Unique Paths/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0062. Unique Paths/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0062. Unique Paths/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0062. Unique Paths"
@@ -1210,11 +1210,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0063. Unique Paths II/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0063. Unique Paths II/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/0063. Unique Paths II"
@@ -1236,15 +1236,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0064. Minimum Path Sum/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0064. Minimum Path Sum/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0064. Minimum Path Sum/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0064. Minimum Path Sum"
@@ -1265,15 +1265,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0066. Plus One/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0066. Plus One/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0066. Plus One/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0066. Plus One"
@@ -1295,11 +1295,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0067. Add Binary/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0067. Add Binary/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0067. Add Binary"
@@ -1319,11 +1319,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0069. Sqrt(x)/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0069. Sqrt(x)/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0069. Sqrt(x)"
@@ -1346,19 +1346,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0070. Climbing Stairs/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0070. Climbing Stairs/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0070. Climbing Stairs/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0070. Climbing Stairs/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0070. Climbing Stairs"
@@ -1379,15 +1379,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0071. Simplify Path/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0071. Simplify Path/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0071. Simplify Path/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0071. Simplify Path"
@@ -1406,7 +1406,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0072. Edit Distance/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0072. Edit Distance"
@@ -1429,19 +1429,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0074. Search a 2D Matrix/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0074. Search a 2D Matrix/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0074. Search a 2D Matrix/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0074. Search a 2D Matrix/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0074. Search a 2D Matrix"
@@ -1461,7 +1461,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0075. Sort Colors/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0075. Sort Colors"
@@ -1480,11 +1480,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0077. Combinations/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0077. Combinations/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0077. Combinations"
@@ -1504,7 +1504,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0078. Subsets/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0078. Subsets"
@@ -1527,11 +1527,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0079. Word Search/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0079. Word Search/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0079. Word Search"
@@ -1550,7 +1550,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/medium/0081. Search in Rotated Sorted Array II/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0081. Search in Rotated Sorted Array II"
@@ -1571,15 +1571,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0082. Remove Duplicates from Sorted List II/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0082. Remove Duplicates from Sorted List II/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0082. Remove Duplicates from Sorted List II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0082. Remove Duplicates from Sorted List II"
@@ -1597,7 +1597,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0083. Remove Duplicates from Sorted List/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0083. Remove Duplicates from Sorted List"
@@ -1617,11 +1617,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0086. Partition List/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0086. Partition List/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0086. Partition List"
@@ -1641,7 +1641,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0088. Merge Sorted Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0088. Merge Sorted Array"
@@ -1661,7 +1661,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0089. Gray Code/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0089. Gray Code"
@@ -1681,7 +1681,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0090. Subsets II/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0090. Subsets II"
@@ -1702,15 +1702,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0091. Decode Ways/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0091. Decode Ways/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0091. Decode Ways/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0091. Decode Ways"
@@ -1730,15 +1730,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0092. Reverse Linked List II/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0092. Reverse Linked List II/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0092. Reverse Linked List II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0092. Reverse Linked List II"
@@ -1757,7 +1757,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0093. Restore IP Addresses/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0093. Restore IP Addresses"
@@ -1779,11 +1779,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0094. Binary Tree Inorder Traversal/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0094. Binary Tree Inorder Traversal/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0094. Binary Tree Inorder Traversal"
@@ -1807,15 +1807,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0095. Unique Binary Search Trees II/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0095. Unique Binary Search Trees II/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0095. Unique Binary Search Trees II/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0095. Unique Binary Search Trees II"
@@ -1837,7 +1837,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0096. Unique Binary Search Trees/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0096. Unique Binary Search Trees"
@@ -1856,7 +1856,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0097. Interleaving String/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0097. Interleaving String"
@@ -1877,7 +1877,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0098. Validate Binary Search Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0098. Validate Binary Search Tree"
@@ -1899,11 +1899,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0099. Recover Binary Search Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0099. Recover Binary Search Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0099. Recover Binary Search Tree"
@@ -1924,7 +1924,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0100. Same Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0100. Same Tree"
@@ -1948,19 +1948,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0101. Symmetric Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0101. Symmetric Tree/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0101. Symmetric Tree/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0101. Symmetric Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0101. Symmetric Tree"
@@ -1983,19 +1983,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0102. Binary Tree Level Order Traversal/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0102. Binary Tree Level Order Traversal/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0102. Binary Tree Level Order Traversal/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0102. Binary Tree Level Order Traversal/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0102. Binary Tree Level Order Traversal"
@@ -2016,11 +2016,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0103. Binary Tree Zigzag Level Order Traversal/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0103. Binary Tree Zigzag Level Order Traversal/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0103. Binary Tree Zigzag Level Order Traversal"
@@ -2044,19 +2044,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0104. Maximum Depth of Binary Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0104. Maximum Depth of Binary Tree/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0104. Maximum Depth of Binary Tree/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0104. Maximum Depth of Binary Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0104. Maximum Depth of Binary Tree"
@@ -2078,7 +2078,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0105. Construct Binary Tree from Preorder and Inorder Traversal/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0105. Construct Binary Tree from Preorder and Inorder Traversal"
@@ -2099,11 +2099,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0107. Binary Tree Level Order Traversal II/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0107. Binary Tree Level Order Traversal II/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/medium/0107. Binary Tree Level Order Traversal II"
@@ -2126,11 +2126,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0108. Convert Sorted Array to Binary Search Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0108. Convert Sorted Array to Binary Search Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0108. Convert Sorted Array to Binary Search Tree"
@@ -2152,7 +2152,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0109. Convert Sorted List to Binary Search Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0109. Convert Sorted List to Binary Search Tree"
@@ -2175,19 +2175,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C++",
-          "file": "leetcode/easy/0110. Balanced Binary Tree/main.cpp"
+          "file": "main.cpp"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/0110. Balanced Binary Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0110. Balanced Binary Tree/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0110. Balanced Binary Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0110. Balanced Binary Tree"
@@ -2211,19 +2211,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0111. Minimum Depth of Binary Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0111. Minimum Depth of Binary Tree/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0111. Minimum Depth of Binary Tree/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0111. Minimum Depth of Binary Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0111. Minimum Depth of Binary Tree"
@@ -2245,11 +2245,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0112. Path Sum/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0112. Path Sum/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0112. Path Sum"
@@ -2271,11 +2271,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/0113. Path Sum II/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0113. Path Sum II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0113. Path Sum II"
@@ -2298,11 +2298,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0114. Flatten Binary Tree to Linked List/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0114. Flatten Binary Tree to Linked List/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/medium/0114. Flatten Binary Tree to Linked List"
@@ -2324,7 +2324,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0116. Populating Next Right Pointers in Each Node/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/medium/0116. Populating Next Right Pointers in Each Node"
@@ -2345,15 +2345,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0118. Pascal's Triangle/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0118. Pascal's Triangle/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0118. Pascal's Triangle/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0118. Pascal's Triangle"
@@ -2372,7 +2372,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0119. Pascal's Triangle II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0119. Pascal's Triangle II"
@@ -2391,7 +2391,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0120. Triangle/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0120. Triangle"
@@ -2412,15 +2412,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0121. Best Time to Buy and Sell Stock/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0121. Best Time to Buy and Sell Stock/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0121. Best Time to Buy and Sell Stock/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0121. Best Time to Buy and Sell Stock"
@@ -2442,11 +2442,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/hard/0124. Binary Tree Maximum Path Sum/main.c"
+          "file": "main.c"
         },
         {
           "language": "Go",
-          "file": "leetcode/hard/0124. Binary Tree Maximum Path Sum/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/hard/0124. Binary Tree Maximum Path Sum"
@@ -2465,7 +2465,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/0125. Valid Palindrome/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/0125. Valid Palindrome"
@@ -2487,15 +2487,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0129. Sum Root to Leaf Numbers/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0129. Sum Root to Leaf Numbers/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0129. Sum Root to Leaf Numbers/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0129. Sum Root to Leaf Numbers"
@@ -2517,11 +2517,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0133. Clone Graph/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0133. Clone Graph/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0133. Clone Graph"
@@ -2542,15 +2542,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0136. Single Number/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0136. Single Number/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0136. Single Number/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0136. Single Number"
@@ -2574,11 +2574,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0139. Word Break/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0139. Word Break/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0139. Word Break"
@@ -2599,11 +2599,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0141. Linked List Cycle/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0141. Linked List Cycle/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0141. Linked List Cycle"
@@ -2626,15 +2626,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0144. Binary Tree Preorder Traversal/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0144. Binary Tree Preorder Traversal/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0144. Binary Tree Preorder Traversal/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0144. Binary Tree Preorder Traversal"
@@ -2655,7 +2655,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0145. Binary Tree Postorder Traversal/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0145. Binary Tree Postorder Traversal"
@@ -2676,11 +2676,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0150. Evaluate Reverse Polish Notation/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0150. Evaluate Reverse Polish Notation/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0150. Evaluate Reverse Polish Notation"
@@ -2699,7 +2699,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0152. Maximum Product Subarray/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0152. Maximum Product Subarray"
@@ -2720,15 +2720,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0153. Find Minimum in Rotated Sorted Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0153. Find Minimum in Rotated Sorted Array/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0153. Find Minimum in Rotated Sorted Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0153. Find Minimum in Rotated Sorted Array"
@@ -2748,7 +2748,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0160. Intersection of Two Linked Lists/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0160. Intersection of Two Linked Lists"
@@ -2767,7 +2767,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0162. Find Peak Element/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/medium/0162. Find Peak Element"
@@ -2789,15 +2789,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0167. Two Sum II - Input Array Is Sorted/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0167. Two Sum II - Input Array Is Sorted/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0167. Two Sum II - Input Array Is Sorted/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0167. Two Sum II - Input Array Is Sorted"
@@ -2817,11 +2817,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0168. Excel Sheet Column Title/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0168. Excel Sheet Column Title/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/0168. Excel Sheet Column Title"
@@ -2843,7 +2843,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0169. Majority Element/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0169. Majority Element"
@@ -2868,15 +2868,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C++",
-          "file": "leetcode/medium/0173. Binary Search Tree Iterator/main.cpp"
+          "file": "main.cpp"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0173. Binary Search Tree Iterator/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0173. Binary Search Tree Iterator/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0173. Binary Search Tree Iterator"
@@ -2894,7 +2894,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0175. Combine Two Tables/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0175. Combine Two Tables"
@@ -2913,11 +2913,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/0176. Second Highest Salary/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/medium/0176. Second Highest Salary/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/medium/0176. Second Highest Salary"
@@ -2936,11 +2936,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/0177. Nth Highest Salary/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/medium/0177. Nth Highest Salary/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/medium/0177. Nth Highest Salary"
@@ -2958,7 +2958,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0181. Employees Earning More Than Their Managers/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0181. Employees Earning More Than Their Managers"
@@ -2976,7 +2976,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0182. Duplicate Emails/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0182. Duplicate Emails"
@@ -2994,7 +2994,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/0183. Customers Who Never Order/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/0183. Customers Who Never Order"
@@ -3012,7 +3012,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/0184. Department Highest Salary/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/0184. Department Highest Salary"
@@ -3030,7 +3030,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/hard/0185. Department Top Three Salaries/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/hard/0185. Department Top Three Salaries"
@@ -3053,7 +3053,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0187. Repeated DNA Sequences/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0187. Repeated DNA Sequences"
@@ -3073,7 +3073,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0189. Rotate Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0189. Rotate Array"
@@ -3092,7 +3092,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/0190. Reverse Bits/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0190. Reverse Bits"
@@ -3114,19 +3114,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0191. Number of 1 Bits/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0191. Number of 1 Bits/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0191. Number of 1 Bits/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0191. Number of 1 Bits/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0191. Number of 1 Bits"
@@ -3144,7 +3144,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Shell",
-          "file": "leetcode/easy/0195. Tenth Line/main.sh"
+          "file": "main.sh"
         }
       ],
       "path": "leetcode/easy/0195. Tenth Line"
@@ -3163,11 +3163,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/0196. Delete Duplicate Emails/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/easy/0196. Delete Duplicate Emails/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0196. Delete Duplicate Emails"
@@ -3185,7 +3185,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0197. Rising Temperature/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0197. Rising Temperature"
@@ -3207,19 +3207,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C++",
-          "file": "leetcode/medium/0198. House Robber/main.cpp"
+          "file": "main.cpp"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/0198. House Robber/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0198. House Robber/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0198. House Robber/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0198. House Robber"
@@ -3240,7 +3240,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0199. Binary Tree Right Side View/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/medium/0199. Binary Tree Right Side View"
@@ -3264,15 +3264,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0200. Number of Islands/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0200. Number of Islands/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0200. Number of Islands/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0200. Number of Islands"
@@ -3292,7 +3292,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0202. Happy Number/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0202. Happy Number"
@@ -3311,7 +3311,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0203. Remove Linked List Elements/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0203. Remove Linked List Elements"
@@ -3330,7 +3330,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0205. Isomorphic Strings/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0205. Isomorphic Strings"
@@ -3351,15 +3351,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0206. Reverse Linked List/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0206. Reverse Linked List/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0206. Reverse Linked List/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0206. Reverse Linked List"
@@ -3381,11 +3381,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0208. Implement Trie (Prefix Tree)/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0208. Implement Trie (Prefix Tree)/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/0208. Implement Trie (Prefix Tree)"
@@ -3406,7 +3406,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0210. Course Schedule II/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0210. Course Schedule II"
@@ -3427,7 +3427,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0211. Design Add and Search Words Data Structure/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0211. Design Add and Search Words Data Structure"
@@ -3446,7 +3446,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0213. House Robber II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0213. House Robber II"
@@ -3471,19 +3471,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0215. Kth Largest Element in an Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0215. Kth Largest Element in an Array/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0215. Kth Largest Element in an Array/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0215. Kth Largest Element in an Array/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0215. Kth Largest Element in an Array"
@@ -3507,23 +3507,23 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0217. Contains Duplicate/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0217. Contains Duplicate/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0217. Contains Duplicate/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Swift",
-          "file": "leetcode/easy/0217. Contains Duplicate/main.swift"
+          "file": "main.swift"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0217. Contains Duplicate/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0217. Contains Duplicate"
@@ -3545,15 +3545,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0219. Contains Duplicate II/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0219. Contains Duplicate II/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0219. Contains Duplicate II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0219. Contains Duplicate II"
@@ -3573,7 +3573,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0221. Maximal Square/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0221. Maximal Square"
@@ -3595,11 +3595,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0222. Count Complete Tree Nodes/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0222. Count Complete Tree Nodes/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0222. Count Complete Tree Nodes"
@@ -3620,11 +3620,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0225. Implement Stack using Queues/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0225. Implement Stack using Queues/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0225. Implement Stack using Queues"
@@ -3648,19 +3648,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0226. Invert Binary Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0226. Invert Binary Tree/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0226. Invert Binary Tree/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0226. Invert Binary Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0226. Invert Binary Tree"
@@ -3681,7 +3681,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C++",
-          "file": "leetcode/medium/0230. Kth Smallest Element in a BST/main.cpp"
+          "file": "main.cpp"
         }
       ],
       "path": "leetcode/medium/0230. Kth Smallest Element in a BST"
@@ -3704,19 +3704,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0231. Power of Two/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0231. Power of Two/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0231. Power of Two/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0231. Power of Two/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0231. Power of Two"
@@ -3737,11 +3737,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0232. Implement Queue using Stacks/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0232. Implement Queue using Stacks/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0232. Implement Queue using Stacks"
@@ -3762,7 +3762,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0234. Palindrome Linked List/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0234. Palindrome Linked List"
@@ -3784,11 +3784,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0235. Lowest Common Ancestor of a Binary Search Tree/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0235. Lowest Common Ancestor of a Binary Search Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0235. Lowest Common Ancestor of a Binary Search Tree"
@@ -3808,7 +3808,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0236. Lowest Common Ancestor of a Binary Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0236. Lowest Common Ancestor of a Binary Tree"
@@ -3827,7 +3827,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0238. Product of Array Except Self/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/medium/0238. Product of Array Except Self"
@@ -3849,7 +3849,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/0239. Sliding Window Maximum/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/hard/0239. Sliding Window Maximum"
@@ -3870,7 +3870,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0240. Search a 2D Matrix II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0240. Search a 2D Matrix II"
@@ -3892,15 +3892,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0242. Valid Anagram/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0242. Valid Anagram/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0242. Valid Anagram/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0242. Valid Anagram"
@@ -3923,11 +3923,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0257. Binary Tree Paths/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0257. Binary Tree Paths/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0257. Binary Tree Paths"
@@ -3947,7 +3947,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0258. Add Digits/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0258. Add Digits"
@@ -3968,19 +3968,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0263. Ugly Number/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0263. Ugly Number/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0263. Ugly Number/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0263. Ugly Number/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0263. Ugly Number"
@@ -4007,31 +4007,31 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/medium/0264. Ugly Number II/main.c"
+          "file": "main.c"
         },
         {
           "language": "Elixir",
-          "file": "leetcode/medium/0264. Ugly Number II/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/0264. Ugly Number II/main.go"
+          "file": "main.go"
         },
         {
           "language": "JavaScript",
-          "file": "leetcode/medium/0264. Ugly Number II/main.js"
+          "file": "main.js"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0264. Ugly Number II/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0264. Ugly Number II/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0264. Ugly Number II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0264. Ugly Number II"
@@ -4054,7 +4054,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0268. Missing Number/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0268. Missing Number"
@@ -4075,15 +4075,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0278. First Bad Version/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0278. First Bad Version/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0278. First Bad Version/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0278. First Bad Version"
@@ -4103,7 +4103,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0279. Perfect Squares/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0279. Perfect Squares"
@@ -4122,7 +4122,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0283. Move Zeroes/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0283. Move Zeroes"
@@ -4142,11 +4142,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0290. Word Pattern/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0290. Word Pattern/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0290. Word Pattern"
@@ -4167,7 +4167,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0304. Range Sum Query 2D - Immutable/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0304. Range Sum Query 2D - Immutable"
@@ -4188,7 +4188,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0310. Minimum Height Trees/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0310. Minimum Height Trees"
@@ -4212,19 +4212,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0316. Remove Duplicate Letters/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0316. Remove Duplicate Letters/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0316. Remove Duplicate Letters/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0316. Remove Duplicate Letters/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0316. Remove Duplicate Letters"
@@ -4244,11 +4244,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/0326. Power of Three/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0326. Power of Three/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0326. Power of Three"
@@ -4266,7 +4266,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0328. Odd Even Linked List/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0328. Odd Even Linked List"
@@ -4286,11 +4286,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/0330. Patching Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/hard/0330. Patching Array/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/hard/0330. Patching Array"
@@ -4315,11 +4315,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/0332. Reconstruct Itinerary/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/hard/0332. Reconstruct Itinerary/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/hard/0332. Reconstruct Itinerary"
@@ -4340,15 +4340,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0338. Counting Bits/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0338. Counting Bits/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0338. Counting Bits/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0338. Counting Bits"
@@ -4371,7 +4371,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0341. Flatten Nested List Iterator/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0341. Flatten Nested List Iterator"
@@ -4391,7 +4391,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0342. Power of Four/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0342. Power of Four"
@@ -4417,35 +4417,35 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/easy/0344. Reverse String/main.c"
+          "file": "main.c"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/0344. Reverse String/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0344. Reverse String/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0344. Reverse String/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0344. Reverse String/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Scala",
-          "file": "leetcode/easy/0344. Reverse String/main.scala"
+          "file": "main.scala"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0344. Reverse String/main.ts"
+          "file": "main.ts"
         },
         {
           "language": "Zig",
-          "file": "leetcode/easy/0344. Reverse String/main.zig"
+          "file": "main.zig"
         }
       ],
       "path": "leetcode/easy/0344. Reverse String"
@@ -4464,7 +4464,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0345. Reverse Vowels of a String/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0345. Reverse Vowels of a String"
@@ -4489,7 +4489,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0347. Top K Frequent Elements/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/medium/0347. Top K Frequent Elements"
@@ -4518,35 +4518,35 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/easy/0349. Intersection of Two Arrays/main.c"
+          "file": "main.c"
         },
         {
           "language": "Elixir",
-          "file": "leetcode/easy/0349. Intersection of Two Arrays/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/0349. Intersection of Two Arrays/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0349. Intersection of Two Arrays/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0349. Intersection of Two Arrays/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0349. Intersection of Two Arrays/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Swift",
-          "file": "leetcode/easy/0349. Intersection of Two Arrays/main.swift"
+          "file": "main.swift"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0349. Intersection of Two Arrays/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0349. Intersection of Two Arrays"
@@ -4568,7 +4568,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0350. Intersection of Two Arrays II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0350. Intersection of Two Arrays II"
@@ -4588,11 +4588,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0367. Valid Perfect Square/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0367. Valid Perfect Square/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0367. Valid Perfect Square"
@@ -4612,11 +4612,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0374. Guess Number Higher or Lower/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0374. Guess Number Higher or Lower/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0374. Guess Number Higher or Lower"
@@ -4638,7 +4638,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0380. Insert Delete GetRandom O(1)/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0380. Insert Delete GetRandom O(1)"
@@ -4659,11 +4659,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0383. Ransom Note/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0383. Ransom Note/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0383. Ransom Note"
@@ -4682,7 +4682,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0386. Lexicographical Numbers/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0386. Lexicographical Numbers"
@@ -4703,7 +4703,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0387. First Unique Character in a String/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0387. First Unique Character in a String"
@@ -4725,11 +4725,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0389. Find the Difference/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0389. Find the Difference/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0389. Find the Difference"
@@ -4749,7 +4749,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0392. Is Subsequence/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0392. Is Subsequence"
@@ -4768,7 +4768,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0401. Binary Watch/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0401. Binary Watch"
@@ -4789,7 +4789,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0404. Sum of Left Leaves/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0404. Sum of Left Leaves"
@@ -4809,7 +4809,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0409. Longest Palindrome/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0409. Longest Palindrome"
@@ -4832,19 +4832,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0413. Arithmetic Slices/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0413. Arithmetic Slices/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0413. Arithmetic Slices/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0413. Arithmetic Slices/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0413. Arithmetic Slices"
@@ -4863,7 +4863,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0414. Third Maximum Number/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0414. Third Maximum Number"
@@ -4883,7 +4883,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0415. Add Strings/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0415. Add Strings"
@@ -4905,11 +4905,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0417. Pacific Atlantic Water Flow/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0417. Pacific Atlantic Water Flow/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0417. Pacific Atlantic Water Flow"
@@ -4929,7 +4929,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0419. Battleships in a Board/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0419. Battleships in a Board"
@@ -4950,7 +4950,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0421. Maximum XOR of Two Numbers in an Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0421. Maximum XOR of Two Numbers in an Array"
@@ -4970,7 +4970,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0424. Longest Repeating Character Replacement/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0424. Longest Repeating Character Replacement"
@@ -4991,15 +4991,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0429. N-ary Tree Level Order Traversal/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0429. N-ary Tree Level Order Traversal/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0429. N-ary Tree Level Order Traversal/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0429. N-ary Tree Level Order Traversal"
@@ -5020,7 +5020,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/0432. All O`one Data Structure/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/hard/0432. All O`one Data Structure"
@@ -5043,15 +5043,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0435. Non-overlapping Intervals/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0435. Non-overlapping Intervals/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0435. Non-overlapping Intervals/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0435. Non-overlapping Intervals"
@@ -5073,15 +5073,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0438. Find All Anagrams in a String/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0438. Find All Anagrams in a String/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0438. Find All Anagrams in a String/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0438. Find All Anagrams in a String"
@@ -5100,7 +5100,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0441. Arranging Coins/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0441. Arranging Coins"
@@ -5120,7 +5120,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0442. Find All Duplicates in an Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0442. Find All Duplicates in an Array"
@@ -5141,11 +5141,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/0445. Add Two Numbers II/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0445. Add Two Numbers II/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0445. Add Two Numbers II"
@@ -5164,7 +5164,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0448. Find All Numbers Disappeared in an Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0448. Find All Numbers Disappeared in an Array"
@@ -5184,7 +5184,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0450. Delete Node in a BST/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/medium/0450. Delete Node in a BST"
@@ -5207,7 +5207,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0451. Sort Characters By Frequency/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0451. Sort Characters By Frequency"
@@ -5227,7 +5227,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0452. Minimum Number of Arrows to Burst Balloons/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0452. Minimum Number of Arrows to Burst Balloons"
@@ -5251,19 +5251,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Dart",
-          "file": "leetcode/easy/0455. Assign Cookies/main.dart"
+          "file": "main.dart"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/0455. Assign Cookies/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0455. Assign Cookies/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0455. Assign Cookies/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0455. Assign Cookies"
@@ -5286,11 +5286,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0456. 132 Pattern/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0456. 132 Pattern/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0456. 132 Pattern"
@@ -5311,15 +5311,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0459. Repeated Substring Pattern/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0459. Repeated Substring Pattern/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0459. Repeated Substring Pattern/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0459. Repeated Substring Pattern"
@@ -5343,19 +5343,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0463. Island Perimeter/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0463. Island Perimeter/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0463. Island Perimeter/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0463. Island Perimeter/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0463. Island Perimeter"
@@ -5374,11 +5374,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0476. Number Complement/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0476. Number Complement/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/0476. Number Complement"
@@ -5398,15 +5398,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0485. Max Consecutive Ones/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0485. Max Consecutive Ones/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0485. Max Consecutive Ones/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0485. Max Consecutive Ones"
@@ -5426,7 +5426,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0494. Target Sum/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0494. Target Sum"
@@ -5447,7 +5447,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/0496. Next Greater Element I/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0496. Next Greater Element I"
@@ -5468,11 +5468,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0500. Keyboard Row/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0500. Keyboard Row/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0500. Keyboard Row"
@@ -5497,23 +5497,23 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0501. Find Mode in Binary Search Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0501. Find Mode in Binary Search Tree/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0501. Find Mode in Binary Search Tree/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Swift",
-          "file": "leetcode/easy/0501. Find Mode in Binary Search Tree/main.swift"
+          "file": "main.swift"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0501. Find Mode in Binary Search Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0501. Find Mode in Binary Search Tree"
@@ -5534,11 +5534,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/0503. Next Greater Element II/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0503. Next Greater Element II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0503. Next Greater Element II"
@@ -5558,11 +5558,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0504. Base 7/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0504. Base 7/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/0504. Base 7"
@@ -5581,11 +5581,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0507. Perfect Number/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0507. Perfect Number/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/0507. Perfect Number"
@@ -5606,7 +5606,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0509. Fibonacci Number/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0509. Fibonacci Number"
@@ -5624,7 +5624,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0511. Game Play Analysis I/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0511. Game Play Analysis I"
@@ -5646,11 +5646,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0513. Find Bottom Left Tree Value/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0513. Find Bottom Left Tree Value/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0513. Find Bottom Left Tree Value"
@@ -5670,11 +5670,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0518. Coin Change II/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0518. Coin Change II/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0518. Coin Change II"
@@ -5694,15 +5694,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0520. Detect Capital/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0520. Detect Capital/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0520. Detect Capital/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0520. Detect Capital"
@@ -5723,7 +5723,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0523. Continuous Subarray Sum/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/medium/0523. Continuous Subarray Sum"
@@ -5746,11 +5746,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0530. Minimum Absolute Difference in BST/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0530. Minimum Absolute Difference in BST/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0530. Minimum Absolute Difference in BST"
@@ -5772,11 +5772,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0535. Encode and Decode TinyURL/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0535. Encode and Decode TinyURL/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/0535. Encode and Decode TinyURL"
@@ -5798,11 +5798,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Elixir",
-          "file": "leetcode/medium/0539. Minimum Time Difference/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/0539. Minimum Time Difference/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0539. Minimum Time Difference"
@@ -5821,7 +5821,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0541. Reverse String II/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0541. Reverse String II"
@@ -5844,15 +5844,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0542. 01 Matrix/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0542. 01 Matrix/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0542. 01 Matrix/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0542. 01 Matrix"
@@ -5872,7 +5872,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0543. Diameter of Binary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0543. Diameter of Binary Tree"
@@ -5894,11 +5894,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0547. Number of Provinces/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0547. Number of Provinces/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0547. Number of Provinces"
@@ -5918,15 +5918,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0551. Student Attendance Record I/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0551. Student Attendance Record I/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0551. Student Attendance Record I/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0551. Student Attendance Record I"
@@ -5946,7 +5946,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0556. Next Greater Element III/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0556. Next Greater Element III"
@@ -5968,19 +5968,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0557. Reverse Words in a String III/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0557. Reverse Words in a String III/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0557. Reverse Words in a String III/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0557. Reverse Words in a String III/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0557. Reverse Words in a String III"
@@ -6000,7 +6000,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0559. Maximum Depth of N-ary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0559. Maximum Depth of N-ary Tree"
@@ -6020,7 +6020,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0560. Subarray Sum Equals K/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0560. Subarray Sum Equals K"
@@ -6041,7 +6041,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0561. Array Partition/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0561. Array Partition"
@@ -6062,11 +6062,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/easy/0563. Binary Tree Tilt/main.c"
+          "file": "main.c"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/0563. Binary Tree Tilt/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0563. Binary Tree Tilt"
@@ -6088,15 +6088,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0566. Reshape the Matrix/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0566. Reshape the Matrix/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0566. Reshape the Matrix/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0566. Reshape the Matrix"
@@ -6119,15 +6119,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0567. Permutation in String/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0567. Permutation in String/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0567. Permutation in String/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0567. Permutation in String"
@@ -6149,7 +6149,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0572. Subtree of Another Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0572. Subtree of Another Tree"
@@ -6168,7 +6168,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/0575. Distribute Candies/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0575. Distribute Candies"
@@ -6187,11 +6187,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Dart",
-          "file": "leetcode/medium/0576. Out of Boundary Paths/main.dart"
+          "file": "main.dart"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/0576. Out of Boundary Paths/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0576. Out of Boundary Paths"
@@ -6209,7 +6209,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0577. Employee Bonus/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0577. Employee Bonus"
@@ -6227,7 +6227,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0586. Customer Placing the Largest Number of Orders/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0586. Customer Placing the Largest Number of Orders"
@@ -6247,7 +6247,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0589. N-ary Tree Preorder Traversal/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0589. N-ary Tree Preorder Traversal"
@@ -6267,7 +6267,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0590. N-ary Tree Postorder Traversal/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0590. N-ary Tree Postorder Traversal"
@@ -6289,7 +6289,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0594. Longest Harmonious Subsequence/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0594. Longest Harmonious Subsequence"
@@ -6308,11 +6308,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/0595. Big Countries/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/easy/0595. Big Countries/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0595. Big Countries"
@@ -6330,7 +6330,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0596. Classes With at Least 5 Students/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0596. Classes With at Least 5 Students"
@@ -6350,7 +6350,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0599. Minimum Index Sum of Two Lists/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0599. Minimum Index Sum of Two Lists"
@@ -6369,7 +6369,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0605. Can Place Flowers/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0605. Can Place Flowers"
@@ -6390,7 +6390,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0606. Construct String from Binary Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0606. Construct String from Binary Tree"
@@ -6408,7 +6408,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0607. Sales Person/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0607. Sales Person"
@@ -6426,7 +6426,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/medium/0608. Tree Node/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/medium/0608. Tree Node"
@@ -6444,7 +6444,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0610. Triangle Judgement/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0610. Triangle Judgement"
@@ -6467,15 +6467,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0617. Merge Two Binary Trees/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0617. Merge Two Binary Trees/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0617. Merge Two Binary Trees/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0617. Merge Two Binary Trees"
@@ -6493,7 +6493,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0619. Biggest Single Number/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0619. Biggest Single Number"
@@ -6511,7 +6511,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0620. Not Boring Movies/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0620. Not Boring Movies"
@@ -6538,23 +6538,23 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/medium/0621. Task Scheduler/main.c"
+          "file": "main.c"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/0621. Task Scheduler/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0621. Task Scheduler/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Swift",
-          "file": "leetcode/medium/0621. Task Scheduler/main.swift"
+          "file": "main.swift"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0621. Task Scheduler/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0621. Task Scheduler"
@@ -6576,11 +6576,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/0622. Design Circular Queue/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0622. Design Circular Queue/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0622. Design Circular Queue"
@@ -6598,7 +6598,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/medium/0626. Exchange Seats/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/medium/0626. Exchange Seats"
@@ -6616,7 +6616,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/0627. Swap Sex of Employees/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/0627. Swap Sex of Employees"
@@ -6642,31 +6642,31 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/easy/0628. Maximum Product of Three Numbers/main.c"
+          "file": "main.c"
         },
         {
           "language": "C++",
-          "file": "leetcode/easy/0628. Maximum Product of Three Numbers/main.cpp"
+          "file": "main.cpp"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/0628. Maximum Product of Three Numbers/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0628. Maximum Product of Three Numbers/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0628. Maximum Product of Three Numbers/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Swift",
-          "file": "leetcode/easy/0628. Maximum Product of Three Numbers/main.swift"
+          "file": "main.swift"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0628. Maximum Product of Three Numbers/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0628. Maximum Product of Three Numbers"
@@ -6685,11 +6685,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/0629. K Inverse Pairs Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/hard/0629. K Inverse Pairs Array/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/hard/0629. K Inverse Pairs Array"
@@ -6709,7 +6709,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0633. Sum of Square Numbers/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0633. Sum of Square Numbers"
@@ -6730,7 +6730,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0637. Average of Levels in Binary Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0637. Average of Levels in Binary Tree"
@@ -6751,7 +6751,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0641. Design Circular Deque/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0641. Design Circular Deque"
@@ -6772,15 +6772,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0643. Maximum Average Subarray I/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0643. Maximum Average Subarray I/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0643. Maximum Average Subarray I/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0643. Maximum Average Subarray I"
@@ -6801,7 +6801,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0652. Find Duplicate Subtrees/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0652. Find Duplicate Subtrees"
@@ -6827,15 +6827,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0653. Two Sum IV - Input is a BST/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0653. Two Sum IV - Input is a BST/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0653. Two Sum IV - Input is a BST/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0653. Two Sum IV - Input is a BST"
@@ -6858,7 +6858,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0658. Find K Closest Elements/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0658. Find K Closest Elements"
@@ -6878,11 +6878,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/0664. Strange Printer/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/hard/0664. Strange Printer/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/hard/0664. Strange Printer"
@@ -6905,15 +6905,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0669. Trim a Binary Search Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0669. Trim a Binary Search Tree/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0669. Trim a Binary Search Tree/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0669. Trim a Binary Search Tree"
@@ -6933,7 +6933,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0671. Second Minimum Node In a Binary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0671. Second Minimum Node In a Binary Tree"
@@ -6954,7 +6954,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/medium/0673. Number of Longest Increasing Subsequence/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0673. Number of Longest Increasing Subsequence"
@@ -6976,15 +6976,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0680. Valid Palindrome II/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0680. Valid Palindrome II/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0680. Valid Palindrome II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0680. Valid Palindrome II"
@@ -7006,11 +7006,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0684. Redundant Connection/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0684. Redundant Connection/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/0684. Redundant Connection"
@@ -7037,15 +7037,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0692. Top K Frequent Words/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0692. Top K Frequent Words/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0692. Top K Frequent Words/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0692. Top K Frequent Words"
@@ -7069,15 +7069,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0695. Max Area of Island/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0695. Max Area of Island/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0695. Max Area of Island/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0695. Max Area of Island"
@@ -7096,7 +7096,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/0697. Degree of an Array/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0697. Degree of an Array"
@@ -7117,11 +7117,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0700. Search in a Binary Search Tree/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0700. Search in a Binary Search Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0700. Search in a Binary Search Tree"
@@ -7141,7 +7141,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0701. Insert into a Binary Search Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0701. Insert into a Binary Search Tree"
@@ -7164,7 +7164,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/0703. Kth Largest Element in a Stream/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0703. Kth Largest Element in a Stream"
@@ -7188,27 +7188,27 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Elixir",
-          "file": "leetcode/easy/0704. Binary Search/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/0704. Binary Search/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0704. Binary Search/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0704. Binary Search/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0704. Binary Search/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0704. Binary Search/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0704. Binary Search"
@@ -7231,11 +7231,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0705. Design HashSet/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0705. Design HashSet/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0705. Design HashSet"
@@ -7257,7 +7257,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0706. Design HashMap/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0706. Design HashMap"
@@ -7277,15 +7277,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0709. To Lower Case/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0709. To Lower Case/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0709. To Lower Case/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0709. To Lower Case"
@@ -7304,7 +7304,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0712. Minimum ASCII Delete Sum for Two Strings/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0712. Minimum ASCII Delete Sum for Two Strings"
@@ -7324,15 +7324,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0717. 1-bit and 2-bit Characters/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0717. 1-bit and 2-bit Characters/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0717. 1-bit and 2-bit Characters/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0717. 1-bit and 2-bit Characters"
@@ -7353,15 +7353,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0724. Find Pivot Index/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0724. Find Pivot Index/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0724. Find Pivot Index/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0724. Find Pivot Index"
@@ -7382,7 +7382,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/0726. Number of Atoms/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/hard/0726. Number of Atoms"
@@ -7400,7 +7400,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0728. Self Dividing Numbers/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0728. Self Dividing Numbers"
@@ -7424,15 +7424,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0729. My Calendar I/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0729. My Calendar I/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0729. My Calendar I/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0729. My Calendar I"
@@ -7454,11 +7454,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0733. Flood Fill/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0733. Flood Fill/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0733. Flood Fill"
@@ -7480,15 +7480,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0739. Daily Temperatures/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0739. Daily Temperatures/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0739. Daily Temperatures/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0739. Daily Temperatures"
@@ -7507,7 +7507,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0744. Find Smallest Letter Greater Than Target/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0744. Find Smallest Letter Greater Than Target"
@@ -7528,15 +7528,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0746. Min Cost Climbing Stairs/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0746. Min Cost Climbing Stairs/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0746. Min Cost Climbing Stairs/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0746. Min Cost Climbing Stairs"
@@ -7557,15 +7557,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0747. Largest Number At Least Twice of Others/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0747. Largest Number At Least Twice of Others/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0747. Largest Number At Least Twice of Others/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0747. Largest Number At Least Twice of Others"
@@ -7586,7 +7586,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0763. Partition Labels/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0763. Partition Labels"
@@ -7610,11 +7610,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0767. Reorganize String/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0767. Reorganize String/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0767. Reorganize String"
@@ -7634,11 +7634,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/easy/0771. Jewels and Stones/main.c"
+          "file": "main.c"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/0771. Jewels and Stones/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0771. Jewels and Stones"
@@ -7662,15 +7662,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0783. Minimum Distance Between BST Nodes/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0783. Minimum Distance Between BST Nodes/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0783. Minimum Distance Between BST Nodes/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0783. Minimum Distance Between BST Nodes"
@@ -7690,7 +7690,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0784. Letter Case Permutation/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0784. Letter Case Permutation"
@@ -7711,7 +7711,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0785. Is Graph Bipartite/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0785. Is Graph Bipartite"
@@ -7733,7 +7733,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0786. K-th Smallest Prime Fraction/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0786. K-th Smallest Prime Fraction"
@@ -7754,15 +7754,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0796. Rotate String/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0796. Rotate String/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0796. Rotate String/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0796. Rotate String"
@@ -7784,11 +7784,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0797. All Paths From Source to Target/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0797. All Paths From Source to Target/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0797. All Paths From Source to Target"
@@ -7808,7 +7808,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0804. Unique Morse Code Words/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0804. Unique Morse Code Words"
@@ -7829,7 +7829,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0811. Subdomain Visit Count/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0811. Subdomain Visit Count"
@@ -7850,11 +7850,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0812. Largest Triangle Area/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0812. Largest Triangle Area/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0812. Largest Triangle Area"
@@ -7876,15 +7876,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/0814. Binary Tree Pruning/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0814. Binary Tree Pruning/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0814. Binary Tree Pruning/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0814. Binary Tree Pruning"
@@ -7904,7 +7904,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0821. Shortest Distance to a Character/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0821. Shortest Distance to a Character"
@@ -7928,15 +7928,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0832. Flipping an Image/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0832. Flipping an Image/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0832. Flipping an Image/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0832. Flipping an Image"
@@ -7957,7 +7957,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/0834. Sum of Distances in Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/hard/0834. Sum of Distances in Tree"
@@ -7977,11 +7977,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0835. Image Overlap/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0835. Image Overlap/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/0835. Image Overlap"
@@ -8001,7 +8001,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0838. Push Dominoes/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0838. Push Dominoes"
@@ -8023,15 +8023,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0841. Keys and Rooms/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/medium/0841. Keys and Rooms/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0841. Keys and Rooms/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0841. Keys and Rooms"
@@ -8052,7 +8052,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0844. Backspace String Compare/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0844. Backspace String Compare"
@@ -8071,7 +8071,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0852. Peak Index in a Mountain Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0852. Peak Index in a Mountain Array"
@@ -8090,7 +8090,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0856. Score of Parentheses/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0856. Score of Parentheses"
@@ -8109,7 +8109,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0859. Buddy Strings/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0859. Buddy Strings"
@@ -8131,11 +8131,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0861. Score After Flipping Matrix/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0861. Score After Flipping Matrix/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/0861. Score After Flipping Matrix"
@@ -8157,7 +8157,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/medium/0863. All Nodes Distance K in Binary Tree/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0863. All Nodes Distance K in Binary Tree"
@@ -8180,11 +8180,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0865. Smallest Subtree with all the Deepest Nodes/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0865. Smallest Subtree with all the Deepest Nodes/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0865. Smallest Subtree with all the Deepest Nodes"
@@ -8204,7 +8204,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0867. Transpose Matrix/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0867. Transpose Matrix"
@@ -8226,7 +8226,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0869. Reordered Power of 2/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0869. Reordered Power of 2"
@@ -8247,11 +8247,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0872. Leaf-Similar Trees/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0872. Leaf-Similar Trees/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0872. Leaf-Similar Trees"
@@ -8271,11 +8271,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0875. Koko Eating Bananas/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0875. Koko Eating Bananas/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0875. Koko Eating Bananas"
@@ -8295,11 +8295,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0876. Middle of the Linked List/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0876. Middle of the Linked List/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0876. Middle of the Linked List"
@@ -8319,11 +8319,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0880. Decoded String at Index/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0880. Decoded String at Index/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0880. Decoded String at Index"
@@ -8343,7 +8343,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0884. Uncommon Words from Two Sentences/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0884. Uncommon Words from Two Sentences"
@@ -8363,7 +8363,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0885. Spiral Matrix III/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0885. Spiral Matrix III"
@@ -8385,7 +8385,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0889. Construct Binary Tree from Preorder and Postorder Traversal/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0889. Construct Binary Tree from Preorder and Postorder Traversal"
@@ -8405,7 +8405,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0890. Find and Replace Pattern/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0890. Find and Replace Pattern"
@@ -8427,7 +8427,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0894. All Possible Full Binary Trees/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0894. All Possible Full Binary Trees"
@@ -8449,23 +8449,23 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0896. Monotonic Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/0896. Monotonic Array/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0896. Monotonic Array/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0896. Monotonic Array/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0896. Monotonic Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0896. Monotonic Array"
@@ -8487,7 +8487,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0897. Increasing Order Search Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0897. Increasing Order Search Tree"
@@ -8509,15 +8509,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0905. Sort Array By Parity/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0905. Sort Array By Parity/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0905. Sort Array By Parity/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0905. Sort Array By Parity"
@@ -8538,7 +8538,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0907. Sum of Subarray Minimums/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0907. Sum of Subarray Minimums"
@@ -8563,7 +8563,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0912. Sort an Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0912. Sort an Array"
@@ -8583,11 +8583,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0917. Reverse Only Letters/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0917. Reverse Only Letters/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/0917. Reverse Only Letters"
@@ -8608,11 +8608,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/0920. Number of Music Playlists/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/hard/0920. Number of Music Playlists/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/hard/0920. Number of Music Playlists"
@@ -8631,7 +8631,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0925. Long Pressed Name/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0925. Long Pressed Name"
@@ -8651,7 +8651,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0931. Minimum Falling Path Sum/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0931. Minimum Falling Path Sum"
@@ -8673,11 +8673,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0938. Range Sum of BST/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0938. Range Sum of BST/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/0938. Range Sum of BST"
@@ -8698,7 +8698,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0942. DI String Match/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0942. DI String Match"
@@ -8719,7 +8719,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0948. Bag of Tokens/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0948. Bag of Tokens"
@@ -8739,7 +8739,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0951. Flip Equivalent Binary Trees/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0951. Flip Equivalent Binary Trees"
@@ -8760,11 +8760,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0953. Verifying an Alien Dictionary/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/0953. Verifying an Alien Dictionary/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/0953. Verifying an Alien Dictionary"
@@ -8784,11 +8784,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/0956. Tallest Billboard/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/hard/0956. Tallest Billboard/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/hard/0956. Tallest Billboard"
@@ -8808,7 +8808,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/medium/0958. Check Completeness of a Binary Tree/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0958. Check Completeness of a Binary Tree"
@@ -8831,7 +8831,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/0959. Regions Cut By Slashes/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/0959. Regions Cut By Slashes"
@@ -8850,7 +8850,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0961. N-Repeated Element in Size 2N Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0961. N-Repeated Element in Size 2N Array"
@@ -8872,11 +8872,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0962. Maximum Width Ramp/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0962. Maximum Width Ramp/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0962. Maximum Width Ramp"
@@ -8897,7 +8897,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0965. Univalued Binary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0965. Univalued Binary Tree"
@@ -8916,7 +8916,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0967. Numbers With Same Consecutive Differences/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0967. Numbers With Same Consecutive Differences"
@@ -8941,11 +8941,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/0973. K Closest Points to Origin/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0973. K Closest Points to Origin/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0973. K Closest Points to Origin"
@@ -8966,11 +8966,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0974. Subarray Sums Divisible by K/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0974. Subarray Sums Divisible by K/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0974. Subarray Sums Divisible by K"
@@ -8992,15 +8992,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/0977. Squares of a Sorted Array/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/0977. Squares of a Sorted Array/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0977. Squares of a Sorted Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0977. Squares of a Sorted Array"
@@ -9021,11 +9021,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/medium/0979. Distribute Coins in Binary Tree/main.c"
+          "file": "main.c"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/0979. Distribute Coins in Binary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/0979. Distribute Coins in Binary Tree"
@@ -9047,11 +9047,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0981. Time Based Key-Value Store/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0981. Time Based Key-Value Store/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0981. Time Based Key-Value Store"
@@ -9072,15 +9072,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/0983. Minimum Cost For Tickets/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/0983. Minimum Cost For Tickets/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/0983. Minimum Cost For Tickets/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/0983. Minimum Cost For Tickets"
@@ -9100,7 +9100,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0986. Interval List Intersections/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0986. Interval List Intersections"
@@ -9119,7 +9119,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/0989. Add to Array-Form of Integer/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/0989. Add to Array-Form of Integer"
@@ -9140,7 +9140,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0990. Satisfiability of Equality Equations/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0990. Satisfiability of Equality Equations"
@@ -9161,7 +9161,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/0993. Cousins in Binary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/0993. Cousins in Binary Tree"
@@ -9181,7 +9181,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/0994. Rotting Oranges/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/0994. Rotting Oranges"
@@ -9201,7 +9201,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1002. Find Common Characters/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1002. Find Common Characters"
@@ -9221,15 +9221,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1009. Complement of Base 10 Integer/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1009. Complement of Base 10 Integer/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1009. Complement of Base 10 Integer/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1009. Complement of Base 10 Integer"
@@ -9250,15 +9250,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1018. Binary Prefix Divisible By 5/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1018. Binary Prefix Divisible By 5/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1018. Binary Prefix Divisible By 5/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1018. Binary Prefix Divisible By 5"
@@ -9280,7 +9280,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1020. Number of Enclaves/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1020. Number of Enclaves"
@@ -9300,7 +9300,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1022. Sum of Root To Leaf Binary Numbers/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1022. Sum of Root To Leaf Binary Numbers"
@@ -9320,7 +9320,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1026. Maximum Difference Between Node and Ancestor/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1026. Maximum Difference Between Node and Ancestor"
@@ -9341,11 +9341,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1037. Valid Boomerang/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1037. Valid Boomerang/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/1037. Valid Boomerang"
@@ -9366,7 +9366,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1038. Binary Search Tree to Greater Sum Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1038. Binary Search Tree to Greater Sum Tree"
@@ -9385,7 +9385,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1039. Minimum Score Triangulation of Polygon/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1039. Minimum Score Triangulation of Polygon"
@@ -9405,11 +9405,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1046. Last Stone Weight/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1046. Last Stone Weight/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1046. Last Stone Weight"
@@ -9435,19 +9435,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1048. Longest String Chain/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/1048. Longest String Chain/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1048. Longest String Chain/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1048. Longest String Chain/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1048. Longest String Chain"
@@ -9465,7 +9465,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1050. Actors and Directors Who Cooperated At Least Three Times/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1050. Actors and Directors Who Cooperated At Least Three Times"
@@ -9490,27 +9490,27 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Elixir",
-          "file": "leetcode/easy/1051. Height Checker/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/1051. Height Checker/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1051. Height Checker/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1051. Height Checker/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1051. Height Checker/main.ts"
+          "file": "main.ts"
         },
         {
           "language": "Zig",
-          "file": "leetcode/easy/1051. Height Checker/main.zig"
+          "file": "main.zig"
         }
       ],
       "path": "leetcode/easy/1051. Height Checker"
@@ -9528,7 +9528,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1068. Product Sales Analysis I/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1068. Product Sales Analysis I"
@@ -9552,19 +9552,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1081. Smallest Subsequence of Distinct Characters/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/1081. Smallest Subsequence of Distinct Characters/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1081. Smallest Subsequence of Distinct Characters/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1081. Smallest Subsequence of Distinct Characters/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1081. Smallest Subsequence of Distinct Characters"
@@ -9583,7 +9583,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1089. Duplicate Zeros/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1089. Duplicate Zeros"
@@ -9603,7 +9603,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1091. Shortest Path in Binary Matrix/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1091. Shortest Path in Binary Matrix"
@@ -9621,7 +9621,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/1108. Defanging an IP Address/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1108. Defanging an IP Address"
@@ -9643,7 +9643,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1110. Delete Nodes And Return Forest/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1110. Delete Nodes And Return Forest"
@@ -9661,7 +9661,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1114. Print in Order/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1114. Print in Order"
@@ -9682,7 +9682,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1122. Relative Sort Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1122. Relative Sort Array"
@@ -9702,7 +9702,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1137. N-th Tribonacci Number/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1137. N-th Tribonacci Number"
@@ -9720,7 +9720,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1141. User Activity for the Past 30 Days I/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1141. User Activity for the Past 30 Days I"
@@ -9740,11 +9740,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1143. Longest Common Subsequence/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1143. Longest Common Subsequence/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1143. Longest Common Subsequence"
@@ -9763,11 +9763,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/1148. Article Views I/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/easy/1148. Article Views I/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1148. Article Views I"
@@ -9788,15 +9788,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1154. Day of the Year/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1154. Day of the Year/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1154. Day of the Year/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1154. Day of the Year"
@@ -9817,7 +9817,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1161. Maximum Level Sum of a Binary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1161. Maximum Level Sum of a Binary Tree"
@@ -9839,11 +9839,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1162. As Far from Land as Possible/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1162. As Far from Land as Possible/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1162. As Far from Land as Possible"
@@ -9863,15 +9863,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1185. Day of the Week/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1185. Day of the Week/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1185. Day of the Week/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1185. Day of the Week"
@@ -9892,15 +9892,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1190. Reverse Substrings Between Each Pair of Parentheses/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/1190. Reverse Substrings Between Each Pair of Parentheses/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1190. Reverse Substrings Between Each Pair of Parentheses/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1190. Reverse Substrings Between Each Pair of Parentheses"
@@ -9921,15 +9921,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1200. Minimum Absolute Difference/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1200. Minimum Absolute Difference/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1200. Minimum Absolute Difference/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1200. Minimum Absolute Difference"
@@ -9950,7 +9950,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/hard/1203. Sort Items by Groups Respecting Dependencies/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/hard/1203. Sort Items by Groups Respecting Dependencies"
@@ -9970,11 +9970,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1207. Unique Number of Occurrences/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1207. Unique Number of Occurrences/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1207. Unique Number of Occurrences"
@@ -9995,11 +9995,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1221. Split a String in Balanced Strings/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1221. Split a String in Balanced Strings/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1221. Split a String in Balanced Strings"
@@ -10021,11 +10021,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1239. Maximum Length of a Concatenated String with Unique Characters/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1239. Maximum Length of a Concatenated String with Unique Characters/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1239. Maximum Length of a Concatenated String with Unique Characters"
@@ -10044,7 +10044,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1249. Minimum Remove to Make Valid Parentheses/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1249. Minimum Remove to Make Valid Parentheses"
@@ -10062,7 +10062,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1251. Average Selling Price/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1251. Average Selling Price"
@@ -10085,11 +10085,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1254. Number of Closed Islands/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1254. Number of Closed Islands/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1254. Number of Closed Islands"
@@ -10112,7 +10112,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1261. Find Elements in a Contaminated Binary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1261. Find Elements in a Contaminated Binary Tree"
@@ -10132,7 +10132,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1266. Minimum Time Visiting All Points/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1266. Minimum Time Visiting All Points"
@@ -10150,7 +10150,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1281. Subtract the Product and Sum of Digits of an Integer/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1281. Subtract the Product and Sum of Digits of an Integer"
@@ -10168,7 +10168,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1287. Element Appearing More Than 25% In Sorted Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1287. Element Appearing More Than 25% In Sorted Array"
@@ -10189,7 +10189,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1302. Deepest Leaves Sum/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1302. Deepest Leaves Sum"
@@ -10211,7 +10211,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1305. All Elements in Two Binary Search Trees/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1305. All Elements in Two Binary Search Trees"
@@ -10231,7 +10231,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1306. Jump Game III/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1306. Jump Game III"
@@ -10252,7 +10252,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1315. Sum of Nodes with Even-Valued Grandparent/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1315. Sum of Nodes with Even-Valued Grandparent"
@@ -10271,11 +10271,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1318. Minimum Flips to Make a OR b Equal to c/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1318. Minimum Flips to Make a OR b Equal to c/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1318. Minimum Flips to Make a OR b Equal to c"
@@ -10295,11 +10295,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1323. Maximum 69 Number/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1323. Maximum 69 Number/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1323. Maximum 69 Number"
@@ -10322,11 +10322,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1337. The K Weakest Rows in a Matrix/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1337. The K Weakest Rows in a Matrix/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1337. The K Weakest Rows in a Matrix"
@@ -10348,7 +10348,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1338. Reduce Array Size to The Half/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1338. Reduce Array Size to The Half"
@@ -10370,15 +10370,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1339. Maximum Product of Splitted Binary Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/1339. Maximum Product of Splitted Binary Tree/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1339. Maximum Product of Splitted Binary Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1339. Maximum Product of Splitted Binary Tree"
@@ -10400,7 +10400,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1346. Check If N and Its Double Exist/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1346. Check If N and Its Double Exist"
@@ -10425,27 +10425,27 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Dart",
-          "file": "leetcode/medium/1347. Minimum Number of Steps to Make Two Strings Anagram/main.dart"
+          "file": "main.dart"
         },
         {
           "language": "Elixir",
-          "file": "leetcode/medium/1347. Minimum Number of Steps to Make Two Strings Anagram/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/1347. Minimum Number of Steps to Make Two Strings Anagram/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/1347. Minimum Number of Steps to Make Two Strings Anagram/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1347. Minimum Number of Steps to Make Two Strings Anagram/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1347. Minimum Number of Steps to Make Two Strings Anagram/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1347. Minimum Number of Steps to Make Two Strings Anagram"
@@ -10466,11 +10466,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1351. Count Negative Numbers in a Sorted Matrix/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1351. Count Negative Numbers in a Sorted Matrix/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1351. Count Negative Numbers in a Sorted Matrix"
@@ -10494,19 +10494,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/easy/1356. Sort Integers by The Number of 1 Bits/main.c"
+          "file": "main.c"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/1356. Sort Integers by The Number of 1 Bits/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1356. Sort Integers by The Number of 1 Bits/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1356. Sort Integers by The Number of 1 Bits/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1356. Sort Integers by The Number of 1 Bits"
@@ -10528,11 +10528,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1365. How Many Numbers Are Smaller Than the Current Number/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1365. How Many Numbers Are Smaller Than the Current Number/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/1365. How Many Numbers Are Smaller Than the Current Number"
@@ -10553,7 +10553,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1367. Linked List in Binary Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1367. Linked List in Binary Tree"
@@ -10573,7 +10573,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1370. Increasing Decreasing String/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1370. Increasing Decreasing String"
@@ -10595,11 +10595,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1372. Longest ZigZag Path in a Binary Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1372. Longest ZigZag Path in a Binary Tree/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1372. Longest ZigZag Path in a Binary Tree"
@@ -10620,11 +10620,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/1376. Time Needed to Inform All Employees/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1376. Time Needed to Inform All Employees/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1376. Time Needed to Inform All Employees"
@@ -10645,7 +10645,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree"
@@ -10668,7 +10668,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1382. Balance a Binary Search Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1382. Balance a Binary Search Tree"
@@ -10689,7 +10689,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/hard/1383. Maximum Performance of a Team/main.java"
+          "file": "main.java"
         }
       ],
       "path": "leetcode/hard/1383. Maximum Performance of a Team"
@@ -10711,11 +10711,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/1385. Find the Distance Value Between Two Arrays/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1385. Find the Distance Value Between Two Arrays/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1385. Find the Distance Value Between Two Arrays"
@@ -10735,11 +10735,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/1389. Create Target Array in the Given Order/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Scala",
-          "file": "leetcode/easy/1389. Create Target Array in the Given Order/main.scala"
+          "file": "main.scala"
         }
       ],
       "path": "leetcode/easy/1389. Create Target Array in the Given Order"
@@ -10759,7 +10759,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1403. Minimum Subsequence in Non-Increasing Order/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1403. Minimum Subsequence in Non-Increasing Order"
@@ -10779,7 +10779,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1404. Number of Steps to Reduce a Number in Binary Representation to One/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1404. Number of Steps to Reduce a Number in Binary Representation to One"
@@ -10798,7 +10798,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1415. The k-th Lexicographical String of All Happy Strings of Length n/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1415. The k-th Lexicographical String of All Happy Strings of Length n"
@@ -10817,7 +10817,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/1420. Build Array Where You Can Find The Maximum Exactly K Comparisons/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/hard/1420. Build Array Where You Can Find The Maximum Exactly K Comparisons"
@@ -10837,15 +10837,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1431. Kids With the Greatest Number of Candies/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1431. Kids With the Greatest Number of Candies/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1431. Kids With the Greatest Number of Candies/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1431. Kids With the Greatest Number of Candies"
@@ -10865,7 +10865,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1436. Destination City/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1436. Destination City"
@@ -10883,7 +10883,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1437. Check If All 1's Are at Least Length K Places Away/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1437. Check If All 1's Are at Least Length K Places Away"
@@ -10904,11 +10904,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1441. Build an Array With Stack Operations/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1441. Build an Array With Stack Operations/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1441. Build an Array With Stack Operations"
@@ -10929,7 +10929,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1448. Count Good Nodes in Binary Tree/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1448. Count Good Nodes in Binary Tree"
@@ -10948,7 +10948,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1456. Maximum Number of Vowels in a Substring of Given Length/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1456. Maximum Number of Vowels in a Substring of Given Length"
@@ -10971,11 +10971,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1457. Pseudo-Palindromic Paths in a Binary Tree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1457. Pseudo-Palindromic Paths in a Binary Tree/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1457. Pseudo-Palindromic Paths in a Binary Tree"
@@ -10995,11 +10995,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/1458. Max Dot Product of Two Subsequences/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/hard/1458. Max Dot Product of Two Subsequences/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/hard/1458. Max Dot Product of Two Subsequences"
@@ -11019,7 +11019,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/1464. Maximum Product of Two Elements in an Array/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1464. Maximum Product of Two Elements in an Array"
@@ -11038,11 +11038,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/1470. Shuffle the Array/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Scala",
-          "file": "leetcode/easy/1470. Shuffle the Array/main.scala"
+          "file": "main.scala"
         }
       ],
       "path": "leetcode/easy/1470. Shuffle the Array"
@@ -11065,7 +11065,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1472. Design Browser History/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1472. Design Browser History"
@@ -11086,11 +11086,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/1476. Subrectangle Queries/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1476. Subrectangle Queries/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1476. Subrectangle Queries"
@@ -11112,19 +11112,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/1480. Running Sum of 1d Array/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1480. Running Sum of 1d Array/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1480. Running Sum of 1d Array/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1480. Running Sum of 1d Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1480. Running Sum of 1d Array"
@@ -11142,7 +11142,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1484. Group Sold Products By The Date/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1484. Group Sold Products By The Date"
@@ -11164,7 +11164,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/hard/1489. Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/hard/1489. Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree"
@@ -11183,7 +11183,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1491. Average Salary Excluding the Minimum and Maximum Salary/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1491. Average Salary Excluding the Minimum and Maximum Salary"
@@ -11204,7 +11204,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1498. Number of Subsequences That Satisfy the Given Sum Condition/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1498. Number of Subsequences That Satisfy the Given Sum Condition"
@@ -11227,19 +11227,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1503. Last Moment Before All Ants Fall Out of a Plank/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/1503. Last Moment Before All Ants Fall Out of a Plank/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1503. Last Moment Before All Ants Fall Out of a Plank/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1503. Last Moment Before All Ants Fall Out of a Plank/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1503. Last Moment Before All Ants Fall Out of a Plank"
@@ -11262,15 +11262,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1512. Number of Good Pairs/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1512. Number of Good Pairs/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Scala",
-          "file": "leetcode/easy/1512. Number of Good Pairs/main.scala"
+          "file": "main.scala"
         }
       ],
       "path": "leetcode/easy/1512. Number of Good Pairs"
@@ -11292,11 +11292,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/1514. Path with Maximum Probability/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1514. Path with Maximum Probability/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1514. Path with Maximum Probability"
@@ -11315,11 +11315,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/1517. Find Users With Valid E-Mails/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/easy/1517. Find Users With Valid E-Mails/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1517. Find Users With Valid E-Mails"
@@ -11338,7 +11338,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1518. Water Bottles/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1518. Water Bottles"
@@ -11359,19 +11359,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1523. Count Odd Numbers in an Interval Range/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1523. Count Odd Numbers in an Interval Range/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1523. Count Odd Numbers in an Interval Range/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1523. Count Odd Numbers in an Interval Range/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1523. Count Odd Numbers in an Interval Range"
@@ -11390,11 +11390,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/1527. Patients With a Condition/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/easy/1527. Patients With a Condition/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1527. Patients With a Condition"
@@ -11419,31 +11419,31 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/easy/1534. Count Good Triplets/main.c"
+          "file": "main.c"
         },
         {
           "language": "C++",
-          "file": "leetcode/easy/1534. Count Good Triplets/main.cpp"
+          "file": "main.cpp"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/1534. Count Good Triplets/main.go"
+          "file": "main.go"
         },
         {
           "language": "Java",
-          "file": "leetcode/easy/1534. Count Good Triplets/main.java"
+          "file": "main.java"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1534. Count Good Triplets/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1534. Count Good Triplets/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1534. Count Good Triplets/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1534. Count Good Triplets"
@@ -11464,15 +11464,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1535. Find the Winner of an Array Game/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1535. Find the Winner of an Array Game/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1535. Find the Winner of an Array Game/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1535. Find the Winner of an Array Game"
@@ -11491,7 +11491,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1539. Kth Missing Positive Number/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1539. Kth Missing Positive Number"
@@ -11509,7 +11509,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1550. Three Consecutive Odds/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1550. Three Consecutive Odds"
@@ -11527,7 +11527,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1557. Minimum Number of Vertices to Reach All Nodes/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1557. Minimum Number of Vertices to Reach All Nodes"
@@ -11549,7 +11549,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1559. Detect Cycles in 2D Grid/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1559. Detect Cycles in 2D Grid"
@@ -11569,11 +11569,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1572. Matrix Diagonal Sum/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1572. Matrix Diagonal Sum/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1572. Matrix Diagonal Sum"
@@ -11595,7 +11595,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1574. Shortest Subarray to be Removed to Make Array Sorted/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1574. Shortest Subarray to be Removed to Make Array Sorted"
@@ -11613,7 +11613,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1581. Customer Who Visited but Did Not Make Any Transactions/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1581. Customer Who Visited but Did Not Make Any Transactions"
@@ -11634,7 +11634,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/medium/1584. Min Cost to Connect All Points/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1584. Min Cost to Connect All Points"
@@ -11654,7 +11654,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1590. Make Sum Divisible by P/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1590. Make Sum Divisible by P"
@@ -11674,7 +11674,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1593. Split a String Into the Max Number of Unique Substrings/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1593. Split a String Into the Max Number of Unique Substrings"
@@ -11697,19 +11697,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Elixir",
-          "file": "leetcode/easy/1608. Special Array With X Elements Greater Than or Equal X/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/1608. Special Array With X Elements Greater Than or Equal X/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1608. Special Array With X Elements Greater Than or Equal X/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1608. Special Array With X Elements Greater Than or Equal X/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1608. Special Array With X Elements Greater Than or Equal X"
@@ -11733,27 +11733,27 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Dart",
-          "file": "leetcode/easy/1624. Largest Substring Between Two Equal Characters/main.dart"
+          "file": "main.dart"
         },
         {
           "language": "Elixir",
-          "file": "leetcode/easy/1624. Largest Substring Between Two Equal Characters/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/1624. Largest Substring Between Two Equal Characters/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1624. Largest Substring Between Two Equal Characters/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1624. Largest Substring Between Two Equal Characters/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1624. Largest Substring Between Two Equal Characters/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1624. Largest Substring Between Two Equal Characters"
@@ -11774,11 +11774,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/medium/1630. Arithmetic Subarrays/main.java"
+          "file": "main.java"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1630. Arithmetic Subarrays/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1630. Arithmetic Subarrays"
@@ -11803,11 +11803,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/1631. Path With Minimum Effort/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1631. Path With Minimum Effort/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1631. Path With Minimum Effort"
@@ -11829,11 +11829,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1647. Minimum Deletions to Make Character Frequencies Unique/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/1647. Minimum Deletions to Make Character Frequencies Unique/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/1647. Minimum Deletions to Make Character Frequencies Unique"
@@ -11854,11 +11854,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1653. Minimum Deletions to Make String Balanced/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1653. Minimum Deletions to Make String Balanced/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1653. Minimum Deletions to Make String Balanced"
@@ -11879,7 +11879,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1656. Design an Ordered Stream/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1656. Design an Ordered Stream"
@@ -11904,23 +11904,23 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Dart",
-          "file": "leetcode/medium/1657. Determine if Two Strings Are Close/main.dart"
+          "file": "main.dart"
         },
         {
           "language": "Elixir",
-          "file": "leetcode/medium/1657. Determine if Two Strings Are Close/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/1657. Determine if Two Strings Are Close/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1657. Determine if Two Strings Are Close/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1657. Determine if Two Strings Are Close/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1657. Determine if Two Strings Are Close"
@@ -11940,11 +11940,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1662. Check If Two String Arrays are Equivalent/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1662. Check If Two String Arrays are Equivalent/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/1662. Check If Two String Arrays are Equivalent"
@@ -11963,11 +11963,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/1667. Fix Names in a Table/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/easy/1667. Fix Names in a Table/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1667. Fix Names in a Table"
@@ -11986,11 +11986,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/1683. Invalid Tweets/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/easy/1683. Invalid Tweets/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1683. Invalid Tweets"
@@ -12013,11 +12013,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/easy/1684. Count the Number of Consistent Strings/main.c"
+          "file": "main.c"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/1684. Count the Number of Consistent Strings/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1684. Count the Number of Consistent Strings"
@@ -12036,7 +12036,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1689. Partitioning Into Minimum Number Of Deci-Binary Numbers/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1689. Partitioning Into Minimum Number Of Deci-Binary Numbers"
@@ -12054,7 +12054,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1693. Daily Leads and Partners/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1693. Daily Leads and Partners"
@@ -12074,11 +12074,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1704. Determine if String Halves Are Alike/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1704. Determine if String Halves Are Alike/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1704. Determine if String Halves Are Alike"
@@ -12097,7 +12097,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1721. Swapping Nodes in a Linked List/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1721. Swapping Nodes in a Linked List"
@@ -12115,7 +12115,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1729. Find Followers Count/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1729. Find Followers Count"
@@ -12133,7 +12133,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1731. The Number of Employees Which Report to Each Employee/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1731. The Number of Employees Which Report to Each Employee"
@@ -12153,11 +12153,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1732. Find the Highest Altitude/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1732. Find the Highest Altitude/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1732. Find the Highest Altitude"
@@ -12177,7 +12177,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1742. Maximum Number of Balls in a Box/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1742. Maximum Number of Balls in a Box"
@@ -12198,11 +12198,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1743. Restore the Array From Adjacent Pairs/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/1743. Restore the Array From Adjacent Pairs/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/1743. Restore the Array From Adjacent Pairs"
@@ -12223,19 +12223,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1752. Check if Array Is Sorted and Rotated/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1752. Check if Array Is Sorted and Rotated/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1752. Check if Array Is Sorted and Rotated/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1752. Check if Array Is Sorted and Rotated/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1752. Check if Array Is Sorted and Rotated"
@@ -12253,7 +12253,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/1757. Recyclable and Low Fat Products/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/1757. Recyclable and Low Fat Products"
@@ -12273,11 +12273,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1759. Count Number of Homogenous Substrings/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1759. Count Number of Homogenous Substrings/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1759. Count Number of Homogenous Substrings"
@@ -12297,7 +12297,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1790. Check if One String Swap Can Make Strings Equal/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1790. Check if One String Swap Can Make Strings Equal"
@@ -12316,11 +12316,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/1795. Rearrange Products Table/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/easy/1795. Rearrange Products Table/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1795. Rearrange Products Table"
@@ -12339,7 +12339,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1796. Second Largest Digit in a String/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1796. Second Largest Digit in a String"
@@ -12364,11 +12364,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/1799. Maximize Score After N Operations/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/hard/1799. Maximize Score After N Operations/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/hard/1799. Maximize Score After N Operations"
@@ -12386,7 +12386,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1800. Maximum Ascending Subarray Sum/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1800. Maximum Ascending Subarray Sum"
@@ -12406,7 +12406,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1802. Maximum Value at a Given Index in a Bounded Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1802. Maximum Value at a Given Index in a Bounded Array"
@@ -12426,7 +12426,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1813. Sentence Similarity III/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1813. Sentence Similarity III"
@@ -12447,15 +12447,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1822. Sign of the Product of an Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1822. Sign of the Product of an Array/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1822. Sign of the Product of an Array/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1822. Sign of the Product of an Array"
@@ -12477,7 +12477,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1823. Find the Winner of the Circular Game/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1823. Find the Winner of the Circular Game"
@@ -12496,7 +12496,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1827. Minimum Operations to Make the Array Increasing/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1827. Minimum Operations to Make the Array Increasing"
@@ -12516,11 +12516,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1832. Check if the Sentence Is Pangram/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1832. Check if the Sentence Is Pangram/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1832. Check if the Sentence Is Pangram"
@@ -12539,7 +12539,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1845. Seat Reservation Manager/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1845. Seat Reservation Manager"
@@ -12560,11 +12560,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1846. Maximum Element After Decreasing and Rearranging/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1846. Maximum Element After Decreasing and Rearranging/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1846. Maximum Element After Decreasing and Rearranging"
@@ -12584,7 +12584,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1855. Maximum Distance Between a Pair of Values/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1855. Maximum Distance Between a Pair of Values"
@@ -12603,7 +12603,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/medium/1870. Minimum Speed to Arrive on Time/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1870. Minimum Speed to Arrive on Time"
@@ -12622,11 +12622,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/1873. Calculate Special Bonus/main.py"
+          "file": "main.py"
         },
         {
           "language": "SQL",
-          "file": "leetcode/easy/1873. Calculate Special Bonus/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1873. Calculate Special Bonus"
@@ -12647,7 +12647,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1876. Substrings of Size Three with Distinct Characters/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1876. Substrings of Size Three with Distinct Characters"
@@ -12667,11 +12667,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/easy/1886. Determine Whether Matrix Can Be Obtained By Rotation/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1886. Determine Whether Matrix Can Be Obtained By Rotation/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1886. Determine Whether Matrix Can Be Obtained By Rotation"
@@ -12689,7 +12689,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1890. The Latest Login in 2020/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1890. The Latest Login in 2020"
@@ -12711,7 +12711,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1905. Count Sub Islands/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1905. Count Sub Islands"
@@ -12731,11 +12731,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1913. Maximum Product Difference Between Two Pairs/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1913. Maximum Product Difference Between Two Pairs/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/1913. Maximum Product Difference Between Two Pairs"
@@ -12757,11 +12757,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1915. Number of Wonderful Substrings/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1915. Number of Wonderful Substrings/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1915. Number of Wonderful Substrings"
@@ -12780,7 +12780,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1922. Count Good Numbers/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1922. Count Good Numbers"
@@ -12803,15 +12803,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1927. Sum Game/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/1927. Sum Game/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1927. Sum Game/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1927. Sum Game"
@@ -12831,11 +12831,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/1929. Concatenation of Array/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Scala",
-          "file": "leetcode/easy/1929. Concatenation of Array/main.scala"
+          "file": "main.scala"
         }
       ],
       "path": "leetcode/easy/1929. Concatenation of Array"
@@ -12857,11 +12857,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1930. Unique Length-3 Palindromic Subsequences/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/1930. Unique Length-3 Palindromic Subsequences/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/1930. Unique Length-3 Palindromic Subsequences"
@@ -12881,7 +12881,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1941. Check if All Characters Have Equal Number of Occurrences/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1941. Check if All Characters Have Equal Number of Occurrences"
@@ -12901,7 +12901,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1942. The Number of the Smallest Unoccupied Chair/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1942. The Number of the Smallest Unoccupied Chair"
@@ -12921,7 +12921,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/1964. Find the Longest Valid Obstacle Course at Each Position/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/hard/1964. Find the Longest Valid Obstacle Course at Each Position"
@@ -12939,7 +12939,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "SQL",
-          "file": "leetcode/easy/1965. Employees With Missing Information/main.sql"
+          "file": "main.sql"
         }
       ],
       "path": "leetcode/easy/1965. Employees With Missing Information"
@@ -12964,23 +12964,23 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1971. Find if Path Exists in Graph/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/1971. Find if Path Exists in Graph/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/1971. Find if Path Exists in Graph/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Swift",
-          "file": "leetcode/easy/1971. Find if Path Exists in Graph/main.swift"
+          "file": "main.swift"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/1971. Find if Path Exists in Graph/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/1971. Find if Path Exists in Graph"
@@ -13000,7 +13000,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1975. Maximum Matrix Sum/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1975. Maximum Matrix Sum"
@@ -13020,7 +13020,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/1979. Find Greatest Common Divisor of Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/1979. Find Greatest Common Divisor of Array"
@@ -13041,7 +13041,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/1980. Find Unique Binary String/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/1980. Find Unique Binary String"
@@ -13063,7 +13063,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/1996. The Number of Weak Characters in the Game/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/1996. The Number of Weak Characters in the Game"
@@ -13083,7 +13083,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2006. Count Number of Pairs With Absolute Difference K/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2006. Count Number of Pairs With Absolute Difference K"
@@ -13103,7 +13103,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/2011. Final Value of Variable After Performing Operations/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/2011. Final Value of Variable After Performing Operations"
@@ -13123,7 +13123,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2032. Two Out of Three/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2032. Two Out of Three"
@@ -13145,11 +13145,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2038. Remove Colored Pieces if Both Neighbors are the Same Color/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/2038. Remove Colored Pieces if Both Neighbors are the Same Color/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/2038. Remove Colored Pieces if Both Neighbors are the Same Color"
@@ -13172,15 +13172,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2044. Count Number of Maximum Bitwise-OR Subsets/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2044. Count Number of Maximum Bitwise-OR Subsets/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2044. Count Number of Maximum Bitwise-OR Subsets/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2044. Count Number of Maximum Bitwise-OR Subsets"
@@ -13201,7 +13201,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2053. Kth Distinct String in an Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2053. Kth Distinct String in an Array"
@@ -13223,7 +13223,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2054. Two Best Non-Overlapping Events/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2054. Two Best Non-Overlapping Events"
@@ -13242,7 +13242,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2062. Count Vowel Substrings of a String/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2062. Count Vowel Substrings of a String"
@@ -13262,7 +13262,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2064. Minimized Maximum of Products Distributed to Any Store/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2064. Minimized Maximum of Products Distributed to Any Store"
@@ -13281,7 +13281,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2075. Decode the Slanted Ciphertext/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2075. Decode the Slanted Ciphertext"
@@ -13302,7 +13302,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2085. Count Common Words With One Occurrence/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2085. Count Common Words With One Occurrence"
@@ -13322,7 +13322,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2089. Find Target Indices After Sorting Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2089. Find Target Indices After Sorting Array"
@@ -13341,7 +13341,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2090. K Radius Subarray Averages/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2090. K Radius Subarray Averages"
@@ -13362,7 +13362,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2096. Step-By-Step Directions From a Binary Tree Node to Another/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2096. Step-By-Step Directions From a Binary Tree Node to Another"
@@ -13383,7 +13383,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2099. Find Subsequence of Length K With the Largest Sum/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2099. Find Subsequence of Length K With the Largest Sum"
@@ -13402,7 +13402,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2103. Rings and Rods/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2103. Rings and Rods"
@@ -13422,11 +13422,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Java",
-          "file": "leetcode/easy/2114. Maximum Number of Words Found in Sentences/main.java"
+          "file": "main.java"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/2114. Maximum Number of Words Found in Sentences/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/2114. Maximum Number of Words Found in Sentences"
@@ -13448,11 +13448,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2125. Number of Laser Beams in a Bank/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2125. Number of Laser Beams in a Bank/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2125. Number of Laser Beams in a Bank"
@@ -13472,11 +13472,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2140. Solving Questions With Brainpower/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2140. Solving Questions With Brainpower/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2140. Solving Questions With Brainpower"
@@ -13496,7 +13496,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/easy/2160. Minimum Sum of Four Digit Number After Splitting Digits/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/2160. Minimum Sum of Four Digit Number After Splitting Digits"
@@ -13517,19 +13517,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2176. Count Equal and Divisible Pairs in an Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/2176. Count Equal and Divisible Pairs in an Array/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/2176. Count Equal and Divisible Pairs in an Array/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/2176. Count Equal and Divisible Pairs in an Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/2176. Count Equal and Divisible Pairs in an Array"
@@ -13553,7 +13553,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/2179. Count Good Triplets in an Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/hard/2179. Count Good Triplets in an Array"
@@ -13572,7 +13572,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2187. Minimum Time to Complete Trips/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2187. Minimum Time to Complete Trips"
@@ -13594,11 +13594,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2196. Create Binary Tree From Descriptions/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/2196. Create Binary Tree From Descriptions/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/2196. Create Binary Tree From Descriptions"
@@ -13620,11 +13620,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2206. Divide Array Into Equal Pairs/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/2206. Divide Array Into Equal Pairs/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/2206. Divide Array Into Equal Pairs"
@@ -13643,7 +13643,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2215. Find the Difference of Two Arrays/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2215. Find the Difference of Two Arrays"
@@ -13665,7 +13665,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2221. Find Triangular Sum of an Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2221. Find Triangular Sum of an Array"
@@ -13686,7 +13686,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2225. Find Players With Zero or One Losses/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2225. Find Players With Zero or One Losses"
@@ -13706,11 +13706,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/medium/2256. Minimum Average Difference/main.c"
+          "file": "main.c"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/2256. Minimum Average Difference/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2256. Minimum Average Difference"
@@ -13732,15 +13732,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2265. Count Nodes Equal to Average of Subtree/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/2265. Count Nodes Equal to Average of Subtree/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2265. Count Nodes Equal to Average of Subtree/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/2265. Count Nodes Equal to Average of Subtree"
@@ -13761,15 +13761,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2270. Number of Ways to Split Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2270. Number of Ways to Split Array/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2270. Number of Ways to Split Array/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2270. Number of Ways to Split Array"
@@ -13790,7 +13790,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2273. Find Resultant Array After Removing Anagrams/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2273. Find Resultant Array After Removing Anagrams"
@@ -13810,7 +13810,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2283. Check if Number Has Equal Digit Count and Digit Value/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2283. Check if Number Has Equal Digit Count and Digit Value"
@@ -13832,11 +13832,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Elixir",
-          "file": "leetcode/medium/2300. Successful Pairs of Spells and Potions/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/2300. Successful Pairs of Spells and Potions/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2300. Successful Pairs of Spells and Potions"
@@ -13856,7 +13856,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2309. Greatest English Letter in Upper and Lower Case/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2309. Greatest English Letter in Upper and Lower Case"
@@ -13877,7 +13877,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2316. Count Unreachable Pairs of Nodes in an Undirected Graph/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2316. Count Unreachable Pairs of Nodes in an Undirected Graph"
@@ -13896,7 +13896,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2325. Decode the Message/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2325. Decode the Message"
@@ -13921,7 +13921,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/2328. Number of Increasing Paths in a Grid/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/hard/2328. Number of Increasing Paths in a Grid"
@@ -13941,7 +13941,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2331. Evaluate Boolean Binary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2331. Evaluate Boolean Binary Tree"
@@ -13961,7 +13961,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2341. Maximum Number of Pairs in Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2341. Maximum Number of Pairs in Array"
@@ -13983,19 +13983,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2348. Number of Zero-Filled Subarrays/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/2348. Number of Zero-Filled Subarrays/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2348. Number of Zero-Filled Subarrays/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2348. Number of Zero-Filled Subarrays/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2348. Number of Zero-Filled Subarrays"
@@ -14016,7 +14016,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2351. First Letter to Appear Twice/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2351. First Letter to Appear Twice"
@@ -14037,7 +14037,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2352. Equal Row and Column Pairs/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2352. Equal Row and Column Pairs"
@@ -14058,7 +14058,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2363. Merge Similar Items/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2363. Merge Similar Items"
@@ -14079,11 +14079,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/2366. Minimum Replacements to Sort the Array/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/hard/2366. Minimum Replacements to Sort the Array/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/hard/2366. Minimum Replacements to Sort the Array"
@@ -14104,7 +14104,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2367. Number of Arithmetic Triplets/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2367. Number of Arithmetic Triplets"
@@ -14123,7 +14123,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/medium/2369. Check if There is a Valid Partition For The Array/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/2369. Check if There is a Valid Partition For The Array"
@@ -14145,7 +14145,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2389. Longest Subsequence With Limited Sum/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2389. Longest Subsequence With Limited Sum"
@@ -14165,7 +14165,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2391. Minimum Amount of Time to Collect Garbage/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2391. Minimum Amount of Time to Collect Garbage"
@@ -14186,7 +14186,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2415. Reverse Odd Levels of Binary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2415. Reverse Odd Levels of Binary Tree"
@@ -14207,7 +14207,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2418. Sort the People/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2418. Sort the People"
@@ -14228,15 +14228,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2429. Minimize XOR/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2429. Minimize XOR/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2429. Minimize XOR/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2429. Minimize XOR"
@@ -14257,7 +14257,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Python",
-          "file": "leetcode/medium/2462. Total Cost to Hire K Workers/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/medium/2462. Total Cost to Hire K Workers"
@@ -14277,15 +14277,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2466. Count Ways To Build Good Strings/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2466. Count Ways To Build Good Strings/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2466. Count Ways To Build Good Strings/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2466. Count Ways To Build Good Strings"
@@ -14303,7 +14303,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2469. Convert the Temperature/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2469. Convert the Temperature"
@@ -14323,11 +14323,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2483. Minimum Penalty for a Shop/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2483. Minimum Penalty for a Shop/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/2483. Minimum Penalty for a Shop"
@@ -14353,31 +14353,31 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Elixir",
-          "file": "leetcode/medium/2486. Append Characters to String to Make Subsequence/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/2486. Append Characters to String to Make Subsequence/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/2486. Append Characters to String to Make Subsequence/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2486. Append Characters to String to Make Subsequence/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "Scala",
-          "file": "leetcode/medium/2486. Append Characters to String to Make Subsequence/main.scala"
+          "file": "main.scala"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2486. Append Characters to String to Make Subsequence/main.ts"
+          "file": "main.ts"
         },
         {
           "language": "Zig",
-          "file": "leetcode/medium/2486. Append Characters to String to Make Subsequence/main.zig"
+          "file": "main.zig"
         }
       ],
       "path": "leetcode/medium/2486. Append Characters to String to Make Subsequence"
@@ -14399,11 +14399,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2492. Minimum Score of a Path Between Two Cities/main.go"
+          "file": "main.go"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2492. Minimum Score of a Path Between Two Cities/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2492. Minimum Score of a Path Between Two Cities"
@@ -14423,7 +14423,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2530. Maximal Score After Applying K Operations/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2530. Maximal Score After Applying K Operations"
@@ -14444,11 +14444,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2537. Count the Number of Good Subarrays/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2537. Count the Number of Good Subarrays/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/2537. Count the Number of Good Subarrays"
@@ -14469,7 +14469,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2540. Minimum Common Value/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2540. Minimum Common Value"
@@ -14489,7 +14489,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2578. Split With Minimum Sum/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2578. Split With Minimum Sum"
@@ -14508,7 +14508,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2582. Pass the Pillow/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2582. Pass the Pillow"
@@ -14529,7 +14529,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2583. Kth Largest Sum in a Binary Tree/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2583. Kth Largest Sum in a Binary Tree"
@@ -14552,23 +14552,23 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Dart",
-          "file": "leetcode/medium/2610. Convert an Array Into a 2D Array With Conditions/main.dart"
+          "file": "main.dart"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/2610. Convert an Array Into a 2D Array With Conditions/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/2610. Convert an Array Into a 2D Array With Conditions/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2610. Convert an Array Into a 2D Array With Conditions/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2610. Convert an Array Into a 2D Array With Conditions/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2610. Convert an Array Into a 2D Array With Conditions"
@@ -14590,7 +14590,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Rust",
-          "file": "leetcode/medium/2616. Minimize the Maximum Difference of Pairs/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/2616. Minimize the Maximum Difference of Pairs"
@@ -14611,7 +14611,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/hard/2642. Design Graph With Shortest Path Calculator/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/hard/2642. Design Graph With Shortest Path Calculator"
@@ -14631,11 +14631,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2656. Maximum Sum With Exactly K Elements/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/2656. Maximum Sum With Exactly K Elements/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/2656. Maximum Sum With Exactly K Elements"
@@ -14657,7 +14657,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2658. Maximum Number of Fish in a Grid/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2658. Maximum Number of Fish in a Grid"
@@ -14678,11 +14678,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2661. First Completely Painted Row or Column/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2661. First Completely Painted Row or Column/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/2661. First Completely Painted Row or Column"
@@ -14702,11 +14702,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2678. Number of Senior Citizens/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/2678. Number of Senior Citizens/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/2678. Number of Senior Citizens"
@@ -14728,19 +14728,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2683. Neighboring Bitwise XOR/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/2683. Neighboring Bitwise XOR/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2683. Neighboring Bitwise XOR/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2683. Neighboring Bitwise XOR/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2683. Neighboring Bitwise XOR"
@@ -14761,11 +14761,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2696. Minimum String Length After Removing Substrings/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/2696. Minimum String Length After Removing Substrings/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/2696. Minimum String Length After Removing Substrings"
@@ -14786,11 +14786,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2780. Minimum Index of a Valid Split/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2780. Minimum Index of a Valid Split/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/2780. Minimum Index of a Valid Split"
@@ -14809,7 +14809,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2785. Sort Vowels in a String/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2785. Sort Vowels in a String"
@@ -14828,7 +14828,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2815. Max Pair Sum in an Array/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2815. Max Pair Sum in an Array"
@@ -14848,11 +14848,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2843. Count Symmetric Integers/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/2843. Count Symmetric Integers/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/easy/2843. Count Symmetric Integers"
@@ -14872,15 +14872,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Elixir",
-          "file": "leetcode/medium/2849. Determine if a Cell Is Reachable at a Given Time/main.ex"
+          "file": "main.ex"
         },
         {
           "language": "Go",
-          "file": "leetcode/medium/2849. Determine if a Cell Is Reachable at a Given Time/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2849. Determine if a Cell Is Reachable at a Given Time/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/2849. Determine if a Cell Is Reachable at a Given Time"
@@ -14903,15 +14903,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2870. Minimum Number of Operations to Make Array Empty/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/2870. Minimum Number of Operations to Make Array Empty/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2870. Minimum Number of Operations to Make Array Empty/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2870. Minimum Number of Operations to Make Array Empty"
@@ -14929,7 +14929,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/2873. Maximum Value of an Ordered Triplet I/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/2873. Maximum Value of an Ordered Triplet I"
@@ -14947,7 +14947,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2874. Maximum Value of an Ordered Triplet II/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/2874. Maximum Value of an Ordered Triplet II"
@@ -14967,15 +14967,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2914. Minimum Number of Changes to Make Binary String Beautiful/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2914. Minimum Number of Changes to Make Binary String Beautiful/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/2914. Minimum Number of Changes to Make Binary String Beautiful/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/2914. Minimum Number of Changes to Make Binary String Beautiful"
@@ -14997,11 +14997,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/2976. Minimum Cost to Convert String I/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/2976. Minimum Cost to Convert String I/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/2976. Minimum Cost to Convert String I"
@@ -15021,7 +15021,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/3047. Find the Largest Area of Square Inside Two Rectangles/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/3047. Find the Largest Area of Square Inside Two Rectangles"
@@ -15039,7 +15039,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/3105. Longest Strictly Increasing or Strictly Decreasing Subarray/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/3105. Longest Strictly Increasing or Strictly Decreasing Subarray"
@@ -15058,11 +15058,11 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/3163. String Compression III/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/3163. String Compression III/main.rs"
+          "file": "main.rs"
         }
       ],
       "path": "leetcode/medium/3163. String Compression III"
@@ -15084,19 +15084,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/3169. Count Days Without Meetings/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/3169. Count Days Without Meetings/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/3169. Count Days Without Meetings/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/3169. Count Days Without Meetings/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/3169. Count Days Without Meetings"
@@ -15119,23 +15119,23 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/3314. Construct the Minimum Bitwise Array I/main.go"
+          "file": "main.go"
         },
         {
           "language": "Kotlin",
-          "file": "leetcode/easy/3314. Construct the Minimum Bitwise Array I/main.kt"
+          "file": "main.kt"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/3314. Construct the Minimum Bitwise Array I/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/3314. Construct the Minimum Bitwise Array I/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/3314. Construct the Minimum Bitwise Array I/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/3314. Construct the Minimum Bitwise Array I"
@@ -15157,19 +15157,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/3315. Construct the Minimum Bitwise Array II/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/medium/3315. Construct the Minimum Bitwise Array II/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/medium/3315. Construct the Minimum Bitwise Array II/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/medium/3315. Construct the Minimum Bitwise Array II/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/medium/3315. Construct the Minimum Bitwise Array II"
@@ -15188,7 +15188,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/3394. Check if Grid can be Cut into Sections/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/3394. Check if Grid can be Cut into Sections"
@@ -15211,15 +15211,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/3483. Unique 3-Digit Even Numbers/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/3483. Unique 3-Digit Even Numbers/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/3483. Unique 3-Digit Even Numbers/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/3483. Unique 3-Digit Even Numbers"
@@ -15241,19 +15241,19 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/3498. Reverse Degree of a String/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/3498. Reverse Degree of a String/main.py"
+          "file": "main.py"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/3498. Reverse Degree of a String/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/3498. Reverse Degree of a String/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/3498. Reverse Degree of a String"
@@ -15276,7 +15276,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/3508. Implement Router/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/3508. Implement Router"
@@ -15298,15 +15298,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/3541. Find Most Frequent Vowel and Consonant/main.go"
+          "file": "main.go"
         },
         {
           "language": "Rust",
-          "file": "leetcode/easy/3541. Find Most Frequent Vowel and Consonant/main.rs"
+          "file": "main.rs"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/3541. Find Most Frequent Vowel and Consonant/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/3541. Find Most Frequent Vowel and Consonant"
@@ -15325,7 +15325,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/3550. Smallest Index With Digit Sum Equal to Index/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/easy/3550. Smallest Index With Digit Sum Equal to Index"
@@ -15345,15 +15345,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "C",
-          "file": "leetcode/easy/3622. Check Divisibility by Digit Sum and Product/main.c"
+          "file": "main.c"
         },
         {
           "language": "Go",
-          "file": "leetcode/easy/3622. Check Divisibility by Digit Sum and Product/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/3622. Check Divisibility by Digit Sum and Product/main.py"
+          "file": "main.py"
         }
       ],
       "path": "leetcode/easy/3622. Check Divisibility by Digit Sum and Product"
@@ -15374,7 +15374,7 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/medium/3623. Count Number of Trapezoids I/main.go"
+          "file": "main.go"
         }
       ],
       "path": "leetcode/medium/3623. Count Number of Trapezoids I"
@@ -15394,15 +15394,15 @@ export const repositorySnapshot = {
       "solutions": [
         {
           "language": "Go",
-          "file": "leetcode/easy/3783. Mirror Distance of an Integer/main.go"
+          "file": "main.go"
         },
         {
           "language": "Python",
-          "file": "leetcode/easy/3783. Mirror Distance of an Integer/main.py"
+          "file": "main.py"
         },
         {
           "language": "TypeScript",
-          "file": "leetcode/easy/3783. Mirror Distance of an Integer/main.ts"
+          "file": "main.ts"
         }
       ],
       "path": "leetcode/easy/3783. Mirror Distance of an Integer"
