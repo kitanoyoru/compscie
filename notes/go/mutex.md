@@ -2,13 +2,22 @@
 date: 2026-08-23
 ---
 
-# Go sync.Mutex — Internals
+# Go sync.Mutex
 
-> Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b2a407e452d814586d9fc7f1bf8e877)
+> Go's `sync.Mutex` is a compact adaptive lock. It begins with an atomic fast path, spins briefly when useful, and parks the goroutine only under sustained contention. It is neither a pure spinlock nor a simple sleeping lock. Checked against Go 1.26.
 
-> 🧠 Go's `sync.Mutex` is a compact adaptive lock: it begins with an atomic fast path, spins briefly when useful, and parks the goroutine only under sustained contention.
+## Questions this answers
 
-## 1. Internal Representation
+- What is in a `Mutex`, and what does the state word encode?
+- What does an uncontended `Lock` cost, and what happens when it is contended?
+- What is the difference between normal and starvation mode?
+- How does the runtime park and wake waiters without losing a wakeup?
+- What does a mutex guarantee under the memory model?
+- How do you find mutex contention in production?
+
+## Notes
+
+### Internal representation
 
 Current Go exposes a public wrapper around `internal/sync.Mutex`:
 
@@ -26,9 +35,9 @@ type internalMutex struct {
 
 `noCopy` helps `go vet` detect accidental copying. The effective synchronization state is held in two 32-bit words.
 
-### State Word
+#### State word
 
-```plain text
+```text
 31                                     3  2          1       0
 ┌───────────────────────────────────────┬───────────┬───────┬───────┐
 │            waiter count               │ starving  │ woken │ locked│
@@ -41,7 +50,7 @@ type internalMutex struct {
 - Upper bits: number of waiting goroutines.
 - `sema`: runtime semaphore used to park and awaken goroutines.
 
-## 2. Lock Fast Path
+### Lock fast path
 
 The uncontended path is a single atomic compare-and-swap:
 
@@ -54,7 +63,7 @@ func (m *Mutex) Lock() {
 }
 ```
 
-```plain text
+```text
 state = 0
    │
    │ CAS 0 → locked
@@ -64,7 +73,7 @@ lock acquired
 
 No queue, scheduler operation, or system call is needed.
 
-## 3. Contended Lock Path
+### Contended lock path
 
 ```mermaid
 flowchart TD
@@ -81,11 +90,11 @@ flowchart TD
 	MODE -->|yes| OWN
 ```
 
-### Active Spinning
+#### Active spinning
 
 Before sleeping, the goroutine may spin briefly when the runtime predicts that the owner will release the lock soon and parallel execution is available. Spinning avoids parking and rescheduling costs for short critical sections. It is disabled in starvation mode.
 
-### Parking
+#### Parking
 
 If spinning fails, the goroutine:
 
@@ -95,15 +104,15 @@ If spinning fails, the goroutine:
 4. Is placed in a wait queue.
 5. Is parked with `gopark`.
 
-Parking suspends the goroutine, not necessarily its operating-system thread. The scheduler can use that thread to run another goroutine.
+Parking suspends the goroutine, not necessarily its operating-system thread. The scheduler can use that thread to run another goroutine. See [Go Scheduler (GMP)](scheduler-gmp.md).
 
-## 4. Normal and Starvation Modes
+### Normal and starvation modes
 
-### Normal Mode
+#### Normal mode
 
 Waiters are queued approximately FIFO, but a woken waiter does not immediately own the mutex. It competes with newly arriving goroutines:
 
-```plain text
+```text
 Unlock wakes waiter
         │
         ▼
@@ -114,11 +123,11 @@ New goroutine ──┘
 
 New arrivals are already running and may acquire the lock first. This barging behavior improves throughput.
 
-### Starvation Mode
+#### Starvation mode
 
 If a waiter fails to acquire the mutex for approximately one millisecond, it can switch the mutex into starvation mode:
 
-```plain text
+```text
 Normal mode:     unlock → wake waiter → waiter competes
 Starvation mode: unlock ──────────────► direct ownership handoff
 ```
@@ -132,11 +141,9 @@ In starvation mode:
 
 The mutex returns to normal mode when the receiving waiter is the final waiter or waited for less than one millisecond.
 
-> ⚡ **Normal mode** prioritizes throughput.
+**Normal mode** prioritizes throughput. **Starvation mode** protects fairness and tail latency.
 
-> ⚖️ **Starvation mode** protects fairness and tail latency.
-
-## 5. Unlock Path
+### Unlock path
 
 ```go
 func (m *Mutex) Unlock() {
@@ -153,11 +160,11 @@ If the resulting state is zero, no waiter exists and unlocking is finished. Othe
 - Starvation mode directly hands ownership to the next waiter.
 - Unlocking an already-unlocked mutex produces a fatal runtime error.
 
-## 6. Runtime Semaphore Queues
+### Runtime semaphore queues
 
 The `sema` field does not directly contain a queue. Its address identifies a queue maintained by the runtime:
 
-```plain text
+```text
 Mutex.sema address
         │ hash
         ▼
@@ -173,9 +180,9 @@ sudog → sudog → sudog
 
 The runtime semaphore is best understood as a reliable sleep/wakeup mechanism. It prevents a wakeup from being lost when `Unlock` races with a goroutine preparing to sleep.
 
-## 7. Complete Mental Model
+### Complete mental model
 
-```plain text
+```text
 Lock:
     atomic CAS
        ↓ failure
@@ -197,19 +204,34 @@ Unlock:
 
 Go's mutex is therefore neither a pure spinlock nor a simple sleeping lock. It dynamically combines atomic acquisition, active spinning, scheduler parking, competitive wake-up, and fair handoff.
 
-## 8. Memory-Model Guarantees
+### Memory-model guarantees
 
-For calls `n < m`, the n-th `Unlock` **synchronizes before** the m-th successful `Lock`. A successful `TryLock` is equivalent to `Lock` for synchronization; a failed `TryLock` establishes no happens-before edge at all.
+For calls `n < m`, the n-th `Unlock` **synchronizes before** the m-th successful `Lock`. A successful `TryLock` is equivalent to `Lock` for synchronization. A failed `TryLock` establishes no happens-before edge at all. See [Go Memory Model](memory-model.md#core-synchronization-edges).
 
-A mutex is not associated with a goroutine, so one goroutine may lock it and another may unlock it. That is occasionally useful for handoff protocols, but ordinary code should keep ownership obvious. A `Mutex` must not be copied after first use; use pointer receivers for structs that contain one.
+### Profiling contention
 
-## 9. Profiling Contention
+- The mutex profile attributes time spent waiting for contended mutexes. Configure sampling with `runtime.SetMutexProfileFraction` and inspect `/debug/pprof/mutex`.
+- The block profile covers a broader set of blocking operations. Configure it with `runtime.SetBlockProfileRate`.
+- A profile identifies contention sites, not automatically oversized critical sections. Pair it with code inspection and execution traces.
 
-- The mutex profile attributes time spent waiting for contended mutexes; configure sampling with `runtime.SetMutexProfileFraction` and inspect `/debug/pprof/mutex`.
-- The block profile covers a broader set of blocking operations; configure it with `runtime.SetBlockProfileRate`.
-- A profile identifies contention sites, not automatically oversized critical sections—pair it with code inspection and execution traces.
+## Gotchas
 
-## Official Sources
+### Ownership and copying
+
+A mutex is not associated with a goroutine, so one goroutine may lock it and another may unlock it. That is occasionally useful for handoff protocols, but ordinary code should keep ownership obvious.
+
+A `Mutex` must not be copied after first use. Use pointer receivers for structs that contain one. `go vet` flags most accidental copies through the `noCopy` marker.
+
+## Interview drills
+
+- _"What does an uncontended Lock cost?"_ → one atomic CAS, with no queue, scheduler operation, or system call. See [lock fast path](#lock-fast-path).
+- _"Is Mutex a spinlock?"_ → no. It spins briefly, then parks. See [contended lock path](#contended-lock-path).
+- _"Why can a woken waiter lose to a new goroutine?"_ → normal mode allows barging for throughput. See [normal and starvation modes](#normal-and-starvation-modes).
+- _"How does starvation mode fix that?"_ → after about 1 ms of failed waiting, ownership is handed directly to the front waiter.
+- _"What happens on Unlock of an unlocked mutex?"_ → a fatal runtime error. See [unlock path](#unlock-path).
+- _"Can another goroutine unlock a mutex?"_ → yes, but keep ownership obvious. See [ownership and copying](#ownership-and-copying).
+
+## Sources
 
 - [Public `sync.Mutex` source](https://go.dev/src/sync/mutex.go)
 - [Internal mutex implementation](https://go.dev/src/internal/sync/mutex.go)

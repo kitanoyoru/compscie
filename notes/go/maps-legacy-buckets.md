@@ -2,19 +2,27 @@
 date: 2026-08-23
 ---
 
-# Go Maps — Legacy Bucket Design (Before Go 1.24)
+# Go Maps: Legacy Buckets (before Go 1.24)
 
-> Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b1a407e452d81908cace39f5f293332)
+> The classic map is an array of 2^B buckets, each holding up to 8 key/value pairs with a `tophash` byte per slot and an overflow chain when a bucket fills. Growth allocates a new array and migrates old buckets lazily, a couple per write. This is a historical implementation: Go 1.24 replaced it with Swiss tables, covered in [Go Maps: Swiss Tables (Go 1.24+)](maps-swiss-tables.md). Checked against Go 1.26.
 
-> 🕰️ **Historical implementation.** This describes the classic bucket-based map used in Go versions **prior to 1.24**. Go 1.24 replaced it with a Swiss Table design — see the companion doc **Go Maps — Swiss Tables (Go 1.24+)**.
->
-> **Why keep this page:** the growth/evacuation and thread-safety reasoning below is still the best illustration of Go's incremental-work philosophy, and interviewers who learned Go before 2025 will often be asking about _this_ design. Knowing both, and knowing which is which, is the strongest position.
->
-> `GOEXPERIMENT=noswissmap` was a transitional rollback option in Go 1.24/1.25. It is no longer present in Go 1.26, so this page should now be treated as historical architecture—not a selectable current implementation.
+## Questions this answers
 
-Notes from interview prep session. Companion to the Scheduler, Interfaces, Slices, and Channels pages.
+- How was the bucket-based map laid out, and how did lookup work?
+- What triggered growth, and who did the migration work?
+- Why was growth spread across later writes?
+- How did the runtime detect concurrent map access in this design?
+- What did `sync.Map` look like before Go 1.24?
 
-## 1. The hmap Struct
+## Notes
+
+### Why this page still matters
+
+The growth and evacuation logic and the thread-safety reasoning below are still the best illustration of Go's incremental-work philosophy. Interviewers who learned Go before 2025 will often be asking about _this_ design. Knowing both, and knowing which is which, is the strongest position.
+
+`GOEXPERIMENT=noswissmap` was a transitional rollback option in Go 1.24 and 1.25. It is no longer present in Go 1.26, so treat this page as historical architecture, not a selectable current implementation.
+
+### The `hmap` struct
 
 ```go
 type hmap struct {
@@ -39,88 +47,68 @@ type bmap struct {
 }
 ```
 
-`tophash` stores the top byte of each slot's hash, letting a lookup skip full key comparisons for slots that obviously don't match (single-byte comparison first). Values below `minTopHash` are reserved as **evacuation state markers** during growth, so the same byte does double duty.
+`tophash` stores the top byte of each slot's hash. This lets a lookup skip full key comparisons for slots that obviously do not match, using a single-byte comparison first. Values below `minTopHash` are reserved as **evacuation state markers** during growth, so the same byte does double duty.
 
-**Why keys and values are stored in separate runs** (all 8 keys, then all 8 values) rather than interleaved as pairs: it avoids per-pair padding. A `map[int64]int8` interleaved would waste 7 bytes of alignment padding per entry; grouped, the padding is paid once per bucket.
+**Why keys and values are stored in separate runs** (all 8 keys, then all 8 values) rather than interleaved as pairs: it avoids per-pair padding. A `map[int64]int8` interleaved would waste 7 bytes of alignment padding per entry, while grouped, the padding is paid once per bucket.
 
-## 2. Lookup Algorithm
+### Lookup algorithm
 
-1. Hash the key with the seeded hash function
-2. Low `B` bits of the hash select which bucket
-3. Top 8 bits get compared against that bucket's `tophash` array (cheap byte comparisons)
-4. Only on a `tophash` match does it do a full key comparison
-5. If the bucket's 8 slots are full and don't match, follow the overflow pointer to the chained bucket and repeat
+1. Hash the key with the seeded hash function.
+2. The low `B` bits of the hash select which bucket.
+3. The top 8 bits are compared against that bucket's `tophash` array (cheap byte comparisons).
+4. Only on a `tophash` match does it do a full key comparison.
+5. If the bucket's 8 slots are full and none match, follow the overflow pointer to the chained bucket and repeat.
 
-## 3. Growth — Two Distinct Triggers
+### Growth triggers
 
-1. **Load factor exceeded** (\~6.5 entries/bucket average) → normal **doubling** growth: `B` increments by 1
-2. **Too many overflow buckets relative to live entries** (sparse map from deletions, but still chained through many overflow buckets) → **same-size growth**: `B` stays the same, buckets reorganized to eliminate wasted overflow chains (defragmentation, not capacity increase)
+There are two distinct triggers:
 
-## 4. Who Triggers Growth, and Who Migrates Data
+1. **Load factor exceeded** (about 6.5 entries per bucket on average) leads to normal **doubling** growth: `B` increments by 1.
+2. **Too many overflow buckets relative to live entries** (a sparse map from deletions that is still chained through many overflow buckets) leads to **same-size growth**: `B` stays the same, and buckets are reorganized to eliminate wasted overflow chains. This is defragmentation, not a capacity increase.
+
+### Who triggers growth and who migrates data
 
 | Phase                                      | Who triggers it                                             | When                                                                 |
 | ------------------------------------------ | ----------------------------------------------------------- | -------------------------------------------------------------------- |
 | Decide to grow + allocate new bucket array | The goroutine doing the insert that crossed the threshold   | Once, synchronously, inline in that single `mapassign` call          |
 | Evacuate old buckets into new layout       | Whichever goroutine calls the _next_ several writes/deletes | Spread across many subsequent operations, a couple buckets at a time |
 
-`hashGrow()` itself does **not** move data — it just allocates the new array and sets `oldbuckets`. Actual copying (**evacuation**) happens lazily: every `mapassign`/`mapdelete` after growth starts evacuates one or two old buckets as a side effect before doing its own work. This amortizes the cost instead of causing one huge pause — same motivation as incremental stack growth/GC pacing.
+`hashGrow()` itself does **not** move data. It just allocates the new array and sets `oldbuckets`. The actual copying (**evacuation**) happens lazily: every `mapassign` or `mapdelete` after growth starts evacuates one or two old buckets as a side effect before doing its own work. This amortizes the cost instead of causing one huge pause, with the same motivation as incremental stack growth and GC pacing.
 
-**Perf implication:** map writes immediately after a growth is triggered have marginally higher, less predictable latency (since they may also evacuate a bucket). For latency-sensitive paths, preallocate with `make(map[K]V, expectedSize)` to avoid triggering growth during hot request paths.
+### Iteration order and hash seed
 
-## 5. Why Maps Aren't Thread-Safe
+Every `range` over a map picks a **random starting bucket and random starting slot** within it, independent of `hash0`. The full explanation of randomized iteration, deterministic output, and why the seed exists is in [Go Maps: Swiss Tables](maps-swiss-tables.md#what-did-not-change). The two are separate concerns: `hash0` provides collision resistance against hash flooding, and iteration randomization prevents order dependence.
 
-Deliberate design tradeoff — locking would cost every single-threaded map user. Instead: cheap, best-effort detection via `hmap.flags`' `hashWriting` bit. Before a write, the runtime sets this bit; if already set (another write in progress), it crashes immediately:
+### Why maps are not thread-safe
 
-```text
-fatal error: concurrent map writes
-```
+In this design, the runtime detects concurrent access with the `hashWriting` bit in `hmap.flags`. Before a write, the runtime sets this bit. If it is already set (another write in progress), the runtime crashes immediately with `fatal error: concurrent map writes`. A concurrent read during a write similarly produces `fatal error: concurrent map read and map write`.
 
-A concurrent read during a write similarly produces:
+The reasoning, the fixes, and the Swiss-era behavior are in [`fatal error: concurrent map writes`](maps-swiss-tables.md#fatal-error-concurrent-map-writes). The behavior is identical across both implementations.
 
-```text
-fatal error: concurrent map read and map write
-```
+### `sync.Map` before Go 1.24
 
-Both are **fatal errors**, not recoverable panics — Go treats unsynchronized concurrent map access as a programming bug. Standard fixes: a plain map protected by `sync.Mutex` or `sync.RWMutex` (choose from measured contention/read patterns), or `sync.Map` for its documented specialized workloads. The old read-only/dirty-map explanation is historical since Go 1.24.
+The classic implementation used a read-only `read` map plus a `dirty` map. Reads hit `read` with an atomic load and no lock at all. Misses fall through to `dirty` under a mutex, and enough misses promote `dirty` to `read`. The cost was roughly doubled memory and expensive first writes.
 
-## 6. Iteration Order Randomization
+Go 1.24 replaced these internals with a HashTrieMap. When to use `sync.Map` at all is covered in [`sync.Map` is not a faster map](maps-swiss-tables.md#syncmap-is-not-a-faster-map).
 
-Deliberate and enforced: every `range` over a map picks a **random starting bucket and random starting slot** within it — independent of `hash0`. This stops programs from accidentally depending on iteration order (never guaranteed, could change between versions/runs).
+### Semantics that did not change
 
-**For deterministic output:** extract keys into a slice, sort it, then iterate the sorted keys — standard idiom for stable map output (deterministic JSON serialization, reproducible logs). Note `encoding/json` already sorts map keys when marshaling, so JSON output is stable without you doing anything.
+Addressability, zero values for missing keys, deletion during iteration, `clear(m)`, maps never shrinking, and O(1) `len(m)` are the same in both implementations. They are described in full in [Go Maps: Swiss Tables](maps-swiss-tables.md#what-did-not-change). In this design, a map that grew large and was then emptied kept its full bucket array.
 
-**Separately, `hash0` exists for security, not order.** The per-map random seed makes it infeasible for an attacker to craft keys that all collide into one bucket, which would degrade lookups from O(1) to O(n) — a classic hash-flooding DoS against anything that puts user-controlled strings into a map (HTTP headers, query params, JSON fields). Two different concerns, often conflated: `hash0` = collision resistance, iteration randomization = preventing order dependence.
+## Gotchas
 
-## 7. Semantics That Are Not Implementation Details
+### Write latency after growth
 
-These hold across both the legacy and Swiss implementations — they are language guarantees, so they're safe answers regardless of version:
+Map writes immediately after a growth is triggered have marginally higher, less predictable latency, because they may also evacuate a bucket. For latency-sensitive paths, preallocate with `make(map[K]V, expectedSize)` to avoid triggering growth during hot request paths. Swiss maps bound this cost per table, as described in [extendible hashing](maps-swiss-tables.md#extendible-hashing).
 
-- **Map elements are not addressable.** `&m[k]` doesn't compile, and `m[k].Field = v` doesn't compile for struct values. Reason: growth relocates entries, so any pointer taken would dangle. Workarounds: `map[K]*V`, or read-modify-write the whole value.
-- **Reading a missing key returns the zero value**, no panic. `v, ok := m[k]` distinguishes "absent" from "present but zero."
-- **Deleting during iteration is legal.** Entries deleted before being reached will not be produced. Entries _added_ during iteration may or may not be produced — genuinely unspecified.
-- **`clear(m)`** (Go 1.21+) removes all entries while retaining allocated capacity — the right way to recycle a map, versus `m = make(...)` which discards it. Note it also correctly handles `NaN` keys, which the old delete-in-a-loop idiom could not remove.
-- **Maps never shrink.** A map that grew to 1M entries and then had them all deleted retains the bucket array. If that matters, replace the map rather than clearing it.
-- **`len(m)`** is O(1) — it's the `count` field.
+## Interview drills
 
-## 8. `sync.Map` — When and Why
+- _"Does growth cause unpredictable write latency?"_ → Yes, slightly. A write that also evacuates a bucket does marginally more work. This is a real, if small, source of tail latency variance in high-throughput services. See [write latency after growth](#write-latency-after-growth).
+- _"How would you get deterministic map output?"_ → Sort the extracted keys before iterating. See [Go Maps: Swiss Tables](maps-swiss-tables.md#what-did-not-change).
+- _"Who does the evacuation work?"_ → the later writes and deletes, one or two buckets each. See [who triggers growth and who migrates data](#who-triggers-growth-and-who-migrates-data).
+- _"What were the two growth triggers?"_ → load factor (doubling) and too many overflow buckets (same-size growth). See [growth triggers](#growth-triggers).
 
-`sync.Map` is not "a faster map" — it is a map for two specific access patterns, and it is **slower** than `RWMutex` + plain map for general workloads:
-
-1. Write-once, read-many (a cache populated at startup)
-2. Disjoint key sets per goroutine (each goroutine touches its own keys)
-
-The classic implementation used a read-only `read` map plus a `dirty` map: reads hit `read` with an atomic load and no lock at all; misses fall through to `dirty` under a mutex, and enough misses promote `dirty` to `read`. The cost is roughly doubled memory and expensive first-writes.
-
-**Go 1.24 replaced the internals** with a **HashTrieMap** — a concurrent hash-trie — which improves the previously poor write and delete performance and makes `sync.Map` far less pathological outside its two ideal patterns. The API is unchanged. If your knowledge of `sync.Map` is "read map + dirty map," that's now the _historical_ answer.
-
-Also worth knowing: `sync.Map` is untyped (`any` keys and values), so it reintroduces boxing and type assertions. For most services, a `Mutex`/`RWMutex` around a `map[K]V`, or **sharded maps** (N maps each with their own mutex, keyed by `hash(k) % N`) to cut contention, is the better default.
-
-## 9. Follow-ups to Have Ready
-
-- _"Does growth cause unpredictable write latency?"_ → Yes, slightly — a write that also evacuates a bucket does marginally more work. Real (if small) source of tail latency variance in high-throughput services.
-- _"How would you get deterministic map output?"_ → Sort extracted keys before iterating.
-
-## Official Sources
+## Sources
 
 - [Go 1.24 release notes: Swiss-map transition](https://go.dev/doc/go1.24)
 - [Faster Go maps with Swiss Tables](https://go.dev/blog/swisstable)
