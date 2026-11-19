@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { App } from '../App'
 import { repositorySnapshot } from '../data/generated/repository'
@@ -17,7 +17,12 @@ function matchCount(count: number): RegExp {
 describe('LeetCode workspace', () => {
   beforeEach(() => {
     localStorage.clear()
+    sessionStorage.clear()
     window.location.hash = '#/leetcode'
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
   })
 
   it('filters solved problems by difficulty and search', async () => {
@@ -74,6 +79,100 @@ describe('LeetCode workspace', () => {
       'href',
       '#/leetcode?problem=2',
     )
+  })
+
+  it('keeps a running timer and draft reflection across remounts', async () => {
+    const user = userEvent.setup()
+    const problem = problems[0]!
+    window.location.hash = `#/leetcode?problem=${problem.id}`
+    const first = render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /start timer/i }))
+    await user.type(screen.getByLabelText(/^reflection$/i), 'Hash map of complements')
+    first.unmount()
+    render(<App />)
+
+    expect(screen.getByLabelText(/^reflection$/i)).toHaveValue('Hash map of complements')
+    expect(screen.getByRole('button', { name: /reset timer/i })).toBeInTheDocument()
+  })
+
+  it('keeps a reflection draft but drops the timer on reset', async () => {
+    const user = userEvent.setup()
+    window.location.hash = `#/leetcode?problem=${problems[0]!.id}`
+    const first = render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /start timer/i }))
+    await user.type(screen.getByLabelText(/^reflection$/i), 'Keep me')
+    await user.click(screen.getByRole('button', { name: /reset timer/i }))
+    first.unmount()
+    render(<App />)
+
+    expect(screen.getByLabelText(/^reflection$/i)).toHaveValue('Keep me')
+    expect(screen.getByRole('button', { name: /start timer/i })).toBeInTheDocument()
+  })
+
+  it('saves with Ctrl+Enter and clears the draft', async () => {
+    const user = userEvent.setup()
+    const problem = problems[0]!
+    window.location.hash = `#/leetcode?problem=${problem.id}`
+    const first = render(<App />)
+
+    await user.type(screen.getByLabelText(/^reflection$/i), 'Complement lookup')
+    await user.keyboard('{Control>}{Enter}{/Control}')
+
+    expect(screen.getByText(/session saved/i)).toBeInTheDocument()
+    expect(
+      within(screen.getByRole('list', { name: /session history/i })).getByText('Complement lookup'),
+    ).toBeInTheDocument()
+    expect(screen.getByLabelText(/^reflection$/i)).toHaveValue('')
+
+    first.unmount()
+    render(<App />)
+
+    expect(screen.getByLabelText(/^reflection$/i)).toHaveValue('')
+    expect(screen.getByRole('button', { name: /start timer/i })).toBeInTheDocument()
+  })
+
+  it('does not save with Ctrl+Enter while the reflection is empty', async () => {
+    const user = userEvent.setup()
+    window.location.hash = `#/leetcode?problem=${problems[0]!.id}`
+    render(<App />)
+
+    await user.click(screen.getByLabelText(/^reflection$/i))
+    await user.keyboard('{Control>}{Enter}{/Control}')
+
+    expect(screen.queryByText(/session saved/i)).not.toBeInTheDocument()
+  })
+
+  it('shows the elapsed time in the tab title while the timer runs', async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true })
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+    window.location.hash = `#/leetcode?problem=${problems[0]!.id}`
+    render(<App />)
+
+    expect(document.title).toBe('LeetCode · Compscie')
+
+    await user.click(screen.getByRole('button', { name: /start timer/i }))
+    expect(document.title).toMatch(/^\d\d:\d\d · #\d+ · Compscie$/)
+
+    await user.click(screen.getByRole('button', { name: /reset timer/i }))
+    expect(document.title).toBe('LeetCode · Compscie')
+  })
+
+  it('restores the page title when a running timer unmounts', async () => {
+    const user = userEvent.setup()
+    window.location.hash = `#/leetcode?problem=${problems[0]!.id}`
+    const view = render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /start timer/i }))
+    view.unmount()
+    expect(document.title).toBe('LeetCode · Compscie')
+
+    // A restored running timer must also restore the page title, not the stale one from mount time.
+    document.title = 'Elsewhere'
+    render(<App />)
+    await Promise.resolve()
+    expect(document.title).toMatch(/^\d\d:\d\d · #\d+ · Compscie$/)
   })
 
   it('opens a deep link with a filter and a selected problem', () => {

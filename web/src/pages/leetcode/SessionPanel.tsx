@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type FormEvent, type JSX } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent, type JSX, type KeyboardEvent } from 'react'
 
 import { Icon } from '../../components/Icon'
 import { useToast } from '../../components/Toast'
@@ -9,6 +9,7 @@ import { sessionMinutes } from '../../domain/insights'
 import type { SolveOutcome, SolveSession } from '../../domain/personal-types'
 import { formatDay, formatElapsed, formatProblemNumber, formatRelativeDay, formatTime, plural } from '../../lib/format'
 import { useLearningDispatch } from '../../state/learning-state'
+import { clearSessionDraft, loadSessionDraft, saveSessionDraft } from '../../state/session-draft'
 
 interface SessionPanelProps {
   readonly problem: SolvedProblem
@@ -92,12 +93,62 @@ interface SessionRecorderProps {
 function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Element {
   const dispatch = useLearningDispatch()
   const reflectionId = useId()
-  const [startedAt, setStartedAt] = useState<number | null>(null)
+  const [draft] = useState(() => loadSessionDraft(problem.id))
+  const [startedAt, setStartedAt] = useState<number | null>(draft?.startedAt ?? null)
   const [now, setNow] = useState(() => Date.now())
-  const [outcome, setOutcome] = useState<SolveOutcome>('success')
-  const [reflection, setReflection] = useState('')
+  const [outcome, setOutcome] = useState<SolveOutcome>(draft?.outcome ?? 'success')
+  const [reflection, setReflection] = useState(draft?.reflection ?? '')
   const [status, setStatus] = useState('')
   const running = startedAt !== null
+  const elapsed = formatElapsed(running ? now - startedAt : 0)
+  const timerTitle = `${elapsed} · #${problem.id} · Compscie`
+  const timerTitleRef = useRef(timerTitle)
+  const previousTitle = useRef<string | null>(null)
+
+  timerTitleRef.current = timerTitle
+
+  // Persist on changes only; the per-second `now` ticks are deliberately not a dependency.
+  useEffect(() => {
+    if (startedAt !== null || reflection !== '') {
+      saveSessionDraft({ problemId: problem.id, startedAt, outcome, reflection })
+    } else {
+      clearSessionDraft(problem.id)
+    }
+  }, [problem.id, startedAt, outcome, reflection])
+
+  // Capture the title that was current before the timer started, and restore it on stop or unmount.
+  // The capture is deferred to a microtask: on a remount with a restored timer, this child effect runs
+  // before the page's usePageTitle effect, so reading synchronously would capture a stale title.
+  // Microtasks run after the whole passive-effect flush, when the page title is already in place.
+  useEffect(() => {
+    if (!running) {
+      return undefined
+    }
+
+    let cancelled = false
+
+    queueMicrotask(() => {
+      if (!cancelled) {
+        previousTitle.current = document.title
+        document.title = timerTitleRef.current
+      }
+    })
+
+    return () => {
+      cancelled = true
+
+      if (previousTitle.current !== null) {
+        document.title = previousTitle.current
+        previousTitle.current = null
+      }
+    }
+  }, [running])
+
+  useEffect(() => {
+    if (previousTitle.current !== null) {
+      document.title = timerTitle
+    }
+  }, [timerTitle])
 
   useEffect(() => {
     if (startedAt === null) {
@@ -138,6 +189,7 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
 
     dispatch({ type: 'sessionCompleted', session })
     onSaved(problem.id)
+    clearSessionDraft(problem.id)
     setReflection('')
     setStartedAt(null)
     setStatus(
@@ -147,12 +199,36 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
     )
   }
 
+  function handleReflectionKeyDown(event: KeyboardEvent<HTMLTextAreaElement>): void {
+    if (event.key !== 'Enter' || !(event.metaKey || event.ctrlKey) || event.nativeEvent.isComposing) {
+      return
+    }
+
+    event.preventDefault()
+
+    if (reflection.trim() === '') {
+      return
+    }
+
+    const form = event.currentTarget.form
+
+    if (form === null) {
+      return
+    }
+
+    if (typeof form.requestSubmit === 'function') {
+      form.requestSubmit()
+    } else {
+      form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))
+    }
+  }
+
   return (
     <form className="session-form" onSubmit={handleSubmit} aria-label="Record a practice session">
       <div className="timer" data-running={running ? 'true' : undefined}>
         <Icon name="clock" size={18} />
         <span className="timer-value" role="timer" aria-label="Elapsed time">
-          {formatElapsed(running ? now - startedAt : 0)}
+          {elapsed}
         </span>
         {running ? (
           <button type="button" className="button button-quiet button-small" onClick={() => setStartedAt(null)}>
@@ -209,7 +285,9 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
           rows={4}
           value={reflection}
           placeholder="The invariant, edge case, or trick worth remembering next time."
+          aria-keyshortcuts="Control+Enter Meta+Enter"
           onChange={(event) => setReflection(event.target.value)}
+          onKeyDown={handleReflectionKeyDown}
         />
       </div>
 
@@ -218,6 +296,9 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
           <Icon name="check" />
           Save session
         </button>
+        <span className="muted shortcut-hint" aria-hidden="true">
+          ⌘/Ctrl + Enter
+        </span>
         <p className="save-status" role="status">
           {status}
         </p>
