@@ -1,6 +1,9 @@
 // Renders every note to HTML at build time:
 //
 //   public/content/notes/<topic>/<slug>.json   { path, html, toc: [{ id, text, depth }] }
+//   public/content/notes/index.json            [{ topicSlug, slug, headings: [{ id, text }] }]
+//
+// The index feeds the command palette's section search; it is fetched only when the palette opens.
 //
 // - Heading ids come from github-slugger, so anchors match GitHub's and old links keep working.
 // - Links are rewritten for the hash router: a note link becomes `#/notes/<topic>/<slug>`, and an
@@ -219,6 +222,17 @@ export async function generateNoteContent({ repoRoot, notes, outDir }) {
       mkdirSync(path.dirname(target), { recursive: true })
       writeFileSync(target, JSON.stringify({ path: note.path, html, toc }))
     }
+
+    writeFileSync(
+      path.join(out, 'index.json'),
+      JSON.stringify(
+        rendered.map(({ note, toc }) => ({
+          topicSlug: note.topicSlug,
+          slug: note.slug,
+          headings: toc.map(({ id, text }) => ({ id, text })),
+        }))
+      )
+    )
 
     return { written: rendered.length }
   } finally {

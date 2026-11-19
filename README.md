@@ -37,7 +37,9 @@ A local-first React workspace over this repository, in [web/](web/): Today, Revi
 - **Your solutions:** the LeetCode session panel shows your own code for the problem, one tab per language, highlighted at build time. It starts collapsed, so a review starts from memory.
 - **Theme** (sun/moon button in the header): flips between light and dark. Landing on your system's theme clears the stored choice, so the app follows the system again.
 - **Settings** (button in the header): JSON backup export and import, and reset. Import is validated and asks before replacing anything.
-- **Shortcuts:** `/` focuses LeetCode search, `Esc` clears it, `Ctrl/Cmd+Z` triggers Undo while a toast shows, and `Ctrl/Cmd+Enter` saves a practice session.
+- **Search** (button in the header, or `Cmd+K` / `Ctrl+K` anywhere): pages, topics, notes, note sections, and problems (type a number such as `42` to jump to a problem), plus the theme and Settings actions.
+- **Shortcuts:** `Cmd/Ctrl+K` opens search, `/` focuses LeetCode search, `Esc` clears it, `Ctrl/Cmd+Z` triggers Undo while a toast shows, and `Ctrl/Cmd+Enter` saves a practice session.
+- **Languages** show as brand icons from `tools/languages.json`. After solving in a new language, add it there and run `yarn --cwd web run vendor:icons`; a unit test fails until you do.
 - Days and weeks follow your local time zone.
 - A running timer and reflection draft survive navigation and reload in the same tab.
 

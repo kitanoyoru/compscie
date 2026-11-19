@@ -55,6 +55,17 @@ export function loadSolutions(problemId: number): Promise<SolutionContent | unde
   return fetchContent<SolutionContent>(`solutions/${problemId}.json`)
 }
 
+export interface NoteHeadings {
+  readonly topicSlug: string
+  readonly slug: string
+  readonly headings: readonly { readonly id: string; readonly text: string }[]
+}
+
+/** Every note's h2 and h3 headings, for searching sections. */
+export function loadNoteHeadings(): Promise<readonly NoteHeadings[] | undefined> {
+  return fetchContent<readonly NoteHeadings[]>('notes/index.json')
+}
+
 /** One rendered note. */
 export function loadNote(topicSlug: string, slug: string): Promise<NoteContent | undefined> {
   return fetchContent<NoteContent>(`notes/${encodeURIComponent(topicSlug)}/${encodeURIComponent(slug)}.json`)

@@ -18,9 +18,12 @@ async function render(fixture, slugs) {
       outDir,
     })
 
-    return Object.fromEntries(
-      slugs.map((slug) => [slug, JSON.parse(readFileSync(path.join(outDir, 'demo', `${slug}.json`), 'utf8'))])
-    )
+    return {
+      ...Object.fromEntries(
+        slugs.map((slug) => [slug, JSON.parse(readFileSync(path.join(outDir, 'demo', `${slug}.json`), 'utf8'))])
+      ),
+      index: JSON.parse(readFileSync(path.join(outDir, 'index.json'), 'utf8')),
+    }
   } finally {
     rmSync(outDir, { recursive: true, force: true })
   }
@@ -57,6 +60,24 @@ test('rewrites links for the hash router and GitHub', async () => {
   assert.match(a.html, /href="https:\/\/github\.com\/kitanoyoru\/compscie\/tree\/main\/notes\/demo\/labs"/)
   assert.match(a.html, /href="https:\/\/example\.com" target="_blank" rel="noreferrer">a site</)
   assert.match(b.html, /href="#\/notes\/demo\/a">A</)
+})
+
+test('writes a heading index for search', async () => {
+  const { index } = await render('notes-render', ['a', 'b'])
+
+  assert.deepEqual(index, [
+    {
+      topicSlug: 'demo',
+      slug: 'a',
+      headings: [
+        { id: 'questions-this-answers', text: 'Questions this answers' },
+        { id: 'notes', text: 'Notes' },
+        { id: 'same-heading', text: 'Same heading' },
+        { id: 'same-heading-1', text: 'Same heading' },
+      ],
+    },
+    { topicSlug: 'demo', slug: 'b', headings: [{ id: 'details', text: 'Details' }] },
+  ])
 })
 
 test('wraps tables in a focusable scroll container', async () => {

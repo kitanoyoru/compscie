@@ -12,6 +12,9 @@ import { sampleSolutions } from './test/solution-content'
 vi.mock('./data/content', () => ({
   loadSolutions: async (id: number) => sampleSolutions(id),
   loadNote: async (topic: string, slug: string) => sampleNote(`notes/${topic}/${slug}.md`),
+  loadNoteHeadings: async () => [
+    { topicSlug: 'go', slug: 'channels', headings: [{ id: 'hchan-struct', text: 'hchan struct' }] },
+  ],
 }))
 
 describe('seeded state fixture', () => {
@@ -102,5 +105,19 @@ describe('accessibility of a note question with its note open', () => {
     await userEvent.setup().click(screen.getByRole('button', { name: /show note/i }))
     expect(await screen.findByText('A short summary.')).toBeInTheDocument()
     await expectNoAxeViolations(container)
+  })
+})
+
+describe('accessibility of the command palette', () => {
+  it('has no WCAG A/AA violations with results showing', async () => {
+    localStorage.clear()
+    window.location.hash = '#/'
+    render(<App />)
+    const user = userEvent.setup()
+
+    await user.keyboard('{Control>}k{/Control}')
+    await user.type(screen.getByRole('combobox', { name: 'Search the workspace' }), 'chan')
+    expect(screen.getAllByRole('option').length).toBeGreaterThan(0)
+    await expectNoAxeViolations(document.body)
   })
 })
