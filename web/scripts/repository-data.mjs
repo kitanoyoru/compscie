@@ -5,33 +5,29 @@ import path from 'node:path'
 const TOPIC_STATUSES = new Set(['active', 'planned', 'paused', 'done'])
 const DIFFICULTIES = new Set(['easy', 'medium', 'hard'])
 
-const LANGUAGE_NAMES = {
-  '.go': 'Go',
-  '.ts': 'TypeScript',
-  '.js': 'JavaScript',
-  '.py': 'Python',
-  '.rs': 'Rust',
-  '.java': 'Java',
-  '.cpp': 'C++',
-  '.c': 'C',
-  '.cs': 'C#',
-  '.swift': 'Swift',
-  '.kt': 'Kotlin',
-  '.rb': 'Ruby',
-  '.ex': 'Elixir',
-  '.exs': 'Elixir',
-  '.dart': 'Dart',
-  '.zig': 'Zig',
-  '.sql': 'SQL',
-  '.scala': 'Scala',
-  '.hs': 'Haskell',
-  '.php': 'PHP',
-  '.lua': 'Lua',
-  '.sh': 'Shell',
-  '.pl': 'Perl',
-  '.erl': 'Erlang',
-  '.clj': 'Clojure',
+const LANGUAGE_REGISTRY_URL = new URL('../../tools/languages.json', import.meta.url)
+
+/** File extension (lowercase, with the dot) to display name, from tools/languages.json. */
+export function loadLanguageNames(registryUrl = LANGUAGE_REGISTRY_URL) {
+  const { languages } = JSON.parse(readFileSync(registryUrl, 'utf8'))
+  const names = {}
+
+  for (const language of languages) {
+    for (const extension of language.extensions) {
+      if (Object.hasOwn(names, extension)) {
+        throw new Error(
+          `Extension ${extension} is listed for both ${names[extension]} and ${language.name}`
+        )
+      }
+
+      names[extension] = language.name
+    }
+  }
+
+  return names
 }
+
+const LANGUAGE_NAMES = loadLanguageNames()
 
 function repositoryPath(value) {
   return value instanceof URL ? fileURLToPath(value) : value
@@ -202,8 +198,14 @@ function loadProblemIndex(repoRoot) {
   return problems
 }
 
-function collectLanguages(problemRoot) {
-  const languages = new Set()
+const NESTED_PROBLEM_FOLDER = /^\s*\d{1,4}\./
+
+/**
+ * Solution files under a problem folder, with their language, sorted by language then path.
+ * `file` is relative to the problem folder (usually just `main.go`) to keep the snapshot small.
+ */
+function collectSolutions(repoRoot, problemRoot) {
+  const solutions = []
 
   function visit(directory) {
     for (const entry of readdirSync(directory, { withFileTypes: true })) {
@@ -214,6 +216,12 @@ function collectLanguages(problemRoot) {
       const entryPath = path.join(directory, entry.name)
 
       if (entry.isDirectory()) {
+        if (NESTED_PROBLEM_FOLDER.test(entry.name)) {
+          throw new Error(
+            `Nested problem folder inside another problem: ${relativePath(repoRoot, entryPath)}`
+          )
+        }
+
         visit(entryPath)
         continue
       }
@@ -224,13 +232,15 @@ function collectLanguages(problemRoot) {
 
       const language = LANGUAGE_NAMES[path.extname(entry.name).toLowerCase()]
       if (language) {
-        languages.add(language)
+        solutions.push({ language, file: toPosix(path.relative(problemRoot, entryPath)) })
       }
     }
   }
 
   visit(problemRoot)
-  return [...languages].sort((left, right) => left.localeCompare(right))
+  return solutions.sort(
+    (left, right) => left.language.localeCompare(right.language) || left.file.localeCompare(right.file)
+  )
 }
 
 function problemIdFromFolder(name) {
@@ -274,7 +284,8 @@ function collectProblems(repoRoot) {
       }
 
       const problemRoot = path.join(difficultyRoot, entry.name)
-      const languages = collectLanguages(problemRoot)
+      const solutions = collectSolutions(repoRoot, problemRoot)
+      const languages = [...new Set(solutions.map((solution) => solution.language))]
 
       if (languages.length === 0) {
         throw new Error(`LeetCode problem ${id} has no recognized solution files`)
@@ -284,6 +295,7 @@ function collectProblems(repoRoot) {
       problems.push({
         ...metadata,
         languages,
+        solutions,
         path: relativePath(repoRoot, problemRoot),
       })
     }

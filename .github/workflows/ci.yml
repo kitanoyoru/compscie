@@ -48,6 +48,9 @@ jobs:
       - name: Run tests
         run: yarn test --run
 
+      - name: Run data generator tests
+        run: yarn run test:scripts
+
       - name: Build production site
         run: yarn build
 

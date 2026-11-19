@@ -1,6 +1,8 @@
 import type { JSX } from 'react'
+import { Link } from 'react-router'
 
 import { BarList } from '../components/charts'
+import { LanguageIcon, languageColorStyle } from '../components/LanguageIcon'
 import { usePageTitle } from '../components/RouteEffects'
 import { PageHeader, StatTile, formatCount } from '../components/ui'
 import { repositorySnapshot } from '../data/generated/repository'
@@ -53,7 +55,13 @@ export function KnowledgeMapPage(): JSX.Element {
         <StatTile
           label="Languages"
           value={counts.languages.length}
-          hint={languageRanking[0] === undefined ? undefined : `Mostly ${languageRanking[0].label}`}
+          hint={
+            languageRanking[0] === undefined ? undefined : (
+              <>
+                Mostly <LanguageIcon language={languageRanking[0].label} size={14} className="inline-lang" />
+              </>
+            )
+          }
         />
       </div>
 
@@ -78,12 +86,28 @@ export function KnowledgeMapPage(): JSX.Element {
               label: entry.label,
               value: entry.count,
               to: `/leetcode?language=${encodeURIComponent(entry.label)}`,
+              icon: <LanguageIcon language={entry.label} size={16} decorative />,
+              colorStyle: languageColorStyle(entry.label),
             }))}
           />
           {otherLanguages.length > 0 && (
-            <p className="card-footnote">
-              Also: {otherLanguages.map((entry) => `${entry.label} (${entry.count})`).join(', ')}
-            </p>
+            <div className="card-footnote also-languages">
+              <span id="also-languages-label">Also</span>
+              <ul aria-labelledby="also-languages-label">
+                {otherLanguages.map((entry) => (
+                  <li key={entry.label}>
+                    <Link
+                      to={`/leetcode?language=${encodeURIComponent(entry.label)}`}
+                      aria-label={`${entry.label}, ${plural(entry.count, 'problem')}`}
+                      title={`${entry.label}: ${plural(entry.count, 'problem')}`}
+                    >
+                      <LanguageIcon language={entry.label} size={14} decorative />
+                      <span aria-hidden="true">{entry.count}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </section>
 

@@ -50,6 +50,60 @@ describe('LeetCode workspace', () => {
     ).toHaveLength(twoSums.length)
   })
 
+  it('filters by language with icon chips and toggles the filter off again', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const languages = screen.getByRole('group', { name: 'Language' })
+    const goCount = problems.filter((problem) => problem.languages.some((language) => language === 'Go')).length
+    const go = within(languages).getByRole('button', { name: `Go, ${goCount} problems` })
+
+    // Most-used language first, right after "All".
+    expect(within(languages).getAllByRole('button').map((button) => button.getAttribute('aria-label'))[1]).toBe(
+      `Go, ${goCount} problems`,
+    )
+    expect(within(languages).getByRole('button', { name: 'All' })).toHaveAttribute('aria-pressed', 'true')
+
+    await user.click(go)
+
+    expect(go).toHaveAttribute('aria-pressed', 'true')
+    expect(window.location.hash).toContain('language=Go')
+    expect(screen.getByText(matchCount(goCount))).toBeInTheDocument()
+
+    await user.click(go)
+
+    expect(go).toHaveAttribute('aria-pressed', 'false')
+    expect(window.location.hash).not.toContain('language=')
+    expect(screen.getByText(matchCount(problems.length))).toBeInTheDocument()
+  })
+
+  it('names each row with its solution languages and shows them as icons', () => {
+    render(<App />)
+
+    const twoSum = problems.find((problem) => problem.id === 1)!
+    const name = new RegExp(`^two sum, problem 1,.*solutions in ${twoSum.languages.join(', ')}$`, 'i')
+    const row = screen.getByRole('button', { name })
+
+    expect(row.querySelectorAll('.lang-icon')).toHaveLength(Math.min(5, twoSum.languages.length))
+  })
+
+  it('links every solution file of the selected problem', () => {
+    window.location.hash = '#/leetcode?problem=1'
+    render(<App />)
+
+    const twoSum = problems.find((problem) => problem.id === 1)!
+    const links = within(screen.getByRole('list', { name: 'Solutions' })).getAllByRole('link')
+
+    expect(links).toHaveLength(twoSum.solutions.length)
+    expect(links[0]).toHaveAccessibleName(
+      `${twoSum.solutions[0]!.language} solution, ${twoSum.solutions[0]!.file} (opens in a new tab)`,
+    )
+    expect(links[0]).toHaveAttribute(
+      'href',
+      expect.stringMatching(new RegExp(`${encodeURIComponent('0001. Two Sum')}/${twoSum.solutions[0]!.file}$`)),
+    )
+  })
+
   it('records a timed session with a reflection and surfaces it for review', async () => {
     const user = userEvent.setup()
     render(<App />)

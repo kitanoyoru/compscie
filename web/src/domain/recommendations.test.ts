@@ -119,9 +119,9 @@ describe('countCompletedThisIsoWeek', () => {
 
 describe('choosePracticeProblem', () => {
   const problems: SolvedProblem[] = [
-    { id: 3, title: 'Third', difficulty: 'medium', languages: ['Go'], tags: [], path: 'leetcode/medium/0003' },
-    { id: 2, title: 'Second', difficulty: 'medium', languages: ['Go'], tags: [], path: 'leetcode/medium/0002' },
-    { id: 1, title: 'First', difficulty: 'easy', languages: ['Go'], tags: [], path: 'leetcode/easy/0001' },
+    { id: 3, title: 'Third', difficulty: 'medium', languages: ['Go'], solutions: [], tags: [], path: 'leetcode/medium/0003' },
+    { id: 2, title: 'Second', difficulty: 'medium', languages: ['Go'], solutions: [], tags: [], path: 'leetcode/medium/0002' },
+    { id: 1, title: 'First', difficulty: 'easy', languages: ['Go'], solutions: [], tags: [], path: 'leetcode/easy/0001' },
   ]
 
   function session(
@@ -167,6 +167,7 @@ describe('filterProblems', () => {
         title: 'One',
         difficulty: 'easy',
         languages: ['Go', 'TypeScript'],
+        solutions: [],
         tags: ['Array'],
         path: 'leetcode/easy/0001',
       },
@@ -175,6 +176,7 @@ describe('filterProblems', () => {
         title: 'Two',
         difficulty: 'medium',
         languages: ['Go'],
+        solutions: [],
         tags: ['Array', 'Sliding Window'],
         path: 'leetcode/medium/0002',
       },
@@ -183,6 +185,7 @@ describe('filterProblems', () => {
         title: 'Three',
         difficulty: 'medium',
         languages: ['TypeScript'],
+        solutions: [],
         tags: ['Array'],
         path: 'leetcode/medium/0003',
       },
@@ -201,9 +204,9 @@ describe('filterProblems', () => {
 
 describe('filterProblems query', () => {
   const problems: SolvedProblem[] = [
-    { id: 1, title: 'Two Sum', difficulty: 'easy', languages: ['Go'], tags: [], path: 'leetcode/easy/0001' },
-    { id: 15, title: '3Sum', difficulty: 'medium', languages: ['Go'], tags: [], path: 'leetcode/medium/0015' },
-    { id: 167, title: 'Two Sum II', difficulty: 'medium', languages: ['Go'], tags: [], path: 'leetcode/medium/0167' },
+    { id: 1, title: 'Two Sum', difficulty: 'easy', languages: ['Go'], solutions: [], tags: [], path: 'leetcode/easy/0001' },
+    { id: 15, title: '3Sum', difficulty: 'medium', languages: ['Go'], solutions: [], tags: [], path: 'leetcode/medium/0015' },
+    { id: 167, title: 'Two Sum II', difficulty: 'medium', languages: ['Go'], solutions: [], tags: [], path: 'leetcode/medium/0167' },
   ]
 
   it('matches a case-insensitive title substring', () => {

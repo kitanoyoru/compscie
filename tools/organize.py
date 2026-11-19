@@ -31,6 +31,7 @@ Problem metadata comes from tools/leetcode-index.tsv (id, difficulty, title, tag
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import shutil
@@ -64,61 +65,26 @@ PROTECTED = {
 }
 LEGACY = ["codeforces", "codewars"]
 
+# Extensions, display names, and linguist colors live in tools/languages.json,
+# shared with the web platform's data generator.
+LANGUAGE_REGISTRY = json.loads(
+    (Path(__file__).with_name("languages.json")).read_text(encoding="utf-8")
+)["languages"]
 LANG_NAMES = {
-    ".go": "Go",
-    ".ts": "TypeScript",
-    ".js": "JavaScript",
-    ".py": "Python",
-    ".rs": "Rust",
-    ".java": "Java",
-    ".cpp": "C++",
-    ".c": "C",
-    ".cs": "C#",
-    ".swift": "Swift",
-    ".kt": "Kotlin",
-    ".rb": "Ruby",
-    ".ex": "Elixir",
-    ".exs": "Elixir",
-    ".dart": "Dart",
-    ".zig": "Zig",
-    ".sql": "SQL",
-    ".scala": "Scala",
-    ".hs": "Haskell",
-    ".php": "PHP",
-    ".lua": "Lua",
-    ".sh": "Shell",
-    ".pl": "Perl",
-    ".erl": "Erlang",
-    ".clj": "Clojure",
+    extension: language["name"]
+    for language in LANGUAGE_REGISTRY
+    for extension in language["extensions"]
 }
+LANG_COLORS = {language["name"]: language["color"] for language in LANGUAGE_REGISTRY}
 
-# Roughly GitHub's linguist colors, so the chart reads like a language you know.
-LANG_COLORS = {
-    "Go": "#00ADD8",
-    "Rust": "#DEA584",
-    "Python": "#3572A5",
-    "Java": "#B07219",
-    "TypeScript": "#3178C6",
-    "JavaScript": "#F1E05A",
-    "C++": "#F34B7D",
-    "C": "#555555",
-    "C#": "#178600",
-    "Swift": "#F05138",
-    "Kotlin": "#A97BFF",
-    "Ruby": "#701516",
-    "Elixir": "#6E4A7E",
-    "Dart": "#00B4AB",
-    "Zig": "#EC915C",
-    "SQL": "#E38C00",
-    "Scala": "#C22D40",
-    "Haskell": "#5E5086",
-    "PHP": "#4F5D95",
-    "Lua": "#000080",
-    "Shell": "#89E051",
-    "Perl": "#0298C3",
-    "Erlang": "#B83998",
-    "Clojure": "#DB5855",
-}
+# Brand marks with theme-safe colors, vendored by web/scripts/vendor-language-icons.mjs.
+LANGUAGE_ICONS_PATH = REPO / "web" / "src" / "data" / "language-icons.json"
+
+
+def load_language_icons() -> dict[str, dict]:
+    if not LANGUAGE_ICONS_PATH.is_file():
+        return {}
+    return json.loads(LANGUAGE_ICONS_PATH.read_text(encoding="utf-8"))
 LANG_COLOR_FALLBACK = "#8b949e"
 
 
@@ -230,24 +196,42 @@ def language_chart_svg(top: list[tuple[str, int]]) -> str:
     row_h = 34
     pad_top = 44
     pad_bottom = 16
-    label_w = 118
+    icon_h = 16
+    icon_slot = 28  # wide marks such as Go are up to 1.75x their height
+    label_w = 136
     bar_max_w = width - label_w - 70
     height = pad_top + row_h * len(top) + pad_bottom
     max_count = top[0][1] if top else 1
+    icons = load_language_icons()
 
     rows = []
+    icon_styles = []
     for i, (lang, count) in enumerate(top):
         y = pad_top + i * row_h
         bar_w = max(6, round(bar_max_w * count / max_count))
         color = LANG_COLORS.get(lang, LANG_COLOR_FALLBACK)
+        icon = icons.get(lang)
+        icon_svg = ""
+        if icon:
+            icon_w = round(icon_h * icon["aspect"], 2)
+            icon_svg = (
+                f'\n      <svg x="{(icon_slot - icon_w) / 2}" y="{(row_h - icon_h) / 2}" '
+                f'width="{icon_w}" height="{icon_h}" viewBox="{icon["viewBox"]}">'
+                f'<path d="{icon["path"]}" class="icon-{i}"/></svg>'
+            )
+            icon_styles.append(
+                (f".icon-{i} {{ fill: {icon['light']}; }}", f".icon-{i} {{ fill: {icon['dark']}; }}")
+            )
         rows.append(f"""
-    <g transform="translate(0,{y})">
-      <text x="{label_w - 12}" y="{row_h / 2 + 5}" text-anchor="end" class="label">{lang}</text>
+    <g transform="translate(0,{y})">{icon_svg}
+      <text x="{icon_slot + 8}" y="{row_h / 2 + 5}" class="label">{lang}</text>
       <rect x="{label_w}" y="{(row_h - 16) / 2}" width="{bar_max_w}" height="16" rx="8" class="track"/>
       <rect x="{label_w}" y="{(row_h - 16) / 2}" width="{bar_w}" height="16" rx="8" fill="{color}"/>
       <text x="{label_w + bar_w + 10}" y="{row_h / 2 + 5}" class="count">{count}</text>
     </g>""")
 
+    light_icons = "".join(f"\n    {light}" for light, _ in icon_styles)
+    dark_icons = "".join(f"\n      {dark}" for _, dark in icon_styles)
     alt = ", ".join(f"{lang} {count}" for lang, count in top)
     return f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" \
 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Top languages by solved problems: {alt}">
@@ -256,12 +240,12 @@ xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Top languages by solve
     .title {{ font-size: 15px; font-weight: 600; fill: #1f2328; }}
     .label {{ font-size: 13px; fill: #1f2328; }}
     .count {{ font-size: 13px; fill: #57606a; }}
-    .track {{ fill: #eaeef2; }}
+    .track {{ fill: #eaeef2; }}{light_icons}
     @media (prefers-color-scheme: dark) {{
       .title {{ fill: #e6edf3; }}
       .label {{ fill: #e6edf3; }}
       .count {{ fill: #8b949e; }}
-      .track {{ fill: #30363d; }}
+      .track {{ fill: #30363d; }}{dark_icons}
     }}
   </style>
   <text x="0" y="24" class="title">Top {len(top)} Languages</text>{"".join(rows)}

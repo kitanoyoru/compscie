@@ -1,13 +1,14 @@
 import { useEffect, useId, useMemo, useRef, useState, type JSX } from 'react'
 
 import { Icon } from '../../components/Icon'
+import { LanguageIcon, LanguageIconList } from '../../components/LanguageIcon'
 import { DIFFICULTY_LABELS, DifficultyBadge, EmptyState, ProgressBadge, formatCount } from '../../components/ui'
 import { repositorySnapshot } from '../../data/generated/repository'
 import type { SolvedProblem } from '../../data/types'
 import { problemProgress, rankCounts } from '../../domain/insights'
 import type { SolveSession } from '../../domain/personal-types'
 import { FILTER_ALL } from '../../domain/recommendations'
-import { formatProblemNumber } from '../../lib/format'
+import { formatProblemNumber, plural } from '../../lib/format'
 import { isModalOpen, isTypingTarget } from '../../lib/keyboard'
 import type { DifficultyFilter, LeetCodeParams } from './useLeetCodeParams'
 
@@ -15,9 +16,8 @@ const PAGE_SIZE = 40
 const DIFFICULTY_OPTIONS: readonly DifficultyFilter[] = [FILTER_ALL, 'easy', 'medium', 'hard']
 
 const allProblems = repositorySnapshot.problems
-const languageOptions = rankCounts(allProblems.flatMap((problem) => problem.languages)).sort(
-  (left, right) => left.label.localeCompare(right.label),
-)
+// Most-used languages first, so the chips read like the Knowledge Map chart.
+const languageOptions = rankCounts(allProblems.flatMap((problem) => problem.languages))
 const tagOptions = rankCounts(allProblems.flatMap((problem) => problem.tags)).sort((left, right) =>
   left.label.localeCompare(right.label),
 )
@@ -177,25 +177,44 @@ export function ProblemBrowser({
           ))}
         </div>
 
-        <div className="filter-selects">
-          <div className="field">
-            <label className="field-label" htmlFor={languageId}>
-              Language
-            </label>
-            <select
-              id={languageId}
-              className="input"
-              value={params.language}
-              onChange={(event) => changeFilter({ language: event.target.value })}
+        <div className="field language-filter">
+          <span className="field-label" id={languageId}>
+            Language
+          </span>
+          <div className="language-chips" role="group" aria-labelledby={languageId}>
+            <button
+              type="button"
+              className="language-chip"
+              aria-pressed={params.language === FILTER_ALL}
+              onClick={() => changeFilter({ language: null })}
             >
-              <option value={FILTER_ALL}>All languages</option>
-              {languageOptions.map((option) => (
-                <option key={option.label} value={option.label}>
-                  {option.label} ({option.count})
-                </option>
-              ))}
-            </select>
+              All
+            </button>
+            {languageOptions.map((option) => {
+              const name = `${option.label}, ${plural(option.count, 'problem')}`
+              const pressed = params.language === option.label
+
+              return (
+                <button
+                  key={option.label}
+                  type="button"
+                  className="language-chip"
+                  aria-pressed={pressed}
+                  aria-label={name}
+                  title={name}
+                  onClick={() => changeFilter({ language: pressed ? null : option.label })}
+                >
+                  <LanguageIcon language={option.label} decorative />
+                  <span className="language-chip-count" aria-hidden="true">
+                    {formatCount(option.count)}
+                  </span>
+                </button>
+              )
+            })}
           </div>
+        </div>
+
+        <div className="filter-selects">
           <div className="field">
             <label className="field-label" htmlFor={tagId}>
               Pattern
@@ -225,7 +244,6 @@ export function ProblemBrowser({
         <ul className="problem-list" aria-label="Matching problems">
           {visible.map((problem) => {
             const progress = problemProgress(problem.id, latestSessions)
-            const extraLanguages = problem.languages.length - 3
 
             return (
               <li key={problem.id}>
@@ -235,15 +253,14 @@ export function ProblemBrowser({
                   aria-pressed={problem.id === selectedId}
                   aria-label={`${problem.title}, problem ${problem.id}, ${DIFFICULTY_LABELS[problem.difficulty]}${
                     progress === 'needs-review' ? ', needs review' : progress === 'success' ? ', solved' : ''
-                  }`}
+                  }, solutions in ${problem.languages.join(', ')}`}
                   onClick={() => onSelect(problem.id)}
                 >
                   <span className="problem-number">{formatProblemNumber(problem.id)}</span>
                   <span className="problem-main">
                     <span className="problem-title">{problem.title}</span>
                     <span className="problem-languages">
-                      {problem.languages.slice(0, 3).join(' · ')}
-                      {extraLanguages > 0 && ` +${extraLanguages}`}
+                      <LanguageIconList languages={problem.languages} max={5} size={14} decorative />
                     </span>
                   </span>
                   <span className="problem-badges">

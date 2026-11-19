@@ -20,11 +20,18 @@ export interface NoteSummary {
   readonly date: string
 }
 
+export interface SolutionFile {
+  readonly language: string
+  /** Path inside the problem folder, usually just the file name, such as `main.go`. */
+  readonly file: string
+}
+
 export interface SolvedProblem {
   readonly id: number
   readonly title: string
   readonly difficulty: Difficulty
   readonly languages: readonly string[]
+  readonly solutions: readonly SolutionFile[]
   readonly tags: readonly string[]
   readonly path: string
 }

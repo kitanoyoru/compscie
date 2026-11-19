@@ -38,6 +38,7 @@ function problem(id: number, overrides: Partial<SolvedProblem> = {}): SolvedProb
     title: `Problem ${id}`,
     difficulty: 'easy',
     languages: ['Go'],
+    solutions: [{ language: 'Go', file: 'main.go' }],
     tags: ['Array'],
     path: `leetcode/easy/${id}`,
     ...overrides,
