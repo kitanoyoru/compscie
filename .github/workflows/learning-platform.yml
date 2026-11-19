@@ -31,7 +31,7 @@ jobs:
       - run: yarn --cwd web test --run
       - run: yarn --cwd web build
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: web/dist
       - id: deployment
