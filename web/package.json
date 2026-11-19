@@ -14,6 +14,7 @@
     "build": "yarn run check && vite build",
     "preview": "vite preview",
     "test": "vitest",
+    "test:scripts": "node --test scripts/repository-data.test.mjs",
     "e2e": "playwright test",
     "check": "tsc --project tsconfig.app.json --noEmit && tsc --project tsconfig.e2e.json --noEmit",
     "vendor:icons": "node scripts/vendor-language-icons.mjs"

@@ -43,6 +43,7 @@ platform: ## Start the local React learning platform
 
 platform-test: ## Run the React learning platform test suite
 	@yarn --cwd web run test --run
+	@yarn --cwd web run test:scripts
 
 platform-e2e: ## Run the browser smoke tests (first time: yarn --cwd web playwright install chromium)
 	@yarn --cwd web run e2e
