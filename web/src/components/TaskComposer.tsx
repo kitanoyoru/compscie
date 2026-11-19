@@ -3,15 +3,14 @@ import { useId, useState, type FormEvent, type JSX } from 'react'
 import { parseMinutes } from '../lib/format'
 import { useLearningDispatch } from '../state/learning-state'
 import { Icon } from './Icon'
-import { TaskFields, type TaskFieldLabels, type TaskFieldsValue } from './TaskFields'
+import { EMPTY_TASK_FIELDS, TaskFields, type TaskFieldLabels, type TaskFieldsValue } from './TaskFields'
 
 const LABELS: TaskFieldLabels = { title: 'Task title', topic: 'Topic', minutes: 'Minutes' }
-const EMPTY: TaskFieldsValue = { title: '', topicId: '', minutes: '' }
 
 export function TaskComposer(): JSX.Element {
   const dispatch = useLearningDispatch()
   const idPrefix = useId()
-  const [fields, setFields] = useState<TaskFieldsValue>(EMPTY)
+  const [fields, setFields] = useState<TaskFieldsValue>(EMPTY_TASK_FIELDS)
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault()
@@ -28,7 +27,7 @@ export function TaskComposer(): JSX.Element {
       topicId: fields.topicId || undefined,
       estimatedMinutes: parseMinutes(fields.minutes),
     })
-    setFields(EMPTY)
+    setFields(EMPTY_TASK_FIELDS)
   }
 
   return (

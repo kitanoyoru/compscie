@@ -1209,10 +1209,6 @@ textarea.input {
   background: var(--surface-sunken);
 }
 
-.task-item:has(.task-edit-form) {
-  grid-template-columns: auto minmax(0, 1fr);
-}
-
 .task-edit-form {
   display: grid;
   gap: 0.75rem;
@@ -1284,6 +1280,10 @@ details[open] .details-chevron {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
+}
+
+.task-item:has(.task-edit-form) {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .task-item:hover {

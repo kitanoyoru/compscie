@@ -7,7 +7,7 @@ import { useLearningDispatch } from '../state/learning-state'
 import { Icon } from './Icon'
 import { useToast } from './Toast'
 import { TaskComposer } from './TaskComposer'
-import { TaskFields, type TaskFieldLabels, type TaskFieldsValue } from './TaskFields'
+import { EMPTY_TASK_FIELDS, TaskFields, type TaskFieldLabels, type TaskFieldsValue } from './TaskFields'
 import { EmptyState } from './ui'
 
 function byCreatedAt(left: LearningTask, right: LearningTask): number {
@@ -36,7 +36,7 @@ function TaskItem({ task, recommended }: TaskItemProps): JSX.Element {
   const completed = task.status === 'completed'
   const idPrefix = useId()
   const [editing, setEditing] = useState(false)
-  const [fields, setFields] = useState<TaskFieldsValue>({ title: '', topicId: '', minutes: '' })
+  const [fields, setFields] = useState<TaskFieldsValue>(EMPTY_TASK_FIELDS)
   const titleInputRef = useRef<HTMLInputElement>(null)
   const editButtonRef = useRef<HTMLButtonElement>(null)
   const restoreFocus = useRef(false)
@@ -83,6 +83,11 @@ function TaskItem({ task, recommended }: TaskItemProps): JSX.Element {
 
   function handleKeyDown(event: KeyboardEvent<HTMLFormElement>): void {
     if (event.key === 'Escape') {
+      if (event.nativeEvent.isComposing) {
+        return
+      }
+
+
       event.preventDefault()
       event.stopPropagation()
       stopEditing()
@@ -91,26 +96,28 @@ function TaskItem({ task, recommended }: TaskItemProps): JSX.Element {
 
   return (
     <li className="task-item" data-status={task.status} data-recommended={recommended ? 'true' : undefined}>
-      <button
-        type="button"
-        className="task-check"
-        aria-label={completed ? `Reopen ${task.title}` : `Complete ${task.title}`}
-        title={completed ? 'Reopen' : 'Complete'}
-        onClick={() => {
-          if (completed) {
-            dispatch({ type: 'taskReopened', taskId: task.id })
-            return
-          }
+      {!editing && (
+        <button
+          type="button"
+          className="task-check"
+          aria-label={completed ? `Reopen ${task.title}` : `Complete ${task.title}`}
+          title={completed ? 'Reopen' : 'Complete'}
+          onClick={() => {
+            if (completed) {
+              dispatch({ type: 'taskReopened', taskId: task.id })
+              return
+            }
 
-          dispatch({ type: 'taskCompleted', taskId: task.id })
-          showToast({
-            message: `Completed “${task.title}”`,
-            action: { label: 'Undo', onAction: () => dispatch({ type: 'taskRestored', task }) },
-          })
-        }}
-      >
-        <Icon name="check" size={14} />
-      </button>
+            dispatch({ type: 'taskCompleted', taskId: task.id })
+            showToast({
+              message: `Completed “${task.title}”`,
+              action: { label: 'Undo', onAction: () => dispatch({ type: 'taskRestored', task }) },
+            })
+          }}
+        >
+          <Icon name="check" size={14} />
+        </button>
+      )}
       {editing ? (
         <form
           className="task-edit-form"
@@ -136,76 +143,76 @@ function TaskItem({ task, recommended }: TaskItemProps): JSX.Element {
         </form>
       ) : (
         <>
-        <div className="task-body">
-          <p className="task-title">{task.title}</p>
-          <p className="task-meta">
-            {recommended && <span className="tag tag-accent">Up next</span>}
-            {topic !== undefined && <span className="tag">{topic}</span>}
-            {task.estimatedMinutes !== undefined && (
+          <div className="task-body">
+            <p className="task-title">{task.title}</p>
+            <p className="task-meta">
+              {recommended && <span className="tag tag-accent">Up next</span>}
+              {topic !== undefined && <span className="tag">{topic}</span>}
+              {task.estimatedMinutes !== undefined && (
+                <span className="meta-item">
+                  <Icon name="clock" size={13} />
+                  {task.estimatedMinutes} min
+                </span>
+              )}
               <span className="meta-item">
-                <Icon name="clock" size={13} />
-                {task.estimatedMinutes} min
+                {completed && task.completedAt !== undefined
+                  ? `Done ${formatRelativeDay(task.completedAt)}`
+                  : `Added ${formatRelativeDay(task.createdAt)}`}
               </span>
+            </p>
+          </div>
+          <div className="task-actions">
+            {!completed && (
+              <button
+                ref={editButtonRef}
+                type="button"
+                className="icon-button"
+                aria-label={`Edit ${task.title}`}
+                title="Edit"
+                onClick={startEditing}
+              >
+                <Icon name="pencil" />
+              </button>
             )}
-            <span className="meta-item">
-              {completed && task.completedAt !== undefined
-                ? `Done ${formatRelativeDay(task.completedAt)}`
-                : `Added ${formatRelativeDay(task.createdAt)}`}
-            </span>
-          </p>
-        </div>
-        <div className="task-actions">
-          {!completed && (
-            <button
-              ref={editButtonRef}
-              type="button"
-              className="icon-button"
-              aria-label={`Edit ${task.title}`}
-              title="Edit"
-              onClick={startEditing}
-            >
-              <Icon name="pencil" />
-            </button>
-          )}
-          {task.status === 'open' && (
-            <button
-              type="button"
-              className="icon-button"
-              aria-label={`Defer ${task.title}`}
-              title="Defer"
-              onClick={() => dispatch({ type: 'taskDeferred', taskId: task.id })}
-            >
-              <Icon name="skip" />
-            </button>
-          )}
-          {task.status === 'deferred' && (
+            {task.status === 'open' && (
+              <button
+                type="button"
+                className="icon-button"
+                aria-label={`Defer ${task.title}`}
+                title="Defer"
+                onClick={() => dispatch({ type: 'taskDeferred', taskId: task.id })}
+              >
+                <Icon name="skip" />
+              </button>
+            )}
+            {task.status === 'deferred' && (
+              <button
+                type="button"
+                className="icon-button"
+                aria-label={`Resume ${task.title}`}
+                title="Move back to open"
+                onClick={() => dispatch({ type: 'taskReopened', taskId: task.id })}
+              >
+                <Icon name="rotate" />
+              </button>
+            )}
             <button
               type="button"
-              className="icon-button"
-              aria-label={`Resume ${task.title}`}
-              title="Move back to open"
-              onClick={() => dispatch({ type: 'taskReopened', taskId: task.id })}
+              className="icon-button icon-button-danger"
+              aria-label={`Delete ${task.title}`}
+              title="Delete"
+              onClick={() => {
+                dispatch({ type: 'taskDeleted', taskId: task.id })
+                document.getElementById('task-list-heading')?.focus()
+                showToast({
+                  message: `Deleted “${task.title}”`,
+                  action: { label: 'Undo', onAction: () => dispatch({ type: 'taskRestored', task }) },
+                })
+              }}
             >
-              <Icon name="rotate" />
+              <Icon name="trash" />
             </button>
-          )}
-          <button
-            type="button"
-            className="icon-button icon-button-danger"
-            aria-label={`Delete ${task.title}`}
-            title="Delete"
-            onClick={() => {
-              dispatch({ type: 'taskDeleted', taskId: task.id })
-              document.getElementById('task-list-heading')?.focus()
-              showToast({
-                message: `Deleted “${task.title}”`,
-                action: { label: 'Undo', onAction: () => dispatch({ type: 'taskRestored', task }) },
-              })
-            }}
-          >
-            <Icon name="trash" />
-          </button>
-        </div>
+          </div>
         </>
       )}
     </li>

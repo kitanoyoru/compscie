@@ -8,6 +8,8 @@ export interface TaskFieldsValue {
   readonly minutes: string
 }
 
+export const EMPTY_TASK_FIELDS: TaskFieldsValue = { title: '', topicId: '', minutes: '' }
+
 export interface TaskFieldLabels {
   readonly title: string
   readonly topic: string
