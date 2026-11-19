@@ -1833,6 +1833,47 @@ details[open] .details-chevron {
   line-height: 1.2;
 }
 
+.fan-concept {
+  display: flex;
+  height: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.5rem 0 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.fan-concept:hover,
+.fan-concept[aria-pressed='true'] {
+  color: var(--ink);
+}
+
+.fan-concept:hover {
+  text-decoration: underline;
+}
+
+.fan-concept[aria-pressed='true'] {
+  font-weight: 700;
+}
+
+.fan-concept[aria-pressed='true'] .fan-node {
+  box-shadow:
+    0 0 0 2px var(--surface-sunken),
+    0 0 0 4px var(--accent);
+}
+
+.fan-links path[data-active='true'] {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+}
+
 .fan-node {
   width: 0.625rem;
   height: 0.625rem;
