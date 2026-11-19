@@ -9,6 +9,7 @@ import {
 
 const validFixtureRoot = new URL('./fixtures/valid', import.meta.url)
 const duplicateFixtureRoot = new URL('./fixtures/duplicate', import.meta.url)
+const nestedFixtureRoot = new URL('./fixtures/nested', import.meta.url)
 
 test('collects topics, notes, solved problems, and languages', () => {
   const snapshot = collectRepositorySnapshot(validFixtureRoot)
@@ -30,6 +31,10 @@ test('collects topics, notes, solved problems, and languages', () => {
   assert.equal(snapshot.problems[0]?.difficulty, 'easy')
   assert.deepEqual(snapshot.problems[0]?.tags, ['Array', 'Hash Table'])
   assert.deepEqual(snapshot.problems[0]?.languages, ['Go', 'TypeScript'])
+  assert.deepEqual(snapshot.problems[0]?.solutions, [
+    { language: 'Go', file: 'leetcode/easy/0001. Two Sum/main.go' },
+    { language: 'TypeScript', file: 'leetcode/easy/0001. Two Sum/main.ts' },
+  ])
 
   assert.equal(snapshot.counts.topics, 1)
   assert.equal(snapshot.counts.notes, 1)
@@ -41,6 +46,13 @@ test('rejects duplicate solved problem ids', () => {
   assert.throws(
     () => collectRepositorySnapshot(duplicateFixtureRoot),
     /duplicate solved problem id 1/i
+  )
+})
+
+test('rejects a problem folder nested inside another problem', () => {
+  assert.throws(
+    () => collectRepositorySnapshot(nestedFixtureRoot),
+    /nested problem folder inside another problem: leetcode\/easy\/0001\. Two Sum\/0009\. Palindrome Number/i
   )
 })
 

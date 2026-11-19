@@ -429,7 +429,7 @@ Browse the solved problems by [pattern and data structure](patterns.md).
 | 419 | [Battleships in a Board](medium/0419.%20Battleships%20in%20a%20Board) | Go |
 | 421 | [Maximum XOR of Two Numbers in an Array](medium/0421.%20Maximum%20XOR%20of%20Two%20Numbers%20in%20an%20Array) | Go |
 | 424 | [Longest Repeating Character Replacement](medium/0424.%20Longest%20Repeating%20Character%20Replacement) | Go |
-| 429 | [N-ary Tree Level Order Traversal](medium/0429.%20N-ary%20Tree%20Level%20Order%20Traversal) | Java, TypeScript |
+| 429 | [N-ary Tree Level Order Traversal](medium/0429.%20N-ary%20Tree%20Level%20Order%20Traversal) | Java, Python, TypeScript |
 | 435 | [Non-overlapping Intervals](medium/0435.%20Non-overlapping%20Intervals) | Go, Java, Rust |
 | 438 | [Find All Anagrams in a String](medium/0438.%20Find%20All%20Anagrams%20in%20a%20String) | Go, Java, TypeScript |
 | 442 | [Find All Duplicates in an Array](medium/0442.%20Find%20All%20Duplicates%20in%20an%20Array) | Go |
