@@ -377,6 +377,9 @@ def build_root_readme(
         "review\", and 3, 7, 14, 30, then 60 days after clean solves. The Review "
         "page lists what is due and what is coming up this week; the nav badge "
         "counts what is due.",
+        "- **Your solutions:** the LeetCode session panel shows your own code for "
+        "the problem, one tab per language, highlighted at build time. It starts "
+        "collapsed, so a review starts from memory.",
         "- **Theme** (sun/moon button in the header): flips between light and "
         "dark. Landing on your system's theme clears the stored choice, so the "
         "app follows the system again.",

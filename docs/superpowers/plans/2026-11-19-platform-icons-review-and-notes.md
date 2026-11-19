@@ -4,7 +4,7 @@
 
 **Goal:** Make the workspace look finished and close the learning loop. Show programming languages as brand-colored icons instead of text, tighten the layout, remove hand-maintained data, and add five features: a spaced review schedule, an in-app solution viewer, an in-app note reader, a self-quiz built from note questions, and a command palette.
 
-**Architecture:** Still a local-first React app with no runtime dependencies beyond React and React Router. Heavy content (rendered notes, highlighted solutions) is produced at build time by `generate:data` into a gitignored folder and loaded lazily with `import.meta.glob`, so the main bundle does not grow with content. The committed snapshot (`web/src/data/generated/repository.ts`) gains small metadata fields only. Personal state keeps `compscie.learning-platform.v1`; the only change is one additive optional field (`cardReviews`, Task 18).
+**Architecture:** Still a local-first React app with no runtime dependencies beyond React and React Router. Heavy content (rendered notes, highlighted solutions) is produced at build time by `generate:data` into gitignored `web/public/content/` and fetched as same-origin static JSON when opened, so the main bundle does not grow with content. _(Changed in PR 5: an `import.meta.glob` map of 628 hashed chunks added 12 kB gzip to the main bundle.)_ The committed snapshot (`web/src/data/generated/repository.ts`) gains small metadata fields only. Personal state keeps `compscie.learning-platform.v1`; the only change is one additive optional field (`cardReviews`, Task 18).
 
 **Tech Stack:** Node.js 22, Yarn 1, Vite 8, React 19, React Router 8 (`HashRouter`), TypeScript 7, native CSS tokens, Vitest + jsdom + Testing Library, axe-core, Playwright. New **dev** dependencies only: `simple-icons` (icon vendoring script), `shiki` (build-time highlighting), `markdown-it` + `@types/markdown-it` (build-time note rendering), `github-slugger` (GitHub-compatible heading ids).
 
@@ -39,7 +39,7 @@
 
 - Keep work inside `web/`, except `tools/languages.json` and `tools/organize.py` (Tasks 1 and 6), note frontmatter (Task 11), the misfiled folder (Task 3), and docs (Task 21).
 - No new runtime dependencies. Check `package.json` `dependencies` is unchanged at the end of every PR.
-- `web/src/data/generated/repository.ts` stays committed, and the CI freshness check stays. New generated content goes to `web/src/data/generated/content/`, which is gitignored and written by `generate:data` (`predev`, `prebuild`).
+- `web/src/data/generated/repository.ts` stays committed, and the CI freshness check stays. New generated content goes to `web/public/content/`, which is gitignored and written by `generate:data` (`predev`, `prebuild`); Vite copies it into the build. The incremental-build manifest lives in `web/node_modules/.cache/compscie/` so it is never deployed.
 - Unit tests must not depend on generated content. Content loaders live in one module (`web/src/data/content.ts`) that tests mock with `vi.mock`.
 - Never emit raw `#id` links in rendered content. In-app section links use `?section=<id>` (Task 16).
 - Every new route goes into the `ROUTES` list in `src/a11y.test.tsx` and the route list in `e2e/smoke.spec.ts` (both color schemes). Every new modal or interactive surface gets an axe test.
@@ -409,28 +409,11 @@ export function dueProblems(
 **Files:** `web/scripts/content/highlighter.mjs`, `web/scripts/content/solutions.mjs`, `web/scripts/generate-repository-data.mjs`, `.gitignore`, `web/src/data/content.ts`, `global.css`, `web/package.json`
 
 - [ ] `yarn --cwd web add -D shiki`.
-- [ ] `highlighter.mjs` creates one highlighter for the whole run with `themes: ['github-light', 'github-dark']` and `langs` = every `shiki` id in `tools/languages.json` that the repository uses. It exports `highlight(code, shikiLang)`, which calls `codeToHtml(code, { lang, themes: { light: 'github-light', dark: 'github-dark' }, defaultColor: false })`. With `defaultColor: false`, tokens carry `--shiki-light` and `--shiki-dark` variables and no inline color, so the app's theme selectors decide.
-- [ ] `solutions.mjs` writes `web/src/data/generated/content/solutions/<id>.json`: `{ problemId, files: [{ language, file, lines, html }] }`.
-- [ ] Incremental build: keep `content/manifest.json` with a SHA-1 per source file. Re-highlight only changed files. Measure a cold run and record the time in the PR. Target is under 30 s.
-- [ ] Add `web/src/data/generated/content/` to `.gitignore`. `generate-repository-data.mjs` now writes the snapshot and then awaits content generation.
-- [ ] `data/content.ts`:
-
-```ts
-const solutionModules = import.meta.glob<SolutionContent>(
-  "./generated/content/solutions/*.json",
-  {
-    import: "default",
-  }
-)
-
-export async function loadSolutions(
-  problemId: number
-): Promise<SolutionContent | undefined> {
-  const load =
-    solutionModules[`./generated/content/solutions/${problemId}.json`]
-  return load === undefined ? undefined : load()
-}
-```
+- [ ] `highlighter.mjs` creates one highlighter for the whole run with the `github-light-default` / `github-dark-default` themes and `langs` = every `shiki` id in `tools/languages.json`. `highlight(code, shikiLang)` calls `codeToHtml` with `defaultColor: false`, so tokens carry `--shiki-light` and `--shiki-dark` and no inline color; the app's theme selectors decide. It drops Shiki's `tabindex` on `<pre>` (the app wraps code in its own focusable region) and nudges every token color to 4.5:1 against `--surface` and `--surface-sunken` with the shared helper in `scripts/lib/color.mjs` (also used for icons). _(Implemented: the default GitHub themes measured closest to AA; the nudge covers the rest.)_
+- [ ] `solutions.mjs` writes `web/public/content/solutions/<id>.json`: `{ problemId, files: [{ language, file, lines, html }] }`, and removes files of problems that no longer exist.
+- [ ] Incremental build: a manifest with a SHA-1 per problem's sources; only changed problems are highlighted again, and a change to the content scripts or highlight settings rebuilds everything. _(Measured: 3.7 s cold, 0.15 s warm; about 15 kB raw or 1 kB gzip per problem.)_
+- [ ] Add `web/public/content/` to `.gitignore`. `generate-repository-data.mjs` writes the snapshot and then awaits content generation.
+- [ ] `data/content.ts`: `loadSolutions(problemId)` fetches `${import.meta.env.BASE_URL}content/solutions/<id>.json`. A missing file resolves to `undefined`; dev servers answer unknown paths with the HTML shell, so any non-JSON response counts as missing. A failed request rejects.
 
 - [ ] CSS for `.code-block`: background `--surface-sunken`, ignore Shiki's background variables, and map token colors in both theme selector forms:
 

@@ -87,23 +87,6 @@ describe('LeetCode workspace', () => {
     expect(row.querySelectorAll('.lang-icon')).toHaveLength(Math.min(5, twoSum.languages.length))
   })
 
-  it('links every solution file of the selected problem', () => {
-    window.location.hash = '#/leetcode?problem=1'
-    render(<App />)
-
-    const twoSum = problems.find((problem) => problem.id === 1)!
-    const links = within(screen.getByRole('list', { name: 'Solutions' })).getAllByRole('link')
-
-    expect(links).toHaveLength(twoSum.solutions.length)
-    expect(links[0]).toHaveAccessibleName(
-      `${twoSum.solutions[0]!.language} solution, ${twoSum.solutions[0]!.file} (opens in a new tab)`,
-    )
-    expect(links[0]).toHaveAttribute(
-      'href',
-      expect.stringMatching(new RegExp(`${encodeURIComponent('0001. Two Sum')}/${twoSum.solutions[0]!.file}$`)),
-    )
-  })
-
   it('records a timed session with a reflection and surfaces it for review', async () => {
     const user = userEvent.setup()
     render(<App />)

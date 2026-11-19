@@ -1,11 +1,14 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { App } from './App'
 import { expectNoAxeViolations } from './test/axe'
 import { loadPersonalState } from './state/storage'
 import { seedLearningState, seededState } from './test/fixtures'
+import { sampleSolutions } from './test/solution-content'
+
+vi.mock('./data/content', () => ({ loadSolutions: async (id: number) => sampleSolutions(id) }))
 
 describe('seeded state fixture', () => {
   it('loads through the real storage layer', () => {
@@ -71,5 +74,17 @@ describe('accessibility of the settings dialog', () => {
     await userEvent.setup().click(screen.getByRole('button', { name: /^settings$/i }))
     expect(screen.getByRole('dialog', { name: /settings/i })).toBeInTheDocument()
     await expectNoAxeViolations(document.body)
+  })
+})
+
+describe('accessibility of the solution viewer', () => {
+  it('has no WCAG A/AA violations with the code open', async () => {
+    localStorage.clear()
+    window.location.hash = '#/leetcode?problem=1'
+    const { container } = render(<App />)
+
+    await userEvent.setup().click(screen.getByRole('button', { name: /show my solution/i }))
+    expect(await screen.findByRole('tablist', { name: 'Solutions' })).toBeInTheDocument()
+    await expectNoAxeViolations(container)
   })
 })

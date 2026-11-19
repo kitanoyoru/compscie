@@ -13,6 +13,8 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import * as simpleIcons from 'simple-icons'
 
+import { adjustForContrast as adjustColor } from './lib/color.mjs'
+
 import { collectRepositorySnapshot } from './repository-data.mjs'
 
 const REGISTRY_URL = new URL('../../tools/languages.json', import.meta.url)
@@ -42,83 +44,9 @@ const ICON_SLUG_OVERRIDES = {
   Java: 'openjdk',
 }
 
-function channel(value) {
-  const unit = value / 255
-
-  return unit <= 0.03928 ? unit / 12.92 : ((unit + 0.055) / 1.055) ** 2.4
-}
-
-export function relativeLuminance(hex) {
-  const value = Number.parseInt(hex.slice(1), 16)
-  const red = (value >> 16) & 0xff
-  const green = (value >> 8) & 0xff
-  const blue = value & 0xff
-
-  return 0.2126 * channel(red) + 0.7152 * channel(green) + 0.0722 * channel(blue)
-}
-
-export function contrastRatio(left, right) {
-  const [lighter, darker] = [relativeLuminance(left), relativeLuminance(right)].sort((a, b) => b - a)
-
-  return (lighter + 0.05) / (darker + 0.05)
-}
-
-function hexToHsl(hex) {
-  const value = Number.parseInt(hex.slice(1), 16)
-  const red = ((value >> 16) & 0xff) / 255
-  const green = ((value >> 8) & 0xff) / 255
-  const blue = (value & 0xff) / 255
-  const max = Math.max(red, green, blue)
-  const min = Math.min(red, green, blue)
-  const lightness = (max + min) / 2
-
-  if (max === min) {
-    return [0, 0, lightness]
-  }
-
-  const delta = max - min
-  const saturation = lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min)
-  const hue =
-    max === red
-      ? (green - blue) / delta + (green < blue ? 6 : 0)
-      : max === green
-        ? (blue - red) / delta + 2
-        : (red - green) / delta + 4
-
-  return [hue / 6, saturation, lightness]
-}
-
-function hslToHex([hue, saturation, lightness]) {
-  const toChannel = (offset) => {
-    const k = (offset + hue * 12) % 12
-    const a = saturation * Math.min(lightness, 1 - lightness)
-    const value = lightness - a * Math.max(-1, Math.min(k - 3, 9 - k, 1))
-
-    return Math.round(value * 255)
-      .toString(16)
-      .padStart(2, '0')
-  }
-
-  return `#${toChannel(0)}${toChannel(8)}${toChannel(4)}`.toUpperCase()
-}
-
-/** Steps lightness by 2% toward black or white until the color clears every background. */
+/** Icon colors only need the 3:1 of WCAG 1.4.11 (non-text contrast). */
 export function adjustForContrast(hex, backgrounds, direction) {
-  const [hue, saturation, startLightness] = hexToHsl(hex)
-  let lightness = startLightness
-  let candidate = hex.toUpperCase()
-
-  while (backgrounds.some((background) => contrastRatio(candidate, background) < MIN_ICON_CONTRAST)) {
-    lightness += direction === 'darker' ? -0.02 : 0.02
-
-    if (lightness < 0 || lightness > 1) {
-      throw new Error(`Cannot reach ${MIN_ICON_CONTRAST}:1 for ${hex} by going ${direction}`)
-    }
-
-    candidate = hslToHex([hue, saturation, lightness])
-  }
-
-  return candidate
+  return adjustColor(hex, backgrounds, direction, MIN_ICON_CONTRAST)
 }
 
 async function measureGlyphs(paths) {
