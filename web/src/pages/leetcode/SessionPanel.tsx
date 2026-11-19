@@ -1,13 +1,16 @@
-import { useEffect, useId, useState, type FormEvent, type JSX } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent, type JSX, type KeyboardEvent } from 'react'
 
 import { Icon } from '../../components/Icon'
+import { formatPageTitle } from '../../components/RouteEffects'
+import { useToast } from '../../components/Toast'
 import { DifficultyBadge, ExternalLink, ProgressBadge } from '../../components/ui'
 import { leetcodeProblemUrl, repositoryTreeUrl } from '../../data/links'
 import type { SolvedProblem } from '../../data/types'
 import { sessionMinutes } from '../../domain/insights'
 import type { SolveOutcome, SolveSession } from '../../domain/personal-types'
-import { formatDay, formatElapsed, formatProblemNumber, formatRelativeDay, plural } from '../../lib/format'
+import { formatDay, formatElapsed, formatProblemNumber, formatRelativeDay, formatTime, plural } from '../../lib/format'
 import { useLearningDispatch } from '../../state/learning-state'
+import { clearSessionDraft, loadSessionDraft, saveSessionDraft } from '../../state/session-draft'
 
 interface SessionPanelProps {
   readonly problem: SolvedProblem
@@ -91,12 +94,57 @@ interface SessionRecorderProps {
 function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Element {
   const dispatch = useLearningDispatch()
   const reflectionId = useId()
-  const [startedAt, setStartedAt] = useState<number | null>(null)
+  const hintId = useId()
+  const [draft] = useState(() => loadSessionDraft(problem.id))
+  const [startedAt, setStartedAt] = useState<number | null>(draft?.startedAt ?? null)
   const [now, setNow] = useState(() => Date.now())
-  const [outcome, setOutcome] = useState<SolveOutcome>('success')
-  const [reflection, setReflection] = useState('')
+  const [outcome, setOutcome] = useState<SolveOutcome>(draft?.outcome ?? 'success')
+  const [reflection, setReflection] = useState(draft?.reflection ?? '')
   const [status, setStatus] = useState('')
   const running = startedAt !== null
+  const elapsed = formatElapsed(running ? now - startedAt : 0)
+  const timerTitle = `${elapsed} · #${problem.id} · Compscie`
+
+  // Persist on changes only; the per-second `now` ticks are deliberately not a dependency.
+  const loadedRef = useRef(draft)
+  useEffect(() => {
+    const loaded = loadedRef.current
+
+    loadedRef.current = undefined
+
+    if (
+      loaded !== undefined &&
+      loaded.startedAt === startedAt &&
+      loaded.outcome === outcome &&
+      loaded.reflection === reflection
+    ) {
+      return
+    }
+
+    if (startedAt !== null || reflection !== '' || outcome !== 'success') {
+      saveSessionDraft({ problemId: problem.id, startedAt, outcome, reflection })
+    } else {
+      clearSessionDraft(problem.id)
+    }
+  }, [problem.id, startedAt, outcome, reflection])
+
+  useEffect(() => {
+    if (running) {
+      document.title = timerTitle
+    }
+  }, [running, timerTitle])
+
+  // This recorder only lives on the LeetCode page, so its page title is known. On route change, passive
+  // cleanups run before the next page's usePageTitle effect, so restoring here never overrides that page.
+  useEffect(() => {
+    if (!running) {
+      return undefined
+    }
+
+    return () => {
+      document.title = formatPageTitle('LeetCode')
+    }
+  }, [running])
 
   useEffect(() => {
     if (startedAt === null) {
@@ -137,6 +185,7 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
 
     dispatch({ type: 'sessionCompleted', session })
     onSaved(problem.id)
+    clearSessionDraft(problem.id)
     setReflection('')
     setStartedAt(null)
     setStatus(
@@ -146,12 +195,36 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
     )
   }
 
+  function handleReflectionKeyDown(event: KeyboardEvent<HTMLTextAreaElement>): void {
+    if (event.key !== 'Enter' || !(event.metaKey || event.ctrlKey) || event.nativeEvent.isComposing) {
+      return
+    }
+
+    event.preventDefault()
+
+    if (reflection.trim() === '') {
+      return
+    }
+
+    const form = event.currentTarget.form
+
+    if (form === null) {
+      return
+    }
+
+    if (typeof form.requestSubmit === 'function') {
+      form.requestSubmit()
+    } else {
+      form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))
+    }
+  }
+
   return (
     <form className="session-form" onSubmit={handleSubmit} aria-label="Record a practice session">
       <div className="timer" data-running={running ? 'true' : undefined}>
         <Icon name="clock" size={18} />
         <span className="timer-value" role="timer" aria-label="Elapsed time">
-          {formatElapsed(running ? now - startedAt : 0)}
+          {elapsed}
         </span>
         {running ? (
           <button type="button" className="button button-quiet button-small" onClick={() => setStartedAt(null)}>
@@ -208,7 +281,10 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
           rows={4}
           value={reflection}
           placeholder="The invariant, edge case, or trick worth remembering next time."
+          aria-describedby={hintId}
+          aria-keyshortcuts="Control+Enter Meta+Enter"
           onChange={(event) => setReflection(event.target.value)}
+          onKeyDown={handleReflectionKeyDown}
         />
       </div>
 
@@ -217,6 +293,9 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
           <Icon name="check" />
           Save session
         </button>
+        <span id={hintId} className="shortcut-hint">
+          Press ⌘ or Ctrl + Enter to save
+        </span>
         <p className="save-status" role="status">
           {status}
         </p>
@@ -226,16 +305,29 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
 }
 
 function SessionHistory({ history }: { readonly history: readonly SolveSession[] }): JSX.Element {
+  const dispatch = useLearningDispatch()
+  const showToast = useToast()
+  const headingRef = useRef<HTMLHeadingElement>(null)
+
+  function deleteSession(session: SolveSession): void {
+    dispatch({ type: 'sessionDeleted', problemId: session.problemId, endedAt: session.endedAt })
+    headingRef.current?.focus()
+    showToast({
+      message: `Removed a session for #${session.problemId}`,
+      action: { label: 'Undo', onAction: () => dispatch({ type: 'sessionCompleted', session }) },
+    })
+  }
+
   return (
     <div className="session-history">
-      <h3 className="subheading">
+      <h3 className="subheading" ref={headingRef} tabIndex={-1}>
         Your history
         <span className="count">{history.length}</span>
       </h3>
       {history.length === 0 ? (
         <p className="muted">No sessions recorded for this problem yet.</p>
       ) : (
-        <ol className="history-list">
+        <ol className="history-list" aria-label="Session history">
           {history.map((session, index) => {
             const minutes = sessionMinutes(session)
 
@@ -245,6 +337,15 @@ function SessionHistory({ history }: { readonly history: readonly SolveSession[]
                   <ProgressBadge progress={session.outcome} />
                   <span>{formatDay(session.endedAt)}</span>
                   {minutes !== undefined && <span>{minutes} min</span>}
+                  <button
+                    type="button"
+                    className="icon-button icon-button-danger"
+                    aria-label={`Delete session from ${formatDay(session.endedAt)} at ${formatTime(session.endedAt)}`}
+                    title="Delete session"
+                    onClick={() => deleteSession(session)}
+                  >
+                    <Icon name="trash" size={16} />
+                  </button>
                 </div>
                 {session.reflection !== undefined && session.reflection !== '' && (
                   <p className="history-reflection">{session.reflection}</p>

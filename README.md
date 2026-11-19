@@ -26,3 +26,19 @@ One folder per subject under [notes/](notes/), notes flat inside it. Start a top
 ### Languages
 
 ![Top languages by solved problems](docs/leetcode-languages.svg)
+
+## Learning platform
+
+A local-first React workspace over this repository, in [web/](web/): Today, Knowledge Map, and LeetCode. Run it with `make platform`, or open the [hosted build](https://kitanoyoru.github.io/compscie/). Tasks, sessions, and settings live only in your browser; the repository stays the source of truth.
+
+- **Settings** (button in the header): theme (System, Light, Dark), JSON backup export and import, and reset. Import is validated and asks before replacing anything.
+- **Shortcuts:** `/` focuses LeetCode search, `Esc` clears it, `Ctrl/Cmd+Z` triggers Undo while a toast shows, and `Ctrl/Cmd+Enter` saves a practice session.
+- Days and weeks follow your local time zone.
+- A running timer and reflection draft survive navigation and reload in the same tab.
+
+```sh
+make platform-test                          # unit and accessibility tests
+yarn --cwd web run check                    # type check
+yarn --cwd web playwright install chromium  # first time only
+make platform-e2e                           # browser smoke tests
+```

@@ -1,22 +1,24 @@
-name: Deploy learning platform
+name: Learning platform
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: learning-platform-pages
+  group: learning-platform-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'pages' }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,6 +31,38 @@ jobs:
       - run: git diff --exit-code -- web/src/data/generated/repository.ts
       - run: yarn --cwd web run check
       - run: yarn --cwd web test --run
+      - run: yarn --cwd web build
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('web/yarn.lock') }}
+      - run: yarn --cwd web playwright install --with-deps chromium
+      - run: yarn --cwd web e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-artifacts
+          path: |
+            web/playwright-report/
+            web/test-results/
+          retention-days: 7
+
+  deploy:
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+          cache-dependency-path: web/yarn.lock
+      - run: yarn --cwd web install --frozen-lockfile
       - run: yarn --cwd web build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

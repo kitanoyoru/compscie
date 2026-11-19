@@ -35,6 +35,13 @@ export type LearningAction =
       createdAt?: string
     }
   | {
+      type: 'taskEdited'
+      taskId: string
+      title: string
+      topicId?: string
+      estimatedMinutes?: number
+    }
+  | {
       type: 'taskCompleted'
       taskId: string
       completedAt?: string
@@ -52,9 +59,22 @@ export type LearningAction =
       taskId: string
     }
   | {
+      type: 'taskRestored'
+      task: LearningTask
+    }
+  | {
       type: 'sessionCompleted'
       session: SolveSession
     }
   | {
+      type: 'sessionDeleted'
+      problemId: number
+      endedAt: string
+    }
+  | {
       type: 'stateReset'
+    }
+  | {
+      type: 'stateReplaced'
+      state: PersonalLearningState
     }

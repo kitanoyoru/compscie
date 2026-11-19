@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import type { LearningAction } from '../domain/personal-types'
-import { LearningProvider, useLearningDispatch, useLearningState } from './learning-state'
+import type { LearningAction, LearningTask, SolveSession } from '../domain/personal-types'
+import { LearningProvider, learningReducer, useLearningDispatch, useLearningState } from './learning-state'
 import { STORAGE_KEY, emptyPersonalState, loadPersonalState } from './storage'
 
 function useProbe() {
@@ -129,5 +129,109 @@ describe('learning state', () => {
 
     expect(state).toEqual(emptyPersonalState())
     expect(loadPersonalState()).toEqual(emptyPersonalState())
+  })
+
+  describe('taskEdited', () => {
+    const base: LearningTask = {
+      id: 'a',
+      title: 'Old',
+      topicId: 'go',
+      estimatedMinutes: 30,
+      status: 'deferred',
+      createdAt: '2026-11-17T09:00:00.000Z',
+    }
+    const state = { version: 1, tasks: [base], sessions: [] } as const
+
+    it('returns the same state for a whitespace-only title', () => {
+      expect(learningReducer(state, { type: 'taskEdited', taskId: 'a', title: '   ' })).toBe(state)
+    })
+
+    it('clears omitted fields and keeps status and dates', () => {
+      const completed: LearningTask = { ...base, status: 'completed', completedAt: '2026-11-19T10:00:00.000Z' }
+      const next = learningReducer(
+        { ...state, tasks: [completed] },
+        { type: 'taskEdited', taskId: 'a', title: '  New title ' },
+      )
+
+      expect(next.tasks[0]).toEqual({
+        id: 'a',
+        title: 'New title',
+        topicId: undefined,
+        estimatedMinutes: undefined,
+        status: 'completed',
+        createdAt: '2026-11-17T09:00:00.000Z',
+        completedAt: '2026-11-19T10:00:00.000Z',
+      })
+    })
+
+    it('sets topic and minutes', () => {
+      const next = learningReducer(state, {
+        type: 'taskEdited',
+        taskId: 'a',
+        title: 'Old',
+        topicId: 'clickhouse',
+        estimatedMinutes: 15,
+      })
+
+      expect(next.tasks[0]).toMatchObject({ topicId: 'clickhouse', estimatedMinutes: 15, status: 'deferred' })
+    })
+  })
+
+  describe('undo actions', () => {
+    function task(id: string): LearningTask {
+      return { id, title: `Task ${id}`, status: 'open', createdAt: '2026-11-17T09:00:00.000Z' }
+    }
+
+    function session(problemId: number, endedAt: string): SolveSession {
+      return { problemId, startedAt: '2026-11-17T09:00:00.000Z', endedAt, outcome: 'success' }
+    }
+
+    it('restores the exact previous version of a task in place', () => {
+      const deferred: LearningTask = { ...task('a'), status: 'deferred' }
+      const state = { version: 1, tasks: [deferred, task('b')], sessions: [] } as const
+      const completed = learningReducer(state, {
+        type: 'taskCompleted',
+        taskId: 'a',
+        completedAt: '2026-11-19T10:00:00.000Z',
+      })
+
+      expect(learningReducer(completed, { type: 'taskRestored', task: deferred }).tasks).toEqual([
+        deferred,
+        task('b'),
+      ])
+    })
+
+    it('appends a restored task when it is absent', () => {
+      const state = { version: 1, tasks: [task('b')], sessions: [] } as const
+
+      expect(learningReducer(state, { type: 'taskRestored', task: task('a') }).tasks).toEqual([
+        task('b'),
+        task('a'),
+      ])
+    })
+
+    it('deletes only the first session matching problem and end time', () => {
+      const state = {
+        version: 1,
+        tasks: [],
+        sessions: [session(1, 'A'), session(1, 'B'), session(1, 'A')],
+      } as const
+
+      expect(
+        learningReducer(state, { type: 'sessionDeleted', problemId: 1, endedAt: 'A' }).sessions,
+      ).toEqual([session(1, 'B'), session(1, 'A')])
+    })
+  })
+
+  describe('stateReplaced', () => {
+    it('replaces the whole state', () => {
+      const next = {
+        version: 1,
+        tasks: [{ id: 'z', title: 'Z', status: 'open', createdAt: '2026-11-17T09:00:00.000Z' }],
+        sessions: [{ problemId: 7, startedAt: 'S', endedAt: 'E', outcome: 'success' }],
+      } as const
+
+      expect(learningReducer(emptyPersonalState(), { type: 'stateReplaced', state: next })).toEqual(next)
+    })
   })
 })

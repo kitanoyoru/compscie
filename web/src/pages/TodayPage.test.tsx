@@ -1,11 +1,44 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { App } from '../App'
 import { repositorySnapshot } from '../data/generated/repository'
 import { getTodayRecommendation } from '../domain/recommendations'
 import { STORAGE_KEY, emptyPersonalState } from '../state/storage'
+import { FIXTURE_NOW, seedLearningState, seededState } from '../test/fixtures'
+
+describe('weekly activity strip', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    window.location.hash = '#/'
+    vi.useFakeTimers({ toFake: ['Date'] })
+    vi.setSystemTime(FIXTURE_NOW)
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  it('lists practice sessions in the weekly activity strip', () => {
+    seedLearningState()
+    render(<App />)
+
+    const strip = screen.getByRole('list', { name: /activity this week/i })
+
+    expect(strip).toHaveTextContent(/practice session/)
+    // Local days: the Nov 19 task (02:00 PST) and session (04:25 PST) share Thursday.
+    const day = within(strip)
+    expect(day.getByText('Thursday: 1 task, 1 practice session')).toBeInTheDocument()
+    expect(day.getByText('Wednesday: 0 tasks, 1 practice session')).toBeInTheDocument()
+    expect(day.getByText('Friday: 0 tasks, 0 practice sessions')).toBeInTheDocument()
+    expect(screen.getByRole('region', { name: /this week/i })).toHaveTextContent(/1 task completed/i)
+
+    const legend = strip.parentElement?.querySelector<HTMLElement>('.week-legend')
+    expect(legend).toHaveAttribute('aria-hidden', 'true')
+    expect(legend).toHaveTextContent(/^Tasks\s*Practice sessions$/)
+  })
+})
 
 describe('Today dashboard', () => {
   beforeEach(() => {
@@ -49,9 +82,8 @@ describe('Today dashboard', () => {
     expect(screen.getByRole('heading', { name: /practice slice internals/i })).toBeInTheDocument()
   })
 
-  it('defers a task and confirms reset', async () => {
+  it('defers a task and resets from the settings dialog', async () => {
     const user = userEvent.setup()
-    const confirmReset = vi.spyOn(window, 'confirm').mockReturnValue(true)
     render(<App />)
 
     await user.type(screen.getByLabelText(/task title/i), 'Read the granule note')
@@ -62,13 +94,12 @@ describe('Today dashboard', () => {
       within(screen.getByRole('list', { name: /deferred tasks/i })).getByText('Read the granule note'),
     ).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: /reset working state/i }))
+    await user.click(screen.getByRole('button', { name: /^settings$/i }))
+    const dialog = screen.getByRole('dialog', { name: /settings/i })
+    await user.click(within(dialog).getByRole('button', { name: /reset working state/i }))
+    await user.click(within(dialog).getByRole('button', { name: /yes, delete everything/i }))
 
-    expect(confirmReset).toHaveBeenCalledWith(
-      'Reset all tasks and practice sessions stored in this browser?',
-    )
-    expect(screen.queryByRole('heading', { name: /read the granule note/i })).not.toBeInTheDocument()
-    confirmReset.mockRestore()
+    expect(screen.queryByText('Read the granule note')).not.toBeInTheDocument()
   })
 
   it('queues the topic fallback as a task', async () => {
@@ -114,5 +145,208 @@ describe('Today dashboard', () => {
 
     expect(screen.queryByText('Write the sparse index summary')).not.toBeInTheDocument()
     expect(screen.getByText(/your queue is empty/i)).toBeInTheDocument()
+  })
+
+  it('undoes a deleted task', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/task title/i), 'Read the GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+
+    await user.click(screen.getByRole('button', { name: /delete read the gc note/i }))
+    expect(screen.queryByRole('button', { name: /delete read the gc note/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('status', { name: /notifications/i })).toHaveTextContent(/deleted “read the gc note”/i)
+
+    await user.click(screen.getByRole('button', { name: /^undo$/i }))
+    expect(screen.getByRole('button', { name: /delete read the gc note/i })).toBeInTheDocument()
+  })
+
+  it('undo after completing a deferred task restores it as deferred', async () => {
+    const deferred = seededState().tasks.find((task) => task.status === 'deferred')
+
+    if (deferred === undefined) {
+      throw new Error('fixtures need a deferred task')
+    }
+
+    seedLearningState()
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: `Complete ${deferred.title}` }))
+    expect(screen.getByRole('status', { name: /notifications/i })).toHaveTextContent(
+      `Completed “${deferred.title}”`,
+    )
+    expect(
+      within(screen.getByRole('list', { name: /completed tasks/i, hidden: true })).getByText(deferred.title),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /^undo$/i }))
+
+    expect(
+      within(screen.getByRole('list', { name: /deferred tasks/i })).getByText(deferred.title),
+    ).toBeInTheDocument()
+    expect(
+      JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}').tasks.find(
+        (task: { id: string }) => task.id === deferred.id,
+      ),
+    ).toEqual(deferred)
+  })
+
+  it('offers undo after Mark done on the next action', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/task title/i), 'Read the GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+
+    await user.click(screen.getByRole('button', { name: /mark done/i }))
+    expect(screen.getByRole('status', { name: /notifications/i })).toHaveTextContent(/completed “read the gc note”/i)
+
+    await user.click(screen.getByRole('button', { name: /^undo$/i }))
+    expect(within(screen.getByRole('list', { name: /open tasks/i })).getByText('Read the GC note')).toBeInTheDocument()
+  })
+
+  it('undoes a deleted task with Ctrl+Z and moves focus to the queue heading', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/task title/i), 'Read the GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+    await user.click(screen.getByRole('button', { name: /delete read the gc note/i }))
+
+    expect(screen.getByRole('heading', { name: /task queue/i })).toHaveFocus()
+
+    await user.keyboard('{Control>}z{/Control}')
+    expect(screen.getByRole('button', { name: /delete read the gc note/i })).toBeInTheDocument()
+  })
+
+  it('does not hijack Ctrl+Z while typing in a field', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/task title/i), 'Read the GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+    await user.click(screen.getByRole('button', { name: /delete read the gc note/i }))
+
+    await user.click(screen.getByLabelText(/task title/i))
+    await user.keyboard('{Control>}z{/Control}')
+
+    expect(screen.queryByRole('button', { name: /delete read the gc note/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /^undo$/i })).toBeInTheDocument()
+  })
+
+  it('edits a queued task inline', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/^task title$/i), 'Read GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+
+    await user.click(screen.getByRole('button', { name: /edit read gc note/i }))
+    const title = screen.getByRole('textbox', { name: /edit task title/i })
+    expect(title).toHaveFocus()
+
+    await user.clear(title)
+    await user.type(title, 'Read GC pacer note{Enter}')
+
+    expect(screen.getByRole('heading', { name: 'Read GC pacer note' })).toBeInTheDocument()
+    expect(screen.queryByRole('form', { name: /edit/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /edit read gc pacer note/i })).toHaveFocus()
+  })
+
+  it('cancels an edit with Escape', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/^task title$/i), 'Read GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+
+    await user.click(screen.getByRole('button', { name: /edit read gc note/i }))
+    const title = screen.getByRole('textbox', { name: /edit task title/i })
+    await user.clear(title)
+    await user.type(title, 'Something else{Escape}')
+
+    expect(screen.getByRole('heading', { name: 'Read GC note' })).toBeInTheDocument()
+    expect(screen.queryByText('Something else')).not.toBeInTheDocument()
+    expect(screen.queryByRole('form', { name: /edit/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /edit read gc note/i })).toHaveFocus()
+  })
+
+  it('discards changes when Cancel is clicked', async () => {
+    seedLearningState()
+    const user = userEvent.setup()
+    render(<App />)
+
+    const edit = screen.getByRole('button', { name: /edit review clickhouse merge trees/i })
+    await user.click(edit)
+    const title = screen.getByRole('textbox', { name: /edit task title/i })
+    await user.clear(title)
+    await user.type(title, 'Discarded title')
+    await user.click(screen.getByRole('button', { name: /^cancel$/i }))
+
+    const row = screen.getByText('Review ClickHouse merge trees').closest('li')
+    expect(row).not.toBeNull()
+    expect(within(row as HTMLElement).getByText('45 min')).toBeInTheDocument()
+    expect(screen.queryByText('Discarded title')).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /edit review clickhouse merge trees/i })).toHaveFocus()
+  })
+
+  it('clears topic and minutes on save and keeps the task deferred', async () => {
+    seedLearningState()
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /edit review clickhouse merge trees/i }))
+    await user.clear(screen.getByRole('spinbutton', { name: /edit minutes/i }))
+    await user.selectOptions(screen.getByRole('combobox', { name: /edit topic/i }), '')
+    await user.click(screen.getByRole('button', { name: /^save$/i }))
+
+    const row = within(screen.getByRole('list', { name: /deferred tasks/i }))
+      .getByText('Review ClickHouse merge trees')
+      .closest('li') as HTMLElement
+    expect(row).not.toHaveTextContent(/45 min/)
+    expect(row.querySelector('.tag')).toBeNull()
+    expect(
+      JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}').tasks.find(
+        (task: { id: string }) => task.id === 'task-deferred',
+      ),
+    ).toEqual({
+      id: 'task-deferred',
+      title: 'Review ClickHouse merge trees',
+      status: 'deferred',
+      createdAt: '2026-11-17T09:00:00.000Z',
+    })
+  })
+
+  it('hides the complete button while a row is being edited', async () => {
+    seedLearningState()
+    const user = userEvent.setup()
+    render(<App />)
+
+    expect(screen.getByRole('button', { name: /complete read the go scheduler notes/i })).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /edit read the go scheduler notes/i }))
+    expect(screen.queryByRole('button', { name: /complete read the go scheduler notes/i })).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /^cancel$/i }))
+    expect(screen.getByRole('button', { name: /complete read the go scheduler notes/i })).toBeInTheDocument()
+  })
+
+  it('cancels an edit with Escape without dismissing an active toast', async () => {
+    seedLearningState()
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /delete review clickhouse merge trees/i }))
+    expect(screen.getByRole('status', { name: /notifications/i })).toHaveTextContent(/deleted/i)
+
+    await user.click(screen.getByRole('button', { name: /edit read the go scheduler notes/i }))
+    await user.keyboard('{Escape}')
+
+    expect(screen.queryByRole('form', { name: /edit/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('status', { name: /notifications/i })).toHaveTextContent(/deleted/i)
+    expect(screen.getByRole('button', { name: /^undo$/i })).toBeInTheDocument()
+  })
+
+  it('offers no Edit button on completed tasks', () => {
+    seedLearningState()
+    render(<App />)
+
+    expect(screen.getByRole('button', { name: /edit read the go scheduler notes/i })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /edit finish the go channels lab/i, hidden: true })).not.toBeInTheDocument()
   })
 })

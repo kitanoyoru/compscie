@@ -29,6 +29,22 @@ export function learningReducer(state: PersonalLearningState, action: LearningAc
 
       return { ...state, tasks: [...state.tasks, task] }
     }
+    case 'taskEdited': {
+      const title = action.title.trim()
+
+      if (title === '') {
+        return state
+      }
+
+      return {
+        ...state,
+        tasks: state.tasks.map((task) =>
+          task.id === action.taskId
+            ? { ...task, title, topicId: action.topicId, estimatedMinutes: action.estimatedMinutes }
+            : task,
+        ),
+      }
+    }
     case 'taskCompleted': {
       return {
         ...state,
@@ -64,11 +80,28 @@ export function learningReducer(state: PersonalLearningState, action: LearningAc
     case 'taskDeleted': {
       return { ...state, tasks: state.tasks.filter((task) => task.id !== action.taskId) }
     }
+    case 'taskRestored': {
+      return state.tasks.some((task) => task.id === action.task.id)
+        ? { ...state, tasks: state.tasks.map((task) => (task.id === action.task.id ? action.task : task)) }
+        : { ...state, tasks: [...state.tasks, action.task] }
+    }
     case 'sessionCompleted': {
       return { ...state, sessions: [...state.sessions, action.session] }
     }
+    case 'sessionDeleted': {
+      const index = state.sessions.findIndex(
+        (session) => session.problemId === action.problemId && session.endedAt === action.endedAt,
+      )
+
+      return index === -1
+        ? state
+        : { ...state, sessions: state.sessions.filter((_, position) => position !== index) }
+    }
     case 'stateReset': {
       return emptyPersonalState()
+    }
+    case 'stateReplaced': {
+      return action.state
     }
   }
 }

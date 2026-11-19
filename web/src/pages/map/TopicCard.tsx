@@ -1,10 +1,10 @@
-import { useState, type JSX } from 'react'
+import { useEffect, useRef, useState, type JSX } from 'react'
 
 import { Icon } from '../../components/Icon'
 import { ExternalLink } from '../../components/ui'
 import { repositorySnapshot } from '../../data/generated/repository'
 import { repositoryFileUrl } from '../../data/links'
-import { mapRelationships } from '../../data/map-relationships'
+import { mapRelationships, type TopicRelationship } from '../../data/map-relationships'
 import type { TopicStatus, TopicSummary } from '../../data/types'
 import { cleanTitle, daysBetween, formatDay, formatRelativeDay, plural } from '../../lib/format'
 import { useLearningDispatch, useLearningState } from '../../state/learning-state'
@@ -23,10 +23,20 @@ interface ConceptFanProps {
   readonly title: string
   readonly noteCount: number
   readonly concepts: readonly string[]
+  readonly activeConcept: string | null
+  readonly onToggle: (concept: string) => void
+  readonly registerButton: (concept: string, element: HTMLButtonElement | null) => void
 }
 
 /** The topic node on the left, its curated concepts on the right, joined by curved links. */
-function ConceptFan({ title, noteCount, concepts }: ConceptFanProps): JSX.Element | null {
+function ConceptFan({
+  title,
+  noteCount,
+  concepts,
+  activeConcept,
+  onToggle,
+  registerButton,
+}: ConceptFanProps): JSX.Element | null {
   if (concepts.length === 0) {
     return null
   }
@@ -35,40 +45,56 @@ function ConceptFan({ title, noteCount, concepts }: ConceptFanProps): JSX.Elemen
   const height = concepts.length * rowHeight
 
   return (
-    <div className="concept-fan">
-      <div className="fan-topic" aria-hidden="true">
-        <span className="fan-topic-title">{title}</span>
-        <span className="fan-topic-meta">{plural(noteCount, 'note')}</span>
-      </div>
-      <svg
-        className="fan-links"
-        viewBox={`0 0 100 ${height}`}
-        preserveAspectRatio="none"
-        style={{ height }}
-        aria-hidden="true"
-        focusable="false"
-      >
-        {concepts.map((concept, index) => {
-          const y = index * rowHeight + rowHeight / 2
+    <>
+      <div className="concept-fan">
+        <div className="fan-topic" aria-hidden="true">
+          <span className="fan-topic-title">{title}</span>
+          <span className="fan-topic-meta">{plural(noteCount, 'note')}</span>
+        </div>
+        <svg
+          className="fan-links"
+          viewBox={`0 0 100 ${height}`}
+          preserveAspectRatio="none"
+          style={{ height }}
+          aria-hidden="true"
+          focusable="false"
+        >
+          {concepts.map((concept, index) => {
+            const y = index * rowHeight + rowHeight / 2
 
-          return (
-            <path
-              key={concept}
-              d={`M 0 ${height / 2} C 55 ${height / 2}, 45 ${y}, 100 ${y}`}
-              vectorEffect="non-scaling-stroke"
-            />
-          )
-        })}
-      </svg>
-      <ul className="fan-concepts" aria-label={`Concepts connected to ${title}`}>
-        {concepts.map((concept) => (
-          <li key={concept} style={{ height: rowHeight }}>
-            <span className="fan-node" aria-hidden="true" />
-            {concept}
-          </li>
-        ))}
-      </ul>
-    </div>
+            return (
+              <path
+                key={concept}
+                data-active={concept === activeConcept}
+                d={`M 0 ${height / 2} C 55 ${height / 2}, 45 ${y}, 100 ${y}`}
+                vectorEffect="non-scaling-stroke"
+              />
+            )
+          })}
+        </svg>
+        <ul className="fan-concepts" aria-label={`Concepts connected to ${title}`}>
+          {concepts.map((concept) => {
+            const active = concept === activeConcept
+
+            return (
+              <li key={concept} style={{ height: rowHeight }}>
+                <button
+                  type="button"
+                  className="fan-concept"
+                  ref={(element) => registerButton(concept, element)}
+                  aria-pressed={active}
+                  onClick={() => onToggle(concept)}
+                >
+                  <span className="fan-node" aria-hidden="true" />
+                  {concept}
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+      <p className="fan-hint">Select a concept to filter its notes</p>
+    </>
   )
 }
 
@@ -76,15 +102,35 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
   const dispatch = useLearningDispatch()
   const { tasks } = useLearningState()
   const [expanded, setExpanded] = useState(false)
+  const [activeConcept, setActiveConcept] = useState<string | null>(null)
+  const conceptButtons = useRef(new Map<string, HTMLButtonElement>())
+  const restoreFocusTo = useRef<string | null>(null)
   const headingId = `topic-${topic.slug}-heading`
   const notes = repositorySnapshot.notes.filter((note) => note.topicSlug === topic.slug)
-  const visibleNotes = expanded ? notes : notes.slice(0, VISIBLE_NOTES)
-  const concepts = mapRelationships
-    .filter((relationship) => relationship.topic === topic.slug)
-    .map((relationship) => relationship.concept)
-  const queued = tasks.some(
-    (task) => task.status !== 'completed' && task.title.trim() === topic.next.trim(),
+  const relationships: readonly TopicRelationship[] = mapRelationships.filter(
+    (relationship) => relationship.topic === topic.slug,
   )
+  const concepts = relationships.map((relationship) => relationship.concept)
+  const activeRelationship = relationships.find((relationship) => relationship.concept === activeConcept)
+  const filteredNotes =
+    activeRelationship === undefined
+      ? notes
+      : notes.filter((note) => activeRelationship.notes.includes(note.path))
+  const visibleNotes =
+    activeRelationship !== undefined || expanded ? filteredNotes : notes.slice(0, VISIBLE_NOTES)
+  const clearFilter = (): void => {
+    restoreFocusTo.current = activeRelationship?.concept ?? null
+    setActiveConcept(null)
+  }
+
+  useEffect(() => {
+    if (activeConcept === null && restoreFocusTo.current !== null) {
+      conceptButtons.current.get(restoreFocusTo.current)?.focus()
+      restoreFocusTo.current = null
+    }
+  }, [activeConcept])
+
+  const queued = tasks.some((task) => task.status !== 'completed' && task.title.trim() === topic.next.trim())
   const daysSinceNote = topic.lastNote === null ? undefined : daysBetween(topic.lastNote, now)
   const stale = topic.status === 'active' && daysSinceNote !== undefined && daysSinceNote > STALE_AFTER_DAYS
 
@@ -101,7 +147,20 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
         </span>
       </div>
 
-      <ConceptFan title={topic.title} noteCount={topic.noteCount} concepts={concepts} />
+      <ConceptFan
+        title={topic.title}
+        noteCount={topic.noteCount}
+        concepts={concepts}
+        activeConcept={activeRelationship?.concept ?? null}
+        onToggle={(concept) => setActiveConcept((current) => (current === concept ? null : concept))}
+        registerButton={(concept, element) => {
+          if (element === null) {
+            conceptButtons.current.delete(concept)
+          } else {
+            conceptButtons.current.set(concept, element)
+          }
+        }}
+      />
 
       {topic.next !== '' && (
         <div className="next-step">
@@ -118,7 +177,13 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
             <button
               type="button"
               className="button button-secondary button-small"
-              onClick={() => dispatch({ type: 'taskAdded', title: topic.next, topicId: topic.slug })}
+              onClick={() =>
+                dispatch({
+                  type: 'taskAdded',
+                  title: topic.next,
+                  topicId: topic.slug,
+                })
+              }
             >
               <Icon name="plus" size={14} />
               Add to queue
@@ -150,13 +215,28 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
         </div>
       </dl>
 
+      <p className="sr-only" role="status" aria-atomic="true">
+        {activeRelationship === undefined
+          ? ''
+          : `Showing ${filteredNotes.length} of ${notes.length} notes about ${activeRelationship.concept}`}
+      </p>
+
       {notes.length > 0 && (
         <div className="topic-notes">
           <h3 className="subheading">
             Notes
-            <span className="count">{notes.length}</span>
+            <span className="count">
+              {activeRelationship === undefined
+                ? notes.length
+                : `${filteredNotes.length} of ${notes.length} notes`}
+            </span>
           </h3>
-          <ol className="note-list">
+          <ol
+            className="note-list"
+            aria-label={
+              activeRelationship === undefined ? 'Notes' : `Notes about ${activeRelationship.concept}`
+            }
+          >
             {visibleNotes.map((note) => (
               <li key={note.path}>
                 <ExternalLink className="note-link" href={repositoryFileUrl(note.path)}>
@@ -166,7 +246,12 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
               </li>
             ))}
           </ol>
-          {notes.length > VISIBLE_NOTES && (
+          {activeRelationship !== undefined && (
+            <button type="button" className="text-button" onClick={clearFilter}>
+              Show all notes
+            </button>
+          )}
+          {activeRelationship === undefined && notes.length > VISIBLE_NOTES && (
             <button
               type="button"
               className="text-button"

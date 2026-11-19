@@ -1,0 +1,202 @@
+import { act, render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+
+import { ToastProvider, useToast } from './Toast'
+
+function Trigger({ onAction }: { readonly onAction?: () => void }) {
+  const toast = useToast()
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() =>
+          toast({
+            message: 'First message',
+            action: onAction === undefined ? undefined : { label: 'Undo', onAction },
+          })
+        }
+      >
+        first
+      </button>
+      <button type="button" onClick={() => toast({ message: 'Second message' })}>
+        second
+      </button>
+    </>
+  )
+}
+
+function setup(onAction?: () => void) {
+  vi.useFakeTimers({ shouldAdvanceTime: true })
+  const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+
+  render(
+    <ToastProvider>
+      <Trigger onAction={onAction} />
+    </ToastProvider>,
+  )
+
+  return user
+}
+
+const region = () => screen.getByRole('status', { name: 'Notifications' })
+
+describe('Toast', () => {
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  it('keeps an empty live region mounted', () => {
+    setup()
+
+    expect(region()).toHaveAttribute('aria-live', 'polite')
+    expect(region()).toBeEmptyDOMElement()
+  })
+
+  it('auto-dismisses after 6000 ms', async () => {
+    const user = setup()
+    await user.click(screen.getByRole('button', { name: 'first' }))
+    expect(region()).toHaveTextContent('First message')
+
+    act(() => {
+      vi.advanceTimersByTime(5000)
+    })
+    expect(region()).toHaveTextContent('First message')
+
+    act(() => {
+      vi.advanceTimersByTime(1500)
+    })
+    expect(region()).not.toHaveTextContent('First message')
+  })
+
+  it('pauses while hovered and resumes afterwards', async () => {
+    const user = setup()
+    await user.click(screen.getByRole('button', { name: 'first' }))
+    await user.hover(screen.getByText('First message'))
+
+    act(() => {
+      vi.advanceTimersByTime(20000)
+    })
+    expect(region()).toHaveTextContent('First message')
+
+    await user.unhover(screen.getByText('First message'))
+    act(() => {
+      vi.advanceTimersByTime(6100)
+    })
+    expect(region()).not.toHaveTextContent('First message')
+  })
+
+  it('pauses while focus is within the toast', async () => {
+    const user = setup(vi.fn())
+    await user.click(screen.getByRole('button', { name: 'first' }))
+    act(() => screen.getByRole('button', { name: /undo/i }).focus())
+
+    act(() => {
+      vi.advanceTimersByTime(10000)
+    })
+    expect(region()).toHaveTextContent('First message')
+
+    act(() => screen.getByRole('button', { name: 'first' }).focus())
+    act(() => {
+      vi.advanceTimersByTime(6500)
+    })
+    expect(region()).not.toHaveTextContent('First message')
+  })
+
+  it('runs the action on Ctrl+Z and Cmd+Z but not while typing', async () => {
+    const onAction = vi.fn()
+    const user = setup(onAction)
+    await user.click(screen.getByRole('button', { name: 'first' }))
+
+    await user.keyboard('{Shift>}{Control>}z{/Control}{/Shift}')
+    expect(onAction).not.toHaveBeenCalled()
+
+    const input = document.createElement('input')
+    document.body.append(input)
+    input.focus()
+    await user.keyboard('{Control>}z{/Control}')
+    expect(onAction).not.toHaveBeenCalled()
+    input.remove()
+
+    await user.keyboard('{Meta>}z{/Meta}')
+    expect(onAction).toHaveBeenCalledTimes(1)
+    expect(region()).not.toHaveTextContent('First message')
+  })
+
+  it('dismisses on Escape', async () => {
+    const user = setup()
+    await user.click(screen.getByRole('button', { name: 'first' }))
+    expect(region()).toHaveTextContent('First message')
+
+    await user.keyboard('{Escape}')
+    expect(region()).not.toHaveTextContent('First message')
+  })
+
+  it('moves focus to #app-main when Escape dismisses a focused toast', async () => {
+    const main = document.createElement('main')
+    main.id = 'app-main'
+    main.tabIndex = -1
+    document.body.append(main)
+    const user = setup(vi.fn())
+    await user.click(screen.getByRole('button', { name: 'first' }))
+
+    await user.tab()
+    await user.tab()
+    expect(screen.getByRole('button', { name: /undo/i })).toHaveFocus()
+    await user.keyboard('{Escape}')
+
+    expect(region()).not.toHaveTextContent('First message')
+    expect(main).toHaveFocus()
+    main.remove()
+  })
+
+  it('ignores Escape during IME composition', async () => {
+    const user = setup()
+    await user.click(screen.getByRole('button', { name: 'first' }))
+
+    act(() => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', isComposing: true, bubbles: true }))
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', keyCode: 229, bubbles: true }))
+    })
+
+    expect(region()).toHaveTextContent('First message')
+  })
+
+  it('does not undo or dismiss behind an open dialog', async () => {
+    const onAction = vi.fn()
+    const user = setup(onAction)
+    await user.click(screen.getByRole('button', { name: 'first' }))
+    const dialog = document.createElement('dialog')
+    dialog.setAttribute('open', '')
+    document.body.append(dialog)
+
+    await user.keyboard('{Control>}z{/Control}')
+    await user.keyboard('{Escape}')
+    expect(onAction).not.toHaveBeenCalled()
+    expect(region()).toHaveTextContent('First message')
+
+    dialog.remove()
+    await user.keyboard('{Control>}z{/Control}')
+    expect(onAction).toHaveBeenCalledTimes(1)
+  })
+
+  it('replaces the old toast with a new one', async () => {
+    const user = setup()
+    await user.click(screen.getByRole('button', { name: 'first' }))
+    await user.click(screen.getByRole('button', { name: 'second' }))
+
+    expect(region()).toHaveTextContent('Second message')
+    expect(region()).not.toHaveTextContent('First message')
+  })
+
+  it('runs the action and dismisses', async () => {
+    const onAction = vi.fn()
+    const user = setup(onAction)
+    await user.click(screen.getByRole('button', { name: 'first' }))
+    await user.click(screen.getByRole('button', { name: 'Undo' }))
+
+    expect(onAction).toHaveBeenCalledTimes(1)
+    expect(region()).not.toHaveTextContent('First message')
+  })
+})

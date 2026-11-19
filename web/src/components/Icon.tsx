@@ -11,6 +11,12 @@ const paths = {
     </>
   ),
   code: <path d="m16 18 6-6-6-6M8 6l-6 6 6 6" />,
+  download: (
+    <>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <path d="m7 10 5 5 5-5M12 15V3" />
+    </>
+  ),
   external: <path d="M7 17 17 7M8 7h9v9" />,
   map: (
     <>
@@ -19,6 +25,12 @@ const paths = {
     </>
   ),
   moon: <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />,
+  pencil: (
+    <>
+      <path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z" />
+      <path d="m15 5 4 4" />
+    </>
+  ),
   play: <path d="M7 4.5v15l12-7.5z" />,
   plus: <path d="M12 5v14M5 12h14" />,
   rotate: (
@@ -31,6 +43,13 @@ const paths = {
     <>
       <circle cx="11" cy="11" r="7" />
       <path d="m20 20-3.5-3.5" />
+    </>
+  ),
+  settings: (
+    <>
+      <path d="M20 7h-9M14 17H5" />
+      <circle cx="17" cy="17" r="3" />
+      <circle cx="7" cy="7" r="3" />
     </>
   ),
   skip: <path d="m6 17 5-5-5-5M13 17l5-5-5-5" />,
@@ -50,6 +69,12 @@ const paths = {
     </>
   ),
   trash: <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />,
+  upload: (
+    <>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <path d="m17 8-5-5-5 5M12 3v12" />
+    </>
+  ),
   warning: (
     <>
       <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />

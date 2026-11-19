@@ -2,13 +2,13 @@ import type { JSX } from 'react'
 
 import { WeekStrip } from '../../components/charts'
 import {
+  activityByDayThisIsoWeek,
   activityStreak,
-  completionsByDayThisIsoWeek,
   countSessionsThisIsoWeek,
-  utcDay,
 } from '../../domain/insights'
 import type { PersonalLearningState } from '../../domain/personal-types'
 import { countCompletedThisIsoWeek } from '../../domain/recommendations'
+import { localDayKey } from '../../lib/calendar'
 import { formatDay, plural } from '../../lib/format'
 
 interface WeekCardProps {
@@ -18,7 +18,7 @@ interface WeekCardProps {
 
 export function WeekCard({ state, now }: WeekCardProps): JSX.Element {
   const completed = countCompletedThisIsoWeek(state.tasks, now)
-  const days = completionsByDayThisIsoWeek(state.tasks, now)
+  const days = activityByDayThisIsoWeek(state.tasks, state.sessions, now)
   const sessions = countSessionsThisIsoWeek(state.sessions, now)
   const streak = activityStreak(state.tasks, state.sessions, now)
   const firstDay = days[0]?.date
@@ -38,7 +38,7 @@ export function WeekCard({ state, now }: WeekCardProps): JSX.Element {
         <span className="hero-figure-value">{completed}</span>{' '}
         <span className="hero-figure-label">{completed === 1 ? 'task' : 'tasks'} completed</span>
       </p>
-      <WeekStrip days={days} today={utcDay(now) ?? ''} />
+      <WeekStrip days={days} today={localDayKey(now) ?? ''} />
       <dl className="mini-stats">
         <div>
           <dt>Practice sessions</dt>

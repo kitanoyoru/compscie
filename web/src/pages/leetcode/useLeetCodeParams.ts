@@ -6,12 +6,13 @@ import { FILTER_ALL } from '../../domain/recommendations'
 
 export type DifficultyFilter = Difficulty | typeof FILTER_ALL
 
-export type LeetCodeParamKey = 'difficulty' | 'language' | 'tag' | 'problem'
+export type LeetCodeParamKey = 'difficulty' | 'language' | 'tag' | 'problem' | 'q'
 
 export interface LeetCodeParams {
   readonly difficulty: DifficultyFilter
   readonly language: string
   readonly tag: string
+  readonly query: string
   readonly problemId: number | undefined
   readonly update: (patch: Partial<Record<LeetCodeParamKey, string | null>>) => void
 }
@@ -54,6 +55,7 @@ export function useLeetCodeParams(): LeetCodeParams {
     difficulty: parseDifficulty(params.get('difficulty')),
     language: params.get('language') ?? FILTER_ALL,
     tag: params.get('tag') ?? FILTER_ALL,
+    query: params.get('q') ?? '',
     problemId: Number.isInteger(rawProblem) && rawProblem > 0 ? rawProblem : undefined,
     update,
   }

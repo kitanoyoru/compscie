@@ -102,6 +102,19 @@ describe('countCompletedThisIsoWeek', () => {
 
     expect(countCompletedThisIsoWeek(tasks, new Date('2026-11-16T09:00:00Z'))).toBe(1)
   })
+
+  it('counts a Sunday-evening completion in the week it happened locally', () => {
+    const tasks = [
+      task({
+        id: 'late-sunday',
+        createdAt: '2026-11-01T09:00:00.000Z',
+        status: 'completed',
+        completedAt: '2026-11-16T05:00:00.000Z', // Sunday 21:00 PST
+      }),
+    ]
+
+    expect(countCompletedThisIsoWeek(tasks, new Date('2026-11-17T18:00:00Z'))).toBe(0)
+  })
 })
 
 describe('choosePracticeProblem', () => {

@@ -1,4 +1,4 @@
-const DAY_MS = 24 * 60 * 60 * 1000
+import { isCalendarDate, localDaysBetween } from './calendar'
 
 const dayFormatter = new Intl.DateTimeFormat(undefined, {
   month: 'short',
@@ -11,6 +11,13 @@ const dayWithYearFormatter = new Intl.DateTimeFormat(undefined, {
   year: 'numeric',
   timeZone: 'UTC',
 })
+const timeFormatter = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' })
+const localDayFormatter = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' })
+const localDayWithYearFormatter = new Intl.DateTimeFormat(undefined, {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+})
 const longDayFormatter = new Intl.DateTimeFormat(undefined, {
   weekday: 'long',
   month: 'long',
@@ -18,29 +25,47 @@ const longDayFormatter = new Intl.DateTimeFormat(undefined, {
 })
 const weekdayFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'short', timeZone: 'UTC' })
 const narrowWeekdayFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'narrow', timeZone: 'UTC' })
+const longWeekdayFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'long', timeZone: 'UTC' })
 const relativeFormatter = new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' })
 
 function toTime(value: Date | string): number {
   return typeof value === 'string' ? Date.parse(value) : value.getTime()
 }
 
-function utcMidnight(time: number): number {
-  const date = new Date(time)
-
-  return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
-}
-
-/** `Nov 17`, or `Nov 17, 2025` outside the current year. Calendar days are read in UTC. */
+/**
+ * `Nov 17`, or `Nov 17, 2025` outside the current year.
+ * A `YYYY-MM-DD` calendar date is formatted as that exact day in every time zone.
+ * Any other timestamp is formatted in the viewer's time zone.
+ */
 export function formatDay(value: Date | string, now: Date = new Date()): string {
+  if (typeof value === 'string' && isCalendarDate(value)) {
+    const time = Date.parse(value)
+
+    if (Number.isNaN(time)) {
+      return ''
+    }
+
+    const sameYear = new Date(time).getUTCFullYear() === now.getFullYear()
+
+    return (sameYear ? dayFormatter : dayWithYearFormatter).format(time)
+  }
+
   const time = toTime(value)
 
   if (Number.isNaN(time)) {
     return ''
   }
 
-  const sameYear = new Date(time).getUTCFullYear() === now.getUTCFullYear()
+  const sameYear = new Date(time).getFullYear() === now.getFullYear()
 
-  return (sameYear ? dayFormatter : dayWithYearFormatter).format(time)
+  return (sameYear ? localDayFormatter : localDayWithYearFormatter).format(time)
+}
+
+/** Local time such as `9:05 AM`, in the viewer's time zone. */
+export function formatTime(value: Date | string): string {
+  const time = toTime(value)
+
+  return Number.isNaN(time) ? '' : timeFormatter.format(time)
 }
 
 /** `Thursday, November 19` in the viewer's time zone. */
@@ -48,21 +73,17 @@ export function formatLongDay(value: Date): string {
   return longDayFormatter.format(value)
 }
 
-export function formatWeekday(day: string, style: 'short' | 'narrow' = 'short'): string {
+export function formatWeekday(day: string, style: 'short' | 'narrow' | 'long' = 'short'): string {
   const time = Date.parse(day)
+  const formatter =
+    style === 'narrow' ? narrowWeekdayFormatter : style === 'long' ? longWeekdayFormatter : weekdayFormatter
 
-  return Number.isNaN(time) ? '' : (style === 'narrow' ? narrowWeekdayFormatter : weekdayFormatter).format(time)
+  return Number.isNaN(time) ? '' : formatter.format(time)
 }
 
-/** Whole calendar days between two moments, compared as UTC days. */
+/** Whole calendar days from `value` to `now`, in the viewer's time zone. Calendar dates never shift. */
 export function daysBetween(value: Date | string, now: Date): number | undefined {
-  const time = toTime(value)
-
-  if (Number.isNaN(time)) {
-    return undefined
-  }
-
-  return Math.round((utcMidnight(now.getTime()) - utcMidnight(time)) / DAY_MS)
+  return localDaysBetween(value, now)
 }
 
 /** `today`, `yesterday`, `5 days ago`, `3 months ago`. */
@@ -102,4 +123,15 @@ export function plural(count: number, singular: string, pluralForm = `${singular
 /** Drops decorative leading symbols such as emoji from a note title. */
 export function cleanTitle(title: string): string {
   return title.replace(/^[^\p{L}\p{N}]+/u, '').trim() || title
+}
+
+/** Parses a minutes field. Returns a positive finite number, or `undefined` when blank or invalid. */
+export function parseMinutes(raw: string): number | undefined {
+  if (raw.trim() === '') {
+    return undefined
+  }
+
+  const minutes = Number(raw)
+
+  return Number.isFinite(minutes) && minutes > 0 ? minutes : undefined
 }

@@ -1,6 +1,7 @@
 import type { JSX } from 'react'
 
 import { BarList } from '../components/charts'
+import { usePageTitle } from '../components/RouteEffects'
 import { PageHeader, StatTile, formatCount } from '../components/ui'
 import { repositorySnapshot } from '../data/generated/repository'
 import type { TopicStatus } from '../data/types'
@@ -24,6 +25,7 @@ const activeTopics = topics.filter((topic) => topic.status === 'active').length
 const latestNote = notes.map((note) => note.date).filter(Boolean).sort().at(-1)
 
 export function KnowledgeMapPage(): JSX.Element {
+  usePageTitle('Knowledge Map')
   const now = new Date()
   const otherLanguages = languageRanking.slice(CHART_ROWS)
 
