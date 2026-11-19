@@ -182,6 +182,9 @@ select,
 button {
   border-radius: 0.5rem;
 }
+textarea { min-height: 6rem; width: 100%; }
+.filters { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+.filters label { display: grid; gap: .35rem; font-weight: 600; }
 
 input,
 select {

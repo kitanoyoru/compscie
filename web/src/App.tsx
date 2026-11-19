@@ -4,6 +4,7 @@ import { HashRouter, Route, Routes } from 'react-router'
 import { AppShell } from './components/AppShell'
 import { TodayPage } from './pages/TodayPage'
 import { KnowledgeMapPage } from './pages/KnowledgeMapPage'
+import { LeetCodePage } from './pages/LeetCodePage'
 import { LearningProvider } from './state/learning-state'
 
 export function App(): JSX.Element {
@@ -14,15 +15,7 @@ export function App(): JSX.Element {
           <Routes>
             <Route path="/" element={<TodayPage />} />
             <Route path="/map" element={<KnowledgeMapPage />} />
-            <Route
-              path="/leetcode"
-              element={
-                <section aria-labelledby="leetcode-heading">
-                  <h2 id="leetcode-heading">LeetCode</h2>
-                  <p>The review workflow is coming next.</p>
-                </section>
-              }
-            />
+            <Route path="/leetcode" element={<LeetCodePage />} />
           </Routes>
         </AppShell>
       </LearningProvider>
