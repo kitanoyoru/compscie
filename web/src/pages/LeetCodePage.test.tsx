@@ -344,6 +344,7 @@ describe('LeetCode workspace', () => {
     const base = { problemId: first.id, outcome: 'success', startedAt: '2026-11-19T17:00:00.000Z' } as const
     seedLearningState({
       version: 1,
+      cardReviews: [],
       tasks: [],
       sessions: [
         { ...base, endedAt: '2026-11-19T17:30:00.000Z', reflection: 'Morning attempt' },

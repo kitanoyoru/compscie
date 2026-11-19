@@ -224,6 +224,7 @@ textarea {
 
 .page-header h1:focus:not(:focus-visible),
 #task-list-heading:focus:not(:focus-visible),
+#questions-heading:focus:not(:focus-visible),
 .subheading:focus:not(:focus-visible) {
   outline: none;
 }
@@ -1619,6 +1620,46 @@ details[open] .details-chevron {
 
 .review-link .lang-icon-list {
   flex: none;
+}
+
+.quiz {
+  display: grid;
+  gap: 0.875rem;
+}
+
+.quiz-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  color: var(--ink-muted);
+  font-size: 0.8125rem;
+}
+
+.quiz-meta a {
+  color: var(--accent-text);
+}
+
+.quiz-question {
+  max-width: 46rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.quiz-note {
+  max-height: 28rem;
+  overflow: auto;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overscroll-behavior: contain;
+}
+
+.quiz-note[hidden] {
+  display: none;
 }
 
 .review-list {

@@ -142,6 +142,13 @@ for (const scheme of ['light', 'dark'] as const) {
     await expectNoContrastIssues(page)
   })
 
+  test(`a note question with its note open has no contrast issues (${scheme})`, async ({ page }) => {
+    await navigate(page, '#/review', { scheme })
+    await page.getByRole('button', { name: 'Show note' }).click()
+    await expect(page.locator('.quiz-note .prose h2').first()).toBeVisible()
+    await expectNoContrastIssues(page)
+  })
+
   test(`every solution tab of Two Sum has no contrast issues (${scheme})`, async ({ page }) => {
     await navigate(page, '#/leetcode?problem=1', { scheme })
     await page.getByRole('button', { name: 'Show my solution' }).click()

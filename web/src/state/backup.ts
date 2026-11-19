@@ -47,6 +47,7 @@ export function readBackup(text: string): BackupReadResult {
     state === null ||
     state.tasks.length > MAX_BACKUP_ITEMS ||
     state.sessions.length > MAX_BACKUP_ITEMS ||
+    state.cardReviews.length > MAX_BACKUP_ITEMS ||
     new Set(state.tasks.map((task) => task.id)).size !== state.tasks.length
   ) {
     return malformed

@@ -92,3 +92,15 @@ describe('accessibility of the solution viewer', () => {
     await expectNoAxeViolations(container)
   })
 })
+
+describe('accessibility of a note question with its note open', () => {
+  it('has no WCAG A/AA violations', async () => {
+    localStorage.clear()
+    window.location.hash = '#/review'
+    const { container } = render(<App />)
+
+    await userEvent.setup().click(screen.getByRole('button', { name: /show note/i }))
+    expect(await screen.findByText('A short summary.')).toBeInTheDocument()
+    await expectNoAxeViolations(container)
+  })
+})

@@ -49,6 +49,7 @@ describe('getTodayRecommendation', () => {
   it('prefers the earliest open task over deferred tasks and topic fallbacks', () => {
     const state: PersonalLearningState = {
       version: 1,
+      cardReviews: [],
       tasks: [
         task({ id: 'deferred', createdAt: '2026-11-01T09:00:00.000Z', status: 'deferred' }),
         task({ id: 'open-later', createdAt: '2026-11-03T09:00:00.000Z' }),
@@ -66,6 +67,7 @@ describe('getTodayRecommendation', () => {
   it('uses a deferred task before topic fallbacks', () => {
     const state: PersonalLearningState = {
       version: 1,
+      cardReviews: [],
       tasks: [task({ id: 'deferred', createdAt: '2026-11-02T09:00:00.000Z', status: 'deferred' })],
       sessions: [],
     }
@@ -77,7 +79,7 @@ describe('getTodayRecommendation', () => {
   })
 
   it('falls back to the active topic with the oldest note, then slug', () => {
-    expect(getTodayRecommendation(snapshot, { version: 1, tasks: [], sessions: [] })).toMatchObject({
+    expect(getTodayRecommendation(snapshot, { version: 1, cardReviews: [], tasks: [], sessions: [] })).toMatchObject({
       kind: 'topic',
       topicSlug: 'go',
     })

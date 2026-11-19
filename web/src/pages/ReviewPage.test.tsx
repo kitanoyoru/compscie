@@ -1,9 +1,16 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { App } from '../App'
+import { loadNote } from '../data/content'
 import { repositorySnapshot } from '../data/generated/repository'
-import { FIXTURE_NOW, seedLearningState } from '../test/fixtures'
+import { NEW_CARDS_PER_DAY, quizCards } from '../domain/quiz'
+import { STORAGE_KEY } from '../state/storage'
+import { FIXTURE_NOW, seedLearningState, seededState } from '../test/fixtures'
+import { sampleNote } from '../test/note-content'
+
+vi.mock('../data/content', () => ({ loadNote: vi.fn(), loadSolutions: vi.fn() }))
 
 // Seeded sessions, read in America/Los_Angeles with the clock at FIXTURE_NOW (Thursday, Nov 19):
 // the first problem was flagged "needs review" on Nov 18, so it is due today; the second was
@@ -126,6 +133,84 @@ describe('review schedule in the workspace', () => {
       render(<App />)
 
       expect(screen.getByText('Next review Nov 22.')).toBeInTheDocument()
+    })
+  })
+
+  describe('note questions', () => {
+    const cards = quizCards(repositorySnapshot)
+    // Yesterday (Nov 18, Los Angeles): one "Shaky" answer, so that card is due today.
+    const shaky = { cardId: cards[0]!.id, reviewedAt: '2026-11-18T18:00:00.000Z', outcome: 'needs-review' } as const
+
+    beforeEach(() => {
+      vi.mocked(loadNote).mockImplementation(async (topic, slug) => sampleNote(`notes/${topic}/${slug}.md`))
+      window.location.hash = '#/review'
+    })
+
+    it('starts with the first new question and opens its note on demand', async () => {
+      const user = userEvent.setup()
+      render(<App />)
+      const runner = screen.getByRole('region', { name: 'Note questions' })
+
+      expect(runner).toHaveTextContent(`0 questions due · ${NEW_CARDS_PER_DAY} new today`)
+      expect(within(runner).getByText(cards[0]!.question)).toBeInTheDocument()
+      expect(within(runner).getByText('New')).toBeInTheDocument()
+      expect(loadNote).not.toHaveBeenCalled()
+
+      await user.click(within(runner).getByRole('button', { name: /show note/i }))
+
+      expect(await within(runner).findByText('A short summary.')).toBeInTheDocument()
+      expect(loadNote).toHaveBeenCalledWith(cards[0]!.note.topicSlug, cards[0]!.note.slug)
+    })
+
+    it('grades a card, moves to the next one, and undoes the grade', async () => {
+      const user = userEvent.setup()
+      render(<App />)
+      const runner = screen.getByRole('region', { name: 'Note questions' })
+
+      await user.click(within(runner).getByRole('button', { name: /got it/i }))
+
+      expect(within(runner).getByText(cards[1]!.question)).toBeInTheDocument()
+      expect(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}')).toMatchObject({
+        cardReviews: [{ cardId: cards[0]!.id, outcome: 'success' }],
+      })
+
+      await user.click(screen.getByRole('button', { name: 'Undo' }))
+
+      expect(within(runner).getByText(cards[0]!.question)).toBeInTheDocument()
+      expect(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}')).toMatchObject({ cardReviews: [] })
+    })
+
+    it('stops after the daily allowance of new questions', async () => {
+      const user = userEvent.setup()
+      render(<App />)
+      const runner = screen.getByRole('region', { name: 'Note questions' })
+
+      for (let index = 0; index < NEW_CARDS_PER_DAY; index += 1) {
+        await user.click(within(runner).getByRole('button', { name: /shaky/i }))
+      }
+
+      expect(runner).toHaveTextContent(/all caught up\. new questions unlock tomorrow\./i)
+      await waitFor(() => expect(screen.getByRole('heading', { name: 'Note questions' })).toHaveFocus())
+    })
+
+    it('puts due questions first and counts them on the Today card and the nav badge', () => {
+      seedLearningState({ ...seededState(), cardReviews: [shaky] })
+      window.location.hash = '#/'
+      render(<App />)
+
+      // One problem and one question are due.
+      expect(screen.getByRole('link', { name: 'Review, 2 due' })).toBeInTheDocument()
+      expect(screen.getByRole('region', { name: 'Due for review' })).toHaveTextContent('1 problem · 1 question due')
+    })
+
+    it('shows a due question as due on the Review page', () => {
+      seedLearningState({ ...seededState(), cardReviews: [shaky] })
+      render(<App />)
+      const runner = screen.getByRole('region', { name: 'Note questions' })
+
+      expect(screen.getByText('1 problem and 1 question due today.')).toBeInTheDocument()
+      expect(within(runner).getByText(cards[0]!.question)).toBeInTheDocument()
+      expect(within(runner).getByText('Due', { selector: '.badge' })).toBeInTheDocument()
     })
   })
 })

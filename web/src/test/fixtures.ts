@@ -61,6 +61,7 @@ export function seededState(): PersonalLearningState {
         outcome: 'success',
       },
     ],
+    cardReviews: [],
   }
 }
 

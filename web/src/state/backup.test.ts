@@ -65,6 +65,7 @@ describe('backup', () => {
       ok: true,
       state: {
         version: 1,
+        cardReviews: [],
         sessions: [],
         tasks: [{ id: 'a', title: 'T', status: 'open', createdAt: '2026-11-17T09:00:00.000Z' }],
       },
@@ -78,5 +79,21 @@ describe('backup', () => {
 
   it('names the file after the local day', () => {
     expect(backupFilename(new Date('2026-11-20T05:00:00Z'))).toBe('compscie-learning-2026-11-19.json')
+  })
+
+  it('imports a backup made before card reviews existed', () => {
+    const { cardReviews: _ignored, ...older } = seededState()
+    const result = readBackup(JSON.stringify({ app: BACKUP_APP_ID, version: 1, state: older }))
+
+    expect(result).toEqual({ ok: true, state: { ...older, cardReviews: [] } })
+  })
+
+  it('rejects a backup with too many card reviews', () => {
+    const review = { cardId: 'c', reviewedAt: '2026-11-19T18:00:00.000Z', outcome: 'success' }
+    const cardReviews = Array.from({ length: 10_001 }, () => review)
+
+    expect(
+      readBackup(JSON.stringify({ app: BACKUP_APP_ID, version: 1, state: { ...seededState(), cardReviews } })),
+    ).toMatchObject({ ok: false })
   })
 })

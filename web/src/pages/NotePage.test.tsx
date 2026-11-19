@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -50,7 +50,8 @@ describe('note reader', () => {
     window.location.hash = '#/notes/go/channels?section=hchan-struct'
     render(<App />)
 
-    expect(await screen.findByRole('heading', { name: 'hchan struct' })).toHaveFocus()
+    const heading = await screen.findByRole('heading', { name: 'hchan struct' })
+    await waitFor(() => expect(heading).toHaveFocus())
   })
 
   it('moves to a section from the table of contents', async () => {
@@ -61,7 +62,7 @@ describe('note reader', () => {
     await user.click(within(toc).getByRole('link', { name: 'Notes' }))
 
     expect(window.location.hash).toBe('#/notes/go/channels?section=notes')
-    expect(screen.getByRole('heading', { level: 2, name: 'Notes' })).toHaveFocus()
+    await waitFor(() => expect(screen.getByRole('heading', { level: 2, name: 'Notes' })).toHaveFocus())
   })
 
   it('links the neighbouring notes of the topic', () => {
