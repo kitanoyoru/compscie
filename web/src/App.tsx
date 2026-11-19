@@ -8,10 +8,12 @@ import { LeetCodePage } from './pages/LeetCodePage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { ToastProvider } from './components/Toast'
 import { LearningProvider } from './state/learning-state'
+import { ThemeProvider } from './state/theme'
 
 export function App(): JSX.Element {
   return (
     <HashRouter>
+      <ThemeProvider>
       <LearningProvider>
         <ToastProvider>
           <AppShell>
@@ -24,6 +26,7 @@ export function App(): JSX.Element {
           </AppShell>
         </ToastProvider>
       </LearningProvider>
+      </ThemeProvider>
     </HashRouter>
   )
 }

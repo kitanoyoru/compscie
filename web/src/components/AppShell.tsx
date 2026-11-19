@@ -1,13 +1,13 @@
-import type { JSX, PropsWithChildren } from 'react'
+import { useRef, useState, type JSX, type PropsWithChildren } from 'react'
 import { NavLink } from 'react-router'
 
 import { repositorySnapshot } from '../data/generated/repository'
 import { REPOSITORY_URL } from '../data/links'
 import { formatDay } from '../lib/format'
-import { useLearningDispatch } from '../state/learning-state'
 import { useTheme } from '../state/theme'
 import { Icon, type IconName } from './Icon'
 import { RouteFocus } from './RouteEffects'
+import { SettingsDialog } from './SettingsDialog'
 import { ExternalLink } from './ui'
 
 const NAVIGATION: readonly { to: string; label: string; icon: IconName; end?: boolean }[] = [
@@ -17,7 +17,7 @@ const NAVIGATION: readonly { to: string; label: string; icon: IconName; end?: bo
 ]
 
 function ThemeToggle(): JSX.Element {
-  const [theme, toggle] = useTheme()
+  const { effective: theme, toggle } = useTheme()
   const next = theme === 'dark' ? 'light' : 'dark'
 
   return (
@@ -38,15 +38,8 @@ function focusMain(): void {
 }
 
 export function AppShell({ children }: PropsWithChildren): JSX.Element {
-  const dispatch = useLearningDispatch()
-
-  function resetWorkingState(): void {
-    const confirmed = window.confirm('Reset all tasks and practice sessions stored in this browser?')
-
-    if (confirmed) {
-      dispatch({ type: 'stateReset' })
-    }
-  }
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const settingsButton = useRef<HTMLButtonElement>(null)
 
   return (
     <div className="shell">
@@ -76,7 +69,20 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
               </NavLink>
             ))}
           </nav>
-          <ThemeToggle />
+          <div className="header-actions">
+            <ThemeToggle />
+            <button
+              ref={settingsButton}
+              type="button"
+              className="icon-button theme-toggle"
+              onClick={() => setSettingsOpen(true)}
+              aria-label="Settings"
+              title="Settings"
+              aria-haspopup="dialog"
+            >
+              <Icon name="settings" size={18} />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -95,13 +101,16 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
             <ExternalLink href={REPOSITORY_URL} className="text-link">
               Repository
             </ExternalLink>
-            <button type="button" className="button button-danger-quiet" onClick={resetWorkingState}>
-              <Icon name="trash" size={14} />
-              Reset working state
-            </button>
           </div>
         </div>
       </footer>
+      <SettingsDialog
+        open={settingsOpen}
+        onClose={() => {
+          setSettingsOpen(false)
+          settingsButton.current?.focus()
+        }}
+      />
     </div>
   )
 }

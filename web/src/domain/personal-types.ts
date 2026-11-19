@@ -74,3 +74,7 @@ export type LearningAction =
   | {
       type: 'stateReset'
     }
+  | {
+      type: 'stateReplaced'
+      state: PersonalLearningState
+    }

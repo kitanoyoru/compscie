@@ -222,4 +222,16 @@ describe('learning state', () => {
       ).toEqual([session(1, 'B'), session(1, 'A')])
     })
   })
+
+  describe('stateReplaced', () => {
+    it('replaces the whole state', () => {
+      const next = {
+        version: 1,
+        tasks: [{ id: 'z', title: 'Z', status: 'open', createdAt: '2026-11-17T09:00:00.000Z' }],
+        sessions: [{ problemId: 7, startedAt: 'S', endedAt: 'E', outcome: 'success' }],
+      } as const
+
+      expect(learningReducer(emptyPersonalState(), { type: 'stateReplaced', state: next })).toEqual(next)
+    })
+  })
 })

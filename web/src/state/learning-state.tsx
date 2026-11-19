@@ -100,6 +100,9 @@ export function learningReducer(state: PersonalLearningState, action: LearningAc
     case 'stateReset': {
       return emptyPersonalState()
     }
+    case 'stateReplaced': {
+      return action.state
+    }
   }
 }
 

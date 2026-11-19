@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import type { LearningTask, SolveSession } from '../domain/personal-types'
-import { STORAGE_KEY, emptyPersonalState, loadPersonalState, savePersonalState } from './storage'
+import { STORAGE_KEY, emptyPersonalState, loadPersonalState, parsePersonalState, savePersonalState } from './storage'
 
 const task: LearningTask = {
   id: 'task-1',
@@ -41,5 +41,24 @@ describe('personal state storage', () => {
     savePersonalState({ version: 1, tasks: [task], sessions: [session] })
 
     expect(loadPersonalState()).toEqual({ version: 1, tasks: [task], sessions: [session] })
+  })
+})
+
+describe('parsePersonalState', () => {
+  it('accepts a valid state', () => {
+    const state = { version: 1, tasks: [task], sessions: [session] }
+
+    expect(parsePersonalState(state)).toEqual(state)
+  })
+
+  it.each([
+    ['null', null],
+    ['an array', []],
+    ['a wrong version', { version: 2, tasks: [], sessions: [] }],
+    ['missing sessions', { version: 1, tasks: [] }],
+    ['a malformed task', { version: 1, tasks: [{}], sessions: [] }],
+    ['a malformed session', { version: 1, tasks: [], sessions: [{ problemId: 'x' }] }],
+  ])('rejects %s', (_name, value) => {
+    expect(parsePersonalState(value)).toBeNull()
   })
 })

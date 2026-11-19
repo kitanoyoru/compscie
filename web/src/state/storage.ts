@@ -36,6 +36,22 @@ function isSolveSession(value: unknown): value is SolveSession {
   )
 }
 
+/** Validates an untrusted value (stored or imported) as personal learning state. */
+export function parsePersonalState(value: unknown): PersonalLearningState | null {
+  if (
+    !isRecord(value) ||
+    value.version !== 1 ||
+    !Array.isArray(value.tasks) ||
+    !Array.isArray(value.sessions) ||
+    !value.tasks.every(isLearningTask) ||
+    !value.sessions.every(isSolveSession)
+  ) {
+    return null
+  }
+
+  return { version: 1, tasks: value.tasks, sessions: value.sessions }
+}
+
 export function loadPersonalState(): PersonalLearningState {
   let rawValue: string | null
 
@@ -50,24 +66,7 @@ export function loadPersonalState(): PersonalLearningState {
   }
 
   try {
-    const parsed: unknown = JSON.parse(rawValue)
-
-    if (
-      !isRecord(parsed) ||
-      parsed.version !== 1 ||
-      !Array.isArray(parsed.tasks) ||
-      !Array.isArray(parsed.sessions) ||
-      !parsed.tasks.every(isLearningTask) ||
-      !parsed.sessions.every(isSolveSession)
-    ) {
-      return emptyPersonalState()
-    }
-
-    return {
-      version: 1,
-      tasks: parsed.tasks,
-      sessions: parsed.sessions,
-    }
+    return parsePersonalState(JSON.parse(rawValue)) ?? emptyPersonalState()
   } catch {
     return emptyPersonalState()
   }

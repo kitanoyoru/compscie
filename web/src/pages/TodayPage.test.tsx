@@ -82,9 +82,8 @@ describe('Today dashboard', () => {
     expect(screen.getByRole('heading', { name: /practice slice internals/i })).toBeInTheDocument()
   })
 
-  it('defers a task and confirms reset', async () => {
+  it('defers a task and resets from the settings dialog', async () => {
     const user = userEvent.setup()
-    const confirmReset = vi.spyOn(window, 'confirm').mockReturnValue(true)
     render(<App />)
 
     await user.type(screen.getByLabelText(/task title/i), 'Read the granule note')
@@ -95,13 +94,12 @@ describe('Today dashboard', () => {
       within(screen.getByRole('list', { name: /deferred tasks/i })).getByText('Read the granule note'),
     ).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: /reset working state/i }))
+    await user.click(screen.getByRole('button', { name: /^settings$/i }))
+    const dialog = screen.getByRole('dialog', { name: /settings/i })
+    await user.click(within(dialog).getByRole('button', { name: /reset working state/i }))
+    await user.click(within(dialog).getByRole('button', { name: /yes, delete everything/i }))
 
-    expect(confirmReset).toHaveBeenCalledWith(
-      'Reset all tasks and practice sessions stored in this browser?',
-    )
-    expect(screen.queryByRole('heading', { name: /read the granule note/i })).not.toBeInTheDocument()
-    confirmReset.mockRestore()
+    expect(screen.queryByText('Read the granule note')).not.toBeInTheDocument()
   })
 
   it('queues the topic fallback as a task', async () => {

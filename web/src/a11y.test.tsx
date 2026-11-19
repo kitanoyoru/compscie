@@ -60,3 +60,16 @@ describe('accessibility of the knowledge map concept filter', () => {
     await expectNoAxeViolations(container)
   })
 })
+
+describe('accessibility of the settings dialog', () => {
+  it('has no WCAG A/AA violations while open', async () => {
+    localStorage.clear()
+    window.location.hash = '#/'
+    seedLearningState()
+    render(<App />)
+
+    await userEvent.setup().click(screen.getByRole('button', { name: /^settings$/i }))
+    expect(screen.getByRole('dialog', { name: /settings/i })).toBeInTheDocument()
+    await expectNoAxeViolations(document.body)
+  })
+})
