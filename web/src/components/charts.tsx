@@ -1,7 +1,7 @@
 import type { CSSProperties, JSX } from 'react'
 import { Link } from 'react-router'
 
-import type { DayCount } from '../domain/insights'
+import type { DayActivity } from '../domain/insights'
 import { formatWeekday, plural } from '../lib/format'
 import { formatCount } from './ui'
 
@@ -91,37 +91,55 @@ export function SegmentedBar({ segments, label }: SegmentedBarProps): JSX.Elemen
 }
 
 interface WeekStripProps {
-  readonly days: readonly DayCount[]
+  readonly days: readonly DayActivity[]
   readonly today: string
 }
 
-/** Seven daily columns for the current ISO week, today emphasized. */
+/** Seven daily columns for the current ISO week: tasks and practice sessions stacked, today emphasized. */
 export function WeekStrip({ days, today }: WeekStripProps): JSX.Element {
-  const max = Math.max(1, ...days.map((day) => day.count))
+  const max = Math.max(1, ...days.map((day) => day.tasks + day.sessions))
 
   return (
-    <ol className="week-strip" aria-label="Tasks completed per day this week">
-      {days.map((day) => {
-        const summary = `${formatWeekday(day.date)}: ${plural(day.count, 'task')} completed`
+    <div className="week">
+      <ol className="week-strip" aria-label="Activity this week">
+        {days.map((day) => {
+          const total = day.tasks + day.sessions
+          const summary = `${formatWeekday(day.date)}: ${plural(day.tasks, 'task')}, ${plural(day.sessions, 'practice session')}`
 
-        return (
-          <li
-            key={day.date}
-            className="week-day"
-            data-today={day.date === today ? 'true' : undefined}
-            data-empty={day.count === 0 ? 'true' : undefined}
-            title={summary}
-          >
-            <span className="week-bar-slot" aria-hidden="true">
-              <span className="week-bar" style={ratioStyle(day.count / max)} />
-            </span>
-            <span className="week-label" aria-hidden="true">
-              {formatWeekday(day.date, 'narrow')}
-            </span>
-            <span className="sr-only">{summary}</span>
-          </li>
-        )
-      })}
-    </ol>
+          return (
+            <li
+              key={day.date}
+              className="week-day"
+              data-today={day.date === today ? 'true' : undefined}
+              data-empty={total === 0 ? 'true' : undefined}
+              title={summary}
+            >
+              <span className="week-bar-slot" aria-hidden="true">
+                <span className="week-bar" style={ratioStyle(total / max)}>
+                  {day.tasks > 0 && <span className="week-seg" data-series="tasks" style={{ flexGrow: day.tasks }} />}
+                  {day.sessions > 0 && (
+                    <span className="week-seg" data-series="sessions" style={{ flexGrow: day.sessions }} />
+                  )}
+                </span>
+              </span>
+              <span className="week-label" aria-hidden="true">
+                {formatWeekday(day.date, 'narrow')}
+              </span>
+              <span className="sr-only">{summary}</span>
+            </li>
+          )
+        })}
+      </ol>
+      <ul className="legend week-legend">
+        <li>
+          <span className="swatch" data-series="tasks" aria-hidden="true" />
+          Tasks
+        </li>
+        <li>
+          <span className="swatch" data-series="sessions" aria-hidden="true" />
+          Practice
+        </li>
+      </ul>
+    </div>
   )
 }

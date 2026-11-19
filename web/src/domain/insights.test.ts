@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import type { SolvedProblem } from '../data/types'
 import {
   activityStreak,
-  completionsByDayThisIsoWeek,
+  activityByDayThisIsoWeek,
   countSessionsThisIsoWeek,
   difficultyCounts,
   latestSessionByProblem,
@@ -46,7 +46,7 @@ function problem(id: number, overrides: Partial<SolvedProblem> = {}): SolvedProb
 
 describe('weekly activity', () => {
   it('counts completed tasks per day of the current ISO week', () => {
-    const days = completionsByDayThisIsoWeek(
+    const days = activityByDayThisIsoWeek(
       [
         completedTask('a', '2026-11-16T08:00:00.000Z'),
         completedTask('b', '2026-11-19T08:00:00.000Z'),
@@ -54,6 +54,7 @@ describe('weekly activity', () => {
         completedTask('previous-week', '2026-11-15T23:59:59.000Z'),
         { id: 'open', title: 'Open', status: 'open', createdAt: '2026-11-19T08:00:00.000Z' },
       ],
+      [],
       now,
     )
 
@@ -66,7 +67,26 @@ describe('weekly activity', () => {
       '2026-11-21',
       '2026-11-22',
     ])
-    expect(days.map((day) => day.count)).toEqual([1, 0, 0, 2, 0, 0, 0])
+    expect(days.map((day) => day.tasks)).toEqual([1, 0, 0, 2, 0, 0, 0])
+  })
+
+  it('counts tasks and practice sessions per local day', () => {
+    const days = activityByDayThisIsoWeek(
+      [completedTask('a', '2026-11-17T18:00:00.000Z')],
+      [session(1, '2026-11-17T20:00:00.000Z')],
+      new Date('2026-11-19T18:00:00.000Z'),
+    )
+
+    expect(days).toHaveLength(7)
+    expect(days[1]).toEqual({ date: '2026-11-17', tasks: 1, sessions: 1 })
+  })
+
+  it('counts a session on its local day at the Monday boundary', () => {
+    // 2026-11-17T06:30:00Z is Monday 22:30 PST, so Monday, not Tuesday.
+    const days = activityByDayThisIsoWeek([], [session(1, '2026-11-17T06:30:00.000Z')], now)
+
+    expect(days[0]).toEqual({ date: '2026-11-16', tasks: 0, sessions: 1 })
+    expect(days[1]?.sessions).toBe(0)
   })
 
   it('counts sessions by the local ISO week boundaries', () => {
@@ -101,8 +121,8 @@ describe('weekly activity', () => {
     expect(activityStreak([], sessions, thursdayMorning)).toBe(1)
     expect(activityStreak([], sessions, new Date('2026-11-21T18:00:00.000Z'))).toBe(0)
     expect(
-      completionsByDayThisIsoWeek([completedTask('late', '2026-11-19T06:00:00.000Z')], thursdayMorning).map(
-        (day) => day.count,
+      activityByDayThisIsoWeek([completedTask('late', '2026-11-19T06:00:00.000Z')], [], thursdayMorning).map(
+        (day) => day.tasks,
       ),
     ).toEqual([0, 0, 1, 0, 0, 0, 0])
   })

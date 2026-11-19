@@ -2,8 +2,8 @@ import type { JSX } from 'react'
 
 import { WeekStrip } from '../../components/charts'
 import {
+  activityByDayThisIsoWeek,
   activityStreak,
-  completionsByDayThisIsoWeek,
   countSessionsThisIsoWeek,
 } from '../../domain/insights'
 import type { PersonalLearningState } from '../../domain/personal-types'
@@ -18,7 +18,7 @@ interface WeekCardProps {
 
 export function WeekCard({ state, now }: WeekCardProps): JSX.Element {
   const completed = countCompletedThisIsoWeek(state.tasks, now)
-  const days = completionsByDayThisIsoWeek(state.tasks, now)
+  const days = activityByDayThisIsoWeek(state.tasks, state.sessions, now)
   const sessions = countSessionsThisIsoWeek(state.sessions, now)
   const streak = activityStreak(state.tasks, state.sessions, now)
   const firstDay = days[0]?.date

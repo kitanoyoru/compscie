@@ -46,6 +46,7 @@
 
   /* Data colors: validated as a set (CVD-safe all-pairs) against this surface. */
   --series-1: #2a78d6;
+  --series-2: #e0680f;
   --easy: #1baf7a;
   --medium: #eda100;
   --hard: #6250d6;
@@ -83,6 +84,7 @@
     --warning-soft: #33290f;
 
     --series-1: #3987e5;
+    --series-2: #f08a3c;
     --easy: #199e70;
     --medium: #c98500;
     --hard: #9085e9;
@@ -120,6 +122,7 @@
   --warning-soft: #33290f;
 
   --series-1: #3987e5;
+  --series-2: #f08a3c;
   --easy: #199e70;
   --medium: #c98500;
   --hard: #9085e9;
@@ -1128,11 +1131,37 @@ textarea.input {
   border-bottom: 2px solid var(--accent-text);
 }
 
+.week {
+  display: grid;
+  gap: 0.5rem;
+}
+
 .week-bar {
+  display: flex;
   width: min(100%, 1.25rem);
   height: calc(var(--ratio) * 100%);
+  flex-direction: column-reverse;
+  overflow: hidden;
   border-radius: 4px 4px 0 0;
+}
+
+.week-seg {
+  min-height: 0;
+  flex-basis: 0;
+}
+
+.week-seg + .week-seg {
+  border-bottom: 1px solid var(--surface);
+}
+
+.week-seg[data-series="tasks"],
+.swatch[data-series="tasks"] {
   background: var(--series-1);
+}
+
+.week-seg[data-series="sessions"],
+.swatch[data-series="sessions"] {
+  background: var(--series-2);
 }
 
 .week-day[data-empty] .week-bar {

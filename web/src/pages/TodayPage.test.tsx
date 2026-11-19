@@ -1,12 +1,43 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { App } from '../App'
 import { repositorySnapshot } from '../data/generated/repository'
 import { getTodayRecommendation } from '../domain/recommendations'
 import { STORAGE_KEY, emptyPersonalState } from '../state/storage'
-import { seedLearningState, seededState } from '../test/fixtures'
+import { FIXTURE_NOW, seedLearningState, seededState } from '../test/fixtures'
+
+describe('weekly activity strip', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    window.location.hash = '#/'
+    vi.useFakeTimers({ toFake: ['Date'] })
+    vi.setSystemTime(FIXTURE_NOW)
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  it('lists practice sessions in the weekly activity strip', () => {
+    seedLearningState()
+    render(<App />)
+
+    const strip = screen.getByRole('list', { name: /activity this week/i })
+
+    expect(strip).toHaveTextContent(/practice session/)
+    // Local days: the Nov 19 task (02:00 PST) and session (04:25 PST) share Thursday.
+    expect(strip).toHaveTextContent('Thu: 1 task, 1 practice session')
+    expect(strip).toHaveTextContent('Wed: 0 tasks, 1 practice session')
+    expect(strip).toHaveTextContent('Fri: 0 tasks, 0 practice sessions')
+    expect(screen.getByRole('region', { name: /this week/i })).toHaveTextContent(/1 task completed/i)
+
+    const legend = within(screen.getByRole('region', { name: /this week/i }))
+    expect(legend.getByText('Tasks')).toBeVisible()
+    expect(legend.getByText('Practice')).toBeVisible()
+  })
+})
 
 describe('Today dashboard', () => {
   beforeEach(() => {

@@ -3,10 +3,11 @@ import type { LearningTask, SolveSession, SolveOutcome } from './personal-types'
 import { addLocalDays, dayKeyOf, localDayKey } from '../lib/calendar'
 import { getIsoWeekStart } from './recommendations'
 
-export interface DayCount {
+export interface DayActivity {
   /** Viewer-local calendar day, `YYYY-MM-DD`. */
   readonly date: string
-  readonly count: number
+  readonly tasks: number
+  readonly sessions: number
 }
 
 export interface RankedCount {
@@ -28,23 +29,40 @@ function isInIsoWeek(value: string, now: Date): boolean {
   return !Number.isNaN(time) && time >= weekStart.getTime() && time < addLocalDays(weekStart, 7).getTime()
 }
 
-/** Completed tasks per day for the ISO week (Monday to Sunday, viewer-local) that contains `now`. */
-export function completionsByDayThisIsoWeek(tasks: readonly LearningTask[], now: Date): DayCount[] {
+/**
+ * Completed tasks and practice sessions per day for the ISO week (Monday to Sunday,
+ * viewer-local) that contains `now`. Tasks count on the local day of `completedAt`,
+ * sessions on the local day of `endedAt`.
+ */
+export function activityByDayThisIsoWeek(
+  tasks: readonly LearningTask[],
+  sessions: readonly SolveSession[],
+  now: Date,
+): DayActivity[] {
   const weekStart = getIsoWeekStart(now)
-  const counts = new Map<string, number>()
+  const taskCounts = new Map<string, number>()
+  const sessionCounts = new Map<string, number>()
 
   for (const task of tasks) {
     const day = task.status === 'completed' && task.completedAt ? localDayKey(task.completedAt) : undefined
 
     if (day !== undefined) {
-      counts.set(day, (counts.get(day) ?? 0) + 1)
+      taskCounts.set(day, (taskCounts.get(day) ?? 0) + 1)
+    }
+  }
+
+  for (const session of sessions) {
+    const day = localDayKey(session.endedAt)
+
+    if (day !== undefined) {
+      sessionCounts.set(day, (sessionCounts.get(day) ?? 0) + 1)
     }
   }
 
   return Array.from({ length: 7 }, (_, offset) => {
     const date = dayKeyOf(addLocalDays(weekStart, offset))
 
-    return { date, count: counts.get(date) ?? 0 }
+    return { date, tasks: taskCounts.get(date) ?? 0, sessions: sessionCounts.get(date) ?? 0 }
   })
 }
 
