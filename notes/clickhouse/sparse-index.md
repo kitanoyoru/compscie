@@ -1,5 +1,6 @@
 ---
 date: 2026-10-31
+concepts: Sparse indexing
 ---
 
 # ClickHouse Sparse Index

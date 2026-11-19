@@ -1,5 +1,6 @@
 ---
 date: DATE
+concepts:
 ---
 
 # Note title

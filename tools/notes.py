@@ -15,6 +15,10 @@ Layout (see notes/_template/):
 - topic README frontmatter `title` / `status` / `focus` / `next` / `started`
   feeds the root README table; its note list between the NOTES_START /
   NOTES_END markers is regenerated, newest first
+- `concepts:` (comma-separated) in the topic README orders the Knowledge Map
+  concepts; the same key in a note lists the concepts it covers. The web
+  platform's data generator rejects a note concept the README does not
+  define and a README concept with no notes
 """
 
 from __future__ import annotations

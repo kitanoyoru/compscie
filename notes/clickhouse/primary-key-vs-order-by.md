@@ -1,5 +1,6 @@
 ---
 date: 2026-10-24
+concepts: MergeTree storage, Sparse indexing
 ---
 
 # ClickHouse PRIMARY KEY vs ORDER BY

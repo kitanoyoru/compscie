@@ -4,11 +4,13 @@ status: active
 started: 2026-08-23
 focus: Runtime internals and production debugging.
 next: Add pprof and runtime/trace workflows.
+concepts: Runtime, Concurrency, Memory, Production diagnostics
 ---
 
 # Go
 
-<!-- status: planned | active | paused | done. The root README reads the block above. -->
+<!-- status: planned | active | paused | done. The root README reads the block above.
+     concepts: comma-separated, in the order the Knowledge Map draws them; each note lists the ones it covers. -->
 
 Notes on Go internals and production engineering, written for senior and staff interview preparation and for day-to-day debugging.
 

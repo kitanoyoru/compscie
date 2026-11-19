@@ -4,11 +4,13 @@ status: active
 started: 2026-10-18
 focus: MergeTree internals and date-time functions.
 next: Run and write up the date-parts lab.
+concepts: MergeTree storage, Sparse indexing, Date/time queries
 ---
 
 # ClickHouse
 
-<!-- status: planned | active | paused | done. The root README reads the block above. -->
+<!-- status: planned | active | paused | done. The root README reads the block above.
+     concepts: comma-separated, in the order the Knowledge Map draws them; each note lists the ones it covers. -->
 
 ## Why I'm learning this
 

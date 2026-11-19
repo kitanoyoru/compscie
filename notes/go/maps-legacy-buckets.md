@@ -1,5 +1,6 @@
 ---
 date: 2026-08-23
+concepts: Memory
 ---
 
 # Go Maps: Legacy Buckets (before Go 1.24)
