@@ -27,6 +27,12 @@ export const MAX_RESULTS = 50
 /** Ties in score resolve in this order. */
 const KIND_ORDER: readonly SearchKind[] = ['page', 'action', 'topic', 'note', 'section', 'problem']
 
+/**
+ * Added to every match: an equally good match ranks a page above a note, and a note above one of
+ * its sections or a problem title, so "chan" finds "Go Channels" before "Changing them with ALTER".
+ */
+const KIND_BONUS: Record<SearchKind, number> = { page: 10, action: 8, topic: 8, note: 6, section: 0, problem: 0 }
+
 export const PAGE_ITEMS: readonly SearchItem[] = [
   { id: 'page:today', kind: 'page', title: 'Today', to: '/' },
   { id: 'page:review', kind: 'page', title: 'Review', to: '/review' },
@@ -108,7 +114,7 @@ export function scoreToken(token: string, text: string): number | undefined {
   if (position !== -1) {
     const wordStart = position === 0 || !isWordChar(haystack[position - 1])
 
-    return 100 + (position === 0 ? 30 : 0) + (wordStart ? 20 : 0) - position * 0.1 - haystack.length * 0.02
+    return 100 + (position === 0 ? 4 : 0) + (wordStart ? 20 : 0) - position * 0.1 - haystack.length * 0.02
   }
 
   let score = 0
@@ -144,7 +150,7 @@ function scoreItem(tokens: readonly string[], item: SearchItem): number | undefi
     total += score
   }
 
-  return total
+  return total + KIND_BONUS[item.kind]
 }
 
 /**

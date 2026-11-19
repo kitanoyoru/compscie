@@ -133,7 +133,9 @@ export function TopicCard({ topic, now }: { readonly topic: TopicSummary; readon
     <article className="card topic-card" aria-labelledby={headingId}>
       <div className="topic-head">
         <div>
-          <h2 id={headingId}>{topic.title}</h2>
+          <h2 id={headingId} tabIndex={-1}>
+            {topic.title}
+          </h2>
           {topic.focus !== '' && <p className="topic-focus">{topic.focus}</p>}
         </div>
         <span className="badge" data-topic-status={topic.status}>

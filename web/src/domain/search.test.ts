@@ -64,6 +64,10 @@ describe('search', () => {
     })
   })
 
+  it('prefers the Go Channels note to other titles that start with the same letters', () => {
+    expect(search(items, 'chan')[0]).toMatchObject({ kind: 'note', to: '/notes/go/channels' })
+  })
+
   it('finds the scheduler note by its acronym', () => {
     expect(search(items, 'gmp')[0]).toMatchObject({ kind: 'note', to: '/notes/go/scheduler-gmp' })
   })

@@ -1,5 +1,5 @@
-import type { JSX } from 'react'
-import { Link } from 'react-router'
+import { useEffect, type JSX } from 'react'
+import { Link, useSearchParams } from 'react-router'
 
 import { BarList, SegmentedBar } from '../components/charts'
 import { LanguageIcon, LanguageIconList, languageColorStyle } from '../components/LanguageIcon'
@@ -34,6 +34,20 @@ const latestNote = notes.map((note) => note.date).filter(Boolean).sort().at(-1)
 export function KnowledgeMapPage(): JSX.Element {
   usePageTitle('Knowledge Map')
   const now = new Date()
+  const [params] = useSearchParams()
+  const focusTopic = params.get('topic')
+
+  // `/map?topic=go` (from search) brings that topic's card into view; it runs after the route's
+  // own focus on the page title, so it wins.
+  useEffect(() => {
+    if (focusTopic === null) {
+      return
+    }
+
+    const heading = document.getElementById(`topic-${focusTopic}-heading`)
+    heading?.scrollIntoView?.({ block: 'start' })
+    heading?.focus({ preventScroll: true })
+  }, [focusTopic])
   const otherLanguages = languageRanking.slice(CHART_ROWS)
 
   return (

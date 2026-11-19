@@ -1,14 +1,16 @@
-import { useRef, useState, type JSX, type PropsWithChildren } from 'react'
+import { useEffect, useRef, useState, type JSX, type PropsWithChildren } from 'react'
 import { NavLink } from 'react-router'
 
 import { repositorySnapshot } from '../data/generated/repository'
 import { REPOSITORY_URL } from '../data/links'
 import { formatDay } from '../lib/format'
+import { isModalOpen } from '../lib/keyboard'
 import { quizQueue } from '../domain/quiz'
 import { dueProblems } from '../domain/review-schedule'
 import { useLearningState } from '../state/learning-state'
 import { useTheme } from '../state/theme'
 import { Icon, type IconName } from './Icon'
+import { CommandPalette } from './CommandPalette'
 import { RouteFocus } from './RouteEffects'
 import { SettingsDialog } from './SettingsDialog'
 import { ExternalLink } from './ui'
@@ -38,6 +40,8 @@ function ThemeToggle(): JSX.Element {
   )
 }
 
+const IS_APPLE = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform)
+
 function focusMain(): void {
   document.getElementById('app-main')?.focus()
 }
@@ -50,6 +54,36 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
     dueProblems(repositorySnapshot.problems, sessions, now).length + quizQueue(repositorySnapshot, cardReviews, now).due.length
   const [settingsOpen, setSettingsOpen] = useState(false)
   const settingsButton = useRef<HTMLButtonElement>(null)
+  const [paletteOpen, setPaletteOpen] = useState(false)
+  const paletteOpener = useRef<HTMLElement | null>(null)
+
+  function openPalette(): void {
+    paletteOpener.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    setPaletteOpen(true)
+  }
+
+  // ⌘K / Ctrl+K from anywhere, unless another dialog has the keyboard or text is being composed.
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent): void {
+      if (
+        event.key.toLowerCase() !== 'k' ||
+        !(event.metaKey || event.ctrlKey) ||
+        event.altKey ||
+        event.shiftKey ||
+        event.isComposing ||
+        event.repeat ||
+        isModalOpen()
+      ) {
+        return
+      }
+
+      event.preventDefault()
+      openPalette()
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   return (
     <div className="shell">
@@ -94,6 +128,17 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
             })}
           </nav>
           <div className="header-actions">
+            <button
+              type="button"
+              className="search-button"
+              onClick={openPalette}
+              aria-haspopup="dialog"
+              aria-keyshortcuts="Meta+K Control+K"
+            >
+              <Icon name="search" size={16} />
+              <span className="search-button-label">Search</span>
+              <kbd aria-hidden="true">{IS_APPLE ? '⌘K' : 'Ctrl K'}</kbd>
+            </button>
             <ThemeToggle />
             <button
               ref={settingsButton}
@@ -127,6 +172,17 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
           </div>
         </div>
       </footer>
+      <CommandPalette
+        open={paletteOpen}
+        onClose={() => {
+          setPaletteOpen(false)
+          // Back where the user was; a navigation moves focus to the new page's title afterwards.
+          if (paletteOpener.current?.isConnected === true) {
+            paletteOpener.current.focus()
+          }
+        }}
+        onOpenSettings={() => setSettingsOpen(true)}
+      />
       <SettingsDialog
         open={settingsOpen}
         onClose={() => {

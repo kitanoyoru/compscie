@@ -164,6 +164,22 @@ for (const scheme of ['light', 'dark'] as const) {
     }
   })
 
+  test(`command palette fits 360px and has no contrast issues (${scheme})`, async ({ page }) => {
+    await navigate(page, '#/', { scheme, width: 360 })
+    await page.keyboard.press('ControlOrMeta+k')
+    const dialog = page.getByRole('dialog', { name: 'Search' })
+    await expect(dialog).toBeVisible()
+    await page.getByRole('combobox', { name: 'Search the workspace' }).fill('chan')
+    await expect(dialog.getByRole('option').first()).toBeVisible()
+
+    const box = await dialog.boundingBox()
+    expect(box).not.toBeNull()
+    expect(box!.x).toBeGreaterThanOrEqual(0)
+    expect(box!.x + box!.width).toBeLessThanOrEqual(360)
+
+    await expectNoContrastIssues(page, GRADIENT_CARD)
+  })
+
   test(`settings dialog fits 360px and has no contrast issues (${scheme})`, async ({ page }) => {
     await navigate(page, '#/', { scheme, seeded: true, width: 360 })
     await page.getByRole('button', { name: 'Settings' }).click()
@@ -185,6 +201,15 @@ test('a rendered note fits 360px: tables and code scroll inside their own boxes'
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
   expect(overflow).toBeLessThanOrEqual(0)
 })
+
+for (const route of ROUTES) {
+  test(`${route} opens the command palette with the keyboard`, async ({ page }) => {
+    await navigate(page, route)
+    await page.keyboard.press('ControlOrMeta+k')
+    await expect(page.getByRole('dialog', { name: 'Search' })).toBeVisible()
+    await expect(page.getByRole('combobox', { name: 'Search the workspace' })).toBeFocused()
+  })
+}
 
 test('knowledge-map concept rows contain their content at 360px', async ({ page }) => {
   await navigate(page, '#/map', { width: 360 })
