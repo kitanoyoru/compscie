@@ -4,7 +4,9 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import { App } from '../App'
 import { repositorySnapshot } from '../data/generated/repository'
+import { formatDay } from '../lib/format'
 import { STORAGE_KEY } from '../state/storage'
+import { seedLearningState, seededState } from '../test/fixtures'
 
 const { problems } = repositorySnapshot
 
@@ -59,7 +61,7 @@ describe('LeetCode workspace', () => {
     await user.type(screen.getByRole('textbox', { name: 'Reflection' }), 'Carry the remainder past the last node.')
     await user.click(screen.getByRole('button', { name: /save session/i }))
 
-    expect(screen.getByRole('status')).toHaveTextContent(/session saved/i)
+    expect(screen.getByText(/session saved/i)).toBeInTheDocument()
     expect(screen.getAllByText('Carry the remainder past the last node.')).toHaveLength(2)
     expect(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}')).toMatchObject({
       sessions: [{ problemId: 2, outcome: 'needs-review', reflection: 'Carry the remainder past the last node.' }],
@@ -81,5 +83,36 @@ describe('LeetCode workspace', () => {
     expect(screen.getByRole('heading', { name: /two sum/i, level: 2 })).toBeInTheDocument()
     expect(screen.getByLabelText('Pattern')).toHaveValue('Array')
     expect(screen.getByRole('button', { name: /back to suggestion/i })).toBeInTheDocument()
+  })
+
+  it('deletes a session from history and undoes it', async () => {
+    const [first] = problems
+    const seeded = seededState().sessions.find((session) => session.problemId === first?.id)
+
+    if (first === undefined || seeded === undefined) {
+      throw new Error('fixtures need a session for the first problem')
+    }
+
+    seedLearningState()
+    window.location.hash = `#/leetcode?problem=${first.id}`
+    const user = userEvent.setup()
+    render(<App />)
+
+    const history = () => within(screen.getByRole('list', { name: /session history/i }))
+    const name = `Delete session from ${formatDay(seeded.endedAt)}`
+    expect(history().getByText(seeded.reflection ?? '')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name }))
+
+    expect(screen.queryByRole('list', { name: /session history/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name })).not.toBeInTheDocument()
+    expect(screen.getByRole('status', { name: /notifications/i })).toHaveTextContent(
+      `Removed a session for #${first.id}`,
+    )
+
+    await user.click(screen.getByRole('button', { name: /^undo$/i }))
+
+    expect(history().getByText(seeded.reflection ?? '')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name })).toBeInTheDocument()
   })
 })

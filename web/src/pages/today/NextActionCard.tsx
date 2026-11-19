@@ -2,6 +2,7 @@ import type { JSX } from 'react'
 import { Link } from 'react-router'
 
 import { Icon } from '../../components/Icon'
+import { useToast } from '../../components/Toast'
 import { findTopic, topicTitle } from '../../data/topics'
 import type { LearningTask } from '../../domain/personal-types'
 import type { TodayRecommendation } from '../../domain/recommendations'
@@ -15,6 +16,18 @@ interface NextActionCardProps {
 
 export function NextActionCard({ recommendation, tasks }: NextActionCardProps): JSX.Element {
   const dispatch = useLearningDispatch()
+  const showToast = useToast()
+
+  function completeTask(taskId: string, snapshot: LearningTask | undefined): void {
+    dispatch({ type: 'taskCompleted', taskId })
+
+    if (snapshot !== undefined) {
+      showToast({
+        message: `Completed “${snapshot.title}”`,
+        action: { label: 'Undo', onAction: () => dispatch({ type: 'taskRestored', task: snapshot }) },
+      })
+    }
+  }
 
   return (
     <section className="card next-action" aria-labelledby="next-action-heading">
@@ -28,7 +41,12 @@ export function NextActionCard({ recommendation, tasks }: NextActionCardProps): 
           <TaskAction
             recommendation={recommendation}
             task={tasks.find((task) => task.id === recommendation.taskId)}
-            onComplete={() => dispatch({ type: 'taskCompleted', taskId: recommendation.taskId })}
+            onComplete={() =>
+              completeTask(
+                recommendation.taskId,
+                tasks.find((task) => task.id === recommendation.taskId),
+              )
+            }
             onDefer={() => dispatch({ type: 'taskDeferred', taskId: recommendation.taskId })}
           />
         )}

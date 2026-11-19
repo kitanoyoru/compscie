@@ -6,6 +6,7 @@ import { App } from '../App'
 import { repositorySnapshot } from '../data/generated/repository'
 import { getTodayRecommendation } from '../domain/recommendations'
 import { STORAGE_KEY, emptyPersonalState } from '../state/storage'
+import { seedLearningState, seededState } from '../test/fixtures'
 
 describe('Today dashboard', () => {
   beforeEach(() => {
@@ -114,5 +115,63 @@ describe('Today dashboard', () => {
 
     expect(screen.queryByText('Write the sparse index summary')).not.toBeInTheDocument()
     expect(screen.getByText(/your queue is empty/i)).toBeInTheDocument()
+  })
+
+  it('undoes a deleted task', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/task title/i), 'Read the GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+
+    await user.click(screen.getByRole('button', { name: /delete read the gc note/i }))
+    expect(screen.queryByRole('button', { name: /delete read the gc note/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('status', { name: /notifications/i })).toHaveTextContent(/deleted “read the gc note”/i)
+
+    await user.click(screen.getByRole('button', { name: /^undo$/i }))
+    expect(screen.getByRole('button', { name: /delete read the gc note/i })).toBeInTheDocument()
+  })
+
+  it('undo after completing a deferred task restores it as deferred', async () => {
+    const deferred = seededState().tasks.find((task) => task.status === 'deferred')
+
+    if (deferred === undefined) {
+      throw new Error('fixtures need a deferred task')
+    }
+
+    seedLearningState()
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: `Complete ${deferred.title}` }))
+    expect(screen.getByRole('status', { name: /notifications/i })).toHaveTextContent(
+      `Completed “${deferred.title}”`,
+    )
+    expect(
+      within(screen.getByRole('list', { name: /completed tasks/i, hidden: true })).getByText(deferred.title),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /^undo$/i }))
+
+    expect(
+      within(screen.getByRole('list', { name: /deferred tasks/i })).getByText(deferred.title),
+    ).toBeInTheDocument()
+    expect(
+      JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}').tasks.find(
+        (task: { id: string }) => task.id === deferred.id,
+      ),
+    ).toEqual(deferred)
+  })
+
+  it('offers undo after Mark done on the next action', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.type(screen.getByLabelText(/task title/i), 'Read the GC note')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+
+    await user.click(screen.getByRole('button', { name: /mark done/i }))
+    expect(screen.getByRole('status', { name: /notifications/i })).toHaveTextContent(/completed “read the gc note”/i)
+
+    await user.click(screen.getByRole('button', { name: /^undo$/i }))
+    expect(within(screen.getByRole('list', { name: /open tasks/i })).getByText('Read the GC note')).toBeInTheDocument()
   })
 })

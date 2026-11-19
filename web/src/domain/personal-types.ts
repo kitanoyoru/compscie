@@ -52,8 +52,17 @@ export type LearningAction =
       taskId: string
     }
   | {
+      type: 'taskRestored'
+      task: LearningTask
+    }
+  | {
       type: 'sessionCompleted'
       session: SolveSession
+    }
+  | {
+      type: 'sessionDeleted'
+      problemId: number
+      endedAt: string
     }
   | {
       type: 'stateReset'

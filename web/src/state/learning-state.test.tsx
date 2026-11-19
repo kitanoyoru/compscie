@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import type { LearningAction } from '../domain/personal-types'
-import { LearningProvider, useLearningDispatch, useLearningState } from './learning-state'
+import type { LearningAction, LearningTask, SolveSession } from '../domain/personal-types'
+import { LearningProvider, learningReducer, useLearningDispatch, useLearningState } from './learning-state'
 import { STORAGE_KEY, emptyPersonalState, loadPersonalState } from './storage'
 
 function useProbe() {
@@ -129,5 +129,51 @@ describe('learning state', () => {
 
     expect(state).toEqual(emptyPersonalState())
     expect(loadPersonalState()).toEqual(emptyPersonalState())
+  })
+
+  describe('undo actions', () => {
+    function task(id: string): LearningTask {
+      return { id, title: `Task ${id}`, status: 'open', createdAt: '2026-11-17T09:00:00.000Z' }
+    }
+
+    function session(problemId: number, endedAt: string): SolveSession {
+      return { problemId, startedAt: '2026-11-17T09:00:00.000Z', endedAt, outcome: 'success' }
+    }
+
+    it('restores the exact previous version of a task in place', () => {
+      const deferred: LearningTask = { ...task('a'), status: 'deferred' }
+      const state = { version: 1, tasks: [deferred, task('b')], sessions: [] } as const
+      const completed = learningReducer(state, {
+        type: 'taskCompleted',
+        taskId: 'a',
+        completedAt: '2026-11-19T10:00:00.000Z',
+      })
+
+      expect(learningReducer(completed, { type: 'taskRestored', task: deferred }).tasks).toEqual([
+        deferred,
+        task('b'),
+      ])
+    })
+
+    it('appends a restored task when it is absent', () => {
+      const state = { version: 1, tasks: [task('b')], sessions: [] } as const
+
+      expect(learningReducer(state, { type: 'taskRestored', task: task('a') }).tasks).toEqual([
+        task('b'),
+        task('a'),
+      ])
+    })
+
+    it('deletes only the first session matching problem and end time', () => {
+      const state = {
+        version: 1,
+        tasks: [],
+        sessions: [session(1, 'A'), session(1, 'B'), session(1, 'A')],
+      } as const
+
+      expect(
+        learningReducer(state, { type: 'sessionDeleted', problemId: 1, endedAt: 'A' }).sessions,
+      ).toEqual([session(1, 'B'), session(1, 'A')])
+    })
   })
 })

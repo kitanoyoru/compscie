@@ -5,6 +5,7 @@ import type { LearningTask } from '../domain/personal-types'
 import { formatRelativeDay } from '../lib/format'
 import { useLearningDispatch } from '../state/learning-state'
 import { Icon } from './Icon'
+import { useToast } from './Toast'
 import { TaskComposer } from './TaskComposer'
 import { EmptyState } from './ui'
 
@@ -23,6 +24,7 @@ interface TaskItemProps {
 
 function TaskItem({ task, recommended }: TaskItemProps): JSX.Element {
   const dispatch = useLearningDispatch()
+  const showToast = useToast()
   const topic = topicTitle(task.topicId)
   const completed = task.status === 'completed'
 
@@ -33,13 +35,18 @@ function TaskItem({ task, recommended }: TaskItemProps): JSX.Element {
         className="task-check"
         aria-label={completed ? `Reopen ${task.title}` : `Complete ${task.title}`}
         title={completed ? 'Reopen' : 'Complete'}
-        onClick={() =>
-          dispatch(
-            completed
-              ? { type: 'taskReopened', taskId: task.id }
-              : { type: 'taskCompleted', taskId: task.id },
-          )
-        }
+        onClick={() => {
+          if (completed) {
+            dispatch({ type: 'taskReopened', taskId: task.id })
+            return
+          }
+
+          dispatch({ type: 'taskCompleted', taskId: task.id })
+          showToast({
+            message: `Completed “${task.title}”`,
+            action: { label: 'Undo', onAction: () => dispatch({ type: 'taskRestored', task }) },
+          })
+        }}
       >
         <Icon name="check" size={14} />
       </button>
@@ -89,7 +96,13 @@ function TaskItem({ task, recommended }: TaskItemProps): JSX.Element {
           className="icon-button icon-button-danger"
           aria-label={`Delete ${task.title}`}
           title="Delete"
-          onClick={() => dispatch({ type: 'taskDeleted', taskId: task.id })}
+          onClick={() => {
+            dispatch({ type: 'taskDeleted', taskId: task.id })
+            showToast({
+              message: `Deleted “${task.title}”`,
+              action: { label: 'Undo', onAction: () => dispatch({ type: 'taskRestored', task }) },
+            })
+          }}
         >
           <Icon name="trash" />
         </button>

@@ -1,6 +1,7 @@
 import { useEffect, useId, useState, type FormEvent, type JSX } from 'react'
 
 import { Icon } from '../../components/Icon'
+import { useToast } from '../../components/Toast'
 import { DifficultyBadge, ExternalLink, ProgressBadge } from '../../components/ui'
 import { leetcodeProblemUrl, repositoryTreeUrl } from '../../data/links'
 import type { SolvedProblem } from '../../data/types'
@@ -226,6 +227,17 @@ function SessionRecorder({ problem, onSaved }: SessionRecorderProps): JSX.Elemen
 }
 
 function SessionHistory({ history }: { readonly history: readonly SolveSession[] }): JSX.Element {
+  const dispatch = useLearningDispatch()
+  const showToast = useToast()
+
+  function deleteSession(session: SolveSession): void {
+    dispatch({ type: 'sessionDeleted', problemId: session.problemId, endedAt: session.endedAt })
+    showToast({
+      message: `Removed a session for #${session.problemId}`,
+      action: { label: 'Undo', onAction: () => dispatch({ type: 'sessionCompleted', session }) },
+    })
+  }
+
   return (
     <div className="session-history">
       <h3 className="subheading">
@@ -235,7 +247,7 @@ function SessionHistory({ history }: { readonly history: readonly SolveSession[]
       {history.length === 0 ? (
         <p className="muted">No sessions recorded for this problem yet.</p>
       ) : (
-        <ol className="history-list">
+        <ol className="history-list" aria-label="Session history">
           {history.map((session, index) => {
             const minutes = sessionMinutes(session)
 
@@ -245,6 +257,15 @@ function SessionHistory({ history }: { readonly history: readonly SolveSession[]
                   <ProgressBadge progress={session.outcome} />
                   <span>{formatDay(session.endedAt)}</span>
                   {minutes !== undefined && <span>{minutes} min</span>}
+                  <button
+                    type="button"
+                    className="icon-button icon-button-danger"
+                    aria-label={`Delete session from ${formatDay(session.endedAt)}`}
+                    title="Delete session"
+                    onClick={() => deleteSession(session)}
+                  >
+                    <Icon name="trash" size={16} />
+                  </button>
                 </div>
                 {session.reflection !== undefined && session.reflection !== '' && (
                   <p className="history-reflection">{session.reflection}</p>

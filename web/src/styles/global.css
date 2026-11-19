@@ -1953,6 +1953,76 @@ details[open] .details-chevron {
   }
 }
 
+/* Toast */
+
+.toast-region {
+  position: fixed;
+  z-index: 50;
+  right: 1rem;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  left: 1rem;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem 0.625rem 1rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  font-size: 0.875rem;
+  pointer-events: auto;
+  transition:
+    opacity 150ms ease,
+    translate 150ms ease;
+}
+
+@starting-style {
+  .toast {
+    opacity: 0;
+    translate: 0 0.5rem;
+  }
+}
+
+.toast-message {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.toast-action {
+  flex: none;
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--accent-text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+.toast-action:hover {
+  background: var(--accent-soft);
+}
+
+@media (min-width: 48rem) {
+  .toast-region {
+    left: auto;
+    justify-content: flex-end;
+  }
+
+  .toast {
+    max-width: 26rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
