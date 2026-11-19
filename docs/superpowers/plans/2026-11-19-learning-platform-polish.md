@@ -29,7 +29,7 @@
 - Do not change the shape of `compscie.learning-platform.v1`. New `LearningAction` variants are fine. Old stored data must load unchanged.
 - New browser keys: `compscie.session-draft.v1` in `sessionStorage` (Task 8). `compscie.theme` keeps `'light' | 'dark'`; "system" means the key is absent (Task 10).
 - Every new control is keyboard reachable, has an accessible name, and respects `prefers-reduced-motion`. Pages fit 360px width with no horizontal scroll.
-- Each task is test-first and ends green on `yarn --cwd web check && yarn --cwd web test --run`, followed by one commit.
+- Each task is test-first and ends green on `yarn --cwd web run check && yarn --cwd web test --run`, followed by one commit.
 - Commit style follows repository history: `feat(platform): …`, `fix(platform): …`, `test(platform): …`, `docs(platform): …`. Work on branch `feat/platform-polish`; open one PR at the end.
 
 ## Explicit Product Calls
@@ -155,7 +155,7 @@ Fix each violation at its source; do not disable rules. Put a one-line cause for
 
 - [ ] **Step 5: Verify and commit**
 
-Run: `yarn --cwd web check && yarn --cwd web test --run`
+Run: `yarn --cwd web run check && yarn --cwd web test --run`
 
 Expected: PASS (54 + 6 tests).
 
@@ -228,7 +228,7 @@ Use `useLocation().pathname` plus a `useRef` first-render flag in `RouteFocus`. 
 
 - [ ] **Step 4: Verify and commit**
 
-Run: `yarn --cwd web check && yarn --cwd web test --run`
+Run: `yarn --cwd web run check && yarn --cwd web test --run`
 
 ~~~sh
 git add web/src
@@ -302,7 +302,7 @@ Route all day math through `calendar.ts`. Some existing fixtures encode UTC-day 
 
 - [ ] **Step 4: Verify and commit**
 
-Run: `yarn --cwd web check && yarn --cwd web test --run`
+Run: `yarn --cwd web run check && yarn --cwd web test --run`
 
 ~~~sh
 git add web/src
@@ -379,7 +379,7 @@ The toast uses tokens only: surface, border, and shadow. It enters with a 150 ms
 
 - [ ] **Step 4: Verify and commit**
 
-Run: `yarn --cwd web check && yarn --cwd web test --run`
+Run: `yarn --cwd web run check && yarn --cwd web test --run`
 
 ~~~sh
 git add web/src
@@ -434,7 +434,7 @@ Expected: FAIL. There is no Edit button and no `taskEdited` action.
 
 - [ ] **Step 3: Implement, verify, and commit**
 
-Run: `yarn --cwd web check && yarn --cwd web test --run`
+Run: `yarn --cwd web run check && yarn --cwd web test --run`
 
 ~~~sh
 git add web/src
@@ -486,7 +486,7 @@ Expected: FAIL. The function and label do not exist.
 
 - [ ] **Step 3: Implement, verify, and commit**
 
-Run: `yarn --cwd web check && yarn --cwd web test --run`
+Run: `yarn --cwd web run check && yarn --cwd web test --run`
 
 ~~~sh
 git add web/src
@@ -547,7 +547,7 @@ Expected: FAIL.
 
 - [ ] **Step 3: Implement, verify, and commit**
 
-Run: `yarn --cwd web check && yarn --cwd web test --run`
+Run: `yarn --cwd web run check && yarn --cwd web test --run`
 
 ~~~sh
 git add web/src
@@ -604,7 +604,7 @@ Expected: FAIL.
 
 - [ ] **Step 3: Implement, verify, and commit**
 
-Run: `yarn --cwd web check && yarn --cwd web test --run`
+Run: `yarn --cwd web run check && yarn --cwd web test --run`
 
 ~~~sh
 git add web/src
@@ -676,7 +676,7 @@ Expected: FAIL. There is no `notes` field and no concept buttons.
 
 - [ ] **Step 3: Implement, verify, and commit**
 
-Run: `yarn --cwd web check && yarn --cwd web test --run`
+Run: `yarn --cwd web run check && yarn --cwd web test --run`
 
 ~~~sh
 git add web/src
@@ -782,7 +782,7 @@ Export with `new Blob([text], { type: 'application/json' })`, `URL.createObjectU
 
 - [ ] **Step 4: Verify and commit**
 
-Run: `yarn --cwd web check && yarn --cwd web test --run`
+Run: `yarn --cwd web run check && yarn --cwd web test --run`
 
 ~~~sh
 git add web/src
@@ -859,7 +859,7 @@ Run:
 
 ~~~sh
 yarn --cwd web generate:data && git diff --exit-code -- web/src/data/generated/repository.ts \
-  && yarn --cwd web check && yarn --cwd web test --run && yarn --cwd web build
+  && yarn --cwd web run check && yarn --cwd web test --run && yarn --cwd web build
 ~~~
 
 If Task 11 shipped, also run `yarn --cwd web e2e`.
