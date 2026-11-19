@@ -123,3 +123,30 @@ Shipped areas:
 - **Knowledge Map:** selecting a concept filters its curated notes.
 - **Settings:** theme (System/Light/Dark), backup export/import (validated, 5 MB cap), and reset; the footer reset is removed.
 - **Testing:** axe checks in Vitest for every route; Playwright smoke (360/390/1280 viewports, light/dark contrast, settings dialog, concept rows) via `yarn --cwd web e2e`.
+
+## Revision 2026-11-19 — icons, review, notes
+
+Plan: `docs/superpowers/plans/2026-11-19-platform-icons-review-and-notes.md` (PR #137 onward).
+
+| Question         | Decision                                                                                                                                                                                                                                              |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Language display | Brand icons instead of names. GitHub linguist colors, adjusted per theme to 3:1 against every surface an icon sits on (checked by a unit test that reads `global.css`).                                                                               |
+| Dependencies     | Dev dependencies only: Simple Icons, Shiki, markdown-it, github-slugger. Runtime dependencies stay React and React Router.                                                                                                                            |
+| Heavy content    | Highlighted solutions and rendered notes are built by `generate:data` into gitignored `web/public/content/` and fetched as same-origin static JSON when opened. An `import.meta.glob` chunk map was rejected: it added 12 kB gzip to the main bundle. |
+| Theme control    | The header toggle only. It flips the visible theme; landing on the OS theme clears the stored choice. Settings has no theme section.                                                                                                                  |
+| Concepts         | Topic READMEs order them (`concepts:`), notes opt in. The generator rejects unknown or unused concepts. `map-relationships.ts` is gone.                                                                                                               |
+| Review schedule  | Derived from sessions: 1 day after "needs review", then 3, 7, 14, 30, 60 days after clean solves; same-day repeats do not climb. Only practiced problems are scheduled.                                                                               |
+| Note questions   | Each "Questions this answers" bullet is a card (`<note path>::<question slug>`), on the same schedule, with at most 5 new cards per day.                                                                                                              |
+| Search           | One flat ranked list with a kind label per result (not grouped), fuzzy scoring with a small bonus per kind. Note sections come from a heading index fetched when the palette opens.                                                                   |
+
+State: `compscie.learning-platform.v1` gains `cardReviews: { cardId, reviewedAt, outcome }[]`. Older stored data and backups load with an empty list; invalid entries are dropped one by one.
+
+Shipped areas:
+
+- **Icons:** problem rows, language filter chips, session panel, Knowledge Map chart and summary, README chart.
+- **Polish:** plain page titles, one-line problem rows, one summary strip on the Knowledge Map, quiet empty states, one theme control.
+- **Review page** (`/review`): due problems, the coming week, note questions, recent reflections; a due-count badge in the navigation; due counts on Today; due-first suggestions on the LeetCode page.
+- **Solution viewer:** collapsed by default; one tab per file; copy and GitHub links.
+- **Note reader** (`/notes/<topic>/<slug>`): table of contents, `?section=` anchors, previous and next notes; every note link and heading anchor is checked at build time.
+- **Command palette:** `Cmd/Ctrl+K` or the header button; pages, actions, topics, notes, sections, problems.
+- **Testing:** generator tests run in CI (`yarn run test:scripts`); axe checks for every route and dialog; Playwright covers real highlighted code, rendered notes, the palette, and every route at 360/390/1280 px in both color schemes.
