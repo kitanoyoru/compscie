@@ -57,6 +57,7 @@ PROTECTED = {
     "notes",
     "docs",
     "research",
+    "web",
     ".vscode",
     ".idea",
     ".ccls-cache",
