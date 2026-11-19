@@ -42,10 +42,25 @@ export function ProblemBrowser({
   const { query } = params
   const [draft, setDraft] = useState(query)
 
-  // Re-sync from the URL for external changes (clear, Escape, back/forward, deep link)
-  // without clobbering in-progress typing: only overwrite when the two differ.
+  // Values written to the URL whose echo has not come back yet. Router updates commit in a
+  // transition, so a stale echo ("a") can arrive after the draft already moved on ("ab").
+  const pendingWrites = useRef<string[]>([])
+
+  function writeQuery(value: string): void {
+    pendingWrites.current.push(value)
+    setDraft(value)
+    params.update({ q: value })
+  }
+
+  // Re-sync from the URL only for external changes (Clear filters, back/forward, deep link).
   useEffect(() => {
-    setDraft((current) => (current === query ? current : query))
+    const echoIndex = pendingWrites.current.indexOf(query)
+    if (echoIndex !== -1) {
+      pendingWrites.current.splice(0, echoIndex + 1)
+      return
+    }
+    pendingWrites.current = []
+    setDraft(query)
   }, [query])
   const languageId = useId()
   const tagId = useId()
@@ -130,8 +145,7 @@ export function ProblemBrowser({
             value={draft}
             onChange={(event) => {
               setShown(PAGE_SIZE)
-              setDraft(event.target.value)
-              params.update({ q: event.target.value })
+              writeQuery(event.target.value)
             }}
             onKeyDown={(event) => {
               if (event.nativeEvent.isComposing || event.keyCode === 229) {
@@ -139,9 +153,8 @@ export function ProblemBrowser({
               }
               if (event.key === 'Escape' && (draft !== '' || query !== '')) {
                 event.preventDefault()
-                setDraft('')
                 setShown(PAGE_SIZE)
-                params.update({ q: null })
+                writeQuery('')
               }
             }}
           />
