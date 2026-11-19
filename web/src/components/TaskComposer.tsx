@@ -2,6 +2,7 @@ import { useId, useState, type FormEvent, type JSX } from 'react'
 
 import { repositorySnapshot } from '../data/generated/repository'
 import { useLearningDispatch } from '../state/learning-state'
+import { Icon } from './Icon'
 
 export function TaskComposer(): JSX.Element {
   const dispatch = useLearningDispatch()
@@ -37,23 +38,30 @@ export function TaskComposer(): JSX.Element {
   }
 
   return (
-    <form className="task-composer" onSubmit={handleSubmit}>
-      <div className="form-field">
-        <label htmlFor={titleInputId}>Task title</label>
+    <form className="task-composer" onSubmit={handleSubmit} aria-label="Add a task">
+      <div className="field field-title">
+        <label className="field-label" htmlFor={titleInputId}>
+          Task title
+        </label>
         <input
           id={titleInputId}
+          className="input"
           name="title"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
           required
           maxLength={160}
-          placeholder="What will you learn today?"
+          autoComplete="off"
+          placeholder="What will you learn next?"
         />
       </div>
-      <div className="form-field">
-        <label htmlFor={topicInputId}>Topic</label>
+      <div className="field field-topic">
+        <label className="field-label" htmlFor={topicInputId}>
+          Topic
+        </label>
         <select
           id={topicInputId}
+          className="input"
           name="topic"
           value={topicId}
           onChange={(event) => setTopicId(event.target.value)}
@@ -66,19 +74,27 @@ export function TaskComposer(): JSX.Element {
           ))}
         </select>
       </div>
-      <div className="form-field form-field-minutes">
-        <label htmlFor={minutesInputId}>Estimated minutes</label>
+      <div className="field field-minutes">
+        <label className="field-label" htmlFor={minutesInputId}>
+          Minutes
+        </label>
         <input
           id={minutesInputId}
+          className="input"
           name="estimated-minutes"
           type="number"
+          inputMode="numeric"
           min={1}
           step={1}
+          placeholder="25"
           value={estimatedMinutes}
           onChange={(event) => setEstimatedMinutes(event.target.value)}
         />
       </div>
-      <button type="submit">Add task</button>
+      <button type="submit" className="button button-primary">
+        <Icon name="plus" />
+        Add task
+      </button>
     </form>
   )
 }

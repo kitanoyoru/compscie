@@ -53,6 +53,17 @@ export function learningReducer(state: PersonalLearningState, action: LearningAc
         ),
       }
     }
+    case 'taskReopened': {
+      return {
+        ...state,
+        tasks: state.tasks.map((task) =>
+          task.id === action.taskId ? { ...task, status: 'open', completedAt: undefined } : task,
+        ),
+      }
+    }
+    case 'taskDeleted': {
+      return { ...state, tasks: state.tasks.filter((task) => task.id !== action.taskId) }
+    }
     case 'sessionCompleted': {
       return { ...state, sessions: [...state.sessions, action.session] }
     }
