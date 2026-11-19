@@ -470,7 +470,7 @@ export function dueProblems(
 - [ ] Link checking: the generator **fails** when a rewritten note link points to a missing note or a missing heading id. Fix any broken anchors in `notes/` in this PR.
 - [ ] Mermaid: render the fence as a plain code block with a caption linking to the note on GitHub, where the diagram renders. One block today (`notes/go/mutex.md`).
 - [ ] Write `content/notes/<topic>/<slug>.json`: `{ path, html, toc }`. Add `loadNote(topic, slug)` to `data/content.ts`.
-- [ ] Snapshot (committed, small): `NoteSummary.slug`, `NoteSummary.questions: readonly string[]` (plain-text bullets under `## Questions this answers`), and `NoteSummary.headings` (the TOC without HTML, used by the palette). *(PR 6 shipped `slug` and `questions` only: headings would cost bundle budget before the palette needs them, so Task 19 decides how the palette gets them.)*
+- [ ] Snapshot (committed, small): `NoteSummary.slug`, `NoteSummary.questions: readonly string[]` (plain-text bullets under `## Questions this answers`), and `NoteSummary.headings` (the TOC without HTML, used by the palette). _(PR 6 shipped `slug` and `questions` only: headings would cost bundle budget before the palette needs them, so Task 19 decides how the palette gets them.)_
 - [ ] Tests in `repository-data.test.mjs` with a fixture note: link rewriting table, broken-link failure, question extraction, slug collisions (`## Notes` twice gives `notes` and `notes-1`).
 - [ ] Commit: `feat(platform): render notes at build time with checked links`.
 

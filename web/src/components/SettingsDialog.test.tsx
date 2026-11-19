@@ -47,6 +47,18 @@ describe('SettingsDialog', () => {
     expect(within(dialog).getByText('3 tasks · 2 practice sessions')).toBeInTheDocument()
   })
 
+  it('counts question answers once there are some', async () => {
+    seedLearningState({
+      ...seededState(),
+      cardReviews: [{ cardId: 'notes/go/channels.md::why', reviewedAt: '2026-11-19T18:00:00.000Z', outcome: 'success' }],
+    })
+    const user = userEvent.setup()
+    render(<App />)
+    const dialog = await openSettings(user)
+
+    expect(within(dialog).getByText(/3 tasks · 2 practice sessions\s*· 1 question answer/)).toBeInTheDocument()
+  })
+
   it('imports a backup only after confirmation', async () => {
     const user = userEvent.setup()
     render(<App />)
