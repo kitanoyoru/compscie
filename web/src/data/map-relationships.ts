@@ -25,7 +25,6 @@ export const mapRelationships: readonly TopicRelationship[] = [
       'notes/go/rwmutex.md',
       'notes/go/waitgroup.md',
       'notes/go/context.md',
-      'notes/go/context-package-internals.md',
       'notes/go/memory-model.md',
     ],
   },

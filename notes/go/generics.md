@@ -2,15 +2,22 @@
 date: 2026-08-23
 ---
 
-# Go Generics — Constraints, Inference, and GCShape
+# Go Generics
 
-> Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b2a407e452d81d7be23c8d09a7aad51)
+> Generics add type parameters constrained by interfaces, with inference filling in the concrete types at most call sites. The language guarantees constraints and inference. GCShape stenciling and dictionaries are compiler implementation details. Checked against Go 1.26.
 
-Notes from interview prep session. Companion to the core language-internals pages.
+## Questions this answers
 
-> ✅ Reviewed for **Go 1.26**. Separate language guarantees (constraints and inference) from compiler implementation details (GCShape stenciling and dictionaries).
+- How do constraints work, and what does `~` mean?
+- When must I instantiate a generic function explicitly?
+- How does Go implement generics compared with C++ and Java?
+- What is a GCShape, and why can `*Foo` and `*Bar` share compiled code?
+- What can generics not do?
+- When should I use interfaces instead?
 
-## 1. Syntax Basics
+## Notes
+
+### Syntax basics
 
 ```go
 func Map[T, U any](s []T, f func(T) U) []U {
@@ -24,9 +31,9 @@ func Map[T, U any](s []T, f func(T) U) []U {
 type Set[T comparable] map[T]struct{}
 ```
 
-`T`/`U` are type parameters, constrained by an interface (`any` = no constraint, `comparable` = supports `==`/`!=`). Type inference usually determines concrete types from function arguments — explicit instantiation (`Map[int, string](...)`) is only needed when a type parameter appears solely in the return type, with nothing to infer from.
+`T` and `U` are type parameters, constrained by an interface (`any` means no constraint, and `comparable` means the type supports `==` and `!=`). Type inference usually determines the concrete types from function arguments. Explicit instantiation (`Map[int, string](...)`) is only needed when a type parameter appears solely in the return type, with nothing to infer from.
 
-## 2. Constraints
+### Constraints
 
 A constraint is an interface, extended with special generics syntax:
 
@@ -44,61 +51,46 @@ func Sum[T Number](nums []T) T {
 }
 ```
 
-**The `~` (tilde) detail:** `~int` means "any type whose _underlying type_ is `int`," not just `int` itself. Without the tilde, a custom type like `type UserID int` would NOT satisfy the constraint even though it behaves like an int — with `~int`, it does.
+**The `~` (tilde) detail:** `~int` means "any type whose _underlying type_ is `int`", not just `int` itself. Without the tilde, a custom type like `type UserID int` would **not** satisfy the constraint even though it behaves like an int. With `~int`, it does.
 
-**`comparable`** is a built-in constraint (not library-based) meaning the type supports `==`/`!=`. Structs containing slices, maps, or funcs don't satisfy it — same restriction covered under interface equality panics.
+**`comparable`** is a built-in constraint (not library-based) meaning the type supports `==` and `!=`. Structs containing slices, maps, or funcs do not satisfy it. This is the same restriction covered under [interface equality panics](interfaces.md#other-interface-gotchas).
 
-## 3. Implementation: GCShape Stenciling + Dictionaries
+### GCShape stenciling and dictionaries
 
-> ⚠️ GC shapes, dictionaries, layouts, and calling conventions are compiler implementation details—not Go language guarantees. Use them for performance reasoning, but re-check the compiler source/design when version precision matters.
+**Caveat:** GC shapes, dictionaries, layouts, and calling conventions are compiler implementation details, not Go language guarantees. Use them for performance reasoning, but re-check the compiler source and design when version precision matters.
 
-Three approaches a language could take for generics:
+There are three approaches a language could take for generics:
 
-- **C++ templates**: full **monomorphization** — a separate compiled copy of the function per distinct type instantiation. Fastest at runtime, can bloat binary size.
-- **Java generics**: **type erasure** — one compiled version; type parameters erased, everything goes through `Object` references (boxing primitives, dynamic casts). Small binaries, real runtime cost from boxing/indirection.
-- **Go**: a hybrid called **GCShape stenciling**.
+- **C++ templates:** full **monomorphization**, a separate compiled copy of the function per distinct type instantiation. This is fastest at runtime and can bloat binary size.
+- **Java generics:** **type erasure**, one compiled version where type parameters are erased and everything goes through `Object` references (boxing primitives, dynamic casts). Binaries are small, with a real runtime cost from boxing and indirection.
+- **Go:** a hybrid called **GCShape stenciling**.
 
-**The precise GCShape rule (from Go's official design doc):** two concrete types share a GCShape if and only if they have the same underlying type, OR they are both pointer types. So `*Foo` and `*Bar` share a shape purely by both being pointers, regardless of what they point to — while `int` and `int32` are kept in SEPARATE shapes despite both being small non-pointer values, because their actual instructions differ (e.g. shift operations behave differently at different widths).
+**The precise GCShape rule (from Go's official design doc):** two concrete types share a GCShape if and only if they have the same underlying type, or they are both pointer types. So `*Foo` and `*Bar` share a shape purely by both being pointers, regardless of what they point to. Meanwhile `int` and `int32` are kept in **separate** shapes despite both being small non-pointer values, because their actual instructions differ (for example, shift operations behave differently at different widths).
 
-**Types sharing a GCShape compile to ONE shared machine-code instantiation.** Types with distinct GCShapes each get their own separately compiled version — essentially free, same as hand-written non-generic code.
+**Types sharing a GCShape compile to one shared machine-code instantiation.** Types with distinct GCShapes each get their own separately compiled version, which is essentially free and the same as hand-written non-generic code.
 
-### The Dictionary
+### The dictionary
 
 For shared-shape instantiations, the compiler passes a hidden **dictionary** parameter at each call site so the shared code can still behave correctly per concrete type.
 
-**Key fact:** the dictionary is NOT a single fixed struct type. Because it's entirely compile-time and read-only, it doesn't need to follow any particular structure — it's just an array of bytes, and the compiler assigns meaning to each field as needed, tailored per call site to exactly what that function body requires.
+**Key fact:** the dictionary is **not** a single fixed struct type. Because it is entirely compile-time and read-only, it does not need to follow any particular structure. It is just an array of bytes, and the compiler assigns meaning to each field as needed, tailored per call site to exactly what that function body requires.
 
-Conceptually it's built from:
+Conceptually it is built from:
 
-1. **A `*runtime._type` reference for each instantiated type parameter** (T1, T2, ...) — used for stack traceback printing, computing sizes, converting to `interface{}`
-2. **Resolved method pointers** for any method the constraint requires — if T must satisfy a constraint with a method, the dictionary carries the concrete function pointer for that specific type's implementation
-3. **itab-equivalent entries** for converting a type parameter's value into an interface, when the generic code does that internally
-4. **Sub-dictionaries** — if the generic function calls another generic function using its own type parameters, it constructs and passes a nested dictionary for that inner call
+1. **A `*runtime._type` reference for each instantiated type parameter** (T1, T2, ...), used for stack traceback printing, computing sizes, and converting to `interface{}`.
+2. **Resolved method pointers** for any method the constraint requires. If `T` must satisfy a constraint with a method, the dictionary carries the concrete function pointer for that specific type's implementation.
+3. **itab-equivalent entries** for converting a type parameter's value into an interface, when the generic code does that internally.
+4. **Sub-dictionaries.** If the generic function calls another generic function using its own type parameters, it constructs and passes a nested dictionary for that inner call.
 
-Mechanically, the dictionary is an extra hidden argument to shared-shape code. Its register/stack placement is architecture- and compiler-version-specific and should not be memorized as a portable rule.
+Mechanically, the dictionary is an extra hidden argument to shared-shape code. Its register or stack placement is architecture- and compiler-version-specific and should not be memorized as a portable rule.
 
-**Follow-up to have ready:** _"Why is `*Foo` and `*Bar` sharing a shape safe, given they point to totally different types?"_ → The shared compiled code only ever needs to dereference, copy, or hand the pointer to the GC as "trace this word as a pointer" — none of that cares what's on the other end. Anything that DOES need to know the pointed-to type (calling a method, computing element size) goes through the dictionary instead of being baked into the shared machine code.
+### Performance implications
 
-## 4. Performance Implications
+- **Non-shared shapes** (for example `int` and `float64`): a fully specialized compiled version, essentially free and the same as hand-written code.
+- **Shared shapes going through the dictionary:** a small overhead versus true monomorphization. Some operations (for example calling a method through the dictionary) go through an extra indirection rather than a direct static call.
+- Generics often avoid interface boxing and type assertions in containers, but that does not guarantee fewer heap allocations. Escape analysis, inlining, dictionary dispatch, and the concrete operation still determine the result. Benchmark and inspect `-gcflags='-m'` for a hot path.
 
-- **Non-shared shapes** (e.g. `int`, `float64`): fully specialized compiled version — essentially free, same as hand-written.
-- **Shared shapes going through the dictionary**: small overhead vs. true monomorphization — some operations (e.g. calling a method through the dictionary) go through an extra indirection rather than a direct static call.
-- Generics often avoid interface boxing and type assertions in containers, but that does not guarantee fewer heap allocations: escape analysis, inlining, dictionary dispatch, and the concrete operation still determine the result. Benchmark and inspect `-gcflags='-m'` for a hot path.
-
-## 5. Real Limitations
-
-**No new type parameters on methods.** A method can use its receiver type's parameters but can't introduce fresh ones:
-
-```go
-type List[T any] struct{ items []T }
-func (l List[T]) Map[U any](f func(T) U) List[U] { ... } // NOT allowed
-```
-
-Genuine language limitation — common workaround is a free function instead of a method (like `Map` at the top).
-
-**Type inference gaps.** If a type parameter appears ONLY in the return type, the compiler often can't infer it — requires explicit instantiation: `Zero[int]()`.
-
-## 6. Go 1.26 Language Additions
+### Go 1.26 language additions
 
 Go 1.26 allows `new(expression)`, not only `new(Type)`. This makes an optional pointer from an inferred expression concise:
 
@@ -114,9 +106,9 @@ type Adder[A Adder[A]] interface {
 }
 ```
 
-These are language changes; unlike GCShape details, they are portable guarantees for modules targeting Go 1.26 or newer.
+These are language changes. Unlike the GCShape details, they are portable guarantees for modules targeting Go 1.26 or newer.
 
-## 7. Concrete Patterns to Have Ready to Write Live
+### Patterns to write live
 
 ```go
 // Generic Min/Max using the standard-library cmp.Ordered
@@ -131,11 +123,31 @@ func (s Set[T]) Add(v T) { s[v] = struct{}{} }
 func (s Set[T]) Has(v T) bool { _, ok := s[v]; return ok }
 ```
 
-## 8. Follow-ups to Have Ready
+## Gotchas
 
-- _"When would you deliberately NOT use generics?"_ → When a simple `interface{ Method() }`-based polymorphic design already captures the need cleanly and the type set is naturally small/fixed. Generics shine for algorithms over arbitrary data shapes (containers, Map/Filter/Reduce), less so for classic OOP-style polymorphism where a handful of concrete types share behavior.
+### No type parameters on methods
 
-## Official Sources
+A method can use its receiver type's parameters but cannot introduce fresh ones:
+
+```go
+type List[T any] struct{ items []T }
+func (l List[T]) Map[U any](f func(T) U) List[U] { ... } // NOT allowed
+```
+
+This is a genuine language limitation. The common workaround is a free function instead of a method, like `Map` in [syntax basics](#syntax-basics).
+
+### Type inference gaps
+
+If a type parameter appears **only** in the return type, the compiler often cannot infer it. This requires explicit instantiation: `Zero[int]()`.
+
+## Interview drills
+
+- _"Why is it safe for `*Foo` and `*Bar` to share a shape, given they point to totally different types?"_ → The shared compiled code only ever needs to dereference, copy, or hand the pointer to the GC as "trace this word as a pointer", and none of that cares what is on the other end. Anything that does need to know the pointed-to type (calling a method, computing element size) goes through the dictionary instead of being baked into the shared machine code. See [the dictionary](#the-dictionary).
+- _"When would you deliberately not use generics?"_ → When a simple `interface{ Method() }`-based polymorphic design already captures the need cleanly and the type set is naturally small and fixed. Generics shine for algorithms over arbitrary data shapes (containers, Map/Filter/Reduce), and less so for classic OOP-style polymorphism where a handful of concrete types share behavior. See [Go Interfaces](interfaces.md#interfaces-vs-generics).
+- _"What does `~int` do?"_ → matches any type with underlying type `int`. See [constraints](#constraints).
+- _"How does Go implement generics?"_ → GCShape stenciling plus dictionaries, a hybrid of monomorphization and erasure. See [GCShape stenciling and dictionaries](#gcshape-stenciling-and-dictionaries).
+
+## Sources
 
 - [Go language specification: type parameters](https://go.dev/ref/spec#Type_parameter_declarations)
 - [Generics implementation dictionaries design](https://go.googlesource.com/proposal/+/master/design/generics-implementation-dictionaries-go1.18.md)

@@ -2,67 +2,86 @@
 date: 2026-08-23
 ---
 
-# Go Memory Allocator — mcache/mcentral/mheap, Size Classes, Arenas
+# Go Memory Allocator
 
-> Exported from Notion on 2026-08-23 · [Source](https://app.notion.com/p/3b3a407e452d819fb7bdc0a809dd7ead)
+> Go's allocator follows the TCMalloc design: a lock-free fast path per P, a shared locked tier per span class, and a global heap that talks to the OS. Small objects are rounded up to a fixed size class and carved from spans. Pointer-free spans are kept apart from pointer-containing ones, so the GC can skip them. Checked against Go 1.26.
 
-Notes from interview prep session. Companion to "Go Garbage Collector" and "Go Escape Analysis & GC Tuning" docs.
+## Questions this answers
 
-## 1. Design Basis
+- Why is Go's allocator organized as `mcache`, `mcentral`, and `mheap`?
+- What are size classes, and what do they cost and buy?
+- Which allocation path does an object take: tiny, small, or large?
+- Why are `scan` and `noscan` spans separate, and how does that help the GC?
+- What is an arena, and how does the runtime find the span for an address?
 
-Go's allocator is based on **TCMalloc** (Google's Thread-Caching Malloc) philosophy: a single global lock on every allocation would be a massive contention bottleneck given how frequently Go programs allocate. Fix: **per-P sharding** — same principle as `sync.Pool` — a lock-free fast path scoped to the current P, with progressively more coordination/locking only as needed going up the hierarchy.
+## Notes
 
-## 2. The Three-Tier Hierarchy
+### Design basis
 
-- **`mcache`** — one per P, lock-free fast path. Holds a small cache of spans, one per size class. Only the owning P ever touches its own mcache, so `Get()` needs no lock — identical principle to sync.Pool's per-P `private` slot.
-- **`mcentral`** — one per size class, shared across all Ps, protected by a lock. When a P's mcache runs out of free objects for a size class, it refills from the corresponding mcentral. Contention here is much rarer than per-allocation contention, since one refill supplies many subsequent fast-path allocations.
-- **`mheap`** — global, manages the whole address space in **arenas** (64MB chunks on most 64-bit platforms) and is what actually talks to the OS (`mmap` for more virtual memory). This is also exactly where the **scavenger** operates — mheap is what calls `madvise` to hand unused pages back to the OS.
+Go's allocator is based on **TCMalloc** (Google's Thread-Caching Malloc). A single global lock on every allocation would be a massive contention bottleneck, because Go programs allocate very often.
 
-## 3. Size Classes
+The fix is **per-P sharding**, the same principle as `sync.Pool`. The fast path is lock-free and scoped to the current P. More coordination and locking is added only as the request moves up the hierarchy.
 
-Go doesn't allocate arbitrary byte counts directly — roughly **70 predefined size classes** (8B, 16B, 24B, 32B, 48B... up to 32KB). Any allocation request is **rounded up to the nearest size class**. An `mspan` is a run of one or more 8KB pages, subdivided into equal-size slots for exactly one size class, with a free list/bitmap tracking used slots.
+### The three-tier hierarchy
 
-**Why fixed size classes instead of exact-size allocation?** Space-vs-simplicity tradeoff: rounding up wastes a little memory per object (internal fragmentation — e.g. a 20-byte request rounds up to the 24-byte class), but makes free-list bookkeeping enormously simpler and faster — every slot in a span is identical size, so alloc/dealloc is just pop/push from a free list, no search for a fitting hole, no external fragmentation to manage.
+- **`mcache`**: one per P, lock-free fast path. It holds one cached span per **span class**. A span class is a size class combined with the scan/noscan flag, so there are two per size class. Only the owning P touches its own `mcache`, so no lock is needed. This is the same principle as the per-P `private` slot in `sync.Pool`.
+- **`mcentral`**: one per span class, shared across all Ps, protected by a lock. When a P's `mcache` runs out of free objects for a span class, it refills from the matching `mcentral`. Contention here is much rarer than per-allocation contention, because one refill supplies many later fast-path allocations.
+- **`mheap`**: global. It manages the whole address space in **arenas** (64 MB chunks on most 64-bit platforms) and is what actually talks to the OS (`mmap` for more virtual memory). The **scavenger** also works from here: it returns free pages to the OS with `madvise`.
 
-## 4. Three Allocation Paths (routed by mallocgc)
+### Size classes
 
-1. **Tiny allocator** (objects \< 16 bytes, no pointers): multiple small allocations get packed together into a single 16-byte block per P, amortizing per-object bookkeeping overhead. Targets things like small strings or tiny structs where slot overhead would otherwise dominate actual data size.
-2. **Small object path** (16 bytes – 32KB): normal `mcache → mcentral → mheap` fallback chain.
-3. **Large object path** (\> 32KB): goes directly to `mheap`, allocated in whole pages, completely bypassing mcache and mcentral — rare enough that per-P caching machinery wouldn't pay for itself.
+Go does not allocate arbitrary byte counts. It has a fixed table of about 70 size classes (68 entries in `sizeclasses.go`, including a special class 0): 8 B, 16 B, 24 B, 32 B, 48 B, and so on up to 32 KB. Every allocation request is **rounded up to the nearest size class**.
 
-## 5. scan vs noscan Spans — Ties Directly to GC
+An `mspan` is a run of one or more 8 KB pages. It is divided into equal-size slots for exactly one size class, with a bitmap tracking which slots are used.
 
-The allocator keeps spans containing **pointer-free data** (`[]byte` backing arrays, plain numeric slices, string data) in **separate spans** from ones containing objects with pointers. Since the GC's tri-color mark phase only needs to trace pointers, a **noscan span can be skipped entirely** during marking — the GC doesn't even look inside it.
+**Why fixed size classes instead of exact-size allocation?** It trades a little space for simplicity:
 
-**Production relevance:** for a system moving lots of raw byte buffers (serialized transaction data, hashes, etc.), this is a real, meaningful reduction in GC scan work — a direct consequence of the compiler/allocator cooperating based on the same escape-analysis-derived type information covered in the escape analysis doc.
+- Rounding up wastes a little memory per object (internal fragmentation). A 20-byte request rounds up to the 24-byte class.
+- Every slot in a span has the same size, so allocation and free are cheap. There is no search for a fitting hole and no external fragmentation to manage.
 
-## 6. Arenas
+### Three allocation paths
 
-**What they are:** how `mheap` manages heap virtual address space in large, fixed-size chunks — **64MB each on most 64-bit platforms** (4MB on 32-bit systems, where address space is more constrained). Instead of asking the OS for memory in small increments each time the heap grows, Go reserves/maps address space one arena at a time; everything else (spans, pages) is carved out of arenas.
+`mallocgc` routes each request to one of three paths:
 
-**What an arena contains:** represented internally by a `heapArena` struct holding metadata for every 8KB page inside that 64MB range:
+1. **Tiny allocator** (objects under 16 bytes, no pointers): several small allocations are packed into a single 16-byte block per P. This amortizes per-object overhead for things like small strings or tiny structs, where slot overhead would otherwise dominate the data size.
+2. **Small object path** (up to 32 KB): the normal `mcache` to `mcentral` to `mheap` fallback chain. Pointer-containing objects under 16 bytes also take this path.
+3. **Large object path** (over 32 KB): goes directly to `mheap`, allocated in whole pages. It bypasses the per-P caches because large allocations are rare enough that the caching machinery would not pay for itself.
 
-- A pointer to the `mspan` that currently owns that page (fast lookup from any address → span → size class → object)
-- Bits indicating whether that region is `scan` (contains pointers) or `noscan` — directly enables the GC skip-scanning behavior above
+### Scan and noscan spans
 
-**The lookup problem arenas solve:** 64-bit virtual address space is enormous, but real heap usage is sparse — far too large for one flat metadata array. Go uses a **multi-level lookup structure** (conceptually like CPU page tables): high bits of an address index into a sparse top-level table pointing to the specific heapArena covering that address. Makes "which arena does this pointer belong to" a fast, small number of indexed lookups regardless of how spread out actual memory usage is.
+The allocator keeps spans holding **pointer-free data** (`[]byte` backing arrays, plain numeric slices, string data) separate from spans holding objects with pointers. This is part of the span class.
 
-**When arenas are created:** lazily, on demand. `mheap.grow()` maps in a new arena from the OS (via mmap) only when existing arenas lack enough free space to satisfy a request. This is also the granularity the scavenger operates within — it walks arenas looking for free page ranges to `madvise` back to the OS.
+The GC only needs to trace pointers. A **noscan span can be skipped entirely** during marking: the GC does not look inside it. For how marking works, see [Go Garbage Collector](garbage-collector.md#tri-color-marking).
 
-**Not to be confused with:** a user-facing "bump allocator" arena pattern from other languages — Go's `heapArena` is purely an internal runtime implementation detail, not something application code interacts with directly. (Trivia: Go experimented with an explicit user-facing `arena` package for manual memory management around Go 1.20, but removed it due to memory-safety concerns — misuse could cause use-after-free bugs, conflicting with Go's safety guarantees, so it never stabilized.)
+**Production relevance:** a system that moves lots of raw byte buffers (serialized transaction data, hashes, and so on) gets a real reduction in GC scan work from this. The decision comes from the **type** of the allocation (whether it contains pointers), which the compiler passes to the allocator. It is separate from escape analysis, which decides stack versus heap ([Go Escape Analysis and GC Tuning](escape-analysis-gc-tuning.md#what-escape-analysis-decides)).
 
-## 7. Full Allocation Routing Schema (as diagrammed)
+### Arenas
 
-```javascript
+An arena is the unit in which `mheap` manages heap address space: large, fixed-size chunks, **64 MB each on most 64-bit platforms** (4 MB on 32-bit systems, where address space is more constrained). Instead of asking the OS for memory in small steps, Go maps address space one arena at a time. Spans and pages are carved out of arenas.
+
+**What an arena records.** Internally, each arena is described by a `heapArena` struct. It holds metadata for every 8 KB page in that 64 MB range, including:
+
+- a pointer to the `mspan` that currently owns each page, which gives a fast lookup from any address to span, size class, and object;
+- per-page bitmaps for pages in use and pages marked by the GC.
+
+Whether a span is `scan` or `noscan` is a property of the span's class, found through that span lookup.
+
+**The lookup problem.** A 64-bit virtual address space is enormous, but real heap usage is sparse. One flat metadata array would be far too large. Go uses a **multi-level lookup structure**, conceptually like CPU page tables: the high bits of an address index into a sparse top-level table that points to the `heapArena` covering that address. "Which arena does this pointer belong to" becomes a small number of indexed lookups, however spread out the memory usage is.
+
+**When arenas are created.** Lazily, on demand. `mheap.grow()` maps in a new arena from the OS (via `mmap`) only when existing arenas lack enough free space for a request. Unused pages inside the heap are later returned to the OS by the scavenger, which works from the free page ranges that `mheap` tracks.
+
+### Allocation routing schema
+
+```text
 allocation request (mallocgc)
         │
         ├── tiny (<16B, no pointers) → packed into shared 16B block
         │
-        ├── small (16B–32KB) → rounds to a size class
+        ├── small (up to 32KB) → rounds to a size class
         │         │
         │         → mcache (per-P, lock-free): pop a free slot from cached span
-        │              │  (cache empty for this size class)
-        │              → mcentral (per size class, shared, locked): hands a fresh span
+        │              │  (cache empty for this span class)
+        │              → mcentral (per span class, shared, locked): hands a fresh span
         │                   │  (no free spans)
         │                   → mheap (global): carves span from a 64MB arena
         │
@@ -72,7 +91,24 @@ mheap requests more address space from the OS via mmap as arenas fill up.
 The scavenger later returns unused pages to the OS from mheap via madvise.
 ```
 
-## 8. Follow-ups to Have Ready
+## Gotchas
 
-- _"Why does this per-P caching design remind you of something else we've discussed?"_ → Structurally identical to sync.Pool's design — per-P local cache for the lock-free fast path, a shared tier (mcentral ↔ Pool's cross-P stealing) for the slower fallback, and a global tier (mheap ↔ OS/GC) at the top. Go reuses this sharding pattern across multiple subsystems as the standard answer to lock contention on hot paths in a multi-core runtime.
-- _"Why 64MB specifically as the arena size?"_ → Practical middle ground: large enough that the top-level lookup table stays small/cheap (fewer arenas to index for a given heap size), small enough that a process doesn't have to commit huge address space upfront — arenas are reserved lazily specifically to avoid over-committing.
+### Heap arenas are not a user-facing arena allocator
+
+Symptom: the word "arena" suggests a bump allocator that application code can use, as in other languages. Cause: Go's `heapArena` is purely an internal runtime detail, and application code does not interact with it.
+
+Trivia: Go experimented with an explicit user-facing `arena` package for manual memory management around Go 1.20. It was put on hold and never stabilized, because misuse could cause use-after-free bugs, which conflicts with Go's safety guarantees.
+
+## Interview drills
+
+- _"Why does this per-P caching design remind you of something else we've discussed?"_ → It is structurally identical to `sync.Pool`: a per-P local cache for the lock-free fast path, a shared tier for the slower fallback (`mcentral` here, cross-P stealing in the Pool), and a global tier at the top (`mheap` here, the OS or GC for the Pool). Go reuses this sharding pattern as the standard answer to lock contention on hot paths. See [the three-tier hierarchy](#the-three-tier-hierarchy).
+- _"Why 64 MB specifically as the arena size?"_ → A practical middle ground. It is large enough that the top-level lookup table stays small and cheap, and small enough that a process does not commit huge address space upfront. Arenas are reserved lazily to avoid over-committing. See [arenas](#arenas).
+- _"Why does Go round allocations up to size classes?"_ → Slots in a span are identical, so allocation is a pop from a free list and there is no external fragmentation. The price is internal fragmentation. See [size classes](#size-classes).
+- _"Why can the GC skip some memory entirely?"_ → Pointer-free objects live in `noscan` spans, which marking never looks inside. See [scan and noscan spans](#scan-and-noscan-spans).
+
+## Sources
+
+- [`runtime/malloc.go`](https://go.dev/src/runtime/malloc.go)
+- [`runtime/mheap.go`](https://go.dev/src/runtime/mheap.go)
+- [`runtime/sizeclasses.go`](https://go.dev/src/runtime/sizeclasses.go)
+- [A Guide to the Go Garbage Collector](https://go.dev/doc/gc-guide)

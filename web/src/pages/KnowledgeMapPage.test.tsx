@@ -4,8 +4,14 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import { App } from '../App'
 import { repositorySnapshot } from '../data/generated/repository'
+import { mapRelationships } from '../data/map-relationships'
 import { cleanTitle } from '../lib/format'
 import { STORAGE_KEY } from '../state/storage'
+
+const goNoteCount = repositorySnapshot.notes.filter((note) => note.topicSlug === 'go').length
+const concurrencyNoteCount =
+  mapRelationships.find((relationship) => relationship.topic === 'go' && relationship.concept === 'Concurrency')?.notes
+    .length ?? 0
 
 describe('Knowledge map', () => {
   beforeEach(() => {
@@ -79,7 +85,7 @@ describe('Knowledge map', () => {
       const hrefs = hrefsIn(within(go).getByRole('list', { name: /notes about concurrency/i }))
       expect(hrefs.some((href) => href.endsWith('notes/go/channels.md'))).toBe(true)
       expect(hrefs.some((href) => href.endsWith('notes/go/garbage-collector.md'))).toBe(false)
-      expect(hrefs).toHaveLength(7)
+      expect(hrefs).toHaveLength(concurrencyNoteCount)
       expect(within(go).queryByRole('button', { name: /^show all \d+ notes$/i })).not.toBeInTheDocument()
     })
 
@@ -133,8 +139,10 @@ describe('Knowledge map', () => {
 
       expect(status).toBeEmptyDOMElement()
       await user.click(within(go).getByRole('button', { name: 'Concurrency' }))
-      expect(status).toHaveTextContent('Showing 7 of 19 notes about Concurrency')
-      expect(within(go).getByRole('heading', { name: /7 of 19 notes/ })).toBeInTheDocument()
+      expect(status).toHaveTextContent(
+        `Showing ${concurrencyNoteCount} of ${goNoteCount} notes about Concurrency`,
+      )
+      expect(within(go).getByRole('heading', { name: new RegExp(`${concurrencyNoteCount} of ${goNoteCount} notes`) })).toBeInTheDocument()
 
       await user.click(within(go).getByRole('button', { name: 'Concurrency' }))
       expect(status).toBeEmptyDOMElement()

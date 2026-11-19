@@ -21,7 +21,7 @@ export const repositorySnapshot = {
       "next": "Add pprof and runtime/trace workflows.",
       "started": "2026-08-23",
       "lastNote": "2026-08-23",
-      "noteCount": 19
+      "noteCount": 18
     }
   ],
   "notes": [
@@ -69,133 +69,126 @@ export const repositorySnapshot = {
     },
     {
       "topicSlug": "go",
-      "title": "📡 Go Channels — Internals, sudog, and Select",
+      "title": "Go Channels",
       "filename": "channels.md",
       "path": "notes/go/channels.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go context Package — Cancellation Trees, Value Lookup, and Anti-Patterns",
-      "filename": "context-package-internals.md",
-      "path": "notes/go/context-package-internals.md",
-      "date": "2026-08-23"
-    },
-    {
-      "topicSlug": "go",
-      "title": "🧭 Go Context — Cancellation, Deadlines, and Ownership",
+      "title": "Go Context",
       "filename": "context.md",
       "path": "notes/go/context.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go Deadlock Detector — checkdead()",
+      "title": "Go Deadlock Detector",
       "filename": "deadlock-detector.md",
       "path": "notes/go/deadlock-detector.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go defer — Semantics, Open-Coded Implementation, and Gotchas",
+      "title": "Go defer",
       "filename": "defer.md",
       "path": "notes/go/defer.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go Escape Analysis & GC Tuning",
+      "title": "Go Escape Analysis and GC Tuning",
       "filename": "escape-analysis-gc-tuning.md",
       "path": "notes/go/escape-analysis-gc-tuning.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go Garbage Collector — Tri-Color Marking, Write Barriers, and Phases",
+      "title": "Go Garbage Collector",
       "filename": "garbage-collector.md",
       "path": "notes/go/garbage-collector.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go Generics — Constraints, Inference, and GCShape",
+      "title": "Go Generics",
       "filename": "generics.md",
       "path": "notes/go/generics.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go Interfaces — Internal Representation & Nil-Pointer Trap",
+      "title": "Go Interfaces",
       "filename": "interfaces.md",
       "path": "notes/go/interfaces.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go Maps — Legacy Bucket Design (Before Go 1.24)",
+      "title": "Go Maps: Legacy Buckets (before Go 1.24)",
       "filename": "maps-legacy-buckets.md",
       "path": "notes/go/maps-legacy-buckets.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go Maps — Swiss Tables (Go 1.24+)",
+      "title": "Go Maps: Swiss Tables (Go 1.24+)",
       "filename": "maps-swiss-tables.md",
       "path": "notes/go/maps-swiss-tables.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go Memory Allocator — mcache/mcentral/mheap, Size Classes, Arenas",
+      "title": "Go Memory Allocator",
       "filename": "memory-allocator.md",
       "path": "notes/go/memory-allocator.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "🧠 Go Memory Model — Practical Happens-Before Guide",
+      "title": "Go Memory Model",
       "filename": "memory-model.md",
       "path": "notes/go/memory-model.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go sync.Mutex — Internals",
+      "title": "Go sync.Mutex",
       "filename": "mutex.md",
       "path": "notes/go/mutex.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go sync.RWMutex — Internals and Recursive RLock",
+      "title": "Go sync.RWMutex",
       "filename": "rwmutex.md",
       "path": "notes/go/rwmutex.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "⚙️ Go Scheduler (GMP) — Interview Prep Notes",
+      "title": "Go Scheduler (GMP)",
       "filename": "scheduler-gmp.md",
       "path": "notes/go/scheduler-gmp.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go Slices — Internals, Aliasing, and Growth",
+      "title": "Go Slices",
       "filename": "slices.md",
       "path": "notes/go/slices.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go Timers and Tickers — Current Semantics and Safe Patterns",
+      "title": "Go Timers and Tickers",
       "filename": "timers-tickers.md",
       "path": "notes/go/timers-tickers.md",
       "date": "2026-08-23"
     },
     {
       "topicSlug": "go",
-      "title": "Go sync.WaitGroup — State, Ordering, and WaitGroup.Go",
+      "title": "Go sync.WaitGroup",
       "filename": "waitgroup.md",
       "path": "notes/go/waitgroup.md",
       "date": "2026-08-23"
@@ -9524,7 +9517,7 @@ export const repositorySnapshot = {
   ],
   "counts": {
     "topics": 2,
-    "notes": 25,
+    "notes": 24,
     "solvedProblems": 628,
     "languages": [
       "C",
