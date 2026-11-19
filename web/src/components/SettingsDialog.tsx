@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState, type ChangeEvent, type JSX, type Ke
 
 import type { PersonalLearningState } from '../domain/personal-types'
 import { plural } from '../lib/format'
-import { backupFilename, createBackup, readBackup } from '../state/backup'
+import { MAX_BACKUP_BYTES, backupFilename, createBackup, readBackup } from '../state/backup'
 import { useLearningDispatch, useLearningState } from '../state/learning-state'
 import { useTheme, type ThemePreference } from '../state/theme'
 import { Icon } from './Icon'
@@ -28,7 +28,8 @@ function downloadBackup(state: PersonalLearningState): void {
   document.body.append(link)
   link.click()
   link.remove()
-  URL.revokeObjectURL(url)
+  // Revoking immediately can cancel the download in some browsers.
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
 
 function readFileText(file: File): Promise<string> {
@@ -54,13 +55,33 @@ function SettingsContent(): JSX.Element {
   const [pending, setPending] = useState<PersonalLearningState | null>(null)
   const [importError, setImportError] = useState<string | null>(null)
   const [confirmingReset, setConfirmingReset] = useState(false)
+  const readId = useRef(0)
+  const mounted = useRef(true)
+  const importCancel = useRef<HTMLButtonElement>(null)
+  const resetCancel = useRef<HTMLButtonElement>(null)
   const resetButton = useRef<HTMLButtonElement>(null)
   const resetWasConfirming = useRef(false)
+
+  useEffect(() => {
+    mounted.current = true
+
+    return () => {
+      mounted.current = false
+    }
+  }, [])
+
+  useEffect(() => {
+    if (pending !== null) {
+      importCancel.current?.focus()
+    }
+  }, [pending])
 
   // Leaving the confirmation removes the focused button; hand focus back to the trigger.
   useEffect(() => {
     if (resetWasConfirming.current && !confirmingReset) {
       resetButton.current?.focus()
+    } else if (!resetWasConfirming.current && confirmingReset) {
+      resetCancel.current?.focus()
     }
 
     resetWasConfirming.current = confirmingReset
@@ -75,10 +96,19 @@ function SettingsContent(): JSX.Element {
   async function chooseFile(event: ChangeEvent<HTMLInputElement>): Promise<void> {
     const file = event.target.files?.[0]
 
+    readId.current += 1
+    const requestId = readId.current
+
     setPending(null)
     setImportError(null)
 
     if (file === undefined) {
+      return
+    }
+
+    if (file.size > MAX_BACKUP_BYTES) {
+      setImportError('This file is larger than 5 MB.')
+      clearFile()
       return
     }
 
@@ -87,8 +117,14 @@ function SettingsContent(): JSX.Element {
     try {
       text = await readFileText(file)
     } catch {
-      setImportError('This file could not be read.')
-      clearFile()
+      if (mounted.current && requestId === readId.current) {
+        setImportError('This file could not be read.')
+        clearFile()
+      }
+      return
+    }
+
+    if (!mounted.current || requestId !== readId.current) {
       return
     }
 
@@ -103,6 +139,7 @@ function SettingsContent(): JSX.Element {
   }
 
   function cancelImport(): void {
+    readId.current += 1
     setPending(null)
     clearFile()
     fileInput.current?.focus()
@@ -122,6 +159,7 @@ function SettingsContent(): JSX.Element {
 
   function confirmReset(): void {
     dispatch({ type: 'stateReset' })
+    showToast({ message: 'Working state cleared' })
     setConfirmingReset(false)
   }
 
@@ -191,7 +229,7 @@ function SettingsContent(): JSX.Element {
                 <Icon name="upload" size={14} />
                 Replace my data
               </button>
-              <button type="button" className="button button-quiet" onClick={cancelImport}>
+              <button ref={importCancel} type="button" className="button button-quiet" onClick={cancelImport}>
                 Cancel
               </button>
             </div>
@@ -207,11 +245,16 @@ function SettingsContent(): JSX.Element {
           <div className="settings-confirm">
             <p>This deletes all tasks and practice sessions stored in this browser. It cannot be undone.</p>
             <div className="settings-actions">
-              <button type="button" className="button button-danger-quiet" onClick={confirmReset}>
+              <button type="button" className="button button-danger" onClick={confirmReset}>
                 <Icon name="trash" size={14} />
                 Yes, delete everything
               </button>
-              <button type="button" className="button button-quiet" onClick={() => setConfirmingReset(false)}>
+              <button
+                ref={resetCancel}
+                type="button"
+                className="button button-quiet"
+                onClick={() => setConfirmingReset(false)}
+              >
                 Cancel
               </button>
             </div>

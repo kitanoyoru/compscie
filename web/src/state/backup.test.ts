@@ -42,6 +42,40 @@ describe('backup', () => {
     expect(readBackup(text)).toEqual({ ok: false, error })
   })
 
+  it('rejects duplicate task ids and oversized collections', () => {
+    const state = seededState()
+    const [first] = state.tasks
+    const malformed = { ok: false, error: 'This backup’s tasks or sessions are malformed.' }
+
+    expect(
+      readBackup(JSON.stringify({ app: BACKUP_APP_ID, version: 1, state: { ...state, tasks: [first, first] } })),
+    ).toEqual(malformed)
+
+    const sessions = Array.from({ length: 10_001 }, () => state.sessions[0])
+    expect(readBackup(JSON.stringify({ app: BACKUP_APP_ID, version: 1, state: { ...state, sessions } }))).toEqual(
+      malformed,
+    )
+  })
+
+  it('strips unknown keys, including __proto__, from imported items', () => {
+    const text = `{"app":"${BACKUP_APP_ID}","version":1,"state":{"version":1,"sessions":[],"tasks":[{"id":"a","title":"T","status":"open","createdAt":"2026-11-17T09:00:00.000Z","extra":1,"__proto__":{"polluted":true}}]}}`
+    const result = readBackup(text)
+
+    expect(result).toEqual({
+      ok: true,
+      state: {
+        version: 1,
+        sessions: [],
+        tasks: [{ id: 'a', title: 'T', status: 'open', createdAt: '2026-11-17T09:00:00.000Z' }],
+      },
+    })
+    expect(({} as Record<string, unknown>).polluted).toBeUndefined()
+    if (result.ok) {
+      expect(Object.keys(result.state.tasks[0] ?? {})).not.toContain('extra')
+      expect(Object.getPrototypeOf(result.state.tasks[0])).toBe(Object.prototype)
+    }
+  })
+
   it('names the file after the local day', () => {
     expect(backupFilename(new Date('2026-11-20T05:00:00Z'))).toBe('compscie-learning-2026-11-19.json')
   })

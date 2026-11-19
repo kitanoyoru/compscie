@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -25,7 +25,6 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.restoreAllMocks()
-  vi.unstubAllGlobals()
   delete document.documentElement.dataset.theme
 })
 
@@ -136,10 +135,12 @@ describe('SettingsDialog', () => {
     expect(confirm).not.toHaveBeenCalled()
   })
 
-  it('exports a backup file named after the local day', async () => {
-    const createObjectURL = vi.fn(() => 'blob:backup')
-    const revokeObjectURL = vi.fn()
-    vi.stubGlobal('URL', Object.assign(URL, { createObjectURL, revokeObjectURL }))
+  it('exports a backup file named after the local day and revokes the URL later', async () => {
+    const urlApi = URL as unknown as Record<string, unknown>
+    urlApi.createObjectURL ??= () => ''
+    urlApi.revokeObjectURL ??= () => undefined
+    const createObjectURL = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:backup')
+    const revokeObjectURL = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => undefined)
     let downloaded: string | null = null
     vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function (this: HTMLAnchorElement) {
       downloaded = this.getAttribute('download')
@@ -152,7 +153,67 @@ describe('SettingsDialog', () => {
 
     expect(downloaded).toMatch(/^compscie-learning-\d{4}-\d{2}-\d{2}\.json$/)
     expect(createObjectURL).toHaveBeenCalledWith(expect.any(Blob))
-    expect(revokeObjectURL).toHaveBeenCalledWith('blob:backup')
+    expect(revokeObjectURL).not.toHaveBeenCalled()
+    await waitFor(() => expect(revokeObjectURL).toHaveBeenCalledWith('blob:backup'), { timeout: 2000 })
+  })
+
+  it('rejects an oversized file before reading it', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    const dialog = await openSettings(user)
+    const file = new File(['{}'], 'big.json', { type: 'application/json' })
+    Object.defineProperty(file, 'size', { value: 6e6 })
+    const text = vi.spyOn(file, 'text')
+
+    await user.upload(within(dialog).getByLabelText(/import backup/i), file)
+
+    expect(await within(dialog).findByRole('alert')).toHaveTextContent('This file is larger than 5 MB.')
+    expect(text).not.toHaveBeenCalled()
+  })
+
+  it('moves focus to Cancel in each destructive confirmation and clears with a toast', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    const dialog = await openSettings(user)
+    const file = new File([createBackup(seededState(), new Date())], 'backup.json', { type: 'application/json' })
+
+    await user.upload(within(dialog).getByLabelText(/import backup/i), file)
+    expect(await within(dialog).findByRole('button', { name: /^cancel$/i })).toHaveFocus()
+    await user.click(within(dialog).getByRole('button', { name: /^cancel$/i }))
+
+    await user.click(within(dialog).getByRole('button', { name: /reset working state/i }))
+    expect(within(dialog).getByRole('button', { name: /^cancel$/i })).toHaveFocus()
+    await user.click(within(dialog).getByRole('button', { name: /yes, delete everything/i }))
+
+    expect(screen.getByText('Working state cleared')).toBeInTheDocument()
+    expect(within(dialog).getByRole('button', { name: /reset working state/i })).toHaveFocus()
+  })
+
+  it('returns focus to the Settings button after Close and after Escape', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    const opener = screen.getByRole('button', { name: /^settings$/i })
+
+    const dialog = await openSettings(user)
+    await user.click(within(dialog).getByRole('button', { name: /^close$/i }))
+    expect(opener).toHaveFocus()
+
+    await openSettings(user)
+    await user.keyboard('{Escape}')
+    expect(screen.queryByRole('dialog', { name: /settings/i })).not.toBeInTheDocument()
+    expect(opener).toHaveFocus()
+  })
+
+  it('closes on a native cancel event', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    const dialog = await openSettings(user)
+
+    act(() => {
+      dialog.dispatchEvent(new Event('cancel', { cancelable: true }))
+    })
+
+    expect(screen.queryByRole('dialog', { name: /settings/i })).not.toBeInTheDocument()
   })
 
   it('closes with Escape and the dialog alone, leaving a toast alone', async () => {

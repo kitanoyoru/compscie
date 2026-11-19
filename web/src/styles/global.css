@@ -38,6 +38,7 @@
 
   --danger: #b42f2f;
   --danger-soft: #fbeaea;
+  --danger-ink: #ffffff;
   --good: #0ca30c;
   --good-text: #006300;
   --good-soft: #e5f5e5;
@@ -80,6 +81,7 @@
 
     --danger: #f08b8b;
     --danger-soft: #3a1e1e;
+    --danger-ink: #121211;
     --good-text: #6ad46a;
     --good-soft: #14281a;
     --warning-mark: #fab219;
@@ -118,6 +120,7 @@
 
   --danger: #f08b8b;
   --danger-soft: #3a1e1e;
+  --danger-ink: #121211;
   --good-text: #6ad46a;
   --good-soft: #14281a;
   --warning-mark: #fab219;
@@ -674,6 +677,15 @@ textarea {
 .button-quiet:hover:not(:disabled) {
   background: var(--surface-hover);
   color: var(--ink);
+}
+
+.button-danger {
+  background: var(--danger);
+  color: var(--danger-ink);
+}
+
+.button-danger:hover {
+  filter: brightness(0.92);
 }
 
 .button-danger-quiet {
@@ -2189,8 +2201,10 @@ details[open] .details-chevron {
 .settings-dialog {
   width: min(32rem, 100vw - 2rem);
   max-width: none;
+  max-height: calc(100vh - 2rem);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 1.25rem;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-lg);
@@ -2200,7 +2214,7 @@ details[open] .details-chevron {
 }
 
 .settings-dialog::backdrop {
-  background: color-mix(in srgb, var(--ink) 45%, transparent);
+  background: rgb(0 0 0 / 0.55);
 }
 
 .settings-header {

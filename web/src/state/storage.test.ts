@@ -61,4 +61,48 @@ describe('parsePersonalState', () => {
   ])('rejects %s', (_name, value) => {
     expect(parsePersonalState(value)).toBeNull()
   })
+
+  const validTask = { id: 'a', title: 'T', status: 'open', createdAt: '2026-11-17T09:00:00.000Z' }
+  const validSession = {
+    problemId: 1,
+    startedAt: '2026-11-17T09:00:00.000Z',
+    endedAt: '2026-11-17T09:20:00.000Z',
+    outcome: 'success',
+  }
+
+  it('strips unknown properties', () => {
+    const parsed = parsePersonalState({
+      version: 1,
+      tasks: [{ ...validTask, extra: 1 }],
+      sessions: [{ ...validSession, extra: 2 }],
+    })
+
+    expect(parsed).toEqual({ version: 1, tasks: [validTask], sessions: [validSession] })
+  })
+
+  it('drops wrong-typed optional fields but keeps the item', () => {
+    const parsed = parsePersonalState({
+      version: 1,
+      tasks: [{ ...validTask, topicId: 4, estimatedMinutes: -5, completedAt: 'nope' }],
+      sessions: [{ ...validSession, reflection: 9 }],
+    })
+
+    expect(parsed).toEqual({ version: 1, tasks: [validTask], sessions: [validSession] })
+  })
+
+  it.each([
+    ['an invalid createdAt', { tasks: [{ ...validTask, createdAt: 'nope' }], sessions: [] }],
+    ['an empty id', { tasks: [{ ...validTask, id: '' }], sessions: [] }],
+    ['a blank title', { tasks: [{ ...validTask, title: '  ' }], sessions: [] }],
+    ['a non-integer problemId', { tasks: [], sessions: [{ ...validSession, problemId: 1.5 }] }],
+    ['an invalid endedAt', { tasks: [], sessions: [{ ...validSession, endedAt: 'x' }] }],
+  ])('rejects %s', (_name, rest) => {
+    expect(parsePersonalState({ version: 1, ...rest })).toBeNull()
+  })
+
+  it('keeps a session that ends before it starts', () => {
+    const session = { ...validSession, endedAt: '2026-11-17T08:00:00.000Z' }
+
+    expect(parsePersonalState({ version: 1, tasks: [], sessions: [session] })?.sessions).toEqual([session])
+  })
 })
