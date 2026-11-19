@@ -23,7 +23,7 @@ export function PageHeader({ eyebrow, title, titleId, description, aside }: Page
     <header className="page-header">
       <div className="page-header-text">
         <p className="eyebrow">{eyebrow}</p>
-        <h1 id={titleId}>{title}</h1>
+        <h1 id={titleId} tabIndex={-1}>{title}</h1>
         {description !== undefined && <p className="page-description">{description}</p>}
       </div>
       {aside !== undefined && <div className="page-header-aside">{aside}</div>}

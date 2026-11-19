@@ -1,6 +1,7 @@
 import { useMemo, useState, type JSX } from 'react'
 
 import { SegmentedBar } from '../components/charts'
+import { usePageTitle } from '../components/RouteEffects'
 import { DIFFICULTY_LABELS, EmptyState, PageHeader, formatCount } from '../components/ui'
 import { repositorySnapshot } from '../data/generated/repository'
 import type { SolvedProblem } from '../data/types'
@@ -28,6 +29,7 @@ function revealSessionPanel(): void {
 }
 
 export function LeetCodePage(): JSX.Element {
+  usePageTitle('LeetCode')
   const { sessions } = useLearningState()
   const params = useLeetCodeParams()
   const [query, setQuery] = useState('')

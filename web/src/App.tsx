@@ -5,6 +5,7 @@ import { AppShell } from './components/AppShell'
 import { TodayPage } from './pages/TodayPage'
 import { KnowledgeMapPage } from './pages/KnowledgeMapPage'
 import { LeetCodePage } from './pages/LeetCodePage'
+import { NotFoundPage } from './pages/NotFoundPage'
 import { LearningProvider } from './state/learning-state'
 
 export function App(): JSX.Element {
@@ -16,6 +17,7 @@ export function App(): JSX.Element {
             <Route path="/" element={<TodayPage />} />
             <Route path="/map" element={<KnowledgeMapPage />} />
             <Route path="/leetcode" element={<LeetCodePage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </AppShell>
       </LearningProvider>

@@ -214,6 +214,10 @@ textarea {
   outline-offset: 2px;
 }
 
+.page-header h1:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .icon {
   display: inline-block;
   flex: none;

@@ -7,6 +7,7 @@ import { formatDay } from '../lib/format'
 import { useLearningDispatch } from '../state/learning-state'
 import { useTheme } from '../state/theme'
 import { Icon, type IconName } from './Icon'
+import { RouteFocus } from './RouteEffects'
 import { ExternalLink } from './ui'
 
 const NAVIGATION: readonly { to: string; label: string; icon: IconName; end?: boolean }[] = [
@@ -49,6 +50,7 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
 
   return (
     <div className="shell">
+      <RouteFocus />
       <button type="button" className="skip-link" onClick={focusMain}>
         Skip to content
       </button>

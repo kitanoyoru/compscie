@@ -1,6 +1,7 @@
 import type { JSX } from 'react'
 
 import { TaskList } from '../components/TaskList'
+import { usePageTitle } from '../components/RouteEffects'
 import { PageHeader } from '../components/ui'
 import { repositorySnapshot } from '../data/generated/repository'
 import { getTodayRecommendation } from '../domain/recommendations'
@@ -11,6 +12,7 @@ import { ReviewCard } from './today/ReviewCard'
 import { WeekCard } from './today/WeekCard'
 
 export function TodayPage(): JSX.Element {
+  usePageTitle('Today')
   const state = useLearningState()
   const now = new Date()
   const recommendation = getTodayRecommendation(repositorySnapshot, state)
