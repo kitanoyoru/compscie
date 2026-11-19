@@ -2,6 +2,12 @@ import type { JSX } from 'react'
 
 const paths = {
   arrowRight: <path d="M5 12h14M13 6l6 6-6 6" />,
+  cards: (
+    <>
+      <rect width="14" height="17" x="7" y="4" rx="2" />
+      <path d="M3 8v11a2 2 0 0 0 2 2h9" />
+    </>
+  ),
   check: <path d="M20 6 9 17l-5-5" />,
   chevronDown: <path d="m6 9 6 6 6-6" />,
   clock: (

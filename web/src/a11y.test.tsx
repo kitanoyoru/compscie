@@ -15,7 +15,7 @@ describe('seeded state fixture', () => {
   })
 })
 
-const ROUTES = ['#/', '#/map', '#/leetcode', '#/nope'] as const
+const ROUTES = ['#/', '#/review', '#/map', '#/leetcode', '#/nope'] as const
 
 describe.each(ROUTES)('accessibility of %s', (hash) => {
   beforeEach(() => {

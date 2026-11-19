@@ -2,49 +2,43 @@ import type { JSX } from 'react'
 import { Link } from 'react-router'
 
 import { Icon } from '../../components/Icon'
-import { DifficultyBadge, EmptyState } from '../../components/ui'
+import { EmptyState } from '../../components/ui'
 import { repositorySnapshot } from '../../data/generated/repository'
 import type { SolveSession } from '../../domain/personal-types'
-import { reviewQueue } from '../../domain/insights'
-import { formatProblemNumber, formatRelativeDay } from '../../lib/format'
+import { dueProblems } from '../../domain/review-schedule'
+import { plural } from '../../lib/format'
+import { SCHEDULE_SUMMARY, ScheduledList } from '../review/ScheduledList'
 
 const VISIBLE_ITEMS = 5
 
-export function ReviewCard({ sessions }: { readonly sessions: readonly SolveSession[] }): JSX.Element {
-  const items = reviewQueue(repositorySnapshot.problems, sessions)
+export function ReviewCard({ sessions, now }: { readonly sessions: readonly SolveSession[]; readonly now: Date }): JSX.Element {
+  const items = dueProblems(repositorySnapshot.problems, sessions, now)
 
   return (
-    <section className="card" aria-labelledby="review-heading">
+    <section className="card" aria-labelledby="review-card-heading">
       <div className="card-header">
-        <h2 id="review-heading">Due for review</h2>
-        <Link className="text-link" to="/leetcode">
-          Practice
+        <h2 id="review-card-heading">Due for review</h2>
+        <Link className="text-link" to="/review">
+          Review all
           <Icon name="arrowRight" size={14} className="icon-trailing" />
         </Link>
       </div>
 
       {items.length === 0 ? (
-        <EmptyState title="Nothing flagged">
-          Problems you mark “needs review” in the LeetCode workspace land here.
+        <EmptyState title="Nothing due" compact>
+          {SCHEDULE_SUMMARY}
         </EmptyState>
       ) : (
         <>
-          <ul className="review-list">
-            {items.slice(0, VISIBLE_ITEMS).map(({ problem, session }) => (
-              <li key={problem.id}>
-                <Link className="review-link" to={`/leetcode?problem=${problem.id}`}>
-                  <span className="problem-number">{formatProblemNumber(problem.id)}</span>
-                  <span className="review-title">{problem.title}</span>
-                  <DifficultyBadge difficulty={problem.difficulty} />
-                </Link>
-                <span className="review-when">{formatRelativeDay(session.endedAt)}</span>
-              </li>
-            ))}
-          </ul>
+          <ScheduledList
+            items={items.slice(0, VISIBLE_ITEMS)}
+            now={now}
+            due
+            label="Problems due for review"
+            showLanguages={false}
+          />
           {items.length > VISIBLE_ITEMS && (
-            <p className="card-footnote">
-              {items.length - VISIBLE_ITEMS} more waiting in the LeetCode workspace.
-            </p>
+            <p className="card-footnote">{plural(items.length - VISIBLE_ITEMS, 'more problem')} due on the Review page.</p>
           )}
         </>
       )}

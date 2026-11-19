@@ -7,9 +7,9 @@ import { repositorySnapshot } from '../data/generated/repository'
 import type { SolvedProblem } from '../data/types'
 import { difficultyCounts, latestSessionByProblem, sessionsForProblem } from '../domain/insights'
 import { choosePracticeProblem, filterProblems } from '../domain/recommendations'
+import { dueProblems } from '../domain/review-schedule'
 import { useLearningState } from '../state/learning-state'
 import { ProblemBrowser } from './leetcode/ProblemBrowser'
-import { RecentReflections } from './leetcode/RecentReflections'
 import { SessionPanel } from './leetcode/SessionPanel'
 import { useLeetCodeParams } from './leetcode/useLeetCodeParams'
 
@@ -38,14 +38,14 @@ export function LeetCodePage(): JSX.Element {
     () => filterProblems(allProblems, { difficulty, language, tag, query }),
     [difficulty, language, tag, query],
   )
+  const now = new Date()
   const latestSessions = useMemo(() => latestSessionByProblem(sessions), [sessions])
-  const suggested = choosePracticeProblem(problems, sessions)
+  // Cheap (sessions are few), and recomputing each render keeps it right across midnight.
+  const dueIds = new Set(dueProblems(allProblems, sessions, now).map((item) => item.problem.id))
+  const suggested = choosePracticeProblem(problems, sessions, now)
   const pinned = params.problemId === undefined ? undefined : problemsById.get(params.problemId)
   const selected = pinned ?? suggested
   const reviewedCount = latestSessions.size
-  const needsReviewCount = [...latestSessions.values()].filter(
-    (session) => session.outcome === 'needs-review',
-  ).length
 
   function selectProblem(problemId: number): void {
     params.update({ problem: String(problemId) })
@@ -64,7 +64,7 @@ export function LeetCodePage(): JSX.Element {
             </p>
             <SegmentedBar segments={difficultySegments} label="Solved problems by difficulty" />
             <p className="header-stat-note">
-              {formatCount(reviewedCount)} reviewed here · {formatCount(needsReviewCount)} need review
+              {formatCount(reviewedCount)} reviewed here · {formatCount(dueIds.size)} due for review
             </p>
           </div>
         }
@@ -94,11 +94,10 @@ export function LeetCodePage(): JSX.Element {
           problems={problems}
           selectedId={selected?.id}
           latestSessions={latestSessions}
+          dueIds={dueIds}
           onSelect={selectProblem}
         />
       </div>
-
-      <RecentReflections sessions={sessions} problemsById={problemsById} onSelect={selectProblem} />
     </div>
   )
 }

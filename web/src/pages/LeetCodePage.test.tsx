@@ -121,19 +121,28 @@ describe('LeetCode workspace', () => {
     await user.type(screen.getByRole('textbox', { name: 'Reflection' }), 'Carry the remainder past the last node.')
     await user.click(screen.getByRole('button', { name: /save session/i }))
 
-    expect(screen.getByText(/session saved/i)).toBeInTheDocument()
-    expect(screen.getAllByText('Carry the remainder past the last node.')).toHaveLength(2)
+    // "Needs review" brings the problem back tomorrow.
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    expect(screen.getByText(/session saved/i)).toHaveTextContent(`next review ${formatDay(tomorrow)}`)
+    expect(screen.getAllByText('Carry the remainder past the last node.')).toHaveLength(1)
     expect(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}')).toMatchObject({
       sessions: [{ problemId: 2, outcome: 'needs-review', reflection: 'Carry the remainder past the last node.' }],
     })
 
-    await user.click(screen.getByRole('link', { name: /today/i }))
+    await user.click(screen.getByRole('link', { name: /^review$/i }))
 
-    const review = screen.getByRole('region', { name: /due for review/i })
-    expect(within(review).getByRole('link', { name: /add two numbers/i })).toHaveAttribute(
+    const upcoming = screen.getByRole('list', { name: /problems coming up/i })
+    expect(within(upcoming).getByRole('link', { name: /add two numbers/i })).toHaveAttribute(
       'href',
       '#/leetcode?problem=2',
     )
+    expect(upcoming).toHaveTextContent(/tomorrow/i)
+    expect(
+      within(screen.getByRole('region', { name: /recent reflections/i })).getByText(
+        'Carry the remainder past the last node.',
+      ),
+    ).toBeInTheDocument()
   })
 
   it('keeps a running timer and draft reflection across remounts', async () => {

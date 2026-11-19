@@ -46,7 +46,19 @@ export function DifficultyBadge({ difficulty }: { readonly difficulty: Difficult
   )
 }
 
-export function ProgressBadge({ progress }: { readonly progress: ProblemProgress }): JSX.Element | null {
+/** Review state of a problem; "due" (from the review schedule) wins over the latest outcome. */
+export type ReviewProgress = ProblemProgress | 'due'
+
+export function ProgressBadge({ progress }: { readonly progress: ReviewProgress }): JSX.Element | null {
+  if (progress === 'due') {
+    return (
+      <span className="badge" data-status="due">
+        <Icon name="clock" size={14} />
+        Due
+      </span>
+    )
+  }
+
   if (progress === 'success') {
     return (
       <span className="badge" data-status="good">

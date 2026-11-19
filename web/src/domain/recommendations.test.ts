@@ -139,25 +139,38 @@ describe('choosePracticeProblem', () => {
     }
   }
 
-  it('ranks the latest needs-review problem first', () => {
+  // Nov 19, 10:00 in Los Angeles.
+  const now = new Date('2026-11-19T18:00:00.000Z')
+
+  it('ranks due problems first, most overdue first', () => {
     const sessions = [
-      session(1, '2026-11-10T09:00:00.000Z', 'needs-review'),
-      session(2, '2026-11-12T09:00:00.000Z', 'needs-review'),
-      session(3, '2026-11-11T09:00:00.000Z', 'success'),
+      session(1, '2026-11-15T18:00:00.000Z', 'success'), // due Nov 18
+      session(2, '2026-11-12T18:00:00.000Z', 'needs-review'), // due Nov 13
     ]
 
-    expect(choosePracticeProblem(problems, sessions)?.id).toBe(2)
+    expect(choosePracticeProblem(problems, sessions, now)?.id).toBe(2)
+    expect(choosePracticeProblem([problems[0]!, problems[2]!], sessions, now)?.id).toBe(1)
   })
 
-  it('ranks never-practiced before least-recently completed, then by id', () => {
+  it('ranks never-practiced problems before ones that are not due yet, then by id', () => {
     const sessions = [
-      session(2, '2026-11-12T09:00:00.000Z', 'success'),
-      session(1, '2026-11-10T09:00:00.000Z', 'success'),
+      session(2, '2026-11-18T18:00:00.000Z', 'needs-review'), // due Nov 19: today
+      session(1, '2026-11-19T18:00:00.000Z', 'success'), // due Nov 22
     ]
 
-    expect(choosePracticeProblem(problems, sessions)?.id).toBe(3)
-    expect(choosePracticeProblem([problems[1]!, problems[2]!], sessions)?.id).toBe(1)
-    expect(choosePracticeProblem([problems[0]!, problems[2]!], sessions)?.id).toBe(3)
+    expect(choosePracticeProblem(problems, sessions, now)?.id).toBe(2)
+    expect(choosePracticeProblem([problems[0]!, problems[2]!], sessions, now)?.id).toBe(3)
+    expect(choosePracticeProblem([problems[2]!], sessions, now)?.id).toBe(1)
+  })
+
+  it('picks the soonest scheduled problem when nothing is due or new', () => {
+    const sessions = [
+      session(1, '2026-11-19T18:00:00.000Z', 'success'), // due Nov 22
+      session(2, '2026-11-19T18:00:00.000Z', 'needs-review'), // due Nov 20
+      session(3, '2026-11-17T18:00:00.000Z', 'success'), // due Nov 20
+    ]
+
+    expect(choosePracticeProblem(problems, sessions, now)?.id).toBe(2)
   })
 })
 

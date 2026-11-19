@@ -1,4 +1,5 @@
 import type { JSX } from 'react'
+import { Link } from 'react-router'
 
 import { EmptyState, ProgressBadge } from '../../components/ui'
 import type { SolvedProblem } from '../../data/types'
@@ -11,10 +12,9 @@ const VISIBLE_REFLECTIONS = 6
 interface RecentReflectionsProps {
   readonly sessions: readonly SolveSession[]
   readonly problemsById: ReadonlyMap<number, SolvedProblem>
-  readonly onSelect: (problemId: number) => void
 }
 
-export function RecentReflections({ sessions, problemsById, onSelect }: RecentReflectionsProps): JSX.Element {
+export function RecentReflections({ sessions, problemsById }: RecentReflectionsProps): JSX.Element {
   const reflections = recentReflections(sessions, VISIBLE_REFLECTIONS)
 
   return (
@@ -28,7 +28,7 @@ export function RecentReflections({ sessions, problemsById, onSelect }: RecentRe
 
       {reflections.length === 0 ? (
         <EmptyState title="No reflections yet">
-          Save a session to capture what you learned. It shows up here and in the problem’s history.
+          Save a practice session on the LeetCode page. Its reflection shows up here and in the problem’s history.
         </EmptyState>
       ) : (
         <ul className="reflection-list">
@@ -38,10 +38,10 @@ export function RecentReflections({ sessions, problemsById, onSelect }: RecentRe
             return (
               <li key={`${session.endedAt}-${index}`} className="reflection-item">
                 <div className="reflection-head">
-                  <button type="button" className="text-button" onClick={() => onSelect(session.problemId)}>
+                  <Link className="text-button" to={`/leetcode?problem=${session.problemId}`}>
                     <span className="problem-number">{formatProblemNumber(session.problemId)}</span>
                     {problem?.title ?? `Problem ${session.problemId}`}
-                  </button>
+                  </Link>
                   <ProgressBadge progress={session.outcome} />
                   <span className="muted">{formatRelativeDay(session.endedAt)}</span>
                 </div>

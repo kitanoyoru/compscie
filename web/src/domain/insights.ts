@@ -15,11 +15,6 @@ export interface RankedCount {
   readonly count: number
 }
 
-export interface ReviewItem {
-  readonly problem: SolvedProblem
-  readonly session: SolveSession
-}
-
 export type ProblemProgress = 'new' | SolveOutcome
 
 function isInIsoWeek(value: string, now: Date): boolean {
@@ -138,22 +133,6 @@ export function problemProgress(
   latestSessions: ReadonlyMap<number, SolveSession>,
 ): ProblemProgress {
   return latestSessions.get(problemId)?.outcome ?? 'new'
-}
-
-/** Problems whose most recent session was marked "needs review", most recent first. */
-export function reviewQueue(
-  problems: readonly SolvedProblem[],
-  sessions: readonly SolveSession[],
-): ReviewItem[] {
-  const latest = latestSessionByProblem(sessions)
-
-  return problems
-    .flatMap((problem) => {
-      const session = latest.get(problem.id)
-
-      return session?.outcome === 'needs-review' ? [{ problem, session }] : []
-    })
-    .sort((left, right) => byEndedAtDescending(left.session, right.session))
 }
 
 export function sessionsForProblem(sessions: readonly SolveSession[], problemId: number): SolveSession[] {

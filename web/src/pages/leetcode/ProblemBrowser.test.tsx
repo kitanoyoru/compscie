@@ -22,6 +22,7 @@ function renderBrowser(query: string, update: LeetCodeParams['update']) {
       problems={[]}
       selectedId={undefined}
       latestSessions={new Map()}
+      dueIds={new Set()}
       onSelect={() => undefined}
     />
   )

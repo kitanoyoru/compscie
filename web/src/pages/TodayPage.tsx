@@ -31,7 +31,7 @@ export function TodayPage(): JSX.Element {
         </div>
         <aside className="stack" aria-label="Progress">
           <WeekCard state={state} now={now} />
-          <ReviewCard sessions={state.sessions} />
+          <ReviewCard sessions={state.sessions} now={now} />
         </aside>
       </div>
     </div>
