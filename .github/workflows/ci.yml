@@ -1,10 +1,10 @@
 name: CI
 
+# Single definition of the web app checks. Pull requests run it directly; the
+# Learning platform workflow calls it on main and deploys only if it passes.
 on:
   pull_request:
-  push:
-    branches:
-      - main
+  workflow_call:
 
 permissions:
   contents: read
@@ -17,7 +17,7 @@ jobs:
   validate:
     name: Test, type-check, and build
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: web
@@ -36,11 +36,17 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Check generated repository data is fresh
+        run: |
+          yarn generate:data
+          git diff --exit-code -- src/data/generated/repository.ts
+
+      # `yarn check` is Yarn's built-in integrity check; `run check` is the tsc script.
+      - name: Type-check
+        run: yarn run check
+
       - name: Run tests
         run: yarn test --run
-
-      - name: Type-check
-        run: yarn check
 
       - name: Build production site
         run: yarn build
@@ -52,3 +58,26 @@ jobs:
           path: web/dist
           if-no-files-found: error
           retention-days: 14
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('web/yarn.lock') }}
+
+      - name: Install Playwright browser
+        run: yarn playwright install --with-deps chromium
+
+      # In CI the Playwright web server only previews the dist built above.
+      - name: Run browser smoke tests
+        run: yarn e2e
+
+      - name: Upload Playwright artifacts
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-artifacts
+          path: |
+            web/playwright-report/
+            web/test-results/
+          retention-days: 7
