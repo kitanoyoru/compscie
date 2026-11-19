@@ -1,5 +1,6 @@
 ---
 date: 2026-08-23
+concepts: Memory
 ---
 
 # Go Maps: Swiss Tables (Go 1.24+)

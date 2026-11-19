@@ -14,6 +14,7 @@ const goTopic: TopicSummary = {
   started: '2026-08-23',
   lastNote: '2026-08-23',
   noteCount: 1,
+  concepts: [],
 }
 
 const clickhouseTopic: TopicSummary = {
@@ -25,6 +26,7 @@ const clickhouseTopic: TopicSummary = {
   started: '2026-10-18',
   lastNote: '2026-11-17',
   noteCount: 1,
+  concepts: [],
 }
 
 const snapshot = {

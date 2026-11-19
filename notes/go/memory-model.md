@@ -1,5 +1,6 @@
 ---
 date: 2026-08-23
+concepts: Concurrency
 ---
 
 # Go Memory Model

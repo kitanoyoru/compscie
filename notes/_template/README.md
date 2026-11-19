@@ -4,11 +4,13 @@ status: active
 started: STARTED
 focus: What I am working through now.
 next: The next concrete topic or experiment.
+concepts:
 ---
 
 # TITLE
 
-<!-- status: planned | active | paused | done. The root README reads the block above. -->
+<!-- status: planned | active | paused | done. The root README reads the block above.
+     concepts: comma-separated, in the order the Knowledge Map draws them; each note lists the ones it covers. -->
 
 ## Why I'm learning this
 

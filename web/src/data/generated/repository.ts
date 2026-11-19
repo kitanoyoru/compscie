@@ -11,7 +11,12 @@ export const repositorySnapshot = {
       "next": "Run and write up the date-parts lab.",
       "started": "2026-10-18",
       "lastNote": "2026-11-19",
-      "noteCount": 6
+      "noteCount": 6,
+      "concepts": [
+        "MergeTree storage",
+        "Sparse indexing",
+        "Date/time queries"
+      ]
     },
     {
       "slug": "go",
@@ -21,7 +26,13 @@ export const repositorySnapshot = {
       "next": "Add pprof and runtime/trace workflows.",
       "started": "2026-08-23",
       "lastNote": "2026-08-23",
-      "noteCount": 18
+      "noteCount": 18,
+      "concepts": [
+        "Runtime",
+        "Concurrency",
+        "Memory",
+        "Production diagnostics"
+      ]
     }
   ],
   "notes": [
@@ -30,168 +41,241 @@ export const repositorySnapshot = {
       "title": "ClickHouse Partitioning",
       "filename": "partitioning.md",
       "path": "notes/clickhouse/partitioning.md",
-      "date": "2026-11-19"
+      "date": "2026-11-19",
+      "concepts": [
+        "MergeTree storage"
+      ]
     },
     {
       "topicSlug": "clickhouse",
       "title": "ClickHouse date and time functions",
       "filename": "date-time-functions.md",
       "path": "notes/clickhouse/date-time-functions.md",
-      "date": "2026-11-17"
+      "date": "2026-11-17",
+      "concepts": [
+        "Date/time queries"
+      ]
     },
     {
       "topicSlug": "clickhouse",
       "title": "ClickHouse Sparse Index",
       "filename": "sparse-index.md",
       "path": "notes/clickhouse/sparse-index.md",
-      "date": "2026-10-31"
+      "date": "2026-10-31",
+      "concepts": [
+        "Sparse indexing"
+      ]
     },
     {
       "topicSlug": "clickhouse",
       "title": "ClickHouse Data Part",
       "filename": "data-part.md",
       "path": "notes/clickhouse/data-part.md",
-      "date": "2026-10-24"
+      "date": "2026-10-24",
+      "concepts": [
+        "MergeTree storage"
+      ]
     },
     {
       "topicSlug": "clickhouse",
       "title": "ClickHouse Granule",
       "filename": "granule.md",
       "path": "notes/clickhouse/granule.md",
-      "date": "2026-10-24"
+      "date": "2026-10-24",
+      "concepts": [
+        "MergeTree storage",
+        "Sparse indexing"
+      ]
     },
     {
       "topicSlug": "clickhouse",
       "title": "ClickHouse PRIMARY KEY vs ORDER BY",
       "filename": "primary-key-vs-order-by.md",
       "path": "notes/clickhouse/primary-key-vs-order-by.md",
-      "date": "2026-10-24"
+      "date": "2026-10-24",
+      "concepts": [
+        "MergeTree storage",
+        "Sparse indexing"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Channels",
       "filename": "channels.md",
       "path": "notes/go/channels.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Concurrency"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Context",
       "filename": "context.md",
       "path": "notes/go/context.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Concurrency"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Deadlock Detector",
       "filename": "deadlock-detector.md",
       "path": "notes/go/deadlock-detector.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Runtime",
+        "Production diagnostics"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go defer",
       "filename": "defer.md",
       "path": "notes/go/defer.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Runtime"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Escape Analysis and GC Tuning",
       "filename": "escape-analysis-gc-tuning.md",
       "path": "notes/go/escape-analysis-gc-tuning.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Memory",
+        "Production diagnostics"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Garbage Collector",
       "filename": "garbage-collector.md",
       "path": "notes/go/garbage-collector.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Memory",
+        "Production diagnostics"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Generics",
       "filename": "generics.md",
       "path": "notes/go/generics.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": []
     },
     {
       "topicSlug": "go",
       "title": "Go Interfaces",
       "filename": "interfaces.md",
       "path": "notes/go/interfaces.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": []
     },
     {
       "topicSlug": "go",
       "title": "Go Maps: Legacy Buckets (before Go 1.24)",
       "filename": "maps-legacy-buckets.md",
       "path": "notes/go/maps-legacy-buckets.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Memory"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Maps: Swiss Tables (Go 1.24+)",
       "filename": "maps-swiss-tables.md",
       "path": "notes/go/maps-swiss-tables.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Memory"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Memory Allocator",
       "filename": "memory-allocator.md",
       "path": "notes/go/memory-allocator.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Memory"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Memory Model",
       "filename": "memory-model.md",
       "path": "notes/go/memory-model.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Concurrency"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go sync.Mutex",
       "filename": "mutex.md",
       "path": "notes/go/mutex.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Concurrency"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go sync.RWMutex",
       "filename": "rwmutex.md",
       "path": "notes/go/rwmutex.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Concurrency"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Scheduler (GMP)",
       "filename": "scheduler-gmp.md",
       "path": "notes/go/scheduler-gmp.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Runtime"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Slices",
       "filename": "slices.md",
       "path": "notes/go/slices.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Memory"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go Timers and Tickers",
       "filename": "timers-tickers.md",
       "path": "notes/go/timers-tickers.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Runtime"
+      ]
     },
     {
       "topicSlug": "go",
       "title": "Go sync.WaitGroup",
       "filename": "waitgroup.md",
       "path": "notes/go/waitgroup.md",
-      "date": "2026-08-23"
+      "date": "2026-08-23",
+      "concepts": [
+        "Concurrency"
+      ]
     }
   ],
   "problems": [

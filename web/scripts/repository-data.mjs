@@ -58,6 +58,14 @@ function parseFrontmatter(content) {
     }, {})
 }
 
+/** Splits a `concepts: A, B` frontmatter value into trimmed, non-empty names. */
+function conceptList(value) {
+  return (value ?? '')
+    .split(',')
+    .map((concept) => concept.trim())
+    .filter(Boolean)
+}
+
 function noteTitle(content, filename) {
   const heading = /^#\s+(.+)$/m.exec(content)
 
@@ -90,6 +98,7 @@ function collectNotes(repoRoot, topicSlug) {
         filename: entry.name,
         path: relativePath(repoRoot, notePath),
         date: frontmatter.date ?? '',
+        concepts: conceptList(frontmatter.concepts),
       }
     })
     .sort((left, right) => {
@@ -107,6 +116,35 @@ function topicStatus(value) {
   }
 
   return value
+}
+
+/**
+ * The topic README lists its concepts in display order; each note lists the ones it covers.
+ * Every note concept must be one of the topic's, and every topic concept needs a note.
+ */
+function topicConcepts(slug, value, topicNotes) {
+  const readme = `notes/${slug}/README.md`
+  const concepts = conceptList(value)
+
+  if (new Set(concepts).size !== concepts.length) {
+    throw new Error(`${readme} lists a concept twice: ${concepts.join(', ')}`)
+  }
+
+  for (const note of topicNotes) {
+    for (const concept of note.concepts) {
+      if (!concepts.includes(concept)) {
+        throw new Error(`${note.path} lists concept "${concept}", which ${readme} does not define`)
+      }
+    }
+  }
+
+  for (const concept of concepts) {
+    if (!topicNotes.some((note) => note.concepts.includes(concept))) {
+      throw new Error(`Concept "${concept}" in ${readme} has no notes`)
+    }
+  }
+
+  return concepts
 }
 
 function collectTopics(repoRoot, notes) {
@@ -131,6 +169,7 @@ function collectTopics(repoRoot, notes) {
       }
 
       const topicNotes = notes.filter((note) => note.topicSlug === entry.name)
+      const concepts = topicConcepts(entry.name, frontmatter.concepts, topicNotes)
 
       return {
         slug: entry.name,
@@ -141,6 +180,7 @@ function collectTopics(repoRoot, notes) {
         started: frontmatter.started,
         lastNote: topicNotes[0]?.date ?? null,
         noteCount: topicNotes.length,
+        concepts,
       }
     })
     .sort((left, right) => left.slug.localeCompare(right.slug))

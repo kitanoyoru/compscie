@@ -1,5 +1,6 @@
 ---
 date: 2026-10-24
+concepts: MergeTree storage
 ---
 
 # ClickHouse Data Part
