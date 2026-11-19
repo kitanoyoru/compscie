@@ -4,6 +4,8 @@ import { StrictMode } from 'react'
 import { afterEach, beforeEach, expect, it } from 'vitest'
 
 import { App } from './App'
+import { repositorySnapshot } from './data/generated/repository'
+import { formatDay } from './lib/format'
 import { THEME_STORAGE_KEY } from './state/theme'
 
 beforeEach(() => {
@@ -20,6 +22,14 @@ it('renders the Compscie learning workspace', () => {
   render(<App />)
 
   expect(screen.getByRole('banner', { name: /compscie/i })).toBeInTheDocument()
+})
+
+it('shows the snapshot date as its calendar day in the footer', () => {
+  render(<App />)
+
+  const day = repositorySnapshot.generatedAt.slice(0, 10)
+
+  expect(screen.getByRole('contentinfo')).toHaveTextContent(`repository snapshot of ${formatDay(day)}.`)
 })
 
 it('switches and remembers the color theme', async () => {

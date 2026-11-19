@@ -88,7 +88,7 @@ export function AppShell({ children }: PropsWithChildren): JSX.Element {
         <div className="app-footer-inner">
           <p>
             Notes and solved problems come from the repository snapshot of{' '}
-            {formatDay(repositorySnapshot.generatedAt)}. Tasks and practice sessions stay in this
+            {formatDay(repositorySnapshot.generatedAt.slice(0, 10))}. Tasks and practice sessions stay in this
             browser only.
           </p>
           <div className="app-footer-actions">

@@ -1,4 +1,5 @@
 import type { Difficulty, RepositorySnapshot, SolvedProblem, TopicSummary } from '../data/types'
+import { addLocalDays, startOfLocalIsoWeek } from '../lib/calendar'
 import type { LearningTask, PersonalLearningState, SolveSession } from './personal-types'
 
 export const FILTER_ALL = 'all'
@@ -175,15 +176,12 @@ export function choosePracticeProblem(
 }
 
 export function getIsoWeekStart(now: Date): Date {
-  const utcMidnight = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
-  const daysSinceMonday = (now.getUTCDay() + 6) % 7
-
-  return new Date(utcMidnight - daysSinceMonday * 24 * 60 * 60 * 1000)
+  return startOfLocalIsoWeek(now)
 }
 
 export function countCompletedThisIsoWeek(tasks: readonly LearningTask[], now: Date): number {
   const weekStart = getIsoWeekStart(now)
-  const weekEnd = new Date(weekStart.getTime() + 7 * 24 * 60 * 60 * 1000)
+  const weekEnd = addLocalDays(weekStart, 7)
 
   return tasks.filter((task) => {
     if (task.status !== 'completed' || task.completedAt === undefined) {

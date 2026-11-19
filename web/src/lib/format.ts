@@ -1,4 +1,4 @@
-const DAY_MS = 24 * 60 * 60 * 1000
+import { isCalendarDate, localDaysBetween } from './calendar'
 
 const dayFormatter = new Intl.DateTimeFormat(undefined, {
   month: 'short',
@@ -10,6 +10,12 @@ const dayWithYearFormatter = new Intl.DateTimeFormat(undefined, {
   day: 'numeric',
   year: 'numeric',
   timeZone: 'UTC',
+})
+const localDayFormatter = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' })
+const localDayWithYearFormatter = new Intl.DateTimeFormat(undefined, {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
 })
 const longDayFormatter = new Intl.DateTimeFormat(undefined, {
   weekday: 'long',
@@ -24,23 +30,33 @@ function toTime(value: Date | string): number {
   return typeof value === 'string' ? Date.parse(value) : value.getTime()
 }
 
-function utcMidnight(time: number): number {
-  const date = new Date(time)
-
-  return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
-}
-
-/** `Nov 17`, or `Nov 17, 2025` outside the current year. Calendar days are read in UTC. */
+/**
+ * `Nov 17`, or `Nov 17, 2025` outside the current year.
+ * A `YYYY-MM-DD` calendar date is formatted as that exact day in every time zone.
+ * Any other timestamp is formatted in the viewer's time zone.
+ */
 export function formatDay(value: Date | string, now: Date = new Date()): string {
+  if (typeof value === 'string' && isCalendarDate(value)) {
+    const time = Date.parse(value)
+
+    if (Number.isNaN(time)) {
+      return ''
+    }
+
+    const sameYear = new Date(time).getUTCFullYear() === now.getFullYear()
+
+    return (sameYear ? dayFormatter : dayWithYearFormatter).format(time)
+  }
+
   const time = toTime(value)
 
   if (Number.isNaN(time)) {
     return ''
   }
 
-  const sameYear = new Date(time).getUTCFullYear() === now.getUTCFullYear()
+  const sameYear = new Date(time).getFullYear() === now.getFullYear()
 
-  return (sameYear ? dayFormatter : dayWithYearFormatter).format(time)
+  return (sameYear ? localDayFormatter : localDayWithYearFormatter).format(time)
 }
 
 /** `Thursday, November 19` in the viewer's time zone. */
@@ -54,15 +70,9 @@ export function formatWeekday(day: string, style: 'short' | 'narrow' = 'short'):
   return Number.isNaN(time) ? '' : (style === 'narrow' ? narrowWeekdayFormatter : weekdayFormatter).format(time)
 }
 
-/** Whole calendar days between two moments, compared as UTC days. */
+/** Whole calendar days from `value` to `now`, in the viewer's time zone. Calendar dates never shift. */
 export function daysBetween(value: Date | string, now: Date): number | undefined {
-  const time = toTime(value)
-
-  if (Number.isNaN(time)) {
-    return undefined
-  }
-
-  return Math.round((utcMidnight(now.getTime()) - utcMidnight(time)) / DAY_MS)
+  return localDaysBetween(value, now)
 }
 
 /** `today`, `yesterday`, `5 days ago`, `3 months ago`. */

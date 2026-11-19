@@ -1,11 +1,10 @@
 import type { Difficulty, SolvedProblem } from '../data/types'
 import type { LearningTask, SolveSession, SolveOutcome } from './personal-types'
+import { addLocalDays, localDayKey } from '../lib/calendar'
 import { getIsoWeekStart } from './recommendations'
 
-const DAY_MS = 24 * 60 * 60 * 1000
-
 export interface DayCount {
-  /** UTC calendar day, `YYYY-MM-DD`. */
+  /** Viewer-local calendar day, `YYYY-MM-DD`. */
   readonly date: string
   readonly count: number
 }
@@ -22,27 +21,20 @@ export interface ReviewItem {
 
 export type ProblemProgress = 'new' | SolveOutcome
 
-/** Returns the UTC calendar day of a timestamp, or `undefined` for an unparsable value. */
-export function utcDay(value: Date | string): string | undefined {
-  const time = typeof value === 'string' ? Date.parse(value) : value.getTime()
-
-  return Number.isNaN(time) ? undefined : new Date(time).toISOString().slice(0, 10)
-}
-
 function isInIsoWeek(value: string, now: Date): boolean {
   const time = Date.parse(value)
-  const weekStart = getIsoWeekStart(now).getTime()
+  const weekStart = getIsoWeekStart(now)
 
-  return !Number.isNaN(time) && time >= weekStart && time < weekStart + 7 * DAY_MS
+  return !Number.isNaN(time) && time >= weekStart.getTime() && time < addLocalDays(weekStart, 7).getTime()
 }
 
-/** Completed tasks per day for the ISO week (Monday to Sunday, UTC) that contains `now`. */
+/** Completed tasks per day for the ISO week (Monday to Sunday, viewer-local) that contains `now`. */
 export function completionsByDayThisIsoWeek(tasks: readonly LearningTask[], now: Date): DayCount[] {
-  const weekStart = getIsoWeekStart(now).getTime()
+  const weekStart = getIsoWeekStart(now)
   const counts = new Map<string, number>()
 
   for (const task of tasks) {
-    const day = task.status === 'completed' && task.completedAt ? utcDay(task.completedAt) : undefined
+    const day = task.status === 'completed' && task.completedAt ? localDayKey(task.completedAt) : undefined
 
     if (day !== undefined) {
       counts.set(day, (counts.get(day) ?? 0) + 1)
@@ -50,7 +42,7 @@ export function completionsByDayThisIsoWeek(tasks: readonly LearningTask[], now:
   }
 
   return Array.from({ length: 7 }, (_, offset) => {
-    const date = new Date(weekStart + offset * DAY_MS).toISOString().slice(0, 10)
+    const date = localDayKey(addLocalDays(weekStart, offset)) ?? ''
 
     return { date, count: counts.get(date) ?? 0 }
   })
@@ -61,7 +53,7 @@ export function countSessionsThisIsoWeek(sessions: readonly SolveSession[], now:
 }
 
 /**
- * Consecutive UTC days with at least one completed task or practice session.
+ * Consecutive viewer-local days with at least one completed task or practice session.
  * A streak stays alive through today until the day ends, so it counts back from
  * yesterday when there is no activity yet today.
  */
@@ -73,7 +65,7 @@ export function activityStreak(
   const activeDays = new Set<string>()
 
   for (const task of tasks) {
-    const day = task.status === 'completed' && task.completedAt ? utcDay(task.completedAt) : undefined
+    const day = task.status === 'completed' && task.completedAt ? localDayKey(task.completedAt) : undefined
 
     if (day !== undefined) {
       activeDays.add(day)
@@ -81,20 +73,24 @@ export function activityStreak(
   }
 
   for (const session of sessions) {
-    const day = utcDay(session.endedAt)
+    const day = localDayKey(session.endedAt)
 
     if (day !== undefined) {
       activeDays.add(day)
     }
   }
 
-  const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
-  let cursor = activeDays.has(new Date(today).toISOString().slice(0, 10)) ? today : today - DAY_MS
+  let cursor = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+
+  if (!activeDays.has(localDayKey(cursor) ?? '')) {
+    cursor = addLocalDays(cursor, -1)
+  }
+
   let streak = 0
 
-  while (activeDays.has(new Date(cursor).toISOString().slice(0, 10))) {
+  while (activeDays.has(localDayKey(cursor) ?? '')) {
     streak += 1
-    cursor -= DAY_MS
+    cursor = addLocalDays(cursor, -1)
   }
 
   return streak

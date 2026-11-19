@@ -86,6 +86,20 @@ describe('weekly activity', () => {
     expect(activityStreak(tasks, [...sessions, session(2, '2026-11-19T09:00:00.000Z')], now)).toBe(3)
     expect(activityStreak(tasks, [], now)).toBe(0)
   })
+
+  it('counts a late-evening local session on its local day', () => {
+    // 2026-11-19T06:00:00Z is Wednesday 22:00 PST, so Wednesday, not Thursday.
+    const thursdayMorning = new Date('2026-11-19T18:00:00.000Z')
+    const sessions = [session(1, '2026-11-19T06:00:00.000Z')]
+
+    expect(activityStreak([], sessions, thursdayMorning)).toBe(1)
+    expect(activityStreak([], sessions, new Date('2026-11-21T18:00:00.000Z'))).toBe(0)
+    expect(
+      completionsByDayThisIsoWeek([completedTask('late', '2026-11-19T06:00:00.000Z')], thursdayMorning).map(
+        (day) => day.count,
+      ),
+    ).toEqual([0, 0, 1, 0, 0, 0, 0])
+  })
 })
 
 describe('practice history', () => {
