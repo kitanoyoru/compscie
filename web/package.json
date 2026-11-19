@@ -15,7 +15,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "e2e": "playwright test",
-    "check": "tsc --project tsconfig.app.json --noEmit"
+    "check": "tsc --project tsconfig.app.json --noEmit && tsc --project tsconfig.e2e.json --noEmit"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -23,11 +23,12 @@
     "react-router": "^7.18.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.65.1",
+    "@playwright/test": "1.65.1",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.12",
+    "@types/node": "^22",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.3.0",
