@@ -1483,6 +1483,22 @@ details[open] .details-chevron {
   padding-left: 2.1rem;
 }
 
+.search-hint {
+  position: absolute;
+  top: 50%;
+  right: 0.6rem;
+  display: none;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.3rem;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
 .filter-selects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
@@ -1912,6 +1928,19 @@ details[open] .details-chevron {
    ========================================================================== */
 
 @media (min-width: 40rem) {
+  .search-field .input {
+    padding-right: 2.4rem;
+  }
+
+  .search-field .search-hint {
+    display: inline-block;
+  }
+
+  .search-field:focus-within .search-hint,
+  .search-field:has(input:not(:placeholder-shown)) .search-hint {
+    display: none;
+  }
+
   .task-composer {
     grid-template-columns: minmax(0, 1fr) 9rem 5.5rem auto;
     align-items: end;

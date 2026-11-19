@@ -1,4 +1,4 @@
-import { useId, useMemo, useState, type JSX } from 'react'
+import { useEffect, useId, useMemo, useRef, useState, type JSX } from 'react'
 
 import { Icon } from '../../components/Icon'
 import { DIFFICULTY_LABELS, DifficultyBadge, EmptyState, ProgressBadge, formatCount } from '../../components/ui'
@@ -8,6 +8,7 @@ import { problemProgress, rankCounts } from '../../domain/insights'
 import type { SolveSession } from '../../domain/personal-types'
 import { FILTER_ALL } from '../../domain/recommendations'
 import { formatProblemNumber } from '../../lib/format'
+import { isTypingTarget } from '../../lib/keyboard'
 import type { DifficultyFilter, LeetCodeParams } from './useLeetCodeParams'
 
 const PAGE_SIZE = 40
@@ -23,8 +24,6 @@ const tagOptions = rankCounts(allProblems.flatMap((problem) => problem.tags)).so
 
 interface ProblemBrowserProps {
   readonly params: LeetCodeParams
-  readonly query: string
-  readonly onQueryChange: (query: string) => void
   readonly problems: readonly SolvedProblem[]
   readonly selectedId: number | undefined
   readonly latestSessions: ReadonlyMap<number, SolveSession>
@@ -33,14 +32,14 @@ interface ProblemBrowserProps {
 
 export function ProblemBrowser({
   params,
-  query,
-  onQueryChange,
   problems,
   selectedId,
   latestSessions,
   onSelect,
 }: ProblemBrowserProps): JSX.Element {
   const searchId = useId()
+  const searchRef = useRef<HTMLInputElement>(null)
+  const { query } = params
   const languageId = useId()
   const tagId = useId()
   const [shown, setShown] = useState(PAGE_SIZE)
@@ -51,6 +50,33 @@ export function ProblemBrowser({
     params.language !== FILTER_ALL ||
     params.tag !== FILTER_ALL
 
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent): void {
+      if (
+        event.key !== '/' ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.altKey ||
+        event.defaultPrevented ||
+        isTypingTarget(event.target)
+      ) {
+        return
+      }
+
+      const search = searchRef.current
+      if (search === null) {
+        return
+      }
+
+      event.preventDefault()
+      search.focus()
+      search.select()
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [])
+
   function changeFilter(patch: Parameters<LeetCodeParams['update']>[0]): void {
     setShown(PAGE_SIZE)
     params.update(patch)
@@ -58,8 +84,7 @@ export function ProblemBrowser({
 
   function clearFilters(): void {
     setShown(PAGE_SIZE)
-    onQueryChange('')
-    params.update({ difficulty: null, language: null, tag: null })
+    params.update({ q: null, difficulty: null, language: null, tag: null })
   }
 
   return (
@@ -90,12 +115,24 @@ export function ProblemBrowser({
             type="search"
             placeholder="Search by number or title"
             autoComplete="off"
+            aria-keyshortcuts="/"
+            ref={searchRef}
             value={query}
             onChange={(event) => {
               setShown(PAGE_SIZE)
-              onQueryChange(event.target.value)
+              params.update({ q: event.target.value })
+            }}
+            onKeyDown={(event) => {
+              if (event.key === 'Escape' && query !== '') {
+                event.preventDefault()
+                setShown(PAGE_SIZE)
+                params.update({ q: null })
+              }
             }}
           />
+          <kbd className="search-hint" aria-hidden="true">
+            /
+          </kbd>
         </div>
 
         <div className="segmented-control" role="group" aria-label="Difficulty">

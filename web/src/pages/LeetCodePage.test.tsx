@@ -146,4 +146,85 @@ describe('LeetCode workspace', () => {
     expect(history.getAllByRole('listitem')).toHaveLength(1)
     expect(screen.getByRole('heading', { name: /your history/i })).toHaveFocus()
   })
+  it('restores the search from the URL', () => {
+    window.location.hash = '#/leetcode?q=two%20sum'
+    render(<App />)
+    expect(screen.getByRole('searchbox', { name: /search problems/i })).toHaveValue('two sum')
+  })
+
+  it('focuses search with / and clears it with Escape', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.keyboard('/')
+    const search = screen.getByRole('searchbox', { name: /search problems/i })
+    expect(search).toHaveFocus()
+
+    await user.type(search, 'two')
+    expect(search).toHaveValue('two')
+    expect(window.location.hash).toContain('q=two')
+
+    await user.keyboard('{Escape}')
+    expect(search).toHaveValue('')
+    expect(window.location.hash).not.toContain('q=')
+  })
+
+  it('selects the existing search text when / refocuses it', async () => {
+    window.location.hash = '#/leetcode?q=two%20sum'
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.keyboard('/')
+    const search = screen.getByRole<HTMLInputElement>('searchbox', { name: /search problems/i })
+    expect(search).toHaveFocus()
+    expect(search.selectionStart).toBe(0)
+    expect(search.selectionEnd).toBe('two sum'.length)
+  })
+
+  it('does not steal / while typing a reflection', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    const reflection = screen.getByLabelText(/^reflection$/i)
+    await user.type(reflection, 'a/b')
+    expect(reflection).toHaveValue('a/b')
+    expect(screen.getByRole('searchbox', { name: /search problems/i })).toHaveValue('')
+  })
+
+  it('clears the search along with the other filters', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const search = screen.getByRole('searchbox', { name: /search problems/i })
+    await user.type(search, 'two')
+    await user.click(
+      within(screen.getByRole('group', { name: 'Difficulty' })).getByRole('button', { name: /easy/i }),
+    )
+    expect(window.location.hash).toContain('q=two')
+    expect(window.location.hash).toContain('difficulty=easy')
+
+    await user.click(screen.getByRole('button', { name: /clear filters/i }))
+    expect(search).toHaveValue('')
+    expect(window.location.hash).not.toContain('q=')
+    expect(window.location.hash).not.toContain('difficulty=')
+  })
+
+  it('leaves Escape alone when the search is empty', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const search = screen.getByRole('searchbox', { name: /search problems/i })
+    await user.click(search)
+    const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+    search.dispatchEvent(event)
+    expect(event.defaultPrevented).toBe(false)
+  })
+
+  it('marks the / hint as decorative and advertises the shortcut', () => {
+    render(<App />)
+    const search = screen.getByRole('searchbox', { name: /search problems/i })
+    expect(search).toHaveAttribute('aria-keyshortcuts', '/')
+    const hint = search.parentElement?.querySelector('kbd')
+    expect(hint).toHaveTextContent('/')
+    expect(hint).toHaveAttribute('aria-hidden', 'true')
+  })
 })

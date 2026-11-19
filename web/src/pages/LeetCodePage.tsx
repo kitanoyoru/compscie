@@ -1,4 +1,4 @@
-import { useMemo, useState, type JSX } from 'react'
+import { useMemo, type JSX } from 'react'
 
 import { SegmentedBar } from '../components/charts'
 import { usePageTitle } from '../components/RouteEffects'
@@ -32,8 +32,7 @@ export function LeetCodePage(): JSX.Element {
   usePageTitle('LeetCode')
   const { sessions } = useLearningState()
   const params = useLeetCodeParams()
-  const [query, setQuery] = useState('')
-  const { difficulty, language, tag } = params
+  const { difficulty, language, tag, query } = params
 
   const problems = useMemo(
     () => filterProblems(allProblems, { difficulty, language, tag, query }),
@@ -94,8 +93,6 @@ export function LeetCodePage(): JSX.Element {
         </div>
         <ProblemBrowser
           params={params}
-          query={query}
-          onQueryChange={setQuery}
           problems={problems}
           selectedId={selected?.id}
           latestSessions={latestSessions}
