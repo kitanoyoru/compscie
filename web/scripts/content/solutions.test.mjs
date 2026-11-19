@@ -48,9 +48,11 @@ test('falls back to plain text for a language it does not know', async () => {
 })
 
 test('writes one file per problem, skips unchanged problems, and removes stale ones', async () => {
-  const outDir = mkdtempSync(path.join(tmpdir(), 'compscie-solutions-'))
+  const workDir = mkdtempSync(path.join(tmpdir(), 'compscie-solutions-'))
+  const outDir = path.join(workDir, 'solutions')
+  const manifestPath = path.join(workDir, 'cache', 'manifest.json')
   const { problems } = collectRepositorySnapshot(validFixtureRoot)
-  const options = { repoRoot: validFixtureRoot, problems, outDir, shikiLanguages: loadShikiLanguages() }
+  const options = { repoRoot: validFixtureRoot, problems, outDir, manifestPath, shikiLanguages: loadShikiLanguages() }
 
   try {
     assert.deepEqual(await generateSolutionContent(options), { written: 1, skipped: 0, removed: 0 })
@@ -73,6 +75,6 @@ test('writes one file per problem, skips unchanged problems, and removes stale o
     assert.deepEqual(await generateSolutionContent(options), { written: 0, skipped: 1, removed: 1 })
     assert.equal(existsSync(path.join(outDir, '99.json')), false)
   } finally {
-    rmSync(outDir, { recursive: true, force: true })
+    rmSync(workDir, { recursive: true, force: true })
   }
 })

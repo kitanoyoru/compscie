@@ -26,13 +26,14 @@ const moduleText = renderRepositoryModule(snapshot)
 mkdirSync(path.dirname(outputPath), { recursive: true })
 writeFileSync(outputPath, moduleText)
 
-// Heavy, gitignored content that the app loads lazily: highlighted solutions.
-const contentRoot = path.resolve(path.dirname(outputPath), 'content')
+// Heavy, gitignored content that the app fetches on demand: highlighted solutions.
+const webRoot = path.resolve(path.dirname(scriptPath), '..')
 const started = performance.now()
 const solutions = await generateSolutionContent({
   repoRoot: repositoryRoot,
   problems: snapshot.problems,
-  outDir: path.join(contentRoot, 'solutions'),
+  outDir: path.join(webRoot, 'public', 'content', 'solutions'),
+  manifestPath: path.join(webRoot, 'node_modules', '.cache', 'compscie', 'solutions-manifest.json'),
   shikiLanguages: loadShikiLanguages(),
 })
 const seconds = ((performance.now() - started) / 1000).toFixed(1)

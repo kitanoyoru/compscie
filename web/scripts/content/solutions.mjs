@@ -1,11 +1,13 @@
 // Writes one JSON file per solved problem with every solution file highlighted:
 //
-//   src/data/generated/content/solutions/<id>.json
+//   public/content/solutions/<id>.json
 //     { problemId, files: [{ language, file, lines, html }] }
 //
-// The folder is gitignored and rebuilt by `generate:data`. A manifest keeps the source hash of
-// each problem, so only changed problems are highlighted again; any change to the content
-// scripts or the highlight settings rebuilds everything.
+// Vite copies public/ into the build as plain static files, and the app fetches one when a
+// solution is opened, so the main bundle carries no per-problem chunk map. The folder is
+// gitignored and rebuilt by `generate:data`. A manifest (kept outside public/, so it is not
+// deployed) stores the source hash of each problem: only changed problems are highlighted again,
+// and any change to the content scripts or the highlight settings rebuilds everything.
 
 import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
@@ -14,7 +16,6 @@ import { fileURLToPath } from 'node:url'
 
 import { CODE_BACKGROUNDS, CODE_THEMES, MIN_TEXT_CONTRAST, createCodeHighlighter } from './highlighter.mjs'
 
-const MANIFEST = 'manifest.json'
 const SCRIPT_FILES = ['./solutions.mjs', './highlighter.mjs', '../lib/color.mjs'].map(
   (relative) => new URL(relative, import.meta.url)
 )
@@ -38,9 +39,9 @@ function settingsKey() {
   )
 }
 
-function readManifest(outDir) {
+function readManifest(manifestPath) {
   try {
-    return JSON.parse(readFileSync(path.join(outDir, MANIFEST), 'utf8'))
+    return JSON.parse(readFileSync(manifestPath, 'utf8'))
   } catch {
     return { key: '', problems: {} }
   }
@@ -55,13 +56,16 @@ function lineCount(code) {
  * @param {string | URL} options.repoRoot
  * @param {readonly { id: number, path: string, solutions: readonly { language: string, file: string }[] }[]} options.problems
  * @param {string | URL} options.outDir
+ * @param {string | URL} options.manifestPath where source hashes are kept between runs
  * @param {Record<string, string>} options.shikiLanguages display name → Shiki language id
  */
-export async function generateSolutionContent({ repoRoot, problems, outDir, shikiLanguages }) {
-  const root = repoRoot instanceof URL ? fileURLToPath(repoRoot) : repoRoot
-  const out = outDir instanceof URL ? fileURLToPath(outDir) : outDir
+export async function generateSolutionContent({ repoRoot, problems, outDir, manifestPath, shikiLanguages }) {
+  const toPath = (value) => (value instanceof URL ? fileURLToPath(value) : value)
+  const root = toPath(repoRoot)
+  const out = toPath(outDir)
+  const manifestFile = toPath(manifestPath)
   const key = settingsKey()
-  const previous = readManifest(out)
+  const previous = readManifest(manifestFile)
   const known = previous.key === key ? previous.problems : {}
   const manifest = { key, problems: {} }
   const stats = { written: 0, skipped: 0, removed: 0 }
@@ -110,7 +114,8 @@ export async function generateSolutionContent({ repoRoot, problems, outDir, shik
     }
   }
 
-  writeFileSync(path.join(out, MANIFEST), `${JSON.stringify(manifest, null, 2)}\n`)
+  mkdirSync(path.dirname(manifestFile), { recursive: true })
+  writeFileSync(manifestFile, `${JSON.stringify(manifest, null, 2)}\n`)
 
   return stats
 }

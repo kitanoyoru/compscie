@@ -12,4 +12,4 @@ web/coverage/
 web/test-results/
 web/playwright-report/
 web/blob-report/
-web/src/data/generated/content/
+web/public/content/

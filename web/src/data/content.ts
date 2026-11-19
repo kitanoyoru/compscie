@@ -1,7 +1,8 @@
 /**
- * Lazy loaders for heavy content that `generate:data` writes to `generated/content/` (gitignored).
- * Each file becomes its own chunk, so the main bundle does not grow with content. Before the
- * first `generate:data` run the folder is empty and every loader resolves to `undefined`.
+ * Loaders for heavy content that `generate:data` writes to `public/content/` (gitignored). Vite
+ * copies it into the build as static files, fetched one at a time from the same origin, so the
+ * main bundle does not grow with content. Before the first `generate:data` run nothing is there
+ * and loaders resolve to `undefined`.
  */
 
 export interface SolutionFileContent {
@@ -18,12 +19,19 @@ export interface SolutionContent {
   readonly files: readonly SolutionFileContent[]
 }
 
-const solutionModules = import.meta.glob<SolutionContent>('./generated/content/solutions/*.json', {
-  import: 'default',
-})
+const CONTENT_URL = `${import.meta.env.BASE_URL}content/`
 
+/**
+ * The highlighted solutions of one problem. Resolves to `undefined` when the file does not exist;
+ * dev servers answer unknown paths with the HTML app shell, so anything but JSON counts as missing.
+ * Rejects when the request itself fails.
+ */
 export async function loadSolutions(problemId: number): Promise<SolutionContent | undefined> {
-  const load = solutionModules[`./generated/content/solutions/${problemId}.json`]
+  const response = await fetch(`${CONTENT_URL}solutions/${problemId}.json`)
 
-  return load === undefined ? undefined : load()
+  if (!response.ok || !(response.headers.get('content-type') ?? '').includes('json')) {
+    return undefined
+  }
+
+  return (await response.json()) as SolutionContent
 }
