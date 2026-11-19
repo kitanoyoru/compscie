@@ -33,6 +33,14 @@ describe('language icons', () => {
     }
   })
 
+  it.each(Object.entries(icons))('%s has a tight box no wider than 1.75 times its height', (_, icon) => {
+    const [, , width, height] = icon.viewBox.split(' ').map(Number) as [number, number, number, number]
+
+    expect(icon.aspect).toBeGreaterThanOrEqual(1)
+    expect(icon.aspect).toBeLessThanOrEqual(1.75)
+    expect(width / height).toBeCloseTo(icon.aspect, 1)
+  })
+
   it('covers every language in the repository (run `yarn --cwd web run vendor:icons` after adding one)', () => {
     const missing = repositorySnapshot.counts.languages.filter((language) => !Object.hasOwn(icons, language))
 

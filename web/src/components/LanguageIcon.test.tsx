@@ -14,6 +14,14 @@ describe('LanguageIcon', () => {
     expect(icon.querySelector('svg path')).toHaveAttribute('fill', 'currentColor')
   })
 
+  it('renders a wide wordmark wider instead of smaller', () => {
+    render(<LanguageIcon language="Go" size={16} />)
+
+    const svg = screen.getByRole('img', { name: 'Go' }).querySelector('svg')
+    expect(svg).toHaveAttribute('height', '16')
+    expect(Number(svg?.getAttribute('width'))).toBeGreaterThan(16)
+  })
+
   it('falls back to a monogram for a language without an icon', () => {
     render(<LanguageIcon language="Brainfuck" />)
 

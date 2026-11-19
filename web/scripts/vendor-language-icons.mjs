@@ -3,7 +3,9 @@
 //
 //   yarn --cwd web run vendor:icons
 //
-// Each icon gets a `light` and a `dark` color. Both start from the registry's linguist color
+// Each glyph is measured in Chromium (Playwright) and gets a tight `viewBox` plus an `aspect`
+// (width / height, from 1 to MAX_ASPECT), so wide wordmarks such as Go render wider instead of
+// smaller. Each icon gets a `light` and a `dark` color. Both start from the registry's linguist color
 // and are darkened (light theme) or lightened (dark theme) until they reach 3:1 contrast
 // against every surface an icon can sit on, as WCAG 1.4.11 asks of meaningful graphics.
 
@@ -19,6 +21,9 @@ export const ICON_BACKGROUNDS = {
   dark: ['#1a1a19', '#161615', '#232321'],
 }
 export const MIN_ICON_CONTRAST = 3
+/** Widest box an icon may take, as a multiple of its height. */
+export const MAX_ASPECT = 1.75
+const BOX_PADDING = 0.5
 
 /** Icons that simple-icons does not provide. Drawn on the same 24 × 24 grid. */
 const LOCAL_ICONS = {
@@ -110,6 +115,54 @@ export function adjustForContrast(hex, backgrounds, direction) {
   return candidate
 }
 
+async function measureGlyphs(paths) {
+  const { chromium } = await import('@playwright/test')
+  const browser = await chromium.launch()
+
+  try {
+    const page = await browser.newPage()
+
+    return await page.evaluate((pathData) => {
+      const namespace = 'http://www.w3.org/2000/svg'
+      const svg = document.createElementNS(namespace, 'svg')
+      document.body.append(svg)
+
+      return pathData.map((d) => {
+        const path = document.createElementNS(namespace, 'path')
+        path.setAttribute('d', d)
+        svg.append(path)
+        const { x, y, width, height } = path.getBBox()
+        path.remove()
+        return { x, y, width, height }
+      })
+    }, paths)
+  } finally {
+    await browser.close()
+  }
+}
+
+const round = (value) => Math.round(value * 100) / 100
+
+/** Pads the glyph's box, then widens it to a square or shortens it to MAX_ASPECT, keeping it centered. */
+export function fitBox({ x, y, width, height }) {
+  let boxWidth = width + BOX_PADDING * 2
+  let boxHeight = height + BOX_PADDING * 2
+
+  if (boxWidth < boxHeight) {
+    boxWidth = boxHeight
+  } else if (boxWidth / boxHeight > MAX_ASPECT) {
+    boxHeight = boxWidth / MAX_ASPECT
+  }
+
+  const left = x + width / 2 - boxWidth / 2
+  const top = y + height / 2 - boxHeight / 2
+
+  return {
+    viewBox: [left, top, boxWidth, boxHeight].map(round).join(' '),
+    aspect: round(boxWidth / boxHeight),
+  }
+}
+
 function pascalCase(slug) {
   return slug.charAt(0).toUpperCase() + slug.slice(1)
 }
@@ -134,30 +187,29 @@ function iconPath(language) {
   return { path: icon.path, source: `simple-icons:${icon.slug}` }
 }
 
-function main() {
+async function main() {
   const { languages } = JSON.parse(readFileSync(REGISTRY_URL, 'utf8'))
+  const entries = [...languages]
+    .sort((left, right) => left.name.localeCompare(right.name))
+    .map((language) => ({ language, icon: iconPath(language) }))
+    .filter((entry) => entry.icon !== undefined)
+  const boxes = await measureGlyphs(entries.map((entry) => entry.icon.path))
   const icons = {}
 
-  for (const language of [...languages].sort((left, right) => left.name.localeCompare(right.name))) {
-    const icon = iconPath(language)
-
-    if (icon === undefined) {
-      continue
-    }
-
+  entries.forEach(({ language, icon }, index) => {
     icons[language.name] = {
       path: icon.path,
-      viewBox: '0 0 24 24',
+      ...fitBox(boxes[index]),
       source: icon.source,
       light: adjustForContrast(language.color, ICON_BACKGROUNDS.light, 'darker'),
       dark: adjustForContrast(language.color, ICON_BACKGROUNDS.dark, 'lighter'),
     }
-  }
+  })
 
   writeFileSync(OUTPUT_URL, `${JSON.stringify(icons, null, 2)}\n`)
   console.log(`Wrote ${Object.keys(icons).length} language icons to src/data/language-icons.json`)
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  main()
+  await main()
 }

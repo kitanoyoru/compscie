@@ -4,7 +4,10 @@ import languageIcons from '../data/language-icons.json'
 
 export interface LanguageIconData {
   readonly path: string
+  /** Tight box around the glyph, measured by scripts/vendor-language-icons.mjs. */
   readonly viewBox: string
+  /** Box width over height, from 1 to 1.75; wide wordmarks such as Go render wider, not smaller. */
+  readonly aspect: number
   readonly source: string
   /** Glyph color on light surfaces, at least 3:1 against every card surface. */
   readonly light: string
@@ -59,7 +62,13 @@ export function LanguageIcon({ language, size = 16, decorative = false, classNam
           {monogram(language)}
         </span>
       ) : (
-        <svg width={size} height={size} viewBox={data.viewBox} aria-hidden="true" focusable="false">
+        <svg
+          width={Math.round(size * data.aspect)}
+          height={size}
+          viewBox={data.viewBox}
+          aria-hidden="true"
+          focusable="false"
+        >
           <path d={data.path} fill="currentColor" />
         </svg>
       )}
