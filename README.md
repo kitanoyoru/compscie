@@ -32,6 +32,8 @@ One folder per subject under [notes/](notes/), notes flat inside it. Start a top
 A local-first React workspace over this repository, in [web/](web/): Today, Review, Knowledge Map, and LeetCode. Run it with `make platform`, or open the [hosted build](https://kitanoyoru.github.io/compscie/). Tasks, sessions, and settings live only in your browser; the repository stays the source of truth.
 
 - **Review:** a practiced problem comes back 1 day after "needs review", and 3, 7, 14, 30, then 60 days after clean solves. The Review page lists what is due and what is coming up this week; the nav badge counts what is due.
+- **Notes:** every note opens inside the workspace from the Knowledge Map, with a table of contents and links between notes. The build checks every note link and heading anchor.
+- **Note questions:** each "Questions this answers" bullet is a self-quiz card on the Review page, on the same schedule as problems, with up to 5 new questions a day. Rewording a question starts its card over.
 - **Your solutions:** the LeetCode session panel shows your own code for the problem, one tab per language, highlighted at build time. It starts collapsed, so a review starts from memory.
 - **Theme** (sun/moon button in the header): flips between light and dark. Landing on your system's theme clears the stored choice, so the app follows the system again.
 - **Settings** (button in the header): JSON backup export and import, and reset. Import is validated and asks before replacing anything.

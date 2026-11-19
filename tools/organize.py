@@ -377,6 +377,12 @@ def build_root_readme(
         "review\", and 3, 7, 14, 30, then 60 days after clean solves. The Review "
         "page lists what is due and what is coming up this week; the nav badge "
         "counts what is due.",
+        "- **Notes:** every note opens inside the workspace from the Knowledge Map, "
+        "with a table of contents and links between notes. The build checks every "
+        "note link and heading anchor.",
+        "- **Note questions:** each \"Questions this answers\" bullet is a self-quiz "
+        "card on the Review page, on the same schedule as problems, with up to 5 "
+        "new questions a day. Rewording a question starts its card over.",
         "- **Your solutions:** the LeetCode session panel shows your own code for "
         "the problem, one tab per language, highlighted at build time. It starts "
         "collapsed, so a review starts from memory.",
