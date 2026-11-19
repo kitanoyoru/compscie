@@ -67,6 +67,20 @@ describe('Knowledge map', () => {
     const chart = screen.getByRole('list', { name: /solved problems per language/i })
 
     expect(within(chart).getByRole('link', { name: 'Go' })).toHaveAttribute('href', '#/leetcode?language=Go')
+    expect(within(chart).getByRole('link', { name: 'Go' }).querySelector('.lang-icon')).not.toBeNull()
+  })
+
+  it('links the languages beyond the chart as icons with counts', () => {
+    render(<App />)
+
+    const also = screen.getByRole('list', { name: 'Also' })
+    const links = within(also).getAllByRole('link')
+
+    expect(links.length).toBeGreaterThan(0)
+    for (const link of links) {
+      expect(link).toHaveAccessibleName(/^.+, \d+ problems?$/)
+      expect(link.getAttribute('href')).toMatch(/^#\/leetcode\?language=/)
+    }
   })
 
   describe('concept filter', () => {

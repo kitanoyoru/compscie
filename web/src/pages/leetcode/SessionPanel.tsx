@@ -1,10 +1,11 @@
 import { useEffect, useId, useRef, useState, type FormEvent, type JSX, type KeyboardEvent } from 'react'
 
 import { Icon } from '../../components/Icon'
+import { LanguageIcon } from '../../components/LanguageIcon'
 import { formatPageTitle } from '../../components/RouteEffects'
 import { useToast } from '../../components/Toast'
 import { DifficultyBadge, ExternalLink, ProgressBadge } from '../../components/ui'
-import { leetcodeProblemUrl, repositoryTreeUrl } from '../../data/links'
+import { leetcodeProblemUrl, repositoryFileUrl, repositoryTreeUrl } from '../../data/links'
 import type { SolvedProblem } from '../../data/types'
 import { sessionMinutes } from '../../domain/insights'
 import type { SolveOutcome, SolveSession } from '../../domain/personal-types'
@@ -69,7 +70,7 @@ export function SessionPanel({
           </span>
         ))}
       </div>
-      <p className="session-languages">Solved in {problem.languages.join(', ')}</p>
+      <SolutionLinks problem={problem} />
 
       <div className="button-row">
         <ExternalLink className="button button-secondary" href={leetcodeProblemUrl(problem)}>
@@ -83,6 +84,41 @@ export function SessionPanel({
       <SessionRecorder key={problem.id} problem={problem} onSaved={onSaved} />
       <SessionHistory history={history} />
     </section>
+  )
+}
+
+/** One brand-colored link per solution file, straight to the file on GitHub. */
+function SolutionLinks({ problem }: { readonly problem: SolvedProblem }): JSX.Element {
+  const labelId = useId()
+
+  return (
+    <div className="session-solutions">
+      <span className="session-solutions-label" id={labelId}>
+        Solutions
+      </span>
+      <ul className="solution-links" aria-labelledby={labelId}>
+        {problem.solutions.map((solution) => {
+          const filename = solution.file.slice(solution.file.lastIndexOf('/') + 1)
+
+          return (
+            <li key={solution.file}>
+              <a
+                className="solution-link"
+                href={repositoryFileUrl(solution.file)}
+                target="_blank"
+                rel="noreferrer"
+                title={`${filename} on GitHub`}
+              >
+                <LanguageIcon language={solution.language} size={18} decorative />
+                <span className="sr-only">
+                  {solution.language} solution, {filename} (opens in a new tab)
+                </span>
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-import type { CSSProperties, JSX } from 'react'
+import type { CSSProperties, JSX, ReactNode } from 'react'
 import { Link } from 'react-router'
 
 import type { DayActivity } from '../domain/insights'
@@ -13,6 +13,27 @@ export interface BarListItem {
   readonly label: string
   readonly value: number
   readonly to?: string
+  /** Shown instead of the visible label; the label stays the accessible name and tooltip. */
+  readonly icon?: ReactNode
+  /** Sets `--lang-light` and `--lang-dark` to recolor this row's bar in each theme. */
+  readonly colorStyle?: CSSProperties
+}
+
+function BarLabel({ item }: { readonly item: BarListItem }): JSX.Element {
+  if (item.icon === undefined) {
+    return item.to === undefined ? <>{item.label}</> : <Link to={item.to}>{item.label}</Link>
+  }
+
+  return item.to === undefined ? (
+    <>
+      {item.icon}
+      <span className="sr-only">{item.label}</span>
+    </>
+  ) : (
+    <Link to={item.to} aria-label={item.label}>
+      {item.icon}
+    </Link>
+  )
 }
 
 interface BarListProps {
@@ -25,12 +46,20 @@ interface BarListProps {
 export function BarList({ items, label, unit }: BarListProps): JSX.Element {
   const max = Math.max(1, ...items.map((item) => item.value))
 
+  const withIcons = items.some((item) => item.icon !== undefined)
+
   return (
-    <ul className="bar-list" aria-label={label}>
+    <ul className={withIcons ? 'bar-list bar-list-icons' : 'bar-list'} aria-label={label}>
       {items.map((item) => (
-        <li key={item.label} className="bar-row" title={`${item.label}: ${plural(item.value, unit)}`}>
+        <li
+          key={item.label}
+          className="bar-row"
+          title={`${item.label}: ${plural(item.value, unit)}`}
+          style={item.colorStyle}
+          data-colored={item.colorStyle === undefined ? undefined : true}
+        >
           <span className="bar-label">
-            {item.to === undefined ? item.label : <Link to={item.to}>{item.label}</Link>}
+            <BarLabel item={item} />
           </span>
           <span className="bar-track">
             <span className="bar-fill" style={ratioStyle(item.value / max)} aria-hidden="true" />
