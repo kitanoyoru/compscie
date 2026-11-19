@@ -31,6 +31,7 @@ Problem metadata comes from tools/leetcode-index.tsv (id, difficulty, title, tag
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import shutil
@@ -64,61 +65,17 @@ PROTECTED = {
 }
 LEGACY = ["codeforces", "codewars"]
 
+# Extensions, display names, and linguist colors live in tools/languages.json,
+# shared with the web platform's data generator.
+LANGUAGE_REGISTRY = json.loads(
+    (Path(__file__).with_name("languages.json")).read_text(encoding="utf-8")
+)["languages"]
 LANG_NAMES = {
-    ".go": "Go",
-    ".ts": "TypeScript",
-    ".js": "JavaScript",
-    ".py": "Python",
-    ".rs": "Rust",
-    ".java": "Java",
-    ".cpp": "C++",
-    ".c": "C",
-    ".cs": "C#",
-    ".swift": "Swift",
-    ".kt": "Kotlin",
-    ".rb": "Ruby",
-    ".ex": "Elixir",
-    ".exs": "Elixir",
-    ".dart": "Dart",
-    ".zig": "Zig",
-    ".sql": "SQL",
-    ".scala": "Scala",
-    ".hs": "Haskell",
-    ".php": "PHP",
-    ".lua": "Lua",
-    ".sh": "Shell",
-    ".pl": "Perl",
-    ".erl": "Erlang",
-    ".clj": "Clojure",
+    extension: language["name"]
+    for language in LANGUAGE_REGISTRY
+    for extension in language["extensions"]
 }
-
-# Roughly GitHub's linguist colors, so the chart reads like a language you know.
-LANG_COLORS = {
-    "Go": "#00ADD8",
-    "Rust": "#DEA584",
-    "Python": "#3572A5",
-    "Java": "#B07219",
-    "TypeScript": "#3178C6",
-    "JavaScript": "#F1E05A",
-    "C++": "#F34B7D",
-    "C": "#555555",
-    "C#": "#178600",
-    "Swift": "#F05138",
-    "Kotlin": "#A97BFF",
-    "Ruby": "#701516",
-    "Elixir": "#6E4A7E",
-    "Dart": "#00B4AB",
-    "Zig": "#EC915C",
-    "SQL": "#E38C00",
-    "Scala": "#C22D40",
-    "Haskell": "#5E5086",
-    "PHP": "#4F5D95",
-    "Lua": "#000080",
-    "Shell": "#89E051",
-    "Perl": "#0298C3",
-    "Erlang": "#B83998",
-    "Clojure": "#DB5855",
-}
+LANG_COLORS = {language["name"]: language["color"] for language in LANGUAGE_REGISTRY}
 LANG_COLOR_FALLBACK = "#8b949e"
 
 

@@ -1,0 +1,6 @@
+{
+  "languages": [
+    { "name": "Go", "extensions": [".go"], "color": "#00ADD8", "shiki": "go", "icon": "go" },
+    { "name": "Golang", "extensions": [".go"], "color": "#00ADD8", "shiki": "go", "icon": "go" }
+  ]
+}

@@ -5,33 +5,29 @@ import path from 'node:path'
 const TOPIC_STATUSES = new Set(['active', 'planned', 'paused', 'done'])
 const DIFFICULTIES = new Set(['easy', 'medium', 'hard'])
 
-const LANGUAGE_NAMES = {
-  '.go': 'Go',
-  '.ts': 'TypeScript',
-  '.js': 'JavaScript',
-  '.py': 'Python',
-  '.rs': 'Rust',
-  '.java': 'Java',
-  '.cpp': 'C++',
-  '.c': 'C',
-  '.cs': 'C#',
-  '.swift': 'Swift',
-  '.kt': 'Kotlin',
-  '.rb': 'Ruby',
-  '.ex': 'Elixir',
-  '.exs': 'Elixir',
-  '.dart': 'Dart',
-  '.zig': 'Zig',
-  '.sql': 'SQL',
-  '.scala': 'Scala',
-  '.hs': 'Haskell',
-  '.php': 'PHP',
-  '.lua': 'Lua',
-  '.sh': 'Shell',
-  '.pl': 'Perl',
-  '.erl': 'Erlang',
-  '.clj': 'Clojure',
+const LANGUAGE_REGISTRY_URL = new URL('../../tools/languages.json', import.meta.url)
+
+/** File extension (lowercase, with the dot) to display name, from tools/languages.json. */
+export function loadLanguageNames(registryUrl = LANGUAGE_REGISTRY_URL) {
+  const { languages } = JSON.parse(readFileSync(registryUrl, 'utf8'))
+  const names = {}
+
+  for (const language of languages) {
+    for (const extension of language.extensions) {
+      if (Object.hasOwn(names, extension)) {
+        throw new Error(
+          `Extension ${extension} is listed for both ${names[extension]} and ${language.name}`
+        )
+      }
+
+      names[extension] = language.name
+    }
+  }
+
+  return names
 }
+
+const LANGUAGE_NAMES = loadLanguageNames()
 
 function repositoryPath(value) {
   return value instanceof URL ? fileURLToPath(value) : value

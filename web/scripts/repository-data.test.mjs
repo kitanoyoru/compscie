@@ -3,6 +3,7 @@ import test from 'node:test'
 
 import {
   collectRepositorySnapshot,
+  loadLanguageNames,
   renderRepositoryModule,
 } from './repository-data.mjs'
 
@@ -52,4 +53,16 @@ test('renders a browser-safe typed repository module', () => {
   assert.match(moduleText, /"slug": "clickhouse"/)
   assert.match(moduleText, /"languages": \[\n\s+"Go",\n\s+"TypeScript"\n\s+\]/)
   assert.doesNotMatch(moduleText, /from ['"]node:/)
+})
+
+test('maps every registry extension to exactly one language', () => {
+  const names = loadLanguageNames()
+
+  assert.equal(names['.go'], 'Go')
+  assert.equal(names['.ex'], 'Elixir')
+  assert.equal(names['.exs'], 'Elixir')
+  assert.throws(
+    () => loadLanguageNames(new URL('./fixtures/languages-duplicate.json', import.meta.url)),
+    /extension \.go is listed for both go and golang/i
+  )
 })

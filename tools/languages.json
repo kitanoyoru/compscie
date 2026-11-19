@@ -1,0 +1,222 @@
+{
+  "$comment": "Single source of truth for solution languages. Read by web/scripts/repository-data.mjs, web/scripts/vendor-language-icons.mjs, and tools/organize.py. color: GitHub linguist color. shiki: Shiki language id. icon: simple-icons slug, or null when vendor-language-icons.mjs supplies the glyph.",
+  "languages": [
+    {
+      "name": "Go",
+      "extensions": [
+        ".go"
+      ],
+      "color": "#00ADD8",
+      "shiki": "go",
+      "icon": "go"
+    },
+    {
+      "name": "TypeScript",
+      "extensions": [
+        ".ts"
+      ],
+      "color": "#3178C6",
+      "shiki": "typescript",
+      "icon": "typescript"
+    },
+    {
+      "name": "JavaScript",
+      "extensions": [
+        ".js"
+      ],
+      "color": "#F1E05A",
+      "shiki": "javascript",
+      "icon": "javascript"
+    },
+    {
+      "name": "Python",
+      "extensions": [
+        ".py"
+      ],
+      "color": "#3572A5",
+      "shiki": "python",
+      "icon": "python"
+    },
+    {
+      "name": "Rust",
+      "extensions": [
+        ".rs"
+      ],
+      "color": "#DEA584",
+      "shiki": "rust",
+      "icon": "rust"
+    },
+    {
+      "name": "Java",
+      "extensions": [
+        ".java"
+      ],
+      "color": "#B07219",
+      "shiki": "java",
+      "icon": null
+    },
+    {
+      "name": "C++",
+      "extensions": [
+        ".cpp"
+      ],
+      "color": "#F34B7D",
+      "shiki": "cpp",
+      "icon": "cplusplus"
+    },
+    {
+      "name": "C",
+      "extensions": [
+        ".c"
+      ],
+      "color": "#555555",
+      "shiki": "c",
+      "icon": "c"
+    },
+    {
+      "name": "C#",
+      "extensions": [
+        ".cs"
+      ],
+      "color": "#178600",
+      "shiki": "csharp",
+      "icon": null
+    },
+    {
+      "name": "Swift",
+      "extensions": [
+        ".swift"
+      ],
+      "color": "#F05138",
+      "shiki": "swift",
+      "icon": "swift"
+    },
+    {
+      "name": "Kotlin",
+      "extensions": [
+        ".kt"
+      ],
+      "color": "#A97BFF",
+      "shiki": "kotlin",
+      "icon": "kotlin"
+    },
+    {
+      "name": "Ruby",
+      "extensions": [
+        ".rb"
+      ],
+      "color": "#701516",
+      "shiki": "ruby",
+      "icon": "ruby"
+    },
+    {
+      "name": "Elixir",
+      "extensions": [
+        ".ex",
+        ".exs"
+      ],
+      "color": "#6E4A7E",
+      "shiki": "elixir",
+      "icon": "elixir"
+    },
+    {
+      "name": "Dart",
+      "extensions": [
+        ".dart"
+      ],
+      "color": "#00B4AB",
+      "shiki": "dart",
+      "icon": "dart"
+    },
+    {
+      "name": "Zig",
+      "extensions": [
+        ".zig"
+      ],
+      "color": "#EC915C",
+      "shiki": "zig",
+      "icon": "zig"
+    },
+    {
+      "name": "SQL",
+      "extensions": [
+        ".sql"
+      ],
+      "color": "#E38C00",
+      "shiki": "sql",
+      "icon": null
+    },
+    {
+      "name": "Scala",
+      "extensions": [
+        ".scala"
+      ],
+      "color": "#C22D40",
+      "shiki": "scala",
+      "icon": "scala"
+    },
+    {
+      "name": "Haskell",
+      "extensions": [
+        ".hs"
+      ],
+      "color": "#5E5086",
+      "shiki": "haskell",
+      "icon": "haskell"
+    },
+    {
+      "name": "PHP",
+      "extensions": [
+        ".php"
+      ],
+      "color": "#4F5D95",
+      "shiki": "php",
+      "icon": "php"
+    },
+    {
+      "name": "Lua",
+      "extensions": [
+        ".lua"
+      ],
+      "color": "#000080",
+      "shiki": "lua",
+      "icon": "lua"
+    },
+    {
+      "name": "Shell",
+      "extensions": [
+        ".sh"
+      ],
+      "color": "#89E051",
+      "shiki": "shellscript",
+      "icon": "gnubash"
+    },
+    {
+      "name": "Perl",
+      "extensions": [
+        ".pl"
+      ],
+      "color": "#0298C3",
+      "shiki": "perl",
+      "icon": "perl"
+    },
+    {
+      "name": "Erlang",
+      "extensions": [
+        ".erl"
+      ],
+      "color": "#B83998",
+      "shiki": "erlang",
+      "icon": "erlang"
+    },
+    {
+      "name": "Clojure",
+      "extensions": [
+        ".clj"
+      ],
+      "color": "#DB5855",
+      "shiki": "clojure",
+      "icon": "clojure"
+    }
+  ]
+}
