@@ -3,11 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
     <meta
       name="description"
       content="A local-first learning workspace for the Compscie repository."
     />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231b1b19'/%3E%3Cpath d='M13 10.5 8 16l5 5.5M19 10.5l5 5.5-5 5.5' fill='none' stroke='%23f4f4f1' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
     <title>Compscie Learning Workspace</title>
+    <script>
+      // Apply a stored theme choice before first paint to avoid a flash of the wrong theme.
+      try {
+        var theme = localStorage.getItem('compscie.theme')
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme
+      } catch (error) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -70,6 +70,26 @@ describe('learning state', () => {
     expect(deferred.tasks[0]?.completedAt).toBeUndefined()
   })
 
+  it('reopens and deletes tasks', () => {
+    dispatch({
+      type: 'taskAdded',
+      id: 'task-1',
+      title: 'Run the date-parts lab',
+      createdAt: '2026-11-17T09:00:00.000Z',
+    })
+    dispatch({ type: 'taskCompleted', taskId: 'task-1', completedAt: '2026-11-17T10:00:00.000Z' })
+
+    const reopened = dispatch({ type: 'taskReopened', taskId: 'task-1' })
+
+    expect(reopened.tasks[0]).toMatchObject({ status: 'open' })
+    expect(reopened.tasks[0]?.completedAt).toBeUndefined()
+
+    const deleted = dispatch({ type: 'taskDeleted', taskId: 'task-1' })
+
+    expect(deleted.tasks).toEqual([])
+    expect(loadPersonalState().tasks).toEqual([])
+  })
+
   it('records a completed solving session', () => {
     const state = dispatch({
       type: 'sessionCompleted',

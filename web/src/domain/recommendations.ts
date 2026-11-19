@@ -7,6 +7,8 @@ export interface ProblemFilters {
   readonly difficulty?: Difficulty | typeof FILTER_ALL
   readonly language?: string | typeof FILTER_ALL
   readonly tag?: string | typeof FILTER_ALL
+  /** Matches a problem number prefix (optionally written as `#42`) or a title substring. */
+  readonly query?: string
 }
 
 export type TodayRecommendation =
@@ -85,8 +87,23 @@ export function getTodayRecommendation(
     : { kind: 'none' }
 }
 
+function matchesQuery(problem: SolvedProblem, query: string): boolean {
+  if (query === '') {
+    return true
+  }
+
+  const numeric = /^#?(\d+)$/.exec(query)
+
+  if (numeric?.[1] !== undefined && String(problem.id).startsWith(numeric[1])) {
+    return true
+  }
+
+  return problem.title.toLowerCase().includes(query)
+}
+
 export function filterProblems(problems: readonly SolvedProblem[], filters: ProblemFilters): SolvedProblem[] {
   const { difficulty, language, tag } = filters
+  const query = filters.query?.trim().toLowerCase() ?? ''
 
   return problems.filter((problem) => {
     const difficultyMatches = difficulty === undefined || difficulty === FILTER_ALL || problem.difficulty === difficulty
@@ -94,7 +111,7 @@ export function filterProblems(problems: readonly SolvedProblem[], filters: Prob
       language === undefined || language === FILTER_ALL || problem.languages.includes(language)
     const tagMatches = tag === undefined || tag === FILTER_ALL || problem.tags.includes(tag)
 
-    return difficultyMatches && languageMatches && tagMatches
+    return difficultyMatches && languageMatches && tagMatches && matchesQuery(problem, query)
   })
 }
 
@@ -157,7 +174,7 @@ export function choosePracticeProblem(
     .at(0)?.problem
 }
 
-function getIsoWeekStart(now: Date): Date {
+export function getIsoWeekStart(now: Date): Date {
   const utcMidnight = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
   const daysSinceMonday = (now.getUTCDay() + 6) % 7
 

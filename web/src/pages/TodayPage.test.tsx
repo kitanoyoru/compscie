@@ -1,12 +1,16 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { App } from '../App'
+import { repositorySnapshot } from '../data/generated/repository'
+import { getTodayRecommendation } from '../domain/recommendations'
+import { STORAGE_KEY, emptyPersonalState } from '../state/storage'
 
 describe('Today dashboard', () => {
   beforeEach(() => {
     localStorage.clear()
+    window.location.hash = '#/'
   })
 
   it('adds a task, recommends it, and completes it', async () => {
@@ -20,12 +24,16 @@ describe('Today dashboard', () => {
 
     await user.click(screen.getByRole('button', { name: /complete run the date-parts lab/i }))
 
-    expect(screen.getByText(/completed this week: 1/i)).toBeInTheDocument()
+    expect(screen.getByRole('region', { name: /this week/i })).toHaveTextContent(/1 task completed/i)
+    expect(screen.queryByRole('heading', { name: /run the date-parts lab/i })).not.toBeInTheDocument()
   })
 
   it('supports keyboard navigation and form submission', async () => {
     const user = userEvent.setup()
     render(<App />)
+
+    await user.tab()
+    expect(screen.getByRole('button', { name: /skip to content/i })).toHaveFocus()
 
     const todayLink = screen.getByRole('link', { name: /today/i })
     await user.tab()
@@ -50,7 +58,9 @@ describe('Today dashboard', () => {
     await user.click(screen.getByRole('button', { name: /add task/i }))
     await user.click(screen.getByRole('button', { name: /defer read the granule note/i }))
 
-    expect(screen.getByText(/deferred/i)).toBeInTheDocument()
+    expect(
+      within(screen.getByRole('list', { name: /deferred tasks/i })).getByText('Read the granule note'),
+    ).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: /reset working state/i }))
 
@@ -59,5 +69,50 @@ describe('Today dashboard', () => {
     )
     expect(screen.queryByRole('heading', { name: /read the granule note/i })).not.toBeInTheDocument()
     confirmReset.mockRestore()
+  })
+
+  it('queues the topic fallback as a task', async () => {
+    const fallback = getTodayRecommendation(repositorySnapshot, emptyPersonalState())
+
+    if (fallback.kind !== 'topic') {
+      throw new Error('The repository snapshot has no active topic to recommend.')
+    }
+
+    const user = userEvent.setup()
+    render(<App />)
+
+    const nextAction = screen.getByRole('region', { name: fallback.next })
+    await user.click(within(nextAction).getByRole('button', { name: /add to queue/i }))
+
+    expect(within(screen.getByRole('list', { name: /open tasks/i })).getByText(fallback.next)).toBeInTheDocument()
+    expect(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}')).toMatchObject({
+      tasks: [{ title: fallback.next, topicId: fallback.topicSlug, status: 'open' }],
+    })
+  })
+
+  it('resumes a deferred task, reopens a completed one, and deletes tasks', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.type(screen.getByLabelText(/task title/i), 'Write the sparse index summary')
+    await user.click(screen.getByRole('button', { name: /add task/i }))
+    await user.click(screen.getByRole('button', { name: /defer write the sparse index summary/i }))
+    await user.click(screen.getByRole('button', { name: /resume write the sparse index summary/i }))
+
+    expect(
+      within(screen.getByRole('list', { name: /open tasks/i })).getByText('Write the sparse index summary'),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /complete write the sparse index summary/i }))
+    await user.click(screen.getByRole('button', { name: /reopen write the sparse index summary/i }))
+
+    expect(
+      within(screen.getByRole('list', { name: /open tasks/i })).getByText('Write the sparse index summary'),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /delete write the sparse index summary/i }))
+
+    expect(screen.queryByText('Write the sparse index summary')).not.toBeInTheDocument()
+    expect(screen.getByText(/your queue is empty/i)).toBeInTheDocument()
   })
 })

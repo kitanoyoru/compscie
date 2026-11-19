@@ -44,6 +44,14 @@ export type LearningAction =
       taskId: string
     }
   | {
+      type: 'taskReopened'
+      taskId: string
+    }
+  | {
+      type: 'taskDeleted'
+      taskId: string
+    }
+  | {
       type: 'sessionCompleted'
       session: SolveSession
     }

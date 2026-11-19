@@ -185,3 +185,26 @@ describe('filterProblems', () => {
     ).toHaveLength(3)
   })
 })
+
+describe('filterProblems query', () => {
+  const problems: SolvedProblem[] = [
+    { id: 1, title: 'Two Sum', difficulty: 'easy', languages: ['Go'], tags: [], path: 'leetcode/easy/0001' },
+    { id: 15, title: '3Sum', difficulty: 'medium', languages: ['Go'], tags: [], path: 'leetcode/medium/0015' },
+    { id: 167, title: 'Two Sum II', difficulty: 'medium', languages: ['Go'], tags: [], path: 'leetcode/medium/0167' },
+  ]
+
+  it('matches a case-insensitive title substring', () => {
+    expect(filterProblems(problems, { query: '  two SUM ' }).map((problem) => problem.id)).toEqual([1, 167])
+  })
+
+  it('matches a problem number prefix, with or without a leading #', () => {
+    expect(filterProblems(problems, { query: '1' }).map((problem) => problem.id)).toEqual([1, 15, 167])
+    expect(filterProblems(problems, { query: '#16' }).map((problem) => problem.id)).toEqual([167])
+  })
+
+  it('combines the query with the other filters', () => {
+    expect(filterProblems(problems, { query: 'sum', difficulty: 'medium' }).map((problem) => problem.id)).toEqual([
+      15, 167,
+    ])
+  })
+})

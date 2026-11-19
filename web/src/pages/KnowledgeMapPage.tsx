@@ -1,12 +1,110 @@
 import type { JSX } from 'react'
+
+import { BarList } from '../components/charts'
+import { PageHeader, StatTile, formatCount } from '../components/ui'
 import { repositorySnapshot } from '../data/generated/repository'
-import { mapRelationships } from '../data/map-relationships'
+import type { TopicStatus } from '../data/types'
+import { difficultyCounts, rankCounts } from '../domain/insights'
+import { formatDay, plural } from '../lib/format'
+import { TopicCard } from './map/TopicCard'
+
+const CHART_ROWS = 12
+const STATUS_ORDER: readonly TopicStatus[] = ['active', 'planned', 'paused', 'done']
+
+const { counts, notes, problems } = repositorySnapshot
+const topics = [...repositorySnapshot.topics].sort(
+  (left, right) =>
+    STATUS_ORDER.indexOf(left.status) - STATUS_ORDER.indexOf(right.status) ||
+    left.title.localeCompare(right.title),
+)
+const languageRanking = rankCounts(problems.flatMap((problem) => problem.languages))
+const patternRanking = rankCounts(problems.flatMap((problem) => problem.tags))
+const difficulty = difficultyCounts(problems)
+const activeTopics = topics.filter((topic) => topic.status === 'active').length
+const latestNote = notes.map((note) => note.date).filter(Boolean).sort().at(-1)
 
 export function KnowledgeMapPage(): JSX.Element {
-  const topics = repositorySnapshot.topics.filter((topic) => topic.status === 'active')
-  return <section className="map-page" aria-labelledby="map-heading">
-    <div className="page-intro"><p className="section-kicker">Knowledge map</p><h2 id="map-heading">Your learning landscape</h2><p>Repository evidence, organized around the concepts you are actively strengthening.</p></div>
-    <div className="map-stats" aria-label="Repository statistics"><strong>{repositorySnapshot.counts.notes}<small>notes</small></strong><strong>{repositorySnapshot.counts.solvedProblems}<small>solved problems</small></strong><strong>{repositorySnapshot.counts.languages.length}<small>languages</small></strong></div>
-    <div className="topic-grid">{topics.map((topic) => <article className="topic-card" key={topic.slug}><h3>{topic.title}</h3><p>{topic.focus}</p><p><strong>Next:</strong> {topic.next}</p><ul>{repositorySnapshot.notes.filter((note) => note.topicSlug === topic.slug).map((note) => <li key={note.path}><a href={`/${note.path}`}>{note.title}</a></li>)}</ul><p className="concepts"><strong>Connected concepts</strong><br />{mapRelationships.filter((link) => link.topic === topic.slug).map((link) => link.concept).join(' · ')}</p></article>)}</div>
-  </section>
+  const now = new Date()
+  const otherLanguages = languageRanking.slice(CHART_ROWS)
+
+  return (
+    <div className="page">
+      <PageHeader
+        eyebrow="Knowledge map"
+        title="Your learning landscape"
+        titleId="map-heading"
+        description="Topics you are strengthening, the concepts they cover, and what the repository shows you have practiced."
+      />
+
+      <div className="stat-grid" aria-label="Repository statistics" role="group">
+        <StatTile label="Active topics" value={activeTopics} hint={`${plural(counts.topics, 'topic')} in total`} />
+        <StatTile
+          label="Notes"
+          value={formatCount(counts.notes)}
+          hint={latestNote === undefined ? undefined : `Latest ${formatDay(latestNote, now)}`}
+        />
+        <StatTile
+          label="Solved problems"
+          value={formatCount(counts.solvedProblems)}
+          hint={`${formatCount(difficulty.easy)} easy · ${formatCount(difficulty.medium)} medium · ${formatCount(difficulty.hard)} hard`}
+        />
+        <StatTile
+          label="Languages"
+          value={counts.languages.length}
+          hint={languageRanking[0] === undefined ? undefined : `Mostly ${languageRanking[0].label}`}
+        />
+      </div>
+
+      <div className="topic-grid">
+        {topics.map((topic) => (
+          <TopicCard key={topic.slug} topic={topic} now={now} />
+        ))}
+      </div>
+
+      <div className="chart-grid">
+        <section className="card" aria-labelledby="languages-heading">
+          <div className="card-header">
+            <div>
+              <h2 id="languages-heading">Languages</h2>
+              <p className="card-subtitle">Solved problems per language. A problem can count for several.</p>
+            </div>
+          </div>
+          <BarList
+            label="Solved problems per language"
+            unit="problem"
+            items={languageRanking.slice(0, CHART_ROWS).map((entry) => ({
+              label: entry.label,
+              value: entry.count,
+              to: `/leetcode?language=${encodeURIComponent(entry.label)}`,
+            }))}
+          />
+          {otherLanguages.length > 0 && (
+            <p className="card-footnote">
+              Also: {otherLanguages.map((entry) => `${entry.label} (${entry.count})`).join(', ')}
+            </p>
+          )}
+        </section>
+
+        <section className="card" aria-labelledby="patterns-heading">
+          <div className="card-header">
+            <div>
+              <h2 id="patterns-heading">Most practiced patterns</h2>
+              <p className="card-subtitle">
+                Top {CHART_ROWS} of {patternRanking.length} LeetCode tags across your solutions.
+              </p>
+            </div>
+          </div>
+          <BarList
+            label="Solved problems per pattern"
+            unit="problem"
+            items={patternRanking.slice(0, CHART_ROWS).map((entry) => ({
+              label: entry.label,
+              value: entry.count,
+              to: `/leetcode?tag=${encodeURIComponent(entry.label)}`,
+            }))}
+          />
+        </section>
+      </div>
+    </div>
+  )
 }
