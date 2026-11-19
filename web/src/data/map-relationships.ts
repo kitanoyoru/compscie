@@ -57,6 +57,7 @@ export const mapRelationships: readonly TopicRelationship[] = [
       'notes/clickhouse/data-part.md',
       'notes/clickhouse/granule.md',
       'notes/clickhouse/primary-key-vs-order-by.md',
+      'notes/clickhouse/partitioning.md',
     ],
   },
   {

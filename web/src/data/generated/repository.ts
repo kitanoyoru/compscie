@@ -1,7 +1,7 @@
 import type { RepositorySnapshot } from '../types'
 
 export const repositorySnapshot = {
-  "generatedAt": "2026-11-17T00:00:00.000Z",
+  "generatedAt": "2026-11-19T00:00:00.000Z",
   "topics": [
     {
       "slug": "clickhouse",
@@ -10,8 +10,8 @@ export const repositorySnapshot = {
       "focus": "MergeTree internals and date-time functions.",
       "next": "Run and write up the date-parts lab.",
       "started": "2026-10-18",
-      "lastNote": "2026-11-17",
-      "noteCount": 5
+      "lastNote": "2026-11-19",
+      "noteCount": 6
     },
     {
       "slug": "go",
@@ -25,6 +25,13 @@ export const repositorySnapshot = {
     }
   ],
   "notes": [
+    {
+      "topicSlug": "clickhouse",
+      "title": "ClickHouse Partitioning",
+      "filename": "partitioning.md",
+      "path": "notes/clickhouse/partitioning.md",
+      "date": "2026-11-19"
+    },
     {
       "topicSlug": "clickhouse",
       "title": "ClickHouse date and time functions",
@@ -9517,7 +9524,7 @@ export const repositorySnapshot = {
   ],
   "counts": {
     "topics": 2,
-    "notes": 24,
+    "notes": 25,
     "solvedProblems": 628,
     "languages": [
       "C",
