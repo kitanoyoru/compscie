@@ -8,7 +8,7 @@ One folder per subject under [notes/](notes/), notes flat inside it. Start a top
 
 | Topic | Status | Notes | Focus / next | Started | Last note |
 | --- | --- | ---: | --- | --- | --- |
-| [ClickHouse](notes/clickhouse/) | active | 5 | MergeTree internals and date-time functions. → Run and write up the date-parts lab. | 2026-10-18 | 2026-11-17 |
+| [ClickHouse](notes/clickhouse/) | active | 6 | MergeTree internals and date-time functions. → Run and write up the date-parts lab. | 2026-10-18 | 2026-11-19 |
 | [Go](notes/go/) | active | 19 | Runtime internals and production debugging. → Add pprof and runtime/trace workflows. | 2026-08-23 | 2026-08-23 |
 
 ## LeetCode
