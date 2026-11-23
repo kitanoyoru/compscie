@@ -9,6 +9,7 @@ One folder per subject under [notes/](notes/), notes flat inside it. Start a top
 | Topic | Status | Notes | Focus / next | Started | Last note |
 | --- | --- | ---: | --- | --- | --- |
 | [ClickHouse](notes/clickhouse/) | active | 6 | MergeTree internals and date-time functions. → Run and write up the date-parts lab. | 2026-10-18 | 2026-11-19 |
+| [Ethereum](notes/ethereum/) | active | 1 | Build a precise mental model of Ethereum's state machine and transaction lifecycle. → Learn accounts, keys, and wallets; then follow one transaction from signing through finalization. | 2026-11-23 | 2026-11-23 |
 | [Go](notes/go/) | active | 18 | Runtime internals and production debugging. → Add pprof and runtime/trace workflows. | 2026-08-23 | 2026-08-23 |
 
 ## LeetCode
