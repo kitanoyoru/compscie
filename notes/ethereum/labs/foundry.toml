@@ -1,0 +1,10 @@
+[profile.default]
+src = "src"
+test = "test"
+script = "script"
+out = "out"
+libs = []
+solc_version = "0.8.28"
+
+# The lab has no dependencies: its contracts, tests, and deployment script are
+# intentionally small enough to read in one sitting.

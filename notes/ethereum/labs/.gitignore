@@ -1,0 +1,7 @@
+# Foundry build products and local-chain deployment records
+out/
+cache/
+broadcast/
+
+# Local-only signer values; never commit a private key or seed phrase.
+.env
